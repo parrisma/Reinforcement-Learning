@@ -1,6 +1,8 @@
 import numpy as np
 
+
 class TicTacToe:
+
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
@@ -50,20 +52,20 @@ class TicTacToe:
     def __str__(self):
         s = ""
         s += "Game Over: " + str(self.__game_over) + "\n"
-        s += "Player :" + TicTacToe.__player_to_str(self.__player) + "\n"
+        s += "Player :" + TicTacToe.player_to_str(self.__player) + "\n"
         s += "Current Board : \n" + str(self.__board) + "\n"
-        s += "Prev Player :" + TicTacToe.__player_to_str(self.__last_player) + "\n"
+        s += "Prev Player :" + TicTacToe.player_to_str(self.__last_player) + "\n"
         s += "Prev Current Board : \n" + str(self.__last_board) + "\n"
-        s += "State" + str(self.state()) + "\n"
         return s
 
     #
     # return player as string "X" or "O"
     #
     @classmethod
-    def __player_to_str(cls, self, player):
-        if (player == TicTacToe.player_X): return "X"
-        if (player == TicTacToe.player_O): return "O"
+    def player_to_str(cls, player):
+        if player == TicTacToe.player_X: return "X"
+        if player == TicTacToe.player_O: return "O"
+        if player == 0 : return "-"
         return "?"
 
     #
@@ -181,9 +183,9 @@ class TicTacToe:
         diagLR = np.abs(np.sum(bd.diagonal()))
         diagRL = np.abs(np.sum(np.rot90(bd).diagonal()))
 
-        if (np.sum(rows == 3) > 0):
+        if np.sum(rows == 3) > 0:
             return True
-        if (np.sum(cols == 3) > 0):
+        if np.sum(cols == 3) > 0:
             return True
         if ((np.mod(diagLR, 3)) == 0) and diagLR > 0:
             return True
@@ -216,7 +218,7 @@ class TicTacToe:
     #
     @staticmethod
     def other_player(current_player):
-        if (current_player == TicTacToe.player_O):
+        if current_player == TicTacToe.player_O:
             return TicTacToe.player_X
         else:
             return TicTacToe.player_O
