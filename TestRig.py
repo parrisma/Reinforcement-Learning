@@ -8,15 +8,25 @@ play = PlayTicTacToe()
 play.forget_learning()
 print(play.Q_Vals())
 
-# APE = PlayTicTacToe.all_possible_endings('-1:8~1:1~-1:6~1:3~-1:7~1:2~',False)
-APE = dict()
-APE['-1:8~1:1~-1:6~1:3~-1:7~1:2~']=0
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
-QV = play.train_Q_values(len(APE),PlayTicTacToe.moves_to_dict(APE))
+QV = play.train_Q_values_R(5)
 print(play.Q_Vals())
+play.save_q_vals("./dumps/qv_dump.pb")
+play.forget_learning()
+print(play.Q_Vals())
+play.load_q_vals("./dumps/qv_dump.pb")
+print(play.Q_Vals())
+
+print(play.Q_Vals_for_state("-1000000000"))
+print(play.Q_Vals_for_state("1000000000"))
+GI = {}
+GR = {}
+GD = {}
+GI,GR,GD = play.play_many(1000)
+play.game().reset()
+GI = {}
+GR = {}
+GD = {}
+for i in range(1,10):
+    play.interactive_game()
 
 print("end")

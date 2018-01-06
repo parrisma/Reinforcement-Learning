@@ -1,4 +1,5 @@
 import numpy as np
+from random import randint
 
 
 class TicTacToe:
@@ -14,12 +15,12 @@ class TicTacToe:
     __win = float(1)  # reward for winning a game
     __loss = float(-2)  # reward (penalty) for losing a game
     __rewards = {"Play": 0, "Draw": 2, "Win": 1, "Loss": -2}
-    __no_player = -2  # id of a non existent player i.e. used to record id of player that has not played
+    __no_player = np.nan  # id of a non existent player i.e. used to record id of player that has not played
     __win_mask = np.full((1, 3), 3, np.int8)
     __actions = {1: (0, 0), 2: (0, 1), 3: (0, 2), 4: (1, 0), 5: (1, 1), 6: (1, 2), 7: (2, 0), 8: (2, 1), 9: (2, 2)}
     player_X = 1  # numerical value of player X on the board
     player_O = -1  # numerical value of player O on the board
-    empty_cell = 0  # value of a free action space on board
+    empty_cell = np.nan  # value of a free action space on board
     asStr = True
 
     #
@@ -27,8 +28,8 @@ class TicTacToe:
     # and the board contains no moves.
     #
     def reset(self):
-        self.__board = np.zeros((3, 3), np.int8)
-        self.__last_board = np.zeros((3, 3), np.int8)
+        self.__board = np.full((3, 3), np.nan)
+        self.__last_board = np.full((3, 3), np.nan)
         self.__game_over = False
         self.__game_drawn = False
         self.__player = TicTacToe.__no_player
@@ -39,8 +40,8 @@ class TicTacToe:
     # to an intial up-played set-up
     #
     def __init__(self):
-        self.__board = np.zeros((3, 3), np.int8)
-        self.__last_board = np.zeros((3, 3), np.int8)
+        self.__board = np.full((3, 3), np.nan)
+        self.__last_board = np.full((3, 3), np.nan)
         self.__game_over = False
         self.__game_drawn = False
         self.__player = TicTacToe.__no_player
@@ -52,9 +53,9 @@ class TicTacToe:
     def __str__(self):
         s = ""
         s += "Game Over: " + str(self.__game_over) + "\n"
-        s += "Player :" + TicTacToe.player_to_str(self.__player) + "\n"
+        s += "Player :" + TicTacToe.__player_to_str(self.__player) + "\n"
         s += "Current Board : \n" + str(self.__board) + "\n"
-        s += "Prev Player :" + TicTacToe.player_to_str(self.__last_player) + "\n"
+        s += "Prev Player :" + TicTacToe.__player_to_str(self.__last_player) + "\n"
         s += "Prev Current Board : \n" + str(self.__last_board) + "\n"
         return s
 
@@ -62,14 +63,22 @@ class TicTacToe:
     # return player as string "X" or "O"
     #
     @classmethod
-    def player_to_str(cls, player):
+    def __player_to_str(cls, player):
         if player == TicTacToe.player_X: return "X"
         if player == TicTacToe.player_O: return "O"
-        if player == 0 : return "-"
         return "?"
 
     #
-    # Return the actions as a list of integers.
+    # return player as integer
+    #
+    @classmethod
+    def player_to_int(cls, player):
+        if np.isnan(player):
+            return 0
+        return int(player)
+
+    #
+    # Return the number of possible actions as a list of integers.
     #
     @classmethod
     def num_actions(cls):
@@ -118,8 +127,8 @@ class TicTacToe:
     #
     # Has a player already moved using the given action.
     #
-    def __valid_move(self, action):
-        return self.__board[TicTacToe.board_index(action)] != TicTacToe.empty_cell
+    def __invalid_move(self, action):
+        return not np.isnan(self.__board[TicTacToe.board_index(action)])
 
     #
     # If the proposed action is a valid move and the game is not
@@ -129,9 +138,9 @@ class TicTacToe:
     # return the rawards (Player who took move, Observer)
     #
     def move(self, action, player):
-        if (TicTacToe.game_won(self.__board)): return TicTacToe.__bad_move_game_is_over
-        if (self.__valid_move(action)): return TicTacToe.__bad_move_action_already_played
-        if (player == self.__player): return TicTacToe.__bad_move_no_consecutive_plays
+        if TicTacToe.game_won(self.__board): return TicTacToe.__bad_move_game_is_over
+        if self.__invalid_move(action): return TicTacToe.__bad_move_action_already_played
+        if player == self.__player: return TicTacToe.__bad_move_no_consecutive_plays
 
         self.__make_move(action, player)
 
@@ -180,25 +189,27 @@ class TicTacToe:
 
         rows = np.abs(np.sum(bd, axis=1))
         cols = np.abs(np.sum(bd, axis=0))
-        diagLR = np.abs(np.sum(bd.diagonal()))
-        diagRL = np.abs(np.sum(np.rot90(bd).diagonal()))
+        diag_lr = np.abs(np.sum(bd.diagonal()))
+        diag_rl = np.abs(np.sum(np.rot90(bd).diagonal()))
 
         if np.sum(rows == 3) > 0:
             return True
         if np.sum(cols == 3) > 0:
             return True
-        if ((np.mod(diagLR, 3)) == 0) and diagLR > 0:
-            return True
-        if ((np.mod(diagRL, 3)) == 0) and diagRL > 0:
-            return True
+        if not np.isnan(diag_lr):
+            if ((np.mod(diag_lr, 3)) == 0) and diag_lr > 0:
+                return True
+        if not np.isnan(diag_rl):
+            if ((np.mod(diag_rl, 3)) == 0) and diag_rl > 0:
+                return True
         return False
 
     #
     # Are there any remaining moves to be taken >
     #
     @classmethod
-    def moves_left_to_take(cls, board):
-        return (board[np.where(board == 0)]).size > 0
+    def moves_left_to_take(cls, bd):
+        return bd[np.isnan(bd)].size > 0
 
     #
     # Board is in a gamne over state, with a winner or a draw
@@ -218,7 +229,7 @@ class TicTacToe:
     #
     @staticmethod
     def other_player(current_player):
-        if current_player == TicTacToe.player_O:
+        if (current_player == TicTacToe.player_O):
             return TicTacToe.player_X
         else:
             return TicTacToe.player_O
@@ -228,13 +239,7 @@ class TicTacToe:
     #
     @classmethod
     def valid_moves(cls, board):
-        vm = np.zeros(TicTacToe.num_actions())
-        best_action = None
-        for actn in TicTacToe.actions():
-            if (board[TicTacToe.board_index(actn)] == 0):
-                vm[int(actn) - 1] = True
-            else:
-                vm[int(actn) - 1] = False
+        vm = np.isnan(board.reshape(TicTacToe.num_actions()))
         return vm
 
     #
