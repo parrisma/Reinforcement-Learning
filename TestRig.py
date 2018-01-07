@@ -4,7 +4,7 @@ from PlayTicTacToe import PlayTicTacToe
 from Persistance import Persistance
 from pathlib import Path
 
-data_file = "c:/temp/qv_dump.pb"
+data_file = "./qv_dump.pb"
 my_file = Path(data_file)
 
 random.seed(42)
@@ -15,7 +15,7 @@ print(play.q_vals())
 
 if my_file.is_file():
     play.forget_learning()
-    play.load_q_vals("c:/temp/qv_dump.pb")
+    play.load_q_vals("./qv_dump.pb")
 else:
     QV = play.train_q_values_r(50000)
     print(len(play.q_vals()))

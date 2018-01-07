@@ -100,29 +100,22 @@ class PlayTicTacToe:
         return sa
 
     #
-    # Given q values for play_action to a given state select the
-    # as to maximise players gain or if not gain to be had
-    # minimise opponents gain
+    # The optimal action is to take the largest positive gain or the smallest
+    # loss. => Maximise Gain & Minimise Loss
     #
     @classmethod
-    def best_outcome(cls, q):
-        return cls.best_move(q)
-
-    #
-    # The best play_action is to play to win if there is an option to do so
-    # or to play defensively and minimise (block) the biggest gain of
-    # the opponent.
-    #
-    @classmethod
-    def best_move(cls, q):
+    def optimal_outcome(cls, q):
         q = q[np.isnan(q) == False]
         if len(q) > 0:
-            stand_to_win = np.max(q)
-            stand_to_lose = np.min(q)
-            if stand_to_win > 0:
-                return stand_to_win
+            stand_to_win = q[q >= 0]
+            stand_to_lose = q[q < 0]
+            if stand_to_win.size > 0:
+                return np.max(stand_to_win)
             else:
-                return stand_to_lose
+                if stand_to_lose.size > 0:
+                    return np.max(stand_to_lose)
+                else:
+                    return np.nan
         else:
             return np.nan
 
@@ -180,7 +173,7 @@ class PlayTicTacToe:
                 # Update Q Values for both players based on last play reward.
                 (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward[0])
                 if prev_s is not None:
-                    (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.best_outcome(self.__q_values[s]))
+                    (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
                 game_step += 1
             sim += 1
             game_step = 0
@@ -231,7 +224,7 @@ class PlayTicTacToe:
                 # Update Q Values for both players based on last play reward.
                 (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward[0])
                 if prev_s is not None:
-                    (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.best_outcome(self.__q_values[s]))
+                    (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
 
                 plyr = TicTacToe.other_player(plyr)
                 game_step += 1
@@ -254,28 +247,28 @@ class PlayTicTacToe:
         if np.sum(valid_moves * np.full(TicTacToe.num_actions(), 1)) == 0:
             return None
 
-        best_action = None
+        o_action = None
         if not rnd:
             # Is there info learned for this state ?
-            informed_actions = self.q_vals_for_state(st)
-            if informed_actions is not None:
-                informed_actions *= valid_moves
-                best_action = PlayTicTacToe.best_move(informed_actions)
-                informed_actions = (informed_actions == best_action)*TicTacToe.actions()
-                informed_actions = informed_actions[np.where(informed_actions!=0)]
-                if informed_actions.size > 0:
-                    best_action = informed_actions[randint(0, informed_actions.size - 1)]
+            q_vals = self.q_vals_for_state(st)
+            if q_vals is not None:
+                q_vals *= valid_moves
+                optimal_action = PlayTicTacToe.optimal_outcome(q_vals)
+                q_vals = (q_vals == optimal_action)*TicTacToe.actions()
+                q_vals = q_vals[np.where(q_vals!=0)]
+                if q_vals.size > 0:
+                    optimal_action = q_vals[randint(0, q_vals.size - 1)]
                 else:
-                    best_action = None
+                    optimal_action = None
 
         # If we found a good action then return that
         # else pick a random action
-        if best_action is None:
+        if optimal_action is None:
             actions = valid_moves * np.arange(1, TicTacToe.num_actions() + 1, 1)
             actions = actions[np.where(actions > 0)]
-            best_action = actions[randint(0, actions.size - 1)]
+            optimal_action = actions[randint(0, actions.size - 1)]
 
-        return int(best_action)
+        return int(optimal_action)
         #
 
     # Play an automated game between a random player and an
@@ -310,6 +303,11 @@ class PlayTicTacToe:
             game_stats_dict[profile] = 1
         return
 
+    #
+    # Play a given number of informed games against a random player and
+    # track the relative outcome. Wins/Losses/Draws
+    # ToDo: check the win/lss/draw logic as this seems to report zero draws.
+    #
     def play_many(self, num):
         informed_wins = 0
         random_wins = 0
@@ -462,9 +460,16 @@ class PlayTicTacToe:
             player_move[2] = PlayTicTacToe.human_move
 
         while not self.__game.game_over():
-            mvstr += player_move[1](self)
-            if self.__game.game_over():
-                break
-            mvstr += player_move[2](self)
+            while not self.__game.game_over():
+                mvstr += player_move[1](self)
+                if self.__game.game_over():
+                    break
+                mvstr += player_move[2](self)
 
         print("Game Over")
+
+        # Learn from game just played
+        ape = PlayTicTacToe.all_possible_endings(mvstr)
+        if len(ape) > 0:
+            for i in range(0, 5):
+                self.train_Q_values(len(ape), PlayTicTacToe.moves_to_dict(ape))
