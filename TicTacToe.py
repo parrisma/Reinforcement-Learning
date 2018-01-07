@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 from random import randint
 
 
@@ -11,10 +12,10 @@ class TicTacToe:
     __bad_move_action_already_played = -2
     __bad_move_no_consecutive_plays = -3
     __play = float(0)  # reward for playing an action
-    __draw = float(2)  # reward for playing to end but no one wins
-    __win = float(1)  # reward for winning a game
-    __loss = float(-2)  # reward (penalty) for losing a game
-    __rewards = {"Play": 0, "Draw": 2, "Win": 1, "Loss": -2}
+    __draw = float(200)  # reward for playing to end but no one wins
+    __win = float(100)  # reward for winning a game
+    __loss = float(-200)  # reward (penalty) for losing a game
+    __rewards = {"Play": 0, "Draw": 200, "Win": 100, "Loss": -200}
     __no_player = np.nan  # id of a non existent player i.e. used to record id of player that has not played
     __win_mask = np.full((1, 3), 3, np.int8)
     __actions = {1: (0, 0), 2: (0, 1), 3: (0, 2), 4: (1, 0), 5: (1, 1), 6: (1, 2), 7: (2, 0), 8: (2, 1), 9: (2, 2)}
@@ -60,13 +61,46 @@ class TicTacToe:
         return s
 
     #
+    # Render the board as human readable with q values adjacent if supplied
+    #
+    @classmethod
+    def print_board(cls, bd, qv=None):
+        if not qv is None : qv = np.reshape(qv, (3, 3))
+        for i in range(0, 3):
+            rbd = ""
+            rqv = ""
+            for j in range(0, 3):
+                rbd += "["
+                rbd += cls.__player_to_str(bd[i][j])
+                rbd += "]"
+                if not qv is None:
+                    rqv += "["
+                    rqv += cls.__single_q_value_to_str(qv[i][j])
+                    rqv += "]"
+            sys.stdout.write(rbd+"    "+rqv+"\n")
+        sys.stdout.write("\n")
+        sys.stdout.flush()
+
+    #
     # return player as string "X" or "O"
     #
     @classmethod
     def __player_to_str(cls, player):
+        if np.sum(np.isnan(player)*1) >0: return " "
         if player == TicTacToe.player_X: return "X"
         if player == TicTacToe.player_O: return "O"
-        return "?"
+        return " "
+
+    #
+    # return single q val as formatted float or spaces for nan
+    #
+    @classmethod
+    def __single_q_value_to_str(cls, sqv):
+        if np.sum(np.isnan(sqv)*1) >0:
+                return " " * 26
+        s = '{:+.16f}'.format(sqv)
+        s = " "*(26-len(s))+s
+        return s
 
     #
     # return player as integer
