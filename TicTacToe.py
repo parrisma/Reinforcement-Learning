@@ -14,7 +14,6 @@ class TicTacToe:
     __play = float(0)  # reward for playing an action
     __draw = float(200)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
-    __loss = float(-200)  # reward (penalty) for losing a game
     __rewards = {"Play": 0, "Draw": 200, "Win": 100, "Loss": -200}
     __no_player = np.nan  # id of a non existent player i.e. used to record id of player that has not played
     __win_mask = np.full((1, 3), 3, np.int8)
@@ -25,24 +24,31 @@ class TicTacToe:
     asStr = True
 
     #
-    # Return game to initial state, where no one has played
-    # and the board contains no moves.
+    # Constructor has no arguments as it just sets the game
+    # to an initial up-played set-up
     #
-    def reset(self):
-        self.__board = np.full((3, 3), np.nan)
-        self.__last_board = np.full((3, 3), np.nan)
+    def __init__(self):
+        self.__board = TicTacToe.empty_board()
+        self.__last_board = TicTacToe.empty_board()
         self.__game_over = False
         self.__game_drawn = False
         self.__player = TicTacToe.__no_player
         self.__last_player = TicTacToe.__no_player
 
     #
-    # Constructor has no arguments as it just sets the game
-    # to an intial up-played set-up
+    # Return a new empty board.
     #
-    def __init__(self):
-        self.__board = np.full((3, 3), np.nan)
-        self.__last_board = np.full((3, 3), np.nan)
+    @classmethod
+    def empty_board(cls):
+        return np.full((3, 3), np.nan)
+
+    #
+    # Return game to initial state, where no one has played
+    # and the board contains no moves.
+    #
+    def reset(self):
+        self.__board = TicTacToe.empty_board()
+        self.__last_board = TicTacToe.empty_board()
         self.__game_over = False
         self.__game_drawn = False
         self.__player = TicTacToe.__no_player
@@ -64,8 +70,9 @@ class TicTacToe:
     # Render the board as human readable with q values adjacent if supplied
     #
     @classmethod
-    def print_board(cls, bd, qv=None):
-        if not qv is None : qv = np.reshape(qv, (3, 3))
+    def board_as_string(cls, bd, qv=None):
+        s = ""
+        if qv is not None: qv = np.reshape(qv, (3, 3))
         for i in range(0, 3):
             rbd = ""
             rqv = ""
@@ -77,18 +84,21 @@ class TicTacToe:
                     rqv += "["
                     rqv += cls.__single_q_value_to_str(qv[i][j])
                     rqv += "]"
-            sys.stdout.write(rbd+"    "+rqv+"\n")
-        sys.stdout.write("\n")
-        sys.stdout.flush()
+            s += rbd+"    "+rqv+"\n"
+        s += "\n"
+        return s
 
     #
     # return player as string "X" or "O"
     #
     @classmethod
     def __player_to_str(cls, player):
-        if np.sum(np.isnan(player)*1) >0: return " "
-        if player == TicTacToe.player_X: return "X"
-        if player == TicTacToe.player_O: return "O"
+        if np.sum(np.isnan(player)*1) >0:
+            return " "
+        if player == TicTacToe.player_X:
+            return "X"
+        if player == TicTacToe.player_O:
+            return "O"
         return " "
 
     #
@@ -119,13 +129,6 @@ class TicTacToe:
         return len(TicTacToe.__actions)
 
     #
-    # Return the maximum number of moves per game.
-    #
-    @classmethod
-    def max_moves_per_game(cls):
-        return len(TicTacToe.__actions)
-
-    #
     # Return the actions as a list of integers.
     #
     @classmethod
@@ -148,10 +151,10 @@ class TicTacToe:
         return TicTacToe.__rewards
 
     #
-    # Assume the move has been validated by move method
-    # Make a copy of board before move is made and the last player
+    # Assume the play_action has been validated by play_action method
+    # Make a copy of board before play_action is made and the last player
     #
-    def __make_move(self, action, player):
+    def __take_action(self, action, player):
         self.__last_board = np.copy(self.__board)
         self.__last_player = self.__player
         self.__player = player
@@ -161,50 +164,39 @@ class TicTacToe:
     #
     # Has a player already moved using the given action.
     #
-    def __invalid_move(self, action):
-        return not np.isnan(self.__board[TicTacToe.board_index(action)])
+    def invalid_action(self, action, board=None):
+        if board is None:
+            board = self.__board
+        return not np.isnan(board[TicTacToe.board_index(action)])
 
     #
-    # If the proposed action is a valid move and the game is not
-    # over. Make the given move (action) on behalf of the given
+    # If the proposed action is a valid action and the game is not
+    # over. Make the given play_action (action) on behalf of the given
     # player and update the game status.
     #
-    # return the rawards (Player who took move, Observer)
+    # return the rewards (Player who took play_action, Observer)
     #
-    def move(self, action, player):
+    def play_action(self, action, player):
+        #
+        # ToDo: This needs a re-work either throw exception and/or treat these as
+        #       things the game needs to learn about actions
         if TicTacToe.game_won(self.__board): return TicTacToe.__bad_move_game_is_over
-        if self.__invalid_move(action): return TicTacToe.__bad_move_action_already_played
+        if self.invalid_action(action): return TicTacToe.__bad_move_action_already_played
         if player == self.__player: return TicTacToe.__bad_move_no_consecutive_plays
 
-        self.__make_move(action, player)
+        self.__take_action(action, player)
 
-        if (TicTacToe.game_won(self.__board)):
+        if TicTacToe.game_won(self.__board):
             self.__game_over = True
             self.__game_drawn = False
-            return np.array([TicTacToe.__win, TicTacToe.__loss])
+            return np.array([TicTacToe.__win, TicTacToe.other_player(player)])
 
-        if (not TicTacToe.moves_left_to_take(self.__board)):
+        if not TicTacToe.actions_left_to_take(self.__board):
             self.__game_over = True
             self.__game_drawn = True
-            return np.array([TicTacToe.__draw, TicTacToe.__draw])
+            return np.array([TicTacToe.__draw, TicTacToe.other_player(player)])
 
-        return np.array([TicTacToe.__play, 0])
-
-    #
-    # Return (flattened) Game Ended, Last Player, Last Board, Player, Board
-    #
-    def detailed_state(self):
-        flattened_state = []
-        if (self.__game_over):
-            flattened_state.append(1)
-        else:
-            flattened_state.append(0)
-        flattened_state.append(self.__last_player)
-        flattened_state.append(self.__player)
-        for itm in np.reshape(self.__last_board, 9).tolist(): flattened_state.append(itm)
-        for itm in np.reshape(self.__board, 9).tolist(): flattened_state.append(itm)
-
-        return flattened_state
+        return np.array([TicTacToe.__play, TicTacToe.other_player(player)])
 
     #
     # Show return the current board contents
@@ -219,7 +211,8 @@ class TicTacToe:
     @classmethod
     def game_won(cls, bd, plyr=None):
 
-        if not plyr is None: bd = (bd == plyr) * 1
+        if plyr is not None:
+            bd = (bd == plyr) * 1
 
         rows = np.abs(np.sum(bd, axis=1))
         cols = np.abs(np.sum(bd, axis=0))
@@ -239,31 +232,26 @@ class TicTacToe:
         return False
 
     #
-    # Are there any remaining moves to be taken >
+    # Are there any remaining actions to be taken >
     #
     @classmethod
-    def moves_left_to_take(cls, bd):
+    def actions_left_to_take(cls, bd):
         return bd[np.isnan(bd)].size > 0
-
-    #
-    # Board is in a gamne over state, with a winner or a draw
-    #
-    @classmethod
-    def board_game_over(cls, board):
-        return (TicTacToe.game_won(board) or not TicTacToe.moves_left_to_take(board))
 
     #
     # Is the game over ?
     #
-    def game_over(self):
-        return TicTacToe.board_game_over(self.__board)
+    def game_over(self, board=None):
+        if board is None:
+            board = self.__board
+        return TicTacToe.game_won(board) or not TicTacToe.actions_left_to_take(board)
 
     #
     # Return which player goes next given the current player
     #
     @staticmethod
     def other_player(current_player):
-        if (current_player == TicTacToe.player_O):
+        if current_player == TicTacToe.player_O:
             return TicTacToe.player_X
         else:
             return TicTacToe.player_O
@@ -277,8 +265,7 @@ class TicTacToe:
         return vm
 
     #
-    # What moves are valid given for board or if not
-    # for the current game board.
+    # What moves are valid given for board in it's current game state
     #
     def what_are_valid_moves(self):
         return TicTacToe.valid_moves(self.__board)

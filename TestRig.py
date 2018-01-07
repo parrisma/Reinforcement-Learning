@@ -1,6 +1,7 @@
 import numpy as np
 import random
 from PlayTicTacToe import PlayTicTacToe
+from Persistance import Persistance
 from pathlib import Path
 
 data_file = "c:/temp/qv_dump.pb"
@@ -8,16 +9,16 @@ my_file = Path(data_file)
 
 random.seed(42)
 np.random.seed(42)
-play = PlayTicTacToe()
+play = PlayTicTacToe(Persistance())
 play.forget_learning()
-print(play.Q_Vals())
+print(play.q_vals())
 
 if my_file.is_file():
     play.forget_learning()
     play.load_q_vals("c:/temp/qv_dump.pb")
 else:
-    QV = play.train_Q_values_R(50000)
-    print(len(play.Q_Vals()))
+    QV = play.train_q_values_r(50000)
+    print(len(play.q_vals()))
     play.save_q_vals(data_file)
 
 #for k,v in QV.items():
@@ -25,11 +26,13 @@ else:
 #        print("Bad Load")
 #        break
 
-print(play.Q_Vals_for_state("-1000000000"))
-print(play.Q_Vals_for_state("1000000000"))
+print(play.q_vals_for_state("-1000000000"))
+print(play.q_vals_for_state("1000000000"))
 
+human_first = True
 for i in range(1, 10):
-    play.interactive_game()
+    play.interactive_game(human_first)
     play.save_q_vals(data_file)
+    human_first = not human_first
 
 print("end")
