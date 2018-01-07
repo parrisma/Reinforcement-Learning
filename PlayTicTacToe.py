@@ -263,6 +263,7 @@ class PlayTicTacToe:
 
         # If we found a good action then return that
         # else pick a random action
+        #
         if optimal_action is None:
             actions = valid_moves * np.arange(1, TicTacToe.num_actions() + 1, 1)
             actions = actions[np.where(actions > 0)]
