@@ -21,6 +21,8 @@ else:
     print(len(play.q_vals()))
     play.save_q_vals(data_file)
 
+play.play_many(1000)
+
 #for k,v in QV.items():
 #    if(str(QV[k])!=str(QV2[k])):
 #        print("Bad Load")

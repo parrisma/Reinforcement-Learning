@@ -140,12 +140,11 @@ class PlayTicTacToe:
         learning_rate0, learning_rate_decay, discount_rate = PlayTicTacToe.learning_rate_params()
 
         # Initialization
-        reward = 0
         sim = 0
-        game_step = 0
 
         # Iterate over and play
         while sim < num_episodes:
+            reward = None
             self.__game.reset()
             plyr = None
             prev_plyr = None
@@ -159,7 +158,6 @@ class PlayTicTacToe:
             while not self.__game.game_over():
 
                 prev_mv = mv
-                print(str(sim) + " : " + str(game_step))
                 plyr, mv = (canned_moves[sim])[game_step]
                 prev_plyr = TicTacToe.other_player(plyr)
                 prev_s = s
@@ -172,14 +170,13 @@ class PlayTicTacToe:
 
                 # Update Q Values for both players based on last play reward.
                 (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward[0])
+                # Update any discounted rewards to previous game step.
                 if prev_s is not None:
                     (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
                 game_step += 1
             sim += 1
             game_step = 0
 
-            if ((sim % 1000) == 0) or (sim == num_episodes):
-                print("Training Cycle:" + str(sim))
         return self.__q_values
 
     #
@@ -231,8 +228,6 @@ class PlayTicTacToe:
             sim += 1
             game_step = 0
 
-            if ((sim % 1000) == 0) or (sim == num_simulations):
-                print("Training Cycle:" + str(sim))
         return self.__q_values
 
     #
@@ -247,7 +242,7 @@ class PlayTicTacToe:
         if np.sum(valid_moves * np.full(TicTacToe.num_actions(), 1)) == 0:
             return None
 
-        o_action = None
+        optimal_action = None
         if not rnd:
             # Is there info learned for this state ?
             q_vals = self.q_vals_for_state(st)
@@ -467,10 +462,12 @@ class PlayTicTacToe:
                     break
                 mvstr += player_move[2](self)
 
+        print(TicTacToe.board_as_string(self.game().board()))
         print("Game Over")
 
-        # Learn from game just played
+        # Learn from game just played by playing all the possible endings of the
+        # winning / losing game.
         ape = PlayTicTacToe.all_possible_endings(mvstr)
         if len(ape) > 0:
             for i in range(0, 5):
-                self.train_Q_values(len(ape), PlayTicTacToe.moves_to_dict(ape))
+                self.train_q_values(len(ape), PlayTicTacToe.moves_to_dict(ape))
