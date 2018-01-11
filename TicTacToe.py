@@ -72,7 +72,8 @@ class TicTacToe:
     @classmethod
     def board_as_string(cls, bd, qv=None):
         s = ""
-        if qv is not None: qv = np.reshape(qv, (3, 3))
+        if qv is not None:
+                qv = np.reshape(qv, (3, 3))
         for i in range(0, 3):
             rbd = ""
             rqv = ""
@@ -80,7 +81,7 @@ class TicTacToe:
                 rbd += "["
                 rbd += cls.__player_to_str(bd[i][j])
                 rbd += "]"
-                if not qv is None:
+                if qv is not None:
                     rqv += "["
                     rqv += cls.__single_q_value_to_str(qv[i][j])
                     rqv += "]"
@@ -93,7 +94,7 @@ class TicTacToe:
     #
     @classmethod
     def __player_to_str(cls, player):
-        if np.sum(np.isnan(player)*1) >0:
+        if np.sum(np.isnan(player)*1) > 0:
             return " "
         if player == TicTacToe.player_X:
             return "X"
@@ -106,7 +107,7 @@ class TicTacToe:
     #
     @classmethod
     def __single_q_value_to_str(cls, sqv):
-        if np.sum(np.isnan(sqv)*1) >0:
+        if np.sum(np.isnan(sqv)*1) > 0:
                 return " " * 26
         s = '{:+.16f}'.format(sqv)
         s = " "*(26-len(s))+s
@@ -180,9 +181,12 @@ class TicTacToe:
         #
         # ToDo: This needs a re-work either throw exception and/or treat these as
         #       things the game needs to learn about actions
-        if TicTacToe.game_won(self.__board): return TicTacToe.__bad_move_game_is_over
-        if self.invalid_action(action): return TicTacToe.__bad_move_action_already_played
-        if player == self.__player: return TicTacToe.__bad_move_no_consecutive_plays
+        if TicTacToe.game_won(self.__board):
+                return TicTacToe.__bad_move_game_is_over
+        if self.invalid_action(action):
+                return TicTacToe.__bad_move_action_already_played
+        if player == self.__player:
+                return TicTacToe.__bad_move_no_consecutive_plays
 
         self.__take_action(action, player)
 

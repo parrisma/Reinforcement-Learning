@@ -96,7 +96,8 @@ class PlayTicTacToe:
     def state(cls, player, board):
         sa = ""
         sa += str(player)
-        for cell in np.reshape(board, TicTacToe.num_actions()).tolist(): sa += str(TicTacToe.player_to_int(cell))
+        for cell in np.reshape(board, TicTacToe.num_actions()).tolist():
+                sa += str(TicTacToe.player_to_int(cell))
         return sa
 
     #
@@ -308,31 +309,32 @@ class PlayTicTacToe:
         informed_wins = 0
         random_wins = 0
         draws = 0
-        I = {}
-        R = {}
-        D = {}
-        G = {}
-        profile = ""
+        informed_game = {}
+        random_game = {}
+        drawn_game = {}
+        distinct_games = {}
+
         for x in range(0, num):
             profile = self.play()
-            if profile not in G: G[profile] = ""
+            if profile not in distinct_games:
+                    distinct_games[profile] = ""
             if self.__game.game_won(self.__game.board(), TicTacToe.player_X):
                 informed_wins += 1
-                PlayTicTacToe.record_game_stats(I, profile)
+                PlayTicTacToe.record_game_stats(informed_game, profile)
             else:
                 if self.__game.game_won(self.__game.board(), TicTacToe.player_O):
                     random_wins += 1
-                    PlayTicTacToe.record_game_stats(R, profile)
+                    PlayTicTacToe.record_game_stats(random_game, profile)
                 else:
-                    PlayTicTacToe.record_game_stats(D, profile)
+                    PlayTicTacToe.record_game_stats(drawn_game, profile)
                     draws += 1
             if (x % 100) == 0:
                 print(str(x))
         print("Informed :" + str(informed_wins) + " : " + str(round((informed_wins / num) * 100, 0)))
         print("Random :" + str(random_wins) + " : " + str(round((random_wins / num) * 100, 0)))
         print("Draw :" + str(draws) + " : " + str(round((draws / num) * 100, 0)))
-        print("Diff Games :" + str(len(G)))
-        return I, R, D
+        print("Diff Games :" + str(len(distinct_games)))
+        return informed_game, random_game, drawn_game
 
     #
     # Convert a game profile string returned from play method
@@ -448,12 +450,10 @@ class PlayTicTacToe:
         mvstr = ""
 
         player_move = dict()
+        player_move[1] = PlayTicTacToe.machine_move
+        player_move[2] = PlayTicTacToe.human_move
         if human_first:
-            player_move[1] = PlayTicTacToe.human_move
-            player_move[2] = PlayTicTacToe.machine_move
-        else:
-            player_move[1] = PlayTicTacToe.machine_move
-            player_move[2] = PlayTicTacToe.human_move
+            player_move[1], player_move[2] = player_move[2], player_move[1]
 
         while not self.__game.game_over():
             while not self.__game.game_over():

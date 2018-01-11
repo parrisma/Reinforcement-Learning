@@ -59,3 +59,40 @@ class Persistance:
         finally:
             in_f.close()
         return qv
+
+    @classmethod
+    def x_as_str_to_num_array(cls,xs):
+        xl = list()
+        s = 1
+        for c in xs:
+            if c == '-':
+                s = -1
+            else:
+                xl.append(float(c)*float(s))
+                s = 1
+        return np.asarray(xl, dtype=np.float32)
+
+    #
+    # Load as an X Y Network training set. Both are 9 by 1
+    #
+    @classmethod
+    def load_as_X_Y(cls, filename):
+        qv = cls.load(filename)
+        x = np.zeros((len(qv, 9)))
+        y = np.zeros((len(qv, 9)))
+        i = 0
+        mn = np.finfo('d').max
+        mx = -mx
+        for qx, qy in qv:
+            x[i] = cls.x_as_str_to_num_array(qx)
+            y[i] = qy
+            mx = np.max(mx, np.max(qv))
+            mn = np.max(mn, np.max(qv))
+            i += 1
+
+            mn *= 1.1
+
+        for qy in y:
+            qy[np.isnan(qy) == True] = mn
+            qy *=
+
