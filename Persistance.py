@@ -76,11 +76,8 @@ class Persistance:
     # Re Scale
     #
     @classmethod
-    def rescale(cls, input, min, mix):
-        input += -(np.min(input))
-        input /= np.max(input) / (max - min)
-        input += min
-        return input
+    def rescale(cls, v, mn, mx):
+        return (v-mn)/(mx-mn)
 
     #
     # Load as an X Y Network training set. Both are 9 by 1
@@ -96,15 +93,15 @@ class Persistance:
         for qx, qy in qv.items():
             x[i] = cls.x_as_str_to_num_array(qx)
             y[i] = qy
-            mx = max(mx, np.max(qy))
-            mn = max(mn, np.max(qy))
+            mx = max(mx, np.max(qy[np.isnan(qy)==False]))
+            mn = min(mn, np.min(qy[np.isnan(qy)==False]))
             i += 1
 
-            mn *= 1.1
-
+        mn *= 1.1
+        i = 0
         for qy in y:
             qy[np.isnan(qy) == True] = mn
-            qy = cls.rescale(qy,mn,mx)
+            y[i] = cls.rescale(qy, mn, mx)
+            i += 1
 
         return x, y
-
