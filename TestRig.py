@@ -9,6 +9,11 @@ my_file = Path(data_file)
 
 random.seed(42)
 np.random.seed(42)
+
+p = Persistance()
+x, y = p.load_as_X_Y("./qv_dump.pb")
+
+
 play = PlayTicTacToe(Persistance())
 play.forget_learning()
 print(play.q_vals())

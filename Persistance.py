@@ -73,26 +73,38 @@ class Persistance:
         return np.asarray(xl, dtype=np.float32)
 
     #
+    # Re Scale
+    #
+    @classmethod
+    def rescale(cls, input, min, mix):
+        input += -(np.min(input))
+        input /= np.max(input) / (max - min)
+        input += min
+        return input
+
+    #
     # Load as an X Y Network training set. Both are 9 by 1
     #
     @classmethod
     def load_as_X_Y(cls, filename):
         qv = cls.load(filename)
-        x = np.zeros((len(qv, 9)))
-        y = np.zeros((len(qv, 9)))
+        x = np.zeros((len(qv), 1+9))  # Player + 9 Board Cells
+        y = np.zeros((len(qv), 9)) # 9 Q Vals.
         i = 0
         mn = np.finfo('d').max
-        mx = -mx
-        for qx, qy in qv:
+        mx = -mn
+        for qx, qy in qv.items():
             x[i] = cls.x_as_str_to_num_array(qx)
             y[i] = qy
-            mx = np.max(mx, np.max(qv))
-            mn = np.max(mn, np.max(qv))
+            mx = max(mx, np.max(qy))
+            mn = max(mn, np.max(qy))
             i += 1
 
             mn *= 1.1
 
         for qy in y:
             qy[np.isnan(qy) == True] = mn
-            qy *=
+            qy = cls.rescale(qy,mn,mx)
+
+        return x, y
 
