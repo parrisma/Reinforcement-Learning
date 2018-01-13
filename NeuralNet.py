@@ -13,16 +13,18 @@ X, Y = p.load_as_X_Y("./qv_dump.pb")
 # create model
 
 model = Sequential()
-model.add(Dense(20, input_dim=10, activation='relu'))
-model.add(Dense(20, activation='relu'))
-model.add(Dense(15, activation='relu'))
-model.add(Dense(9, activation='softmax'))
+model.add(Dense(1000, input_dim=10, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(9))
+
 # Compile model
 
 model.compile(loss='mean_squared_error', optimizer='rmsprop', metrics=['accuracy'])
 # Fit the model
 
-model.fit(X, Y, epochs=150, batch_size=10)
+model.fit(X, Y, epochs=50, batch_size=10)
 # evaluate the model
 
 model.save("/.fully_connected_1.h5")
