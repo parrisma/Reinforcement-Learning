@@ -42,7 +42,7 @@ print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
 for i in range(0, 10):
     idx = np.random.randint(0, X.shape[0])
     print("X[idx] := "+str(X[idx])+" for Y[idx]: "+str(Y[idx]))
-    x = np.zeros((1,10))
+    x = np.zeros((1, 10))
     x[0] = X[idx]
     print("Predict Y:= "+str(model.predict(x)))
 

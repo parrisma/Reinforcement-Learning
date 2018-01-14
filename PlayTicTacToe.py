@@ -3,7 +3,6 @@ import random
 from random import randint
 from TicTacToe import TicTacToe
 
-
 class PlayTicTacToe:
 
     __learning_rate_0 = 0.05
@@ -15,7 +14,7 @@ class PlayTicTacToe:
     # Constructor has no arguments as it just sets the game
     # to an initial up-played set-up
     #
-    def __init__(self, persist):
+    def __init__(self, persist=None):
         self.__game = TicTacToe()
         self.__persist = persist
 
@@ -51,14 +50,16 @@ class PlayTicTacToe:
     # Load Q Val state
     #
     def load_q_vals(self, filename):
-        self.__q_values = self.__persist.load(filename)
+        if self.__persist is not None:
+            self.__q_values = self.__persist.load(filename)
         return
 
     #
     # Save Q Val state
     #
     def save_q_vals(self, filename):
-        self.__persist.save(self.__q_values, filename)
+        if self.__persist is not None:
+            self.__persist.save(self.__q_values, filename)
         return
 
     #
@@ -235,7 +236,7 @@ class PlayTicTacToe:
     # Given current state and learned Q Values (if any) suggest
     # the play_action that is expected to yield the highest reward.
     #
-    def informed_move(self, st, rnd):
+    def informed_move(self, st, rnd=False, model=None):
         # What moves are possible at this stage
         valid_moves = self.__game.what_are_valid_moves()
 
@@ -245,8 +246,13 @@ class PlayTicTacToe:
 
         optimal_action = None
         if not rnd:
-            # Is there info learned for this state ?
-            q_vals = self.q_vals_for_state(st)
+            # Predict Q Vals if there is a model, else try to find
+            # a hit in leanred Q vals.
+            if model is not None:
+                q_vals = model.predicted_q_vals(st)
+            else:
+                q_vals = self.q_vals_for_state(st)
+
             if q_vals is not None:
                 q_vals *= valid_moves
                 optimal_action = PlayTicTacToe.optimal_outcome(q_vals)
@@ -422,18 +428,20 @@ class PlayTicTacToe:
     #
     # Make a play based on q values (called via interactive game)
     #
-    def machine_move(self):
+    def machine_move(self, *args):
         st = PlayTicTacToe.state(TicTacToe.player_X, self.game().board())
         qv = self.q_vals_for_state(st)
         print(TicTacToe.board_as_string(self.game().board(), qv))
-        mv = self.informed_move(st, False)
+        if args is not None:
+            model = args[0][0]  # Model
+        mv = self.informed_move(st, False, model)
         self.game().play_action(mv, TicTacToe.player_X)
         return str(TicTacToe.player_X)+":"+str(mv)+"~"
 
     #
     # Make a play based on human input  (called via interactive game)
     #
-    def human_move(self):
+    def human_move(self, *args):
         st = PlayTicTacToe.state(TicTacToe.player_O, self.game().board())
         qv = self.q_vals_for_state(st)
         print(TicTacToe.board_as_string(self.game().board(), qv))
@@ -445,7 +453,7 @@ class PlayTicTacToe:
     # Play an interactive game with the informed player via
     # stdin.
     #
-    def interactive_game(self, human_first):
+    def interactive_game(self, human_first, *args):
         self.__game.reset()
         mvstr = ""
 
@@ -457,10 +465,10 @@ class PlayTicTacToe:
 
         while not self.__game.game_over():
             while not self.__game.game_over():
-                mvstr += player_move[1](self)
+                mvstr += player_move[1](self, args)
                 if self.__game.game_over():
                     break
-                mvstr += player_move[2](self)
+                mvstr += player_move[2](self, args)
 
         print(TicTacToe.board_as_string(self.game().board()))
         print("Game Over")
