@@ -72,9 +72,12 @@ class PlayTicTacToe:
     # Add states to Q Value dictionary if not present
     #
     def add_states_if_missing(self, state):
+        if self.__q_values is None:
+            self.__q_values = dict()
+
         if state not in self.__q_values:
             self.__q_values[state] = TicTacToe.empty_board()
-            np.reshape(self.__q_values[state], self.__q_values[state].size)  # flatten
+            self.__q_values[state] = np.reshape(self.__q_values[state], self.__q_values[state].size)  # flatten
 
     #
     # Return the learning rate paramaters
