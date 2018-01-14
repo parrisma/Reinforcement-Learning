@@ -82,6 +82,9 @@ class Persistance:
     #
     # Load as an X Y Network training set. Both are 9 by 1
     #
+    # X (board state + player) is converted to array of (1,0,-1)'s
+    # Y (Q Vals) is returned as is but with nan set to zero & re-scaled w.r.t entire Q Val array
+    #
     @classmethod
     def load_as_X_Y(cls, filename):
         qv = cls.load(filename)

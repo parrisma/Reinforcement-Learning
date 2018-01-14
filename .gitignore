@@ -2,3 +2,4 @@
 venv/*
 dumps/*
 __pycache__/*
+*.h5

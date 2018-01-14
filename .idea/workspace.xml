@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/NeuralNet.py" afterPath="$PROJECT_DIR$/NeuralNet.py" />
+      <change beforePath="$PROJECT_DIR$/Persistance.py" afterPath="$PROJECT_DIR$/Persistance.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,8 +19,8 @@
       <file leaf-file-name="PlayTicTacToe.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PlayTicTacToe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="821">
-              <caret line="456" column="0" lean-forward="false" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="439" column="45" lean-forward="false" selection-start-line="439" selection-start-column="8" selection-end-line="439" selection-end-column="45" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -31,9 +31,11 @@
       <file leaf-file-name="NeuralNet.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NeuralNet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="32" column="61" lean-forward="false" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
-              <folding />
+            <state relative-caret-position="17">
+              <caret line="1" column="78" lean-forward="false" selection-start-line="1" selection-start-column="78" selection-end-line="1" selection-end-column="78" />
+              <folding>
+                <element signature="e#83#95#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,11 +43,9 @@
       <file leaf-file-name="Persistance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Persistance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-              <folding>
-                <marker date="1515705992000" expanded="true" signature="137:1619" ph="..." />
-              </folding>
+            <state relative-caret-position="354">
+              <caret line="85" column="96" lean-forward="false" selection-start-line="85" selection-start-column="96" selection-end-line="85" selection-end-column="96" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,7 +53,7 @@
       <file leaf-file-name="TicTacToe.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TicTacToe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3553">
+            <state relative-caret-position="3621">
               <caret line="215" column="8" lean-forward="false" selection-start-line="215" selection-start-column="8" selection-end-line="215" selection-end-column="8" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -65,7 +65,7 @@
       <file leaf-file-name="TestRig.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TestRig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="493">
               <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -113,19 +113,20 @@
         <option value="$APPLICATION_CONFIG_DIR$/scratches/TicTacToe.py" />
         <option value="$APPLICATION_CONFIG_DIR$/scratches/PlayTicTacToe.py" />
         <option value="$PROJECT_DIR$/TicTacToe.ipynb" />
-        <option value="$PROJECT_DIR$/Persistance.py" />
         <option value="$PROJECT_DIR$/TicTacToe.py" />
         <option value="$PROJECT_DIR$/TestRig.py" />
         <option value="$PROJECT_DIR$/PlayTicTacToe.py" />
+        <option value="$PROJECT_DIR$/Persistance.py" />
         <option value="$PROJECT_DIR$/NeuralNet.py" />
+        <option value="$PROJECT_DIR$/NeuralNetOneHot.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1554" />
-    <option name="y" value="16" />
+    <option name="x" value="62" />
+    <option name="y" value="8" />
     <option name="width" value="1934" />
-    <option name="height" value="1407" />
+    <option name="height" value="1360" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -146,7 +147,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/NeuralNet.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/NeuralNetOneHot.py" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
   </component>
   <component name="RecentsManager">
@@ -268,7 +269,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1554" y="16" width="1934" height="1407" extended-state="0" />
+    <frame x="62" y="8" width="1934" height="1360" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15046838" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -278,11 +279,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6566322" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33921412" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29443586" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29591018" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -330,8 +331,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/NeuralNet.py</url>
-          <line>26</line>
-          <option name="timeStamp" value="58" />
+          <line>41</line>
+          <option name="timeStamp" value="61" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -341,7 +342,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="59" />
+      <option name="time" value="62" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -351,6 +352,31 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>X.shape[0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>X.shape</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>X.shape(0)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Y.size(1)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>Y.size</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>qv</expression-string>
         <language-id>Python</language-id>
@@ -371,51 +397,14 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>np.isnan(player)==True</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.isnan(player)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.logical_or(np.isnan(player))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>np.logical_or(np.isnan(player)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>bd</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PlayTicTacToe.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7514">
-          <caret line="445" column="25" lean-forward="false" selection-start-line="441" selection-start-column="0" selection-end-line="473" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Persistance.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <marker date="1515705992000" expanded="true" signature="137:1619" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -453,9 +442,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <marker date="1515705992000" expanded="true" signature="137:1619" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -500,9 +487,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1020">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <marker date="1515705992000" expanded="true" signature="137:1619" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -761,13 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5236">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/numpy/core/_methods.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -777,7 +755,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3553">
+        <state relative-caret-position="3621">
           <caret line="215" column="8" lean-forward="false" selection-start-line="215" selection-start-column="8" selection-end-line="215" selection-end-column="8" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -787,7 +765,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestRig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
+        <state relative-caret-position="493">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -795,31 +773,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Persistance.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <marker date="1515705992000" expanded="true" signature="137:1619" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PlayTicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="821">
-          <caret line="456" column="0" lean-forward="false" selection-start-line="456" selection-start-column="0" selection-end-line="456" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="439" column="45" lean-forward="false" selection-start-line="439" selection-start-column="8" selection-end-line="439" selection-end-column="45" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Persistance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="85" column="96" lean-forward="false" selection-start-line="85" selection-start-column="96" selection-end-line="85" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NeuralNetOneHot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="80" lean-forward="false" selection-start-line="1" selection-start-column="80" selection-end-line="1" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/NeuralNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="32" column="61" lean-forward="false" selection-start-line="32" selection-start-column="61" selection-end-line="32" selection-end-column="61" />
-          <folding />
+        <state relative-caret-position="17">
+          <caret line="1" column="78" lean-forward="false" selection-start-line="1" selection-start-column="78" selection-end-line="1" selection-end-column="78" />
+          <folding>
+            <element signature="e#83#95#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
