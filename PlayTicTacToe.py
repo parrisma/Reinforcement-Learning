@@ -3,6 +3,7 @@ import random
 from random import randint
 from TicTacToe import TicTacToe
 
+
 class PlayTicTacToe:
 
     __learning_rate_0 = 0.05

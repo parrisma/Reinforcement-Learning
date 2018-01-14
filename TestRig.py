@@ -28,11 +28,6 @@ else:
 
 play.play_many(1000)
 
-#for k,v in QV.items():
-#    if(str(QV[k])!=str(QV2[k])):
-#        print("Bad Load")
-#        break
-
 print(play.q_vals_for_state("-1000000000"))
 print(play.q_vals_for_state("1000000000"))
 
