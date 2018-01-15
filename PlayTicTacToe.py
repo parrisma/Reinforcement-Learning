@@ -161,7 +161,7 @@ class PlayTicTacToe:
             mv = None
 
             game_step = 0
-            while not self.__game.game_over():
+            while not self.__game.episode_complete():
 
                 prev_mv = mv
                 plyr, mv = (canned_moves[sim])[game_step]
@@ -208,14 +208,14 @@ class PlayTicTacToe:
             plyr = (TicTacToe.player_X, TicTacToe.player_O)[randint(0, 1)]  # Random player to start
 
             mv = None
-            while not self.__game.game_over():
+            while not self.__game.episode_complete():
 
                 prev_mv = mv
                 st = PlayTicTacToe.state(plyr, self.__game.board())
                 if random.random() > 0.8:
-                    mv = self.informed_move(st, False)  # Informed Player
+                    mv = self.informed_action(st, False)  # Informed Player
                 else:
-                    mv = self.informed_move(st, True)  # Random Player
+                    mv = self.informed_action(st, True)  # Random Player
 
                 prev_s = s
                 s = PlayTicTacToe.state(plyr, self.__game.board())
@@ -240,7 +240,7 @@ class PlayTicTacToe:
     # Given current state and learned Q Values (if any) suggest
     # the play_action that is expected to yield the highest reward.
     #
-    def informed_move(self, st, rnd=False, model=None):
+    def informed_action(self, st, rnd=False, model=None):
         # What moves are possible at this stage
         valid_moves = self.__game.what_are_valid_moves()
 
@@ -287,12 +287,12 @@ class PlayTicTacToe:
         plyr = (TicTacToe.player_X, TicTacToe.player_O)[randint(0, 1)]  # Chose random player to start
         mv = None
         game_moves_as_str = ""
-        while not self.__game.game_over():
+        while not self.__game.episode_complete():
             st = PlayTicTacToe.state(plyr, self.__game.board())
             if plyr == TicTacToe.player_X:
-                mv = self.informed_move(st, False)  # Informed Player
+                mv = self.informed_action(st, False)  # Informed Player
             else:
-                mv = self.informed_move(st, True)  # Random Player
+                mv = self.informed_action(st, True)  # Random Player
             self.__game.play_action(mv, plyr)
             game_moves_as_str += str(plyr) + ":" + str(mv) + "~"
             plyr = TicTacToe.other_player(plyr)
@@ -328,11 +328,11 @@ class PlayTicTacToe:
             profile = self.play()
             if profile not in distinct_games:
                     distinct_games[profile] = ""
-            if self.__game.game_won(self.__game.board(), TicTacToe.player_X):
+            if self.__game.episode_complete(self.__game.board(), TicTacToe.player_X):
                 informed_wins += 1
                 PlayTicTacToe.record_game_stats(informed_game, profile)
             else:
-                if self.__game.game_won(self.__game.board(), TicTacToe.player_O):
+                if self.__game.episode_complete(self.__game.board(), TicTacToe.player_O):
                     random_wins += 1
                     PlayTicTacToe.record_game_stats(random_game, profile)
                 else:
@@ -438,7 +438,7 @@ class PlayTicTacToe:
         print(TicTacToe.board_as_string(self.game().board(), qv))
         if args is not None:
             model = args[0][0]  # Model
-        mv = self.informed_move(st, False, model)
+        mv = self.informed_action(st, False, model)
         self.game().play_action(mv, TicTacToe.player_X)
         return str(TicTacToe.player_X)+":"+str(mv)+"~"
 
@@ -467,12 +467,11 @@ class PlayTicTacToe:
         if human_first:
             player_move[1], player_move[2] = player_move[2], player_move[1]
 
-        while not self.__game.game_over():
-            while not self.__game.game_over():
-                mvstr += player_move[1](self, args)
-                if self.__game.game_over():
-                    break
-                mvstr += player_move[2](self, args)
+        while not self.__game.episode_complete():
+            mvstr += player_move[1](self, args)
+            if self.__game.episode_complete():
+                break
+            mvstr += player_move[2](self, args)
 
         print(TicTacToe.board_as_string(self.game().board()))
         print("Game Over")

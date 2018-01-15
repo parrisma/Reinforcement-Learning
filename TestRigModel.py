@@ -13,8 +13,8 @@ qvm.load(model_filename)
 
 play = PlayTicTacToe()
 
-print(play.informed_move("-1000000000", False, qvm))
-print(play.informed_move("1000000000", False, qvm))
+print(play.informed_action("-1000000000", False, qvm))
+print(play.informed_action("1000000000", False, qvm))
 
 human_first = True
 for i in range(1, 10):

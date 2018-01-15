@@ -1,9 +1,8 @@
 import numpy as np
-import sys
-from random import randint
+from Environment import Environment
 
 
-class TicTacToe:
+class TicTacToe(Environment):
 
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
@@ -14,6 +13,8 @@ class TicTacToe:
     __play = float(0)  # reward for playing an action
     __draw = float(200)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
+    sumry_draw = "Draw"
+    sumry_won = "Won"
     __rewards = {"Play": 0, "Draw": 200, "Win": 100, "Loss": -200}
     __no_player = np.nan  # id of a non existent player i.e. used to record id of player that has not played
     __win_mask = np.full((1, 3), 3, np.int8)
@@ -177,30 +178,31 @@ class TicTacToe:
     #
     # return the rewards (Player who took play_action, Observer)
     #
-    def play_action(self, action, player):
+    def play_action(self, action, agent):
         #
-        # ToDo: This needs a re-work either throw exception and/or treat these as
+        # ToDo: This needs a re-work either throw exception and/or treat these as. At the
+        # ToDo: very least these need to be thrown as exceptions
         #       things the game needs to learn about actions
-        if TicTacToe.game_won(self.__board):
+        if TicTacToe.episode_complete()[self.sumry_won]:
                 return TicTacToe.__bad_move_game_is_over
         if self.invalid_action(action):
                 return TicTacToe.__bad_move_action_already_played
-        if player == self.__player:
+        if agent == self.__player:
                 return TicTacToe.__bad_move_no_consecutive_plays
 
-        self.__take_action(action, player)
+        self.__take_action(action, agent)
 
-        if TicTacToe.game_won(self.__board):
+        if TicTacToe.episode_complete()[self.sumry_won]:
             self.__game_over = True
             self.__game_drawn = False
-            return np.array([TicTacToe.__win, TicTacToe.other_player(player)])
+            return np.array([TicTacToe.__win, TicTacToe.other_player(agent)])
 
-        if not TicTacToe.actions_left_to_take(self.__board):
+        if not TicTacToe.__actions_left_to_take(self.__board)[self.sumry_draw]:
             self.__game_over = True
             self.__game_drawn = True
-            return np.array([TicTacToe.__draw, TicTacToe.other_player(player)])
+            return np.array([TicTacToe.__draw, TicTacToe.other_player(agent)])
 
-        return np.array([TicTacToe.__play, TicTacToe.other_player(player)])
+        return np.array([TicTacToe.__play, TicTacToe.other_player(agent)])
 
     #
     # Show return the current board contents
@@ -208,47 +210,61 @@ class TicTacToe:
     def board(self):
         return self.__board
 
+
     #
-    # Any row, column or diagonal with all player X or player O. If a
-    # player is given then it answers has that specific player won
+    # Create episode summary; return a dictionary of the episode
+    # summary populated with defaults
     #
     @classmethod
-    def game_won(cls, bd, plyr=None):
+    def __episode_summary(cls):
+        es = dict()
+        es[cls.sumry_draw] = False
+        es[cls.sumry_won] = False
+        return es
 
-        if plyr is not None:
-            bd = (bd == plyr) * 1
+    #
+    # The episode is over if one agent has made a line of three on
+    # any horizontal, vertical or diagonal or if there are no actions
+    # left to take and neither agent has won.
+    #
+    # ToDo: Implementation needs a serious over hall.
+    #
+    def episode_complete(self):
 
-        rows = np.abs(np.sum(bd, axis=1))
-        cols = np.abs(np.sum(bd, axis=0))
-        diag_lr = np.abs(np.sum(bd.diagonal()))
-        diag_rl = np.abs(np.sum(np.rot90(bd).diagonal()))
+        es = self.__episode_summary()
+
+        rows = np.abs(np.sum(self.__board, axis=1))
+        cols = np.abs(np.sum(self.__board, axis=0))
+        diag_lr = np.abs(np.sum(self.__board.diagonal()))
+        diag_rl = np.abs(np.sum(np.rot90(self.__board).diagonal()))
 
         if np.sum(rows == 3) > 0:
-            return True
+            es[self.sumry_won] = True
+            return es
         if np.sum(cols == 3) > 0:
-            return True
+            es[self.sumry_won] = True
+            return es
         if not np.isnan(diag_lr):
             if ((np.mod(diag_lr, 3)) == 0) and diag_lr > 0:
-                return True
+                es[self.sumry_won] = True
+                return es
         if not np.isnan(diag_rl):
             if ((np.mod(diag_rl, 3)) == 0) and diag_rl > 0:
-                return True
-        return False
+                es[self.sumry_won] = True
+                return es
+        if not TicTacToe.__actions_left_to_take(self.__board):
+            es[self.sumry_won] = True
+            es[self.sumry_draw] = True
+            return es
+
+        return es
 
     #
     # Are there any remaining actions to be taken >
     #
     @classmethod
-    def actions_left_to_take(cls, bd):
+    def __actions_left_to_take(cls, bd):
         return bd[np.isnan(bd)].size > 0
-
-    #
-    # Is the game over ?
-    #
-    def game_over(self, board=None):
-        if board is None:
-            board = self.__board
-        return TicTacToe.game_won(board) or not TicTacToe.actions_left_to_take(board)
 
     #
     # Return which player goes next given the current player
@@ -273,3 +289,16 @@ class TicTacToe:
     #
     def what_are_valid_moves(self):
         return TicTacToe.valid_moves(self.__board)
+
+    def load(self, file_name):
+        raise NotImplementedError("load() not implemented for TicTacTo")
+
+    def save(self, file_name):
+        raise NotImplementedError("save() not implemented for TicTacTo")
+
+    def export_state(self):
+        raise NotImplementedError("export_state() not implemented for TicTacTo")
+
+    def import_state(self, state_as_string):
+        raise NotImplementedError("import_state() not implemented for TicTacTo")
+    
