@@ -10,10 +10,27 @@ class TestTicTacToe(unittest.TestCase):
 
     def test_episode_complete(self):
         print("Test for episode complete")
-        ttt = TicTacToe()
 
-        self.assertEqual(ttt.episode_complete()[TicTacToe.sumry_won], False)
-        self.assertEqual(ttt.episode_complete()[TicTacToe.sumry_draw], False)
+        test_cases = [("", False),
+                      ("1:1", False),
+                      ("1:1~1:2~1:3~-1:4~-1:5~-1:9", True),
+                      ("1:1~-1:2~1:3~-1:4~1:5~-1:6~1:7~-1:8~1:9", True)]
+
+        for test_case, expected in test_cases:
+            ttt = TicTacToe()
+            ttt.import_state(test_case)
+            self.assertEqual(ttt.episode_complete(), expected)
+
+    def test_state_import_export(self):
+        print("Test for environment import / export")
+
+        test_cases = ("", "1:1", "-1:1", "-1:2",
+                      "-1:1~1:3~-1:5~1:7~-1:9",
+                      "1:1~-1:2~1:3~-1:4~1:5~-1:6~1:7~-1:8~1:9")
+        for test_case in test_cases:
+            ttt = TicTacToe()
+            ttt.import_state(test_case)
+            self.assertEqual(ttt.export_state(), test_case)
 
 
 #

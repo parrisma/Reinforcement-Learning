@@ -229,7 +229,7 @@ class TicTacToe(Environment):
     #
     def episode_complete(self):
 
-        es = self.__episode_summary()
+        es_over = False
 
         rows = np.abs(np.sum(self.__board, axis=1))
         cols = np.abs(np.sum(self.__board, axis=0))
@@ -237,25 +237,19 @@ class TicTacToe(Environment):
         diag_rl = np.abs(np.sum(np.rot90(self.__board).diagonal()))
 
         if np.sum(rows == 3) > 0:
-            es[self.sumry_won] = True
-            return es
+            return True
         if np.sum(cols == 3) > 0:
-            es[self.sumry_won] = True
-            return es
+            return True
         if not np.isnan(diag_lr):
             if ((np.mod(diag_lr, 3)) == 0) and diag_lr > 0:
-                es[self.sumry_won] = True
-                return es
+                return True
         if not np.isnan(diag_rl):
             if ((np.mod(diag_rl, 3)) == 0) and diag_rl > 0:
-                es[self.sumry_won] = True
-                return es
+                return True
         if not TicTacToe.__actions_left_to_take(self.__board):
-            es[self.sumry_won] = True
-            es[self.sumry_draw] = True
-            return es
+            return True
 
-        return es
+        return es_over
 
     #
     # Are there any remaining actions to be taken >
@@ -923,33 +917,25 @@ class TicTacToe(Environment):
     #
     def episode_complete(self):
 
-        es = self.__episode_summary()
-
         rows = np.abs(np.sum(self.__board, axis=1))
         cols = np.abs(np.sum(self.__board, axis=0))
         diag_lr = np.abs(np.sum(self.__board.diagonal()))
         diag_rl = np.abs(np.sum(np.rot90(self.__board).diagonal()))
 
         if np.sum(rows == 3) > 0:
-            es[self.sumry_won] = True
-            return es
+            return True
         if np.sum(cols == 3) > 0:
-            es[self.sumry_won] = True
-            return es
+            return True
         if not np.isnan(diag_lr):
             if ((np.mod(diag_lr, 3)) == 0) and diag_lr > 0:
-                es[self.sumry_won] = True
-                return es
+                return True
         if not np.isnan(diag_rl):
             if ((np.mod(diag_rl, 3)) == 0) and diag_rl > 0:
-                es[self.sumry_won] = True
-                return es
+                return True
         if not TicTacToe.__actions_left_to_take(self.__board):
-            es[self.sumry_won] = True
-            es[self.sumry_draw] = True
-            return es
+            return True
 
-        return es
+        return False
 
     #
     # Are there any remaining actions to be taken >
@@ -1003,16 +989,17 @@ class TicTacToe(Environment):
     # Convert internal (board) state to string
     #
     @classmethod
-    def __internal_state_to_string(cls) -> str:
-        mvc = 0
-        mvs = moves_as_str.split('~')
-        bd = np.reshape(TicTacToe.empty_board(), TicTacToe.num_actions())
-        for mv in mvs:
-            if len(mv) > 0:
-                pl, ps = mv.split(":")
-                bd[int(ps) - 1] = int(pl)
-            mvc += 1
-        return np.reshape(bd, (3, 3))
+    def __internal_state_to_string(cls, board) -> str:
+        mvs = ""
+        bd = np.reshape(board, TicTacToe.num_actions())
+        cell_num = 0
+        for actor in bd:
+            if not np.isnan(actor):
+                mvs += str(int(actor)) + ":" + str(int(cell_num+1))+"~"
+            cell_num += 1
+        if len(mvs) > 0:
+            mvs = mvs[:-1]
+        return mvs
 
     #
     # Load Environment from file
@@ -1029,8 +1016,8 @@ class TicTacToe(Environment):
     #
     # Expose current environment state as string
     #
-    def export_state(self):
-        raise NotImplementedError("export_state() not implemented for TicTacTo")
+    def export_state(self) -> str:
+        return self.__internal_state_to_string(self.__board)
 
     #
     # Set environment state from string
