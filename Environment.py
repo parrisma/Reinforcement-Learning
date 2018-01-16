@@ -45,7 +45,7 @@ class Environment(metaclass=abc.ABCMeta):
     # Import the current Environment State from given State as string
     #
     @abc.abstractmethod
-    def import_state(self, state_as_string):
+    def import_state(self, environment_as_string):
         pass
 
     #
