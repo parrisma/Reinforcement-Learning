@@ -175,7 +175,7 @@ class PlayTicTacToe:
                 self.add_states_if_missing(s)
 
                 # Update Q Values for both players based on last play reward.
-                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward[0])
+                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward)
                 # Update any discounted rewards to previous game step.
                 if prev_s is not None:
                     (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
@@ -225,7 +225,7 @@ class PlayTicTacToe:
                 self.add_states_if_missing(s)
 
                 # Update Q Values for both players based on last play reward.
-                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward[0])
+                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward)
                 if prev_s is not None:
                     (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
 
