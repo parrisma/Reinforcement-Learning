@@ -12,7 +12,7 @@ class TestTicTacToe(unittest.TestCase):
     def test_episode_complete(self):
         print("Test for episode complete")
 
-        test_cases = [("", False, False, False, TicTacToe.no_actor()),
+        test_cases = [("", False, False, False, TicTacToe.no_agent()),
                       ("1:1", False, False, False, 1),
                       ("1:1~1:2~1:3~-1:4~-1:5~-1:9", True, True, False, -1),
                       ("1:1~-1:2~1:3~1:4~-1:5~-1:6~-1:7~1:8~-1:9", True, False, True, -1),

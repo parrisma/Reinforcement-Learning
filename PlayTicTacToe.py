@@ -205,7 +205,7 @@ class PlayTicTacToe:
             prev_mv = None
             prev_s = None
 
-            plyr = (TicTacToe.player_X, TicTacToe.player_O)[randint(0, 1)]  # Random player to start
+            plyr = (TicTacToe.player_x, TicTacToe.player_o)[randint(0, 1)]  # Random player to start
 
             mv = None
             while not self.__game.episode_complete():
@@ -284,12 +284,12 @@ class PlayTicTacToe:
     #
     def play(self):
         self.__game.reset()
-        plyr = (TicTacToe.player_X, TicTacToe.player_O)[randint(0, 1)]  # Chose random player to start
+        plyr = (TicTacToe.player_x, TicTacToe.player_o)[randint(0, 1)]  # Chose random player to start
         mv = None
         game_moves_as_str = ""
         while not self.__game.episode_complete():
             st = PlayTicTacToe.state(plyr, self.__game.board())
-            if plyr == TicTacToe.player_X:
+            if plyr == TicTacToe.player_x:
                 mv = self.informed_action(st, False)  # Informed Player
             else:
                 mv = self.informed_action(st, True)  # Random Player
@@ -328,11 +328,11 @@ class PlayTicTacToe:
             profile = self.play()
             if profile not in distinct_games:
                     distinct_games[profile] = ""
-            if self.__game.episode_complete(self.__game.board(), TicTacToe.player_X):
+            if self.__game.episode_complete(self.__game.board(), TicTacToe.player_x):
                 informed_wins += 1
                 PlayTicTacToe.record_game_stats(informed_game, profile)
             else:
-                if self.__game.episode_complete(self.__game.board(), TicTacToe.player_O):
+                if self.__game.episode_complete(self.__game.board(), TicTacToe.player_o):
                     random_wins += 1
                     PlayTicTacToe.record_game_stats(random_game, profile)
                 else:
@@ -430,28 +430,62 @@ class PlayTicTacToe:
         return ape
 
     #
+    # return single q val as formatted float or spaces for nan
+    #
+    @classmethod
+    def __single_q_value_to_str(cls, sqv):
+        if np.sum(np.isnan(sqv) * 1) > 0:
+            return " " * 26
+        s = '{:+.16f}'.format(sqv)
+        s = " " * (26 - len(s)) + s
+        return s
+
+    #
+    # Render the board as human readable with q values adjacent if supplied
+    #
+    @classmethod
+    def board_as_string(cls, bd, qv=None):
+        s = ""
+        if qv is not None:
+            qv = np.reshape(qv, (3, 3))
+        for i in range(0, 3):
+            rbd = ""
+            rqv = ""
+            for j in range(0, 3):
+                rbd += "["
+                rbd += cls.__player_to_str(bd[i][j])
+                rbd += "]"
+                if qv is not None:
+                    rqv += "["
+                    rqv += cls.__single_q_value_to_str(qv[i][j])
+                    rqv += "]"
+            s += rbd + "    " + rqv + "\n"
+        s += "\n"
+        return s
+
+    #
     # Make a play based on q values (called via interactive game)
     #
     def machine_move(self, *args):
-        st = PlayTicTacToe.state(TicTacToe.player_X, self.game().board())
+        st = PlayTicTacToe.state(TicTacToe.player_x, self.game().board())
         qv = self.q_vals_for_state(st)
-        print(TicTacToe.board_as_string(self.game().board(), qv))
+        print(self.board_as_string(self.game().board(), qv))
         if args is not None:
             model = args[0][0]  # Model
         mv = self.informed_action(st, False, model)
-        self.game().play_action(mv, TicTacToe.player_X)
-        return str(TicTacToe.player_X)+":"+str(mv)+"~"
+        self.game().play_action(mv, TicTacToe.player_x)
+        return str(TicTacToe.player_x) + ":" + str(mv) + "~"
 
     #
     # Make a play based on human input  (called via interactive game)
     #
     def human_move(self, *args):
-        st = PlayTicTacToe.state(TicTacToe.player_O, self.game().board())
+        st = PlayTicTacToe.state(TicTacToe.player_o, self.game().board())
         qv = self.q_vals_for_state(st)
-        print(TicTacToe.board_as_string(self.game().board(), qv))
+        print(self.board_as_string(self.game().board(), qv))
         mv = input("Make your play_action: ")
-        self.game().play_action(int(mv), TicTacToe.player_O)
-        return str(TicTacToe.player_O)+":"+str(mv)+"~"
+        self.game().play_action(int(mv), TicTacToe.player_o)
+        return str(TicTacToe.player_o) + ":" + str(mv) + "~"
 
     #
     # Play an interactive game with the informed player via

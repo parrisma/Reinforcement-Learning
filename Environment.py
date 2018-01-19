@@ -8,6 +8,20 @@ import abc
 class Environment(metaclass=abc.ABCMeta):
 
     #
+    # An array of all the environment attributes
+    #
+    @abc.abstractmethod
+    def attribute_names(self) -> [str]:
+        pass
+
+    #
+    # Get the named attribute
+    #
+    @abc.abstractmethod
+    def attribute(self, attribute_name: str) -> object:
+        pass
+
+    #
     # Return a dictionary of all the actions supported by this Environment.
     #
     # Key : action_id
@@ -31,21 +45,21 @@ class Environment(metaclass=abc.ABCMeta):
     # Save the current Environment State
     #
     @abc.abstractmethod
-    def save(self, file_name):
+    def save(self, file_name: str):
         pass
 
     #
     # Load the current Environment State
     #
     @abc.abstractmethod
-    def load(self, file_name):
+    def load(self, file_name: str):
         pass
 
     #
     # Import the current Environment State from given State as string
     #
     @abc.abstractmethod
-    def import_state(self, environment_as_string):
+    def import_state(self, state: str):
         pass
 
     #
@@ -53,4 +67,11 @@ class Environment(metaclass=abc.ABCMeta):
     #
     @abc.abstractmethod
     def export_state(self) -> str:
+        pass
+
+    #
+    # Run the given number of iterations
+    #
+    @abc.abstractmethod
+    def run(self, iterations: int):
         pass

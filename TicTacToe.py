@@ -1,5 +1,6 @@
 import numpy as np
 from Environment import Environment
+from Agent import Agent
 
 
 class TicTacToe(Environment):
@@ -9,18 +10,17 @@ class TicTacToe(Environment):
     __bad_move_game_is_over = -1
     __bad_move_action_already_played = -2
     __bad_move_no_consecutive_plays = -3
-    __play = float(0)  # reward for playing an action
-    __draw = float(200)  # reward for playing to end but no one wins
+    __play = float(-10)  # reward for playing an action
+    __bad_play = float(-500)  # reward for taking an action in a cell that has already been played or for trying to take consecutive plays
+    __draw = float(0)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
     sumry_draw = "Draw"
     sumry_won = "Won"
     sumry_actor = "actor"
     __rewards = {"Play": 0, "Draw": 200, "Win": 100, "Loss": -200}
-    __no_actor = np.nan  # id of a non existent player i.e. used to record id of player that has not played
+    __no_agent = Agent(np.nan, "")  # id of a non existent player i.e. used to record id of player that has not played
     __win_mask = np.full((1, 3), 3, np.int8)
     __actions = {1: (0, 0), 2: (0, 1), 3: (0, 2), 4: (1, 0), 5: (1, 1), 6: (1, 2), 7: (2, 0), 8: (2, 1), 9: (2, 2)}
-    player_X = 1  # numerical value of player X on the board
-    player_O = -1  # numerical value of player O on the board
     empty_cell = np.nan  # value of a free action space on board
     asStr = True
 
@@ -28,13 +28,21 @@ class TicTacToe(Environment):
     # Constructor has no arguments as it just sets the game
     # to an initial up-played set-up
     #
-    def __init__(self):
+    def __init__(self, x: Agent, o: Agent):
         self.__board = TicTacToe.empty_board()
         self.__last_board = None
-        self.__game_over = False
-        self.__game_drawn = False
-        self.__player = TicTacToe.__no_actor
-        self.__last_player = TicTacToe.__no_actor
+        self.__episode_over = False
+        self.__episode_drawn = False
+        self.__agent = TicTacToe.__no_agent
+        self.__last_agent = TicTacToe.__no_agent
+        self.__x_agent = x
+        self.__o_agent = o
+
+    #
+    # Run the given number of iterations
+    #
+    def run(self, iterations: int):
+        return
 
     #
     # Return a new empty board.
@@ -44,8 +52,8 @@ class TicTacToe(Environment):
         return np.full((3, 3), np.nan)
 
     @classmethod
-    def no_actor(cls):
-        return cls.__no_actor
+    def no_agent(cls):
+        return cls.__no_agent
 
     #
     # Return game to initial state, where no one has played
@@ -54,78 +62,21 @@ class TicTacToe(Environment):
     def reset(self):
         self.__board = TicTacToe.empty_board()
         self.__last_board = None
-        self.__game_over = False
-        self.__game_drawn = False
-        self.__player = TicTacToe.__no_actor
-        self.__last_player = TicTacToe.__no_actor
+        self.__episode_over = False
+        self.__episode_drawn = False
+        self.__agent = TicTacToe.__no_agent
+        self.__last_agent = TicTacToe.__no_agent
 
     #
     # Return a displayable version of the entire game.
     #
     def __str__(self):
         s = ""
-        s += "Game Over: " + str(self.__game_over) + "\n"
-        s += "Player :" + TicTacToe.__player_to_str(self.__player) + "\n"
+        s += "Episode Over: " + str(self.__episode_over) + "\n"
+        s += "Current Agent :" + TicTacToe.__agent_to_str(self.__agent) + "\n"
+        s += "Prev Agent :" + TicTacToe.__agent_to_str(self.__last_agent) + "\n"
         s += "Current Board : \n" + str(self.__board) + "\n"
-        s += "Prev Player :" + TicTacToe.__player_to_str(self.__last_player) + "\n"
-        s += "Prev Current Board : \n" + str(self.__last_board) + "\n"
         return s
-
-    #
-    # Render the board as human readable with q values adjacent if supplied
-    #
-    @classmethod
-    def board_as_string(cls, bd, qv=None):
-        s = ""
-        if qv is not None:
-            qv = np.reshape(qv, (3, 3))
-        for i in range(0, 3):
-            rbd = ""
-            rqv = ""
-            for j in range(0, 3):
-                rbd += "["
-                rbd += cls.__player_to_str(bd[i][j])
-                rbd += "]"
-                if qv is not None:
-                    rqv += "["
-                    rqv += cls.__single_q_value_to_str(qv[i][j])
-                    rqv += "]"
-            s += rbd + "    " + rqv + "\n"
-        s += "\n"
-        return s
-
-    #
-    # return player as string "X" or "O"
-    #
-    @classmethod
-    def __player_to_str(cls, player):
-        if np.sum(np.isnan(player) * 1) > 0:
-            return " "
-        if player == TicTacToe.player_X:
-            return "X"
-        if player == TicTacToe.player_O:
-            return "O"
-        return " "
-
-    #
-    # return single q val as formatted float or spaces for nan
-    #
-    @classmethod
-    def __single_q_value_to_str(cls, sqv):
-        if np.sum(np.isnan(sqv) * 1) > 0:
-            return " " * 26
-        s = '{:+.16f}'.format(sqv)
-        s = " " * (26 - len(s)) + s
-        return s
-
-    #
-    # return player as integer
-    #
-    @classmethod
-    def player_to_int(cls, player):
-        if np.isnan(player):
-            return 0
-        return int(player)
 
     #
     # Return the number of possible actions as a list of integers.
@@ -145,35 +96,19 @@ class TicTacToe(Environment):
     # Return the board index (i,j) of a given action
     #
     @classmethod
-    def board_index(cls, action):
+    def __board_index(cls, action):
         return TicTacToe.__actions[action]
-
-    #
-    # Return rewards as dictionary where key is name of reward
-    # and the value is the reward
-    #
-    @classmethod
-    def rewards(cls):
-        return TicTacToe.__rewards
 
     #
     # Assume the play_action has been validated by play_action method
     # Make a copy of board before play_action is made and the last player
     #
-    def __take_action(self, action, player):
+    def __take_action(self, action, agent: Agent):
         self.__last_board = np.copy(self.__board)
-        self.__last_player = self.__player
-        self.__player = player
-        self.__board[TicTacToe.board_index(action)] = self.__player
+        self.__last_agent = self.__agent
+        self.__agent = agent.id()
+        self.__board[TicTacToe.__board_index(action)] = self.__agent
         return
-
-    #
-    # Has a player already moved using the given action.
-    #
-    def invalid_action(self, action, board=None):
-        if board is None:
-            board = self.__board
-        return not np.isnan(board[TicTacToe.board_index(action)])
 
     #
     # If the proposed action is a valid action and the game is not
@@ -182,17 +117,18 @@ class TicTacToe(Environment):
     #
     # return the rewards (Player who took play_action, Observer)
     #
-    def play_action(self, action, agent):
+    def play_action(self, action, agent: Agent):
         #
         # ToDo: This needs a re-work either throw exception and/or treat these as. At the
         # ToDo: very least these need to be thrown as exceptions
         #       things the game needs to learn about actions
         if TicTacToe.episode_complete()[self.sumry_won]:
-            return TicTacToe.__bad_move_game_is_over
+            raise RuntimeError("Episode is complete, no more actions can be taken")
+        if agent == self.__agent:
+            raise RuntimeError("Same Agent" + str(agent) + " cannot play consecutive action")
+
         if self.invalid_action(action):
             return TicTacToe.__bad_move_action_already_played
-        if agent == self.__player:
-            return TicTacToe.__bad_move_no_consecutive_plays
 
         # Make the play on the board.
         self.__take_action(action, agent)
@@ -220,7 +156,7 @@ class TicTacToe(Environment):
         es = dict()
         es[self.sumry_draw] = not self.__actions_left_to_take()
         es[self.sumry_won] = self.__episode_won()
-        es[self.sumry_actor] = self.__player
+        es[self.sumry_actor] = self.__agent
         return es
 
     #
@@ -269,10 +205,10 @@ class TicTacToe(Environment):
     #
     @staticmethod
     def other_player(current_player):
-        if current_player == TicTacToe.player_O:
-            return TicTacToe.player_X
+        if current_player == TicTacToe.player_o:
+            return TicTacToe.player_x
         else:
-            return TicTacToe.player_O
+            return TicTacToe.player_o
 
     #
     # What moves are valid for the given board
@@ -317,15 +253,27 @@ class TicTacToe(Environment):
         return mvs
 
     #
+    # The current state of the environment as numpy array
+    #
+    def state_as_array(self) -> np.array():
+        return np.reshape(self.__board, self.__board.size)
+
+    #
+    # The current state of the environment as string
+    #
+    def state_as_str(self) -> str:
+        return self.__internal_state_to_string()
+
+    #
     # Load Environment from file
     #
-    def load(self, file_name):
+    def load(self, file_name: str):
         raise NotImplementedError("load() not implemented for TicTacTo")
 
     #
     # Save Environment to file
     #
-    def save(self, file_name):
+    def save(self, file_name: str):
         raise NotImplementedError("save() not implemented for TicTacTo")
 
     #
@@ -337,5 +285,5 @@ class TicTacToe(Environment):
     #
     # Set environment state from string
     #
-    def import_state(self, environment_as_string):
-        self.__string_to_internal_state(environment_as_string)
+    def import_state(self, state_as_string):
+        self.__string_to_internal_state(state_as_string)
