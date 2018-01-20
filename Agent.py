@@ -23,6 +23,14 @@ class Agent(metaclass=abc.ABCMeta):
         pass
 
     #
+    # Called by the environment *once* at the start of the session
+    # and the action set is given as dictionary
+    #
+    @abc.abstractmethod
+    def session_init(self, actions: dict):
+        pass
+
+    #
     # Environment call back when environment shuts down
     #
     @abc.abstractmethod

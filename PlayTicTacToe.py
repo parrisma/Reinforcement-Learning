@@ -169,7 +169,7 @@ class PlayTicTacToe:
                 prev_s = s
 
                 s = PlayTicTacToe.state(plyr, self.__game.board())
-                reward = self.__game.play_action(mv, plyr)
+                reward = self.__game.__play_action(mv, plyr)
                 learning_rate = PlayTicTacToe.q_learning_rate(len(self.__q_values))
 
                 self.add_states_if_missing(s)
@@ -219,7 +219,7 @@ class PlayTicTacToe:
 
                 prev_s = s
                 s = PlayTicTacToe.state(plyr, self.__game.board())
-                reward = self.__game.play_action(mv, plyr)
+                reward = self.__game.__play_action(mv, plyr)
                 learning_rate = PlayTicTacToe.q_learning_rate(len(self.__q_values))
 
                 self.add_states_if_missing(s)
@@ -293,7 +293,7 @@ class PlayTicTacToe:
                 mv = self.informed_action(st, False)  # Informed Player
             else:
                 mv = self.informed_action(st, True)  # Random Player
-            self.__game.play_action(mv, plyr)
+            self.__game.__play_action(mv, plyr)
             game_moves_as_str += str(plyr) + ":" + str(mv) + "~"
             plyr = TicTacToe.other_player(plyr)
         return game_moves_as_str
@@ -473,7 +473,7 @@ class PlayTicTacToe:
         if args is not None:
             model = args[0][0]  # Model
         mv = self.informed_action(st, False, model)
-        self.game().play_action(mv, TicTacToe.player_x)
+        self.game().__play_action(mv, TicTacToe.player_x)
         return str(TicTacToe.player_x) + ":" + str(mv) + "~"
 
     #
@@ -484,7 +484,7 @@ class PlayTicTacToe:
         qv = self.q_vals_for_state(st)
         print(self.board_as_string(self.game().board(), qv))
         mv = input("Make your play_action: ")
-        self.game().play_action(int(mv), TicTacToe.player_o)
+        self.game().__play_action(int(mv), TicTacToe.player_o)
         return str(TicTacToe.player_o) + ":" + str(mv) + "~"
 
     #

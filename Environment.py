@@ -29,7 +29,7 @@ class Environment(metaclass=abc.ABCMeta):
     #
     @classmethod
     @abc.abstractmethod
-    def actions(cls) -> dict:
+    def actions(cls) -> [int]:
         pass
 
     #
