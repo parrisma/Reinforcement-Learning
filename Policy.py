@@ -29,3 +29,17 @@ class Policy(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) ->int:
         pass
+
+    #
+    # Export the current policy to the given file name
+    #
+    @abc.abstractmethod
+    def save(self, filename: str):
+        pass
+
+    #
+    # Import the current policy to the given file name
+    #
+    @abc.abstractmethod
+    def load(self, filename: str):
+        pass

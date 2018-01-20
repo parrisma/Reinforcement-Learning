@@ -1,16 +1,25 @@
-from Agent import Agent
+import random
 from State import State
+from random import randint
+from Agent import Agent
 from Policy import Policy
 
 
 class TicTacToeAgent(Agent):
 
-    __total_reward = float(0)
-
-    def __init__(self, agent_id: int, agent_name: str, policy: Policy):
+    def __init__(self,
+                 agent_id: int,                    # immutable & unique id for this agent
+                 agent_name: str,                  # immutable & unique name for this agent
+                 policy: Policy,                   # the policy to drive action selection.
+                 epsilon_greedy: float=float(0)):  # if random() > epsilon greedy take greedy action else random action
         self.__id = agent_id
         self.__name = agent_name
         self.__policy = policy
+        self.__epsilon_greedy = epsilon_greedy
+        self.__state = None
+        self.__action = -1  # no action
+        self.__prev_state = None
+        self.__prev_action = -1  # no action
 
     # Return immutable id
     #
@@ -32,14 +41,12 @@ class TicTacToeAgent(Agent):
     # Environment call back when episode starts
     #
     def episode_init(self, state: State):
-        self.__total_reward = float(0)
         return
 
     #
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        print(self.__name + " episode reward : " + str(self.__total_reward))
         return
 
     #
@@ -49,8 +56,26 @@ class TicTacToeAgent(Agent):
     # possible_actions : The set of possible actions the agent can play from this state
     #
     def chose_action(self, state: State, possible_actions: [int]) -> int:
-        action = self.__policy.greedy_action(state, possible_actions)
-        print(self.__name + " chose action : " + str(action))
+
+        # if random() > epsilon greedy then take greedy action else a random action
+        if random.random() >= self.__epsilon_greedy:
+            try:
+                # If there are q values for given state we can predict a greedy action
+                action = self.__policy.greedy_action(self.__name, state, possible_actions)
+                print(self.__name + " chose greedy action : " + str(action))
+            except RuntimeError:
+                # cannot predict a greedy action so random
+                action = possible_actions[randint(0, len(possible_actions) - 1)]
+                print(self.__name + " chose random action : " + str(action))
+        else:
+            action = possible_actions[randint(0, len(possible_actions) - 1)]
+            print(self.__name + " chose random action : " + str(action))
+
+        self.__prev_action = self.__action
+        self.__action = action
+        self.__prev_state = self.__state
+        self.__state = None  # we are now in limbo until the above action is played.
+
         return action
 
     #
@@ -58,8 +83,13 @@ class TicTacToeAgent(Agent):
     # state passed.
     #
     def reward(self, state: State, reward_for_play: float):
-        print(self.__name + " reward: " + str(reward_for_play))
-        self.__total_reward += reward_for_play
+        self.__state = state
+        self.__policy.update_policy(self.name(),
+                                    self.__prev_state,
+                                    self.__prev_action,
+                                    self.__state,
+                                    self.__action,
+                                    reward_for_play)
         return
 
     #

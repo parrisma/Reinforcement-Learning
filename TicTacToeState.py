@@ -1,5 +1,5 @@
+import numpy as np
 from State import State
-from Environment import Environment
 
 
 class TicTacToeState(State):
@@ -7,8 +7,8 @@ class TicTacToeState(State):
     #
     # Constructor has no arguments as it just sets the game
     #
-    def __init__(self, env: Environment):
-        self.__env = env
+    def __init__(self, board: np.array):
+        self.__board = board
 
     #
     # An environment specific representation for Env. State
@@ -20,10 +20,10 @@ class TicTacToeState(State):
     # An string representation of the environment state
     #
     def state_as_string(self) -> str:
-        return None
-
-    #
-    # The environment the state was initiated with.
-    #
-    def get_env(self) -> Environment:
-        return self.__env
+        st = ""
+        for cell in np.reshape(self.__board, self.__board.size):
+            if np.isnan(cell):
+                st += "0"
+            else:
+                st += str(int(cell))
+        return st

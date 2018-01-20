@@ -2,6 +2,7 @@ import numpy as np
 from random import randint
 from Environment import Environment
 from Agent import Agent
+from State import State
 from TicTacToeState import TicTacToeState
 
 
@@ -11,7 +12,6 @@ class TicTacToe(Environment):
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
     __play = float(0)  # reward for playing an action
-    __bad_play = float(-500)  # reward for taking an action in a cell that has already been played
     __draw = float(0)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
     __no_agent = None
@@ -19,9 +19,11 @@ class TicTacToe(Environment):
     __actions = {0: (0, 0), 1: (0, 1), 2: (0, 2), 3: (1, 0), 4: (1, 1), 5: (1, 2), 6: (2, 0), 7: (2, 1), 8: (2, 2)}
     empty_cell = np.nan  # value of a free action space on board
     asStr = True
-    sumry_draw = "Draw"
-    sumry_won = "Won"
-    sumry_actor = "actor"
+    attribute_draw = ("Draw", "True if episode ended in a drawn state", bool)
+    attribute_won = ("Won", "True if episode ended in a win state", bool)
+    attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
+    attribute_agent = ("agent", "The last agent to make a move", Agent)
+    attribute_board = ("board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
 
     #
     # Constructor has no arguments as it just sets the game
@@ -37,6 +39,7 @@ class TicTacToe(Environment):
         self.__next_agent = {x.name(): o, o.name(): x}
         self.__x_agent.session_init(self.actions())
         self.__o_agent.session_init(self.actions())
+        return
 
     #
     # Return game to initial state, where no one has played
@@ -47,6 +50,7 @@ class TicTacToe(Environment):
         self.__last_board = None
         self.__agent = TicTacToe.__no_agent
         self.__last_agent = TicTacToe.__no_agent
+        return
 
     #
     # An array of all the environment attributes
@@ -67,14 +71,14 @@ class TicTacToe(Environment):
         i = 0
         while i <= iterations:
             self.reset()
-            state = TicTacToeState(self)
+            state = TicTacToeState(self.__board)
             self.__x_agent.episode_init(state)
             self.__o_agent.episode_init(state)
             agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
             while not self.episode_complete():
                 agent = self.__play_action(agent)
                 i += 1
-            state = TicTacToeState(self)
+            state = TicTacToeState(self.__board)
             self.__x_agent.episode_complete(state)
             self.__o_agent.episode_complete(state)
         return
@@ -109,13 +113,6 @@ class TicTacToe(Environment):
         return
 
     #
-    # Return True if the given action has already been
-    # taken on the board.
-    #
-    def __invalid_action(self, action: int) -> bool:
-        return not np.isnan(self.__board[action])
-
-    #
     # Make the play chosen by the given agent. If it is a valid play
     # confer reward and switch play to other agent. If invalid play
     # i.e. play in a cell where there is already a marker confer
@@ -124,41 +121,38 @@ class TicTacToe(Environment):
     def __play_action(self, agent: Agent) -> Agent:
 
         other_agent = self.__next_agent[agent.name()]
-        state = TicTacToeState(self)
-        action = self.__actions[agent.chose_action(state)]
-
-        if self.__invalid_action(action):
-            agent.reward(state, self.__bad_play)
-            return agent
+        state = TicTacToeState(self.__board)
+        action = self.__actions[agent.chose_action(state, self.__actions_ids_left_to_take())]
 
         # Make the play on the board.
         self.__take_action(action, agent)
 
         if self.episode_complete():
-            es = self.episode_summary()
-            if es[self.sumry_won]:
+            attributes = self.attributes()
+            if attributes[self.attribute_won[0]]:
                 agent.reward(state, self.__win)
                 other_agent.reward(state, -1 * self.__win)
-                return None
-            if es[self.sumry_draw]:
+                return None  # episode complete - no next agent to go
+            if attributes[self.attribute_draw[0]]:
                 agent.reward(state, self.__draw)
-                other_agent.reward(state, -1 * self.__draw)
-                return None
+                other_agent.reward(state, self.__draw)
+                return None  # episode complete - no next agent to go
 
         agent.reward(state, self.__play)
-        other_agent.reward(state, -self.__play)
-        return other_agent
+        return other_agent  # play moves to next agent
 
     #
-    # Create episode summary; return a dictionary of the episode
-    # summary populated with defaults
+    # Return the attributes of the environment
     #
-    def episode_summary(self):
-        es = dict()
-        es[self.sumry_draw] = not self.__actions_left_to_take()
-        es[self.sumry_won] = self.__episode_won()
-        es[self.sumry_actor] = self.__agent
-        return es
+    def attributes(self):
+        attr_dict = dict()
+        attr_dict[TicTacToe.attribute_draw[0]] = not self.__actions_left_to_take()
+        attr_dict[TicTacToe.attribute_won[0]] = self.__episode_won()
+        attr_dict[TicTacToe.attribute_complete[0]] = \
+            attr_dict[TicTacToe.attribute_draw[0]] or attr_dict[TicTacToe.attribute_won[0]]
+        attr_dict[TicTacToe.attribute_agent[0]] = self.__agent
+        attr_dict[TicTacToe.attribute_board[0]] = np.copy(self.__board)
+        return attr_dict
 
     #
     # Is there a winning move on the board.
@@ -186,6 +180,15 @@ class TicTacToe(Environment):
     #
     def __actions_left_to_take(self):
         return self.__board[np.isnan(self.__board)].size > 0
+
+    #
+    # Are there any remaining actions to be taken >
+    #
+    def __actions_ids_left_to_take(self):
+        alt = np.reshape(self.__board, self.__board.size)
+        alt = np.isnan(alt) * np.asarray(self.actions())
+        alt = alt[alt != 0]
+        return alt
 
     #
     # The episode is over if one agent has made a line of three on
@@ -254,3 +257,9 @@ class TicTacToe(Environment):
     #
     def import_state(self, state_as_string):
         self.__string_to_internal_state(state_as_string)
+
+    #
+    # Return the State of the environment
+    #
+    def state(self) -> State:
+        return TicTacToeState(self.__board)

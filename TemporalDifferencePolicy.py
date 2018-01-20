@@ -1,6 +1,7 @@
 import numpy as np
 from Policy import Policy
 from State import State
+from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
 from random import randint
 
 
@@ -12,18 +13,18 @@ class TemporalDifferencePolicy(Policy):
     #
     __q_values = None  # key: Agent id + State & Value: (dictionary of key: action -> Value: Q value)
     __n = 0  # number of learning events
+    __learning_rate_0 = float(0.05)
+    __discount_factor = float(0.8)
+    __learning_rate_decay = float(0.001)
 
     #
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self,
-                 learning_rate_0: float = float(0.05),
-                 discount_factor: float = float(0.8),
-                 learning_rate_decay: float = float(0.001)):
-        self.__learning_rate_0 = learning_rate_0
-        self.__discount_factor = discount_factor
-        self.__learning_rate_decay = learning_rate_decay
+    def __init__(self, filename: str=""):
+        self.__filename = filename
+        self.__persistance = TemporalDifferencePolicyPersistance()
+        return
 
     #
     # Return the learning rate based on number of learning's to date
@@ -33,8 +34,8 @@ class TemporalDifferencePolicy(Policy):
         return cls.__learning_rate_0 / (1 + (cls.__n * cls.__learning_rate_decay))
 
     @classmethod
-    def __q_value_state_name(cls, agent_name: str, state:State) -> str:
-        return agent_name + "::" + state.state_as_string()
+    def __q_value_state_name(cls, agent_name: str, state: State) -> str:
+        return agent_name + ":" + state.state_as_string()
 
     #
     # Manage q value store
@@ -48,7 +49,9 @@ class TemporalDifferencePolicy(Policy):
         if q_val_state_name not in cls.__q_values:
             cls.__q_values[q_val_state_name] = dict()
 
-        cls.__q_values[q_val_state_name][action] = float(0)
+        if action not in cls.__q_values[q_val_state_name]:
+            cls.__q_values[q_val_state_name][action] = float(0)
+
         return
 
     #
@@ -75,13 +78,17 @@ class TemporalDifferencePolicy(Policy):
     @classmethod
     def __get_q_vals_as_np_array(cls, agent_name: str, state: State) -> np.array:
         q_values = None
-        state_name = cls.__q_value_state_name(agent_name, state)
 
-        if state_name in cls.__q_values:
-            q_values = np.full(len(cls.__q_values[state_name]), np.nan)
-            i = 0
-            for k, v in cls.__q_values[state_name]:
-                q_values[i] = v
+        # If there are no Q values learned yet we cannot predict a greedy action.
+        if cls.__q_values is not None:
+            state_name = cls.__q_value_state_name(agent_name, state)
+
+            if state_name in cls.__q_values:
+                q_values = np.full(len(cls.__q_values[state_name]), np.nan)
+                i = 0
+                for k, v in cls.__q_values[state_name].items():
+                    q_values[i] = v
+                    i += 1
 
         return q_values
 
@@ -96,10 +103,15 @@ class TemporalDifferencePolicy(Policy):
     #
     def update_policy(self, agent_name: str, prev_state: State, prev_action: int, state: State, action: int, reward: float):
 
+        # Update master count of policy learning events
+        TemporalDifferencePolicy.__n += 1
+        if self.__n % 10 == 0:
+            self.__save()
+
         # Update current state to reflect the reward
         qv = TemporalDifferencePolicy.__get_q_value(agent_name, state, action)
         lr = TemporalDifferencePolicy.__q_learning_rate()
-        qv = lr *(qv + (1-lr)*reward)
+        qv = lr * (qv + (1-lr)*reward)
         TemporalDifferencePolicy.__set_q_value(agent_name, state, action, qv)
 
         # discount the reward to prior state so we can establish reward attribution path
@@ -107,11 +119,10 @@ class TemporalDifferencePolicy(Policy):
         #
         if prev_state is not None:
             qvp = TemporalDifferencePolicy.__get_q_value(agent_name, prev_state, prev_action)
-            if qvp is not None:
-                qvs = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
-                ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
-                qv = self.__discount_factor * ou
-                TemporalDifferencePolicy.__set_q_value(agent_name, prev_state, prev_action, qv)
+            qvs = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
+            ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
+            qvp += self.__discount_factor * ou
+            TemporalDifferencePolicy.__set_q_value(agent_name, prev_state, prev_action, qvp)
         return
 
     #
@@ -144,7 +155,26 @@ class TemporalDifferencePolicy(Policy):
             raise RuntimeError("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
         actns = list()
-        for k,v in TemporalDifferencePolicy.__q_values[TemporalDifferencePolicy.__q_value_state_name]
+        for k, v in TemporalDifferencePolicy.__q_values[TemporalDifferencePolicy.__q_value_state_name]:
             if v == ou:
                 actns.append(k)
         return actns(randint(0, len(actns)-1))
+
+    #
+    # Save with class default filename.
+    #
+    def __save(self):
+        self.save(self.__filename)
+
+    #
+    # Export the current policy to the given file name
+    #
+    def save(self, filename: str):
+        self.__persistance.save(TemporalDifferencePolicy.__q_values, filename)
+        return
+
+    #
+    # Import the current policy to the given file name
+    #
+    def load(self, filename: str):
+        return

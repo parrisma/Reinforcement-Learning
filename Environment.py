@@ -1,4 +1,5 @@
 import abc
+from State import State
 
 #
 # This abstract base class is the fundamental contract with the Agents.
@@ -57,6 +58,7 @@ class Environment(metaclass=abc.ABCMeta):
 
     #
     # Import the current Environment State from given State as string
+    # ToDo: Remove and reconsider test strategy using test Agents
     #
     @abc.abstractmethod
     def import_state(self, state: str):
@@ -64,6 +66,7 @@ class Environment(metaclass=abc.ABCMeta):
 
     #
     # Export the current Environment State to String
+    # ToDo: Remove and reconsider test strategy using test Agents
     #
     @abc.abstractmethod
     def export_state(self) -> str:
@@ -74,4 +77,18 @@ class Environment(metaclass=abc.ABCMeta):
     #
     @abc.abstractmethod
     def run(self, iterations: int):
+        pass
+
+    #
+    # Return the public environment attributes
+    #
+    @abc.abstractmethod
+    def attributes(self) -> dict:
+        pass
+
+    #
+    # Return the State of the environment
+    #
+    @abc.abstractmethod
+    def state(self) -> State:
         pass

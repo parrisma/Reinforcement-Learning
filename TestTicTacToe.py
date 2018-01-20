@@ -24,12 +24,12 @@ class TestTicTacToe(unittest.TestCase):
             self.assertEqual(ttt.episode_complete(), expected1)
 
             episode_summary = ttt.episode_summary()
-            self.assertEqual(episode_summary[TicTacToe.sumry_won], expected2)
-            self.assertEqual(episode_summary[TicTacToe.sumry_draw], expected3)
+            self.assertEqual(episode_summary[TicTacToe.attribute_won], expected2)
+            self.assertEqual(episode_summary[TicTacToe.attribute_draw], expected3)
             if np.isnan(expected4):
-                self.assertEqual(np.isnan(episode_summary[TicTacToe.sumry_actor]), True)
+                self.assertEqual(np.isnan(episode_summary[TicTacToe.attribute_agent]), True)
             else:
-                self.assertEqual(episode_summary[TicTacToe.sumry_actor], expected4)
+                self.assertEqual(episode_summary[TicTacToe.attribute_agent], expected4)
 
     def test_state_import_export(self):
         print("Test for environment import / export")
