@@ -53,10 +53,12 @@ class Agent(metaclass=abc.ABCMeta):
 
     #
     # Environment call back to ask the agent to chose an action
-    # given the environment in the current state.
+    #
+    # State : The current state of the environment
+    # possible_actions : The set of possible actions the agent can play from this state
     #
     @abc.abstractmethod
-    def chose_action(self, state: State)-> int:
+    def chose_action(self, state: State, possible_actions: [int])-> int:
         pass
 
     #

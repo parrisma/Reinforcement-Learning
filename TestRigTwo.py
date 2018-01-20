@@ -1,13 +1,15 @@
 import random
 import numpy as np
-from RandomNonLearningAgent import RandomNonLearningAgent
+from TicTacToeAgent import TicTacToeAgent
+from SimpleRandomPolicy import SimpleRandomPolicy
 from TicTacToe import TicTacToe
 
 random.seed(42)
 np.random.seed(42)
 
-agent_x = RandomNonLearningAgent(1, "X")
-agent_o = RandomNonLearningAgent(-1, "O")
+actions = TicTacToe.actions()
+agent_x = TicTacToeAgent(1, "X", SimpleRandomPolicy(actions))
+agent_o = TicTacToeAgent(-1, "O", SimpleRandomPolicy(actions))
 
 game = TicTacToe(agent_x, agent_o)
 

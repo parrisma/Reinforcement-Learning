@@ -77,7 +77,7 @@ class PlayTicTacToe:
             self.__q_values = dict()
 
         if state not in self.__q_values:
-            self.__q_values[state] = TicTacToe.empty_board()
+            self.__q_values[state] = TicTacToe.__empty_board()
             self.__q_values[state] = np.reshape(self.__q_values[state], self.__q_values[state].size)  # flatten
 
     #
@@ -372,7 +372,7 @@ class PlayTicTacToe:
     def string_of_moves_to_a_board(cls, moves_as_str):
         mvc = 0
         mvs = moves_as_str.split('~')
-        bd = np.reshape(TicTacToe.empty_board(),TicTacToe.num_actions())
+        bd = np.reshape(TicTacToe.__empty_board(), TicTacToe.num_actions())
         for mv in mvs:
             if len(mv) > 0:
                 pl, ps = mv.split(":")

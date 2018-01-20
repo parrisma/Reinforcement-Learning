@@ -28,7 +28,7 @@ class TicTacToe(Environment):
     # to an initial up-played set-up
     #
     def __init__(self, x: Agent, o: Agent):
-        self.__board = TicTacToe.empty_board()
+        self.__board = TicTacToe.__empty_board()
         self.__last_board = None
         self.__agent = TicTacToe.__no_agent
         self.__last_agent = TicTacToe.__no_agent
@@ -43,7 +43,7 @@ class TicTacToe(Environment):
     # and the board contains no moves.
     #
     def reset(self):
-        self.__board = TicTacToe.empty_board()
+        self.__board = TicTacToe.__empty_board()
         self.__last_board = None
         self.__agent = TicTacToe.__no_agent
         self.__last_agent = TicTacToe.__no_agent
@@ -83,7 +83,7 @@ class TicTacToe(Environment):
     # Return a new empty board.
     #
     @classmethod
-    def empty_board(cls):
+    def __empty_board(cls):
         return np.full((3, 3), np.nan)
 
     @classmethod
