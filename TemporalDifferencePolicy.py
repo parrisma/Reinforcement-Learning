@@ -2,7 +2,9 @@ import numpy as np
 from Policy import Policy
 from State import State
 from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+from EvaluationException import EvaluationExcpetion
 from random import randint
+from FixedGames import FixedGames
 
 
 class TemporalDifferencePolicy(Policy):
@@ -16,6 +18,7 @@ class TemporalDifferencePolicy(Policy):
     __learning_rate_0 = float(0.05)
     __discount_factor = float(0.8)
     __learning_rate_decay = float(0.001)
+    __fixed_games = FixedGames()
 
     #
     # At inti time the only thing needed is the universal set of possible
@@ -73,24 +76,28 @@ class TemporalDifferencePolicy(Policy):
         cls.__q_values[state_name][action] = q_value
 
     #
-    # get q values as numpy array
+    # get q values and associated actions as numpy array
     #
     @classmethod
     def __get_q_vals_as_np_array(cls, agent_name: str, state: State) -> np.array:
         q_values = None
+        q_actions = None
 
         # If there are no Q values learned yet we cannot predict a greedy action.
         if cls.__q_values is not None:
             state_name = cls.__q_value_state_name(agent_name, state)
 
             if state_name in cls.__q_values:
-                q_values = np.full(len(cls.__q_values[state_name]), np.nan)
+                sz = len(cls.__q_values[state_name])
+                q_values = np.full(sz, np.nan)
+                q_actions = np.full(sz, np.int(0))
                 i = 0
                 for k, v in cls.__q_values[state_name].items():
                     q_values[i] = v
+                    q_actions[i] = np.int(k)
                     i += 1
 
-        return q_values
+        return q_values, q_actions
 
     #
     # Use temporal difference methods to keep q values for the given state/action plays.
@@ -119,7 +126,7 @@ class TemporalDifferencePolicy(Policy):
         #
         if prev_state is not None:
             qvp = TemporalDifferencePolicy.__get_q_value(agent_name, prev_state, prev_action)
-            qvs = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
+            qvs, actn = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
             ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
             qvp += self.__discount_factor * ou
             TemporalDifferencePolicy.__set_q_value(agent_name, prev_state, prev_action, qvp)
@@ -150,15 +157,23 @@ class TemporalDifferencePolicy(Policy):
     # equal strength.
     #
     def greedy_action(self, agent_name: str, state: State, possible_actions) -> int:
-        qvs = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
+
+        if self.__fixed_games is not None:
+            return self.__fixed_games.next_action()
+
+        qvs, actns = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
         if qvs is None:
-            raise RuntimeError("No Q Values with which to select greedy action")
+            raise EvaluationExcpetion("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
-        actns = list()
-        for k, v in TemporalDifferencePolicy.__q_values[TemporalDifferencePolicy.__q_value_state_name]:
+        greedy_actions = list()
+        for v, a in np.vstack([qvs, actns]).T:
             if v == ou:
-                actns.append(k)
-        return actns(randint(0, len(actns)-1))
+                if a in possible_actions:
+                    greedy_actions.append(int(a))
+        if len(greedy_actions) == 0:
+            raise EvaluationExcpetion("No Q Values mapping to possible actions, cannot select greedy action")
+
+        return greedy_actions[randint(0, len(greedy_actions)-1)]
 
     #
     # Save with class default filename.

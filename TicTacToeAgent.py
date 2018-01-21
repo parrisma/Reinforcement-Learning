@@ -1,4 +1,5 @@
 import random
+from EvaluationException import EvaluationExcpetion
 from State import State
 from random import randint
 from Agent import Agent
@@ -63,7 +64,7 @@ class TicTacToeAgent(Agent):
                 # If there are q values for given state we can predict a greedy action
                 action = self.__policy.greedy_action(self.__name, state, possible_actions)
                 print(self.__name + " chose greedy action : " + str(action))
-            except RuntimeError:
+            except EvaluationExcpetion:
                 # cannot predict a greedy action so random
                 action = possible_actions[randint(0, len(possible_actions) - 1)]
                 print(self.__name + " chose random action : " + str(action))
@@ -73,8 +74,6 @@ class TicTacToeAgent(Agent):
 
         self.__prev_action = self.__action
         self.__action = action
-        self.__prev_state = self.__state
-        self.__state = None  # we are now in limbo until the above action is played.
 
         return action
 
@@ -83,6 +82,7 @@ class TicTacToeAgent(Agent):
     # state passed.
     #
     def reward(self, state: State, reward_for_play: float):
+        self.__prev_state = self.__state
         self.__state = state
         self.__policy.update_policy(self.name(),
                                     self.__prev_state,

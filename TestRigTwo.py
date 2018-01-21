@@ -16,4 +16,4 @@ agent_o = TicTacToeAgent(-1, "O", TemporalDifferencePolicy("./qvn_dump.pb"))
 
 game = TicTacToe(agent_x, agent_o)
 
-game.run(50)
+game.run(5000)

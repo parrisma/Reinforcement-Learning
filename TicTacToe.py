@@ -70,6 +70,7 @@ class TicTacToe(Environment):
     def run(self, iterations: int):
         i = 0
         while i <= iterations:
+            print("Start Episode")
             self.reset()
             state = TicTacToeState(self.__board)
             self.__x_agent.episode_init(state)
@@ -78,6 +79,7 @@ class TicTacToe(Environment):
             while not self.episode_complete():
                 agent = self.__play_action(agent)
                 i += 1
+            print("Episode Complete")
             state = TicTacToeState(self.__board)
             self.__x_agent.episode_complete(state)
             self.__o_agent.episode_complete(state)
@@ -186,8 +188,7 @@ class TicTacToe(Environment):
     #
     def __actions_ids_left_to_take(self):
         alt = np.reshape(self.__board, self.__board.size)
-        alt = np.isnan(alt) * np.asarray(self.actions())
-        alt = alt[alt != 0]
+        alt = np.asarray(self.actions())[np.isnan(alt) == True]
         return alt
 
     #

@@ -8,7 +8,7 @@ class TicTacToeState(State):
     # Constructor has no arguments as it just sets the game
     #
     def __init__(self, board: np.array):
-        self.__board = board
+        self.__board = np.copy(board)  # State must be immutable
 
     #
     # An environment specific representation for Env. State
