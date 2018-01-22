@@ -5,6 +5,7 @@ from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersista
 from EvaluationException import EvaluationExcpetion
 from random import randint
 from FixedGames import FixedGames
+from typing import Tuple
 
 
 class TemporalDifferencePolicy(Policy):
@@ -24,9 +25,17 @@ class TemporalDifferencePolicy(Policy):
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, filename: str=""):
+    def __init__(self, filename: str="", load_file: bool=False):
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
+
+        if load_file:
+            (TemporalDifferencePolicy.__q_values,
+             TemporalDifferencePolicy.__n,
+             TemporalDifferencePolicy.__learning_rate_0,
+             TemporalDifferencePolicy.__discount_factor,
+             TemporalDifferencePolicy.__learning_rate_decay) \
+                = self.__persistance.load(filename)
         return
 
     #
@@ -185,11 +194,23 @@ class TemporalDifferencePolicy(Policy):
     # Export the current policy to the given file name
     #
     def save(self, filename: str):
-        self.__persistance.save(TemporalDifferencePolicy.__q_values, filename)
+        self.__persistance.save(TemporalDifferencePolicy.__q_values,
+                                TemporalDifferencePolicy.__n,
+                                TemporalDifferencePolicy.__learning_rate_0,
+                                TemporalDifferencePolicy.__discount_factor,
+                                TemporalDifferencePolicy.__learning_rate_decay,
+                                filename)
         return
 
     #
     # Import the current policy to the given file name
     #
-    def load(self, filename: str):
+    def load(self, filename: str)-> Tuple[dict, int, np.float, np.float, np.float]:
+        (TemporalDifferencePolicy.__q_values,
+            TemporalDifferencePolicy.__n,
+            TemporalDifferencePolicy.__learning_rate_0,
+            TemporalDifferencePolicy.__discount_factor,
+            TemporalDifferencePolicy.__learning_rate_decay) \
+            = TemporalDifferencePolicy.__learning_rate_decay = self.__persistance.load(filename)
+
         return
