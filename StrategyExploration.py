@@ -1,6 +1,5 @@
 import unittest
 from ExplorationPlay import ExplorationPlay
-from Agent import Agent
 from random import randint
 
 
@@ -11,8 +10,7 @@ from random import randint
 class StrategyExploration(ExplorationPlay):
 
     #
-    # This is a pure random play, just pick any of the possible actions.
-    # We cannot see the board, we can only see what actions remain.
+    # This implements a basic TicTacToe strategy to win.
     #
     def select_action(self, possible_actions: [int]) -> int:
         # If there is only 1 possible, we have no choice
@@ -51,6 +49,7 @@ class StrategyExploration(ExplorationPlay):
         # Take a random
         return possible_actions[randint(0, len(possible_actions) - 1)]
 
+
 # ********************
 # *** UNIT TESTING ***
 # ********************
@@ -58,7 +57,7 @@ class StrategyExploration(ExplorationPlay):
 
 class TestStrategyExploration(unittest.TestCase):
 
-        def test_episode_complete(self):
+        def test_strategies(self):
 
             test_cases = [([2, 3, 4, 5, 6, 7, 8], 2),
                           ([0, 1, 2, 5, 6, 7, 8], 5),

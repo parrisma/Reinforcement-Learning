@@ -1,10 +1,7 @@
+import logging
 import numpy as np
 from Policy import Policy
 from State import State
-from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
-from EvaluationException import EvaluationExcpetion
-from random import randint
-from FixedGames import FixedGames
 from typing import Tuple
 
 
@@ -14,7 +11,8 @@ class HumanPolicy(Policy):
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, agent_name: str):
+    def __init__(self, agent_name: str, lg: logging):
+        self.__lg = lg
         self.__agent_name = agent_name
         return
 
@@ -42,10 +40,12 @@ class HumanPolicy(Policy):
     # Export the current policy to the given file name
     #
     def save(self, filename: str=None):
-        raise NotImplementedError("Save not supported for Human Policy")
+        self.__lg.warning("Save not supported for Human Policy")
+        return
 
     #
     # Import the current policy to the given file name
     #
     def load(self, filename: str)-> Tuple[dict, int, np.float, np.float, np.float]:
-        raise NotImplementedError("Load not supported for Human Policy")
+        self.__lg.warning("Load not supported for Human Policy")
+        return
