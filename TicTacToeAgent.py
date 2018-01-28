@@ -1,4 +1,5 @@
 import random
+import logging
 from EvaluationException import EvaluationExcpetion
 from State import State
 from random import randint
@@ -9,10 +10,12 @@ from Policy import Policy
 class TicTacToeAgent(Agent):
 
     def __init__(self,
-                 agent_id: int,                    # immutable & unique id for this agent
-                 agent_name: str,                  # immutable & unique name for this agent
-                 policy: Policy,                   # the policy to drive action selection.
-                 epsilon_greedy: float=float(0)):  # if random() > epsilon greedy take greedy action else random action
+                 agent_id: int,           # immutable & unique id for this agent
+                 agent_name: str,         # immutable & unique name for this agent
+                 policy: Policy,          # the policy to drive action selection.
+                 epsilon_greedy: float,   # if random() > epsilon greedy take greedy action else random action
+                 lg: logging):
+        self.__lg = lg
         self.__id = agent_id
         self.__name = agent_name
         self.__policy = policy
@@ -64,14 +67,14 @@ class TicTacToeAgent(Agent):
             try:
                 # If there are q values for given state we can predict a greedy action
                 action = self.__policy.greedy_action(self.__name, state, possible_actions)
-                # print(self.__name + " chose greedy action : " + str(action+1))
+                self.__lg.debug(self.__name + " chose greedy action : " + str(action+1))
             except EvaluationExcpetion:
                 # cannot predict a greedy action so random
                 action = possible_actions[randint(0, len(possible_actions) - 1)]
-                # print(self.__name + " chose random action : " + str(action+1))
+                self.__lg.debug(self.__name + " chose random action : " + str(action+1))
         else:
             action = possible_actions[randint(0, len(possible_actions) - 1)]
-            # print(self.__name + " chose random action : " + str(action+1))
+            self.__lg.debug(self.__name + " chose random action : " + str(action+1))
 
         self.__prev_action = self.__action
         self.__action = action

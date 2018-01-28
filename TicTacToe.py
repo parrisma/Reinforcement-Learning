@@ -30,7 +30,8 @@ class TicTacToe(Environment):
     # Constructor has no arguments as it just sets the game
     # to an initial up-played set-up
     #
-    def __init__(self, x: Agent, o: Agent):
+    def __init__(self, x: Agent, o: Agent, lg: logging):
+        self.__lg = lg
         self.__board = TicTacToe.__empty_board()
         self.__last_board = None
         self.__agent = TicTacToe.__no_agent
@@ -71,21 +72,26 @@ class TicTacToe(Environment):
     def run(self, iterations: int):
         i = 0
         while i <= iterations:
-            # print("Start Episode")
+            self.__lg.debug("Start Episode")
             self.reset()
             state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
             self.__x_agent.episode_init(state)
             self.__o_agent.episode_init(state)
             agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
+
             while not self.episode_complete():
                 state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
-                print(state.state_as_visualisation())
+                self.__lg.debug(agent.name())
+                self.__lg.debug(state.state_as_string())
+                self.__lg.debug(state.state_as_visualisation())
                 agent = self.__play_action(agent)
                 i += 1
-                if i % 500 == 0 : print("Iteration: " + str(i))
-            # print("Episode Complete")
+                if i % 500 == 0:
+                    self.__lg.info("Iteration: " + str(i))
+
+            self.__lg.debug("Episode Complete")
             state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
-            print(state.state_as_visualisation())
+            self.__lg.debug(state.state_as_visualisation())
             self.__x_agent.episode_complete(state)
             self.__o_agent.episode_complete(state)
         self.__x_agent.terminate()

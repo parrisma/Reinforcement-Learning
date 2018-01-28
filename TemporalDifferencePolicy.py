@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 from Policy import Policy
 from State import State
 from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
@@ -19,13 +20,14 @@ class TemporalDifferencePolicy(Policy):
     __learning_rate_0 = float(0.05)
     __discount_factor = float(0.8)
     __learning_rate_decay = float(0.001)
-    __fixed_games = FixedGames()
+    __fixed_games = None  # a class that allows canned games to be played
 
     #
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, filename: str="", fixed_games: FixedGames=None, load_file: bool=False):
+    def __init__(self, lg: logging, filename: str="", fixed_games: FixedGames=None, load_file: bool=False):
+        self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
         self.__fixed_games = fixed_games
@@ -98,6 +100,7 @@ class TemporalDifferencePolicy(Policy):
 
         # If there are no Q values learned yet we cannot predict a greedy action.
         if cls.__q_values is not None:
+            qv = cls.__q_values
             state_name = cls.__q_value_state_name(agent_name, state)
 
             if state_name in cls.__q_values:
@@ -175,7 +178,7 @@ class TemporalDifferencePolicy(Policy):
             return self.__fixed_games.next_action()
 
         qvs, actns = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
-        print(self.vals_and_actions_as_str(qvs,actns))
+        self.__lg.debug(self.vals_and_actions_as_str(qvs,actns))
         if qvs is None:
             raise EvaluationExcpetion("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
@@ -231,11 +234,11 @@ class TemporalDifferencePolicy(Policy):
         at = 0
         for i in range(0, 3):
             for j in range(0, 3):
-                if a[at] == j+(i*3):
-                    s += "[" + '{:.16f}'.format(q[at]) + "] "
+                if a is not None and at < len(a) and a[at] == j+(i*3):
+                    s += "[" + '{:+.16f}'.format(q[at]) + "] "
                     at += 1
                 else:
-                    s += "[                  ]"
+                    s += "[                   ] "
             s += "\n"
         return s
 

@@ -71,8 +71,8 @@ class TemporalDifferencePolicyPersistance:
                     else:
                         itms = line.split("#")
                         qv[itms[0]] = dict()
-                        for qvs in itms[1].split("~"):
-                            if qvs != "\n":
+                        for qvs in itms[1][:-1].split("~"):
+                            if len(qvs) > 0:
                                 a, v = qvs.split(":")
                                 qv[itms[0]][int(a)] = np.float(v)
                     ln += 1
