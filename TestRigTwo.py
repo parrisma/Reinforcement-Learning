@@ -1,33 +1,42 @@
 import random
-import logging
-import sys
 import numpy as np
+import logging
 from TicTacToeAgent import TicTacToeAgent
 from HumanPolicy import HumanPolicy
 from TemporalDifferencePolicy import TemporalDifferencePolicy
+from PureRandomExploration import PureRandomExploration
 from TicTacToe import TicTacToe
-
-logging.basicConfig(level=logging.INFO,
-                    format='%(message)s',
-                    datefmt='%m-%d %H:%M',
-                    filename='./TestRigTwo.log',
-                    filemode='w')
-
-console = logging.StreamHandler(sys.stdout)
-console.setLevel(logging.INFO)
-formatter = logging.Formatter('%(message)s')
-console.setFormatter(formatter)
-lg = logging.getLogger('TestRigTwo')
-lg.addHandler(console)
+from EnvironmentLogging import EnvironmentLogging
 
 random.seed(42)
 np.random.seed(42)
 
-agent_x = TicTacToeAgent(1, "X", TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", load_file=True), epsilon_greedy=0.5, lg=lg)
-agent_o = TicTacToeAgent(-1, "O", TemporalDifferencePolicy(lg=lg), epsilon_greedy=0.5, lg=lg)
-if False:
+learn_mode = True
+if not learn_mode:
+    epgrdy = 0
+    itr = 10
+    lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.DEBUG).get_logger()
+else:
+    epgrdy = 0.5
+    itr = 5000
+    lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.INFO).get_logger()
+
+
+agent_x = TicTacToeAgent(1,
+                         "X",
+                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", load_file=True),
+                         epsilon_greedy=epgrdy,
+                         exploration_play=PureRandomExploration(),
+                         lg=lg)
+if not learn_mode:
     agent_o = TicTacToeAgent(-1, "O", HumanPolicy("O"), epsilon_greedy=0, lg=lg)
+else:
+    agent_o = TicTacToeAgent(-1,
+                             "O",
+                             TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb"),
+                             epsilon_greedy=epgrdy,
+                             exploration_play=PureRandomExploration(),
+                             lg=lg)
 
 game = TicTacToe(agent_x, agent_o, lg)
-
-game.run(50000)
+game.run(itr)

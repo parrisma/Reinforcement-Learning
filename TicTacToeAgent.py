@@ -5,6 +5,7 @@ from State import State
 from random import randint
 from Agent import Agent
 from Policy import Policy
+from ExplorationPlay import ExplorationPlay
 
 
 class TicTacToeAgent(Agent):
@@ -14,6 +15,7 @@ class TicTacToeAgent(Agent):
                  agent_name: str,         # immutable & unique name for this agent
                  policy: Policy,          # the policy to drive action selection.
                  epsilon_greedy: float,   # if random() > epsilon greedy take greedy action else random action
+                 exploration_play: ExplorationPlay,  # Play to take when exploring (i.e. when not being greedy)
                  lg: logging):
         self.__lg = lg
         self.__id = agent_id
@@ -24,6 +26,7 @@ class TicTacToeAgent(Agent):
         self.__action = -1  # no action
         self.__prev_state = None
         self.__prev_action = -1  # no action
+        self.__exploration = exploration_play
 
     # Return immutable id
     #
@@ -70,11 +73,11 @@ class TicTacToeAgent(Agent):
                 self.__lg.debug(self.__name + " chose greedy action : " + str(action+1))
             except EvaluationExcpetion:
                 # cannot predict a greedy action so random
-                action = possible_actions[randint(0, len(possible_actions) - 1)]
-                self.__lg.debug(self.__name + " chose random action : " + str(action+1))
+                action = self.__exploration.select_action(possible_actions)
+                self.__lg.debug(self.__name + " chose exploration action : " + str(action+1))
         else:
-            action = possible_actions[randint(0, len(possible_actions) - 1)]
-            self.__lg.debug(self.__name + " chose random action : " + str(action+1))
+            action = self.__exploration.select_action(possible_actions)
+            self.__lg.debug(self.__name + " chose exploration action : " + str(action+1))
 
         self.__prev_action = self.__action
         self.__action = action

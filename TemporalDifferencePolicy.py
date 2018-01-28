@@ -177,13 +177,13 @@ class TemporalDifferencePolicy(Policy):
         if self.__fixed_games is not None:
             return self.__fixed_games.next_action()
 
-        qvs, actns = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
-        self.__lg.debug(self.vals_and_actions_as_str(qvs,actns))
+        qvs, actions = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
+        self.__lg.debug(self.vals_and_actions_as_str(qvs, actions))
         if qvs is None:
             raise EvaluationExcpetion("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
         greedy_actions = list()
-        for v, a in np.vstack([qvs, actns]).T:
+        for v, a in np.vstack([qvs, actions]).T:
             if v == ou:
                 if a in possible_actions:
                     greedy_actions.append(int(a))
@@ -226,7 +226,9 @@ class TemporalDifferencePolicy(Policy):
         return
 
     #
-    # Q Values as a string (in grid form)
+    # Q Values as a string (in grid form). This is just a visual debugger so it is
+    # possible to see what q values are being selected from in the way that they
+    # relate to the board. (3 x 3)
     #
     @classmethod
     def vals_and_actions_as_str(cls, q: [np.float], a: [int]) -> str:
