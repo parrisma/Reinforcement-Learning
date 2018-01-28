@@ -1,4 +1,5 @@
 import numpy as np
+import logging
 from random import randint
 from Environment import Environment
 from Agent import Agent
@@ -70,19 +71,25 @@ class TicTacToe(Environment):
     def run(self, iterations: int):
         i = 0
         while i <= iterations:
-            print("Start Episode")
+            # print("Start Episode")
             self.reset()
-            state = TicTacToeState(self.__board)
+            state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
             self.__x_agent.episode_init(state)
             self.__o_agent.episode_init(state)
             agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
             while not self.episode_complete():
+                state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+                print(state.state_as_visualisation())
                 agent = self.__play_action(agent)
                 i += 1
-            print("Episode Complete")
-            state = TicTacToeState(self.__board)
+                if i % 500 == 0 : print("Iteration: " + str(i))
+            # print("Episode Complete")
+            state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+            print(state.state_as_visualisation())
             self.__x_agent.episode_complete(state)
             self.__o_agent.episode_complete(state)
+        self.__x_agent.terminate()
+        self.__o_agent.terminate()
         return
 
     #
@@ -123,7 +130,7 @@ class TicTacToe(Environment):
     def __play_action(self, agent: Agent) -> Agent:
 
         other_agent = self.__next_agent[agent.name()]
-        state = TicTacToeState(self.__board)
+        state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
         action = self.__actions[agent.chose_action(state, self.__actions_ids_left_to_take())]
 
         # Make the play on the board.

@@ -36,6 +36,7 @@ class TicTacToeAgent(Agent):
     # Environment call back when environment shuts down
     #
     def terminate(self):
+        self.__policy.save()
         return
 
     #
@@ -59,18 +60,18 @@ class TicTacToeAgent(Agent):
     def chose_action(self, state: State, possible_actions: [int]) -> int:
 
         # if random() > epsilon greedy then take greedy action else a random action
-        if random.random() >= self.__epsilon_greedy:
+        if random.random() > self.__epsilon_greedy:
             try:
                 # If there are q values for given state we can predict a greedy action
                 action = self.__policy.greedy_action(self.__name, state, possible_actions)
-                print(self.__name + " chose greedy action : " + str(action))
+                # print(self.__name + " chose greedy action : " + str(action+1))
             except EvaluationExcpetion:
                 # cannot predict a greedy action so random
                 action = possible_actions[randint(0, len(possible_actions) - 1)]
-                print(self.__name + " chose random action : " + str(action))
+                # print(self.__name + " chose random action : " + str(action+1))
         else:
             action = possible_actions[randint(0, len(possible_actions) - 1)]
-            print(self.__name + " chose random action : " + str(action))
+            # print(self.__name + " chose random action : " + str(action+1))
 
         self.__prev_action = self.__action
         self.__action = action

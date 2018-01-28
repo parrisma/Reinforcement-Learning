@@ -34,12 +34,12 @@ class Policy(metaclass=abc.ABCMeta):
     # Export the current policy to the given file name
     #
     @abc.abstractmethod
-    def save(self, filename: str):
+    def save(self, filename: str=None):
         pass
 
     #
     # Import the current policy to the given file name
     #
     @abc.abstractmethod
-    def load(self, filename: str):
+    def load(self, filename: str=None):
         pass

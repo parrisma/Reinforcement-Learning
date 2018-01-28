@@ -25,17 +25,21 @@ class TemporalDifferencePolicy(Policy):
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, filename: str="", load_file: bool=False):
+    def __init__(self, filename: str="", fixed_games: FixedGames=None, load_file: bool=False):
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
+        self.__fixed_games = fixed_games
 
         if load_file:
-            (TemporalDifferencePolicy.__q_values,
-             TemporalDifferencePolicy.__n,
-             TemporalDifferencePolicy.__learning_rate_0,
-             TemporalDifferencePolicy.__discount_factor,
-             TemporalDifferencePolicy.__learning_rate_decay) \
-                = self.__persistance.load(filename)
+            try:
+                (TemporalDifferencePolicy.__q_values,
+                 TemporalDifferencePolicy.__n,
+                 TemporalDifferencePolicy.__learning_rate_0,
+                 TemporalDifferencePolicy.__discount_factor,
+                 TemporalDifferencePolicy.__learning_rate_decay) \
+                    = self.__persistance.load(filename)
+            except RuntimeError:
+                pass  # File does not exist, keep class level defaults
         return
 
     #
@@ -127,7 +131,7 @@ class TemporalDifferencePolicy(Policy):
         # Update current state to reflect the reward
         qv = TemporalDifferencePolicy.__get_q_value(agent_name, state, action)
         lr = TemporalDifferencePolicy.__q_learning_rate()
-        qv = lr * (qv + (1-lr)*reward)
+        qv = (qv * (1-lr)) + (lr*reward)
         TemporalDifferencePolicy.__set_q_value(agent_name, state, action, qv)
 
         # discount the reward to prior state so we can establish reward attribution path
@@ -137,7 +141,7 @@ class TemporalDifferencePolicy(Policy):
             qvp = TemporalDifferencePolicy.__get_q_value(agent_name, prev_state, prev_action)
             qvs, actn = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
             ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
-            qvp += self.__discount_factor * ou
+            qvp += self.__discount_factor * ou * lr
             TemporalDifferencePolicy.__set_q_value(agent_name, prev_state, prev_action, qvp)
         return
 
@@ -165,12 +169,13 @@ class TemporalDifferencePolicy(Policy):
     # than one q value with the same strength, return an arbitrary action from those with
     # equal strength.
     #
-    def greedy_action(self, agent_name: str, state: State, possible_actions) -> int:
+    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
 
         if self.__fixed_games is not None:
             return self.__fixed_games.next_action()
 
         qvs, actns = TemporalDifferencePolicy.__get_q_vals_as_np_array(agent_name, state)
+        print(self.vals_and_actions_as_str(qvs,actns))
         if qvs is None:
             raise EvaluationExcpetion("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
@@ -193,7 +198,9 @@ class TemporalDifferencePolicy(Policy):
     #
     # Export the current policy to the given file name
     #
-    def save(self, filename: str):
+    def save(self, filename: str=None):
+        if filename is None:
+            filename = self.__filename
         self.__persistance.save(TemporalDifferencePolicy.__q_values,
                                 TemporalDifferencePolicy.__n,
                                 TemporalDifferencePolicy.__learning_rate_0,
@@ -214,3 +221,21 @@ class TemporalDifferencePolicy(Policy):
             = TemporalDifferencePolicy.__learning_rate_decay = self.__persistance.load(filename)
 
         return
+
+    #
+    # Q Values as a string (in grid form)
+    #
+    @classmethod
+    def vals_and_actions_as_str(cls, q: [np.float], a: [int]) -> str:
+        s = ""
+        at = 0
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if a[at] == j+(i*3):
+                    s += "[" + '{:.16f}'.format(q[at]) + "] "
+                    at += 1
+                else:
+                    s += "[                  ]"
+            s += "\n"
+        return s
+

@@ -1,20 +1,17 @@
 import random
 import numpy as np
 from TicTacToeAgent import TicTacToeAgent
-#  from SimpleRandomPolicy import SimpleRandomPolicy
+from HumanPolicy import HumanPolicy
 from TemporalDifferencePolicy import TemporalDifferencePolicy
 from TicTacToe import TicTacToe
-from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
 
 random.seed(42)
 np.random.seed(42)
 
-#  agent_x = TicTacToeAgent(1, "X", SimpleRandomPolicy())
-#  agent_o = TicTacToeAgent(-1, "O", SimpleRandomPolicy())
-
-agent_x = TicTacToeAgent(1, "X", TemporalDifferencePolicy("./qvn_dump.pb"))
-agent_o = TicTacToeAgent(-1, "O", TemporalDifferencePolicy("./qvn_dump.pb"))
+agent_x = TicTacToeAgent(1, "X", TemporalDifferencePolicy(filename="./qvn_dump.pb", load_file=True))
+# agent_o = TicTacToeAgent(-1, "O", TemporalDifferencePolicy(filename="./qvn_dump.pb"), 0.5)
+agent_o = TicTacToeAgent(-1, "O", HumanPolicy("O"))
 
 game = TicTacToe(agent_x, agent_o)
 
-game.run(5000)
+game.run(50000)

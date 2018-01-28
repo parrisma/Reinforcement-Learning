@@ -77,8 +77,8 @@ class TemporalDifferencePolicyPersistance:
                                 qv[itms[0]][int(a)] = np.float(v)
                     ln += 1
         except Exception as exc:
-            print("Failed to load Q Values from file [" + filename + ": " + str(exc))
-            return None
+            raise RuntimeError("Failed to load Q Values from file [" + filename + ": " + str(exc))
         finally:
-            in_f.close()
+            if in_f is not None:
+                in_f.close()
         return qv, n, learning_rate_0, discount_factor, learning_rate_decay
