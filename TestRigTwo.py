@@ -9,8 +9,8 @@ from StrategyExploration import StrategyExploration
 from TicTacToe import TicTacToe
 from EnvironmentLogging import EnvironmentLogging
 
-random.seed(42)
-np.random.seed(42)
+#random.seed(42)
+#np.random.seed(42)
 
 #
 # Set Manually and re-run
@@ -43,7 +43,7 @@ else:
                              "O",
                              TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb"),
                              epsilon_greedy=epgrdy,
-                             exploration_play=StrategyExploration(),
+                             exploration_play=PureRandomExploration(),
                              lg=lg)
 
 game = TicTacToe(agent_x, agent_o, lg)

@@ -53,7 +53,8 @@ class TemporalDifferencePolicy(Policy):
 
     @classmethod
     def __q_value_state_name(cls, agent_name: str, state: State) -> str:
-        return agent_name + ":" + state.state_as_string()
+        return state.state_as_string()
+        #  return agent_name + ":" + state.state_as_string()
 
     #
     # Manage q value store
@@ -100,7 +101,6 @@ class TemporalDifferencePolicy(Policy):
 
         # If there are no Q values learned yet we cannot predict a greedy action.
         if cls.__q_values is not None:
-            qv = cls.__q_values
             state_name = cls.__q_value_state_name(agent_name, state)
 
             if state_name in cls.__q_values:
@@ -202,14 +202,13 @@ class TemporalDifferencePolicy(Policy):
     # Export the current policy to the given file name
     #
     def save(self, filename: str=None):
-        if filename is None:
-            filename = self.__filename
-        self.__persistance.save(TemporalDifferencePolicy.__q_values,
-                                TemporalDifferencePolicy.__n,
-                                TemporalDifferencePolicy.__learning_rate_0,
-                                TemporalDifferencePolicy.__discount_factor,
-                                TemporalDifferencePolicy.__learning_rate_decay,
-                                filename)
+        if filename is not None and len(filename) > 0:
+            self.__persistance.save(TemporalDifferencePolicy.__q_values,
+                                    TemporalDifferencePolicy.__n,
+                                    TemporalDifferencePolicy.__learning_rate_0,
+                                    TemporalDifferencePolicy.__discount_factor,
+                                    TemporalDifferencePolicy.__learning_rate_decay,
+                                    filename)
         return
 
     #
@@ -217,10 +216,10 @@ class TemporalDifferencePolicy(Policy):
     #
     def load(self, filename: str)-> Tuple[dict, int, np.float, np.float, np.float]:
         (TemporalDifferencePolicy.__q_values,
-            TemporalDifferencePolicy.__n,
-            TemporalDifferencePolicy.__learning_rate_0,
-            TemporalDifferencePolicy.__discount_factor,
-            TemporalDifferencePolicy.__learning_rate_decay) \
+         TemporalDifferencePolicy.__n,
+         TemporalDifferencePolicy.__learning_rate_0,
+         TemporalDifferencePolicy.__discount_factor,
+         TemporalDifferencePolicy.__learning_rate_decay) \
             = TemporalDifferencePolicy.__learning_rate_decay = self.__persistance.load(filename)
 
         return
