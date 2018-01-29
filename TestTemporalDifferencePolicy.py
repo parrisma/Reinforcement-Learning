@@ -79,7 +79,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
             lr = self.lr(n, lr0, lrd)
             qv = 0
             qv = (1 - lr)*qv + (lr*reward)
-            self.assertAlmostEqual(qv_dict[test_state_1.state_as_string()][expected_action], qv, 1e-9)
+            self.assertAlmostEqual(qv_dict[test_state_1.state_as_string()][expected_action], qv, 9)
             return
 
         # Test of a 100 update to a single state, should approach the reward value to within
@@ -117,7 +117,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
             for i in range(0, niter):
                 lr = self.lr(i, lr0, lrd)
                 qv = (1 - lr)*qv + (lr*reward)
-            self.assertAlmostEqual(qv_dict[test_state_2.state_as_string()][expected_action], qv, 1e-9)
+            self.assertAlmostEqual(qv_dict[test_state_2.state_as_string()][expected_action], qv, 9)
             return
 #
 # Execute the tests.
