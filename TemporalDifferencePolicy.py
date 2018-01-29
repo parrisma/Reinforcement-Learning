@@ -220,9 +220,13 @@ class TemporalDifferencePolicy(Policy):
          TemporalDifferencePolicy.__learning_rate_0,
          TemporalDifferencePolicy.__discount_factor,
          TemporalDifferencePolicy.__learning_rate_decay) \
-            = TemporalDifferencePolicy.__learning_rate_decay = self.__persistance.load(filename)
+            = self.__persistance.load(filename)
 
-        return
+        return (TemporalDifferencePolicy.__q_values,
+                TemporalDifferencePolicy.__n,
+                TemporalDifferencePolicy.__learning_rate_0,
+                TemporalDifferencePolicy.__discount_factor,
+                TemporalDifferencePolicy.__learning_rate_decay)
 
     #
     # Q Values as a string (in grid form). This is just a visual debugger so it is

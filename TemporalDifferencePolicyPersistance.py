@@ -1,5 +1,6 @@
 import numpy as np
 from typing import Tuple
+from ITemporalDifferencePolicyPersistance import ITemporalDifferencePolicyPersistance
 
 #
 # Save and Load Q Value Dictionary of form
@@ -8,15 +9,7 @@ from typing import Tuple
 #
 
 
-class TemporalDifferencePolicyPersistance:
-
-    def __init__(self):
-        return
-
-    __n = 0  # number of learning events
-    __learning_rate_0 = float(0.05)
-    __discount_factor = float(0.8)
-    __learning_rate_decay = float(0.001)
+class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
 
     #
     # Dump the given q values dictionary to a simple text dump.

@@ -4,3 +4,4 @@ dumps/*
 __pycache__/*
 *.h5
 *old*.pb
+temp/*
