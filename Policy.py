@@ -18,7 +18,7 @@ class Policy(metaclass=abc.ABCMeta):
     # reward : the reward associated with the given state/action pair.
     #
     @abc.abstractmethod
-    def update_policy(self, agent_name: str, prev_state: State, prev_action: int, state: State, action: int, reward: float):
+    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
         pass
 
     #

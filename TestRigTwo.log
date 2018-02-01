@@ -1,68 +1,134 @@
-Start Episode
-O
-000000000
-[ ][ ][ ]
-[ ][ ][ ]
-[ ][ ][ ]
-
-
-O chose greedy action : 9
-X
-00000000-1
-[ ][ ][ ]
-[ ][ ][ ]
-[ ][ ][O]
-
-
-[+0.0000039508823878] [+0.0000409917343796] [+0.0018750971147305] 
-[+0.0000271088495811] [+0.0000259399828786] [+0.0107042570770701] 
-[+0.1182996257583136] [+0.0008847252541536] [                   ] 
-
-X chose greedy action : 7
-O
-00000010-1
-[ ][ ][ ]
-[ ][ ][ ]
-[X][ ][O]
-
-
-O chose greedy action : 1
-X
--10000010-1
-[O][ ][ ]
-[ ][ ][ ]
-[X][ ][O]
-
-
-[                   ] [                   ] [                   ] 
-[+0.0000000041254630] [                   ] [                   ] 
-[+0.0000290132356423] [                   ] [                   ] 
-
-X chose exploration action : 4
-O
--10010010-1
-[O][ ][ ]
-[X][ ][ ]
-[X][ ][O]
-
-
-O chose greedy action : 3
-X
--10-110010-1
-[O][ ][O]
-[X][ ][ ]
-[X][ ][O]
-
-
-[                   ] [+0.0000000000000000] [                   ] 
-[+0.0000395790799331] [                   ] [                   ] 
-[                   ] [                   ] [                   ] 
-
-X chose exploration action : 2
-O
--11-110010-1
-[O][X][O]
-[X][ ][ ]
-[X][ ][O]
-
-
+Iteration: 500
+Iteration: 1000
+Iteration: 1500
+Iteration: 2000
+Iteration: 2500
+Iteration: 3000
+Iteration: 3500
+Iteration: 4000
+Iteration: 4500
+Iteration: 5000
+Iteration: 5500
+Iteration: 6000
+Iteration: 6500
+Iteration: 7000
+Iteration: 7500
+Iteration: 8000
+Iteration: 8500
+Iteration: 9000
+Iteration: 9500
+Iteration: 10000
+Iteration: 10500
+Iteration: 11000
+Iteration: 11500
+Iteration: 12000
+Iteration: 12500
+Iteration: 13000
+Iteration: 13500
+Iteration: 14000
+Iteration: 14500
+Iteration: 15000
+Iteration: 15500
+Iteration: 16000
+Iteration: 16500
+Iteration: 17000
+Iteration: 17500
+Iteration: 18000
+Iteration: 18500
+Iteration: 19000
+Iteration: 19500
+Iteration: 20000
+Iteration: 20500
+Iteration: 21000
+Iteration: 21500
+Iteration: 22000
+Iteration: 22500
+Iteration: 23000
+Iteration: 23500
+Iteration: 24000
+Iteration: 24500
+Iteration: 25000
+Iteration: 25500
+Iteration: 26000
+Iteration: 26500
+Iteration: 27000
+Iteration: 27500
+Iteration: 28000
+Iteration: 28500
+Iteration: 29000
+Iteration: 29500
+Iteration: 30000
+Iteration: 30500
+Iteration: 31000
+Iteration: 31500
+Iteration: 32000
+Iteration: 32500
+Iteration: 33000
+Iteration: 33500
+Iteration: 34000
+Iteration: 34500
+Iteration: 35000
+Iteration: 35500
+Iteration: 36000
+Iteration: 36500
+Iteration: 37000
+Iteration: 37500
+Iteration: 38000
+Iteration: 38500
+Iteration: 39000
+Iteration: 39500
+Iteration: 40000
+Iteration: 40500
+Iteration: 41000
+Iteration: 41500
+Iteration: 42000
+Iteration: 42500
+Iteration: 43000
+Iteration: 43500
+Iteration: 44000
+Iteration: 44500
+Iteration: 45000
+Iteration: 45500
+Iteration: 46000
+Iteration: 46500
+Iteration: 47000
+Iteration: 47500
+Iteration: 48000
+Iteration: 48500
+Iteration: 49000
+Iteration: 49500
+Iteration: 50000
+Iteration: 50500
+Iteration: 51000
+Iteration: 51500
+Iteration: 52000
+Iteration: 52500
+Iteration: 53000
+Iteration: 53500
+Iteration: 54000
+Iteration: 54500
+Iteration: 55000
+Iteration: 55500
+Iteration: 56000
+Iteration: 56500
+Iteration: 57000
+Iteration: 57500
+Iteration: 58000
+Iteration: 58500
+Iteration: 59000
+Iteration: 59500
+Iteration: 60000
+Iteration: 60500
+Iteration: 61000
+Iteration: 61500
+Iteration: 62000
+Iteration: 62500
+Iteration: 63000
+Iteration: 63500
+Iteration: 64000
+Iteration: 64500
+Iteration: 65000
+Iteration: 65500
+Iteration: 66000
+Iteration: 66500
+Iteration: 67000

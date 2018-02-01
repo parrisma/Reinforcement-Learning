@@ -8,27 +8,28 @@ from PureRandomExploration import PureRandomExploration
 from StrategyExploration import StrategyExploration
 from TicTacToe import TicTacToe
 from EnvironmentLogging import EnvironmentLogging
+from FixedGames import FixedGames
 
-#random.seed(42)
-#np.random.seed(42)
+random.seed(42)
+np.random.seed(42)
 
 #
 # Set Manually and re-run
 #
-learn_mode = False
+learn_mode = True
 if not learn_mode:
     epgrdy = 0
-    itr = 10
+    itr = 100
     lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.DEBUG).get_logger()
 else:
     epgrdy = 0.5
-    itr = 50000
+    itr = 100000
     lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.INFO).get_logger()
 
 
 agent_x = TicTacToeAgent(1,
                          "X",
-                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", load_file=True),
+                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None, load_file=True),
                          epsilon_greedy=epgrdy,
                          exploration_play=StrategyExploration(),
                          lg=lg)
@@ -41,7 +42,7 @@ if not learn_mode:
 else:
     agent_o = TicTacToeAgent(-1,
                              "O",
-                             TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb"),
+                             TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None,),
                              epsilon_greedy=epgrdy,
                              exploration_play=PureRandomExploration(),
                              lg=lg)

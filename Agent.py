@@ -62,10 +62,12 @@ class Agent(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Environment call back to reward agent for a playing the chosen
-    # action from the chose_action() method. The environment is given
-    # in the state **after** the action was played.
+    # The callback via which the environment informs the agent of a reward as a result of an action.
+    # state     : The state *before* the action is taken : S
+    # next_state: The State after the action is taken : S'
+    # action    : The action that transitioned S to S'
+    # reward    : The reward for playing action in state S
     #
     @abc.abstractmethod
-    def reward(self, state: State, reward_for_play: float):
+    def reward(self, state: State, next_state: State, action: int, reward_for_play: float):
         pass

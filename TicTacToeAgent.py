@@ -22,10 +22,6 @@ class TicTacToeAgent(Agent):
         self.__name = agent_name
         self.__policy = policy
         self.__epsilon_greedy = epsilon_greedy
-        self.__state = None
-        self.__action = -1  # no action
-        self.__prev_state = None
-        self.__prev_action = -1  # no action
         self.__exploration = exploration_play
 
     # Return immutable id
@@ -79,23 +75,17 @@ class TicTacToeAgent(Agent):
             action = self.__exploration.select_action(possible_actions)
             self.__lg.debug(self.__name + " chose exploration action : " + str(action+1))
 
-        self.__prev_action = self.__action
-        self.__action = action
-
         return action
 
     #
     # Environment call back to reward agent for a play chosen for the given
     # state passed.
     #
-    def reward(self, state: State, reward_for_play: float):
-        self.__prev_state = self.__state
-        self.__state = state
+    def reward(self, state: State, next_state: State, action: int, reward_for_play: float):
         self.__policy.update_policy(self.name(),
-                                    self.__prev_state,
-                                    self.__prev_action,
-                                    self.__state,
-                                    self.__action,
+                                    state,
+                                    next_state,
+                                    action,
                                     reward_for_play)
         return
 

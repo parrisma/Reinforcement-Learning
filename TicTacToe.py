@@ -132,28 +132,27 @@ class TicTacToe(Environment):
     # confer reward and switch play to other agent. If invalid play
     # i.e. play in a cell where there is already a marker confer
     # penalty and leave play with the same agent.
-    #
+    # ToDo
     def __play_action(self, agent: Agent) -> Agent:
 
         other_agent = self.__next_agent[agent.name()]
         state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
-        action = self.__actions[agent.chose_action(state, self.__actions_ids_left_to_take())]
 
         # Make the play on the board.
-        self.__take_action(action, agent)
+        action = agent.chose_action(state, self.__actions_ids_left_to_take())
+        self.__take_action(self.__actions[action], agent)
+        next_state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
 
         if self.episode_complete():
             attributes = self.attributes()
             if attributes[self.attribute_won[0]]:
-                agent.reward(state, self.__win)
-                other_agent.reward(state, -1 * self.__win)
+                agent.reward(state, next_state, action, self.__win)
                 return None  # episode complete - no next agent to go
             if attributes[self.attribute_draw[0]]:
-                agent.reward(state, self.__draw)
-                other_agent.reward(state, self.__draw)
+                agent.reward(state, next_state, action, self.__draw)
                 return None  # episode complete - no next agent to go
 
-        agent.reward(state, self.__play)
+        agent.reward(state, next_state, action, self.__play)
         return other_agent  # play moves to next agent
 
     #
