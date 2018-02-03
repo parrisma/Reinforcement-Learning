@@ -1,17 +1,16 @@
 Iteration: 500
-Stats: Agent : X [11%] Agent : O [88%] 
+Stats: Agent : X [78%] Agent : O [21%] 
 Iteration: 1000
-Stats: Agent : X [11%] Agent : O [88%] 
 Iteration: 1500
+Stats: Agent : X [74%] Agent : O [25%] 
 Iteration: 2000
-Stats: Agent : X [13%] Agent : O [86%] 
 Iteration: 2500
-Stats: Agent : X [14%] Agent : O [86%] 
+Stats: Agent : X [73%] Agent : O [26%] 
+Stats: Agent : X [73%] Agent : O [26%] 
 Iteration: 3000
-Stats: Agent : X [13%] Agent : O [87%] 
+Stats: Agent : X [76%] Agent : O [24%] 
 Iteration: 3500
 Iteration: 4000
-Stats: Agent : X [13%] Agent : O [87%] 
+Stats: Agent : X [76%] Agent : O [24%] 
 Iteration: 4500
-Stats: Agent : X [14%] Agent : O [86%] 
 Iteration: 5000

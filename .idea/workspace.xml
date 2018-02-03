@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/TemporalDifferencePolicy.py" line="34" />
+    <bookmark url="file://$PROJECT_DIR$/TemporalDifferencePolicy.py" line="33" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/TestRigThree.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/NeuralNet.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/QVCalcsTest.xlsx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/SimpleRandomPolicy.py" afterPath="$PROJECT_DIR$/SimpleRandomPolicy.py" />
       <change beforePath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" afterPath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" />
       <change beforePath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py" afterPath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py" />
       <change beforePath="$PROJECT_DIR$/TemporalDifferencePolicy.py" afterPath="$PROJECT_DIR$/TemporalDifferencePolicy.py" />
-      <change beforePath="$PROJECT_DIR$/TestRigTwo.log" afterPath="$PROJECT_DIR$/TestRigTwo.log" />
-      <change beforePath="$PROJECT_DIR$/TestRigTwo.py" afterPath="$PROJECT_DIR$/TestRigTwo.py" />
-      <change beforePath="$PROJECT_DIR$/TestTemporalDifferencePolicy.py" afterPath="$PROJECT_DIR$/TestTemporalDifferencePolicy.py" />
-      <change beforePath="$PROJECT_DIR$/TicTacToe.py" afterPath="$PROJECT_DIR$/TicTacToe.py" />
-      <change beforePath="$PROJECT_DIR$/old_qvn_dump.pb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/qv_dump.pb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/qvn_dump.pb" afterPath="$PROJECT_DIR$/qvn_dump.pb" />
+      <change beforePath="$PROJECT_DIR$/TestRigThree.log" afterPath="$PROJECT_DIR$/TestRigThree.log" />
+      <change beforePath="$PROJECT_DIR$/TestRigThree.py" afterPath="$PROJECT_DIR$/TestRigThree.py" />
+      <change beforePath="$PROJECT_DIR$/TicTacToe[Conflict].ipynb" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,36 +25,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestRigThree.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TestRigThree.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NeuralNet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NeuralNet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemporalDifferenceDeepNNPolicy.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TemporalDifferenceDeepNNPolicy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="669">
-              <caret line="127" column="100" lean-forward="false" selection-start-line="127" selection-start-column="100" selection-end-line="127" selection-end-column="100" />
+            <state relative-caret-position="1632">
+              <caret line="97" column="27" lean-forward="false" selection-start-line="97" selection-start-column="27" selection-end-line="97" selection-end-column="27" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TicTacToeAgent.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <folding>
+                <marker date="1517557661386" expanded="true" signature="780:959" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestRigFour.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TestRigFour.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleRandomPolicy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SimpleRandomPolicy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,62 +74,40 @@
       <file leaf-file-name="Policy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Policy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="43" column="17" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="39" />
+            <state relative-caret-position="340">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Conda/envs/tensorflow/Lib/unittest/case.py">
+      <file leaf-file-name="TestRigThree.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TestRigThree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemporalDifferencePolicy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TemporalDifferencePolicy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+            <state relative-caret-position="119">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TemporalDifferenceDeepNNPolicyPersistance.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py">
+      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Conda/envs/tensorflow/Lib/codecs.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="118" column="78" lean-forward="false" selection-start-line="118" selection-start-column="78" selection-end-line="118" selection-end-column="78" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_methods.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/numpy/core/_methods.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state relative-caret-position="568">
+              <caret line="324" column="0" lean-forward="true" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fromnumeric.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/numpy/core/fromnumeric.py">
+      <file leaf-file-name="TestRigTwo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TestRigTwo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="2268" column="0" lean-forward="false" selection-start-line="2268" selection-start-column="0" selection-end-line="2268" selection-end-column="0" />
+            <state relative-caret-position="459">
+              <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -132,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/TicTacToe.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="391">
-              <caret line="83" column="35" lean-forward="false" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+              <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -202,7 +187,6 @@
         <option value="$PROJECT_DIR$/PlayTicTacToe.py" />
         <option value="$PROJECT_DIR$/RandomNonLearningAgent.py" />
         <option value="$PROJECT_DIR$/SImpleRandomPolicy.py" />
-        <option value="$PROJECT_DIR$/SimpleRandomPolicy.py" />
         <option value="$PROJECT_DIR$/Environment.py" />
         <option value="$PROJECT_DIR$/State.py" />
         <option value="$PROJECT_DIR$/EvaluationException.py" />
@@ -226,11 +210,13 @@
         <option value="$PROJECT_DIR$/HumanPolicy.py" />
         <option value="$PROJECT_DIR$/TicTacToeAgent.py" />
         <option value="$PROJECT_DIR$/TicTacToe.py" />
-        <option value="$PROJECT_DIR$/TestRigThree.py" />
         <option value="$PROJECT_DIR$/TestRigTwo.py" />
         <option value="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py" />
         <option value="$PROJECT_DIR$/TemporalDifferencePolicy.py" />
+        <option value="$PROJECT_DIR$/TestRigThree.py" />
+        <option value="$PROJECT_DIR$/SimpleRandomPolicy.py" />
         <option value="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" />
+        <option value="$PROJECT_DIR$/TestRigFour.py" />
       </list>
     </option>
   </component>
@@ -280,7 +266,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.TemporalDifferenceDeepNNPolicy">
+  <component name="RunManager" selected="Python.TestRigFour">
     <configuration name="TemporalDifferenceDeepNNPolicy" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -317,6 +303,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="TestRigFour" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TicTacToe" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestRigFour.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="TestRigThree" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -330,24 +334,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="TicTacToe" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestRigThree.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="TestRigTwo" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TestRigTwo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -385,19 +371,19 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.TestRigTwo" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in TestTemporalDifferencePolicy.py" />
-      <item index="2" class="java.lang.String" itemvalue="Python.TestRigThree" />
-      <item index="3" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicyPersistance" />
-      <item index="4" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicy" />
+      <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in TestTemporalDifferencePolicy.py" />
+      <item index="1" class="java.lang.String" itemvalue="Python.TestRigThree" />
+      <item index="2" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicyPersistance" />
+      <item index="3" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicy" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestRigFour" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicy" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicyPersistance" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in TestTemporalDifferencePolicy.py" />
-        <item index="3" class="java.lang.String" itemvalue="Python.TestRigThree" />
-        <item index="4" class="java.lang.String" itemvalue="Python.TestRigTwo" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TestRigFour" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicy" />
+        <item index="2" class="java.lang.String" itemvalue="Python.TemporalDifferenceDeepNNPolicyPersistance" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.py.test in TestTemporalDifferencePolicy.py" />
+        <item index="4" class="java.lang.String" itemvalue="Python.TestRigThree" />
       </list>
     </recent_temporary>
   </component>
@@ -441,7 +427,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15046838" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22456463" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22393823" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2934363" sideWeight="0.49791667" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -510,24 +496,14 @@
           <option name="timeStamp" value="201" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TicTacToeAgent.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="205" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TicTacToe.py</url>
-          <line>118</line>
-          <option name="timeStamp" value="227" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TicTacToeAgent.py</url>
-          <line>64</line>
-          <option name="timeStamp" value="228" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py</url>
-          <line>63</line>
+          <line>65</line>
           <option name="timeStamp" value="245" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TestRigFour.py</url>
+          <line>30</line>
+          <option name="timeStamp" value="248" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -537,7 +513,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="246" />
+      <option name="time" value="249" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -548,37 +524,27 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>(&quot;%s: %.2f%%&quot; % (model.metrics_names[1], scores[1] * 100))</expression-string>
+        <expression-string>action</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model_file_name</expression-string>
+        <expression-string>greedy_actions</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>y[i]</expression-string>
+        <expression-string>qvs</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>yn</expression-string>
+        <expression-string>qvs[0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>qval_file_name</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>filename</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>y</expression-string>
+        <expression-string>self</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -588,58 +554,23 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(qy-mn) / (mx-mn)</expression-string>
+        <expression-string>agent</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>(&quot;%s: %.2f%%&quot; % (model.metrics_names[1], scores[1] * 100))</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>model_file_name</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Action.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Reward.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestRig.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RandomNonLearningAgent.py" />
-    <entry file="file://$PROJECT_DIR$/Environment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/numpy/core/shape_base.py" />
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/codecs.py" />
-    <entry file="file://$PROJECT_DIR$/SimpleRandomPolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="59" lean-forward="false" selection-start-line="30" selection-start-column="59" selection-end-line="30" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/EvaluationException.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Conda/envs/tensorflow/Lib/typing.py" />
     <entry file="file://$PROJECT_DIR$/RandomPlay.py" />
     <entry file="file://$PROJECT_DIR$/PureRandomPlay.py" />
@@ -794,33 +725,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-            <marker date="1517557661386" expanded="true" signature="780:959" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestRigTwo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="143" lean-forward="false" selection-start-line="31" selection-start-column="143" selection-end-line="31" selection-end-column="143" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TemporalDifferencePolicyPersistance.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="759">
           <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -830,16 +740,6 @@
         <state relative-caret-position="296">
           <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestRigThree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -859,56 +759,156 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TicTacToe.py">
+    <entry file="file://$PROJECT_DIR$/NeuralNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="83" column="35" lean-forward="false" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+        <state relative-caret-position="748">
+          <caret line="44" column="14" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="118" column="78" lean-forward="false" selection-start-line="118" selection-start-column="78" selection-end-line="118" selection-end-column="78" />
+        <state relative-caret-position="238">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="47" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Policy.py">
+    <entry file="file://$PROJECT_DIR$/TemporalDifferencePolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="17" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="39" />
+        <state relative-caret-position="-3548">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TemporalDifferencePolicy.py">
+    <entry file="file://$PROJECT_DIR$/TestRigTwo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="459">
+          <caret line="37" column="58" lean-forward="true" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="58" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NeuralNet.py">
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="24" />
+        <state relative-caret-position="568">
+          <caret line="324" column="0" lean-forward="true" selection-start-line="324" selection-start-column="0" selection-end-line="324" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/h5py/_hl/compat.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="110" column="0" lean-forward="false" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/h5py/_hl/files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="265" column="0" lean-forward="false" selection-start-line="265" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/topology.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="2555" column="0" lean-forward="false" selection-start-line="2555" selection-start-column="0" selection-end-line="2555" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/tensorflow/python/client/session.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="700" column="0" lean-forward="false" selection-start-line="700" selection-start-column="0" selection-end-line="700" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/training.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="1729" column="0" lean-forward="false" selection-start-line="1729" selection-start-column="0" selection-end-line="1729" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="938" column="0" lean-forward="false" selection-start-line="938" selection-start-column="0" selection-end-line="938" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicTacToe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="171" column="0" lean-forward="false" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Policy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SimpleRandomPolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="127" column="100" lean-forward="false" selection-start-line="127" selection-start-column="100" selection-end-line="127" selection-end-column="100" />
+        <state relative-caret-position="1632">
+          <caret line="97" column="27" lean-forward="false" selection-start-line="97" selection-start-column="27" selection-end-line="97" selection-end-column="27" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <marker date="1517557661386" expanded="true" signature="780:959" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestRigThree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestRigFour.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="10" lean-forward="false" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>

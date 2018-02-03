@@ -2,6 +2,7 @@ import unittest
 import logging
 from pathlib import Path
 import random
+from random import randint
 import numpy as np
 import keras
 from keras.models import Sequential
@@ -10,6 +11,7 @@ from Policy import Policy
 from State import State
 from TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance
 from EnvironmentLogging import EnvironmentLogging
+from EvaluationException import EvaluationExcpetion
 
 #
 # This depends on the saved Q-Values from TemporalDifferencePolicy. It trains itself on those Q Values
@@ -63,18 +65,18 @@ class TemporalDifferenceDeepNNPolicy(Policy):
         #
         x, y = TemporalDifferenceDeepNNPolicyPersistance(lg=self.__lg).load_state_qval_as_xy(filename=qval_file_name)
 
-        model = None
+        self.__model = None
         if load_model_if_present:
             if Path(model_file_name).is_file():
-                model = keras.models.load_model(model_file_name)
+                self.__model = keras.models.load_model(model_file_name)
 
-        if model is None:
-            model = self.__set_up_model()
-            model.fit(x, y, epochs=self.__epochs, batch_size=self.__batch_size)
-            model.save(model_file_name)
+        if self.__model is None:
+            self.__model = self.__set_up_model()
+            self.__model.fit(x, y, epochs=self.__epochs, batch_size=self.__batch_size)
+            self.__model.save(model_file_name)
 
-        scores = model.evaluate(x, y)
-        self.__lg.debug("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+        scores = self.__model.evaluate(x, y)
+        self.__lg.debug("%s: %.2f%%" % (self.__model.metrics_names[1], scores[1] * 100))
         return scores[1] * 100
 
     #
@@ -88,19 +90,39 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     # Greedy action; request human user to input action.
     #
     def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
-        mv = None
-        return mv
+
+        qvs = None
+        if self.__model is not None:
+            x = TemporalDifferenceDeepNNPolicyPersistance.state_as_str_to_num_array(state.state_as_string())
+            qvs = self.__model.predict(np.array([x]))[0]
+            self.__lg.debug("Predict Y:= " + str(qvs))
+        else:
+            raise EvaluationExcpetion("No (Keras) Model Loaded with which to predict Q Values")
+
+        ou = np.max(qvs)
+        greedy_actions = list()
+        for i in range(0, len(qvs)):
+            if qvs[i] == ou:
+                if i in possible_actions:
+                    greedy_actions.append(int(i))
+        if len(greedy_actions) == 0:
+            raise EvaluationExcpetion("Model did not predict a Q Values related to a possible action")
+
+        return greedy_actions[randint(0, len(greedy_actions)-1)]
 
     #
     # Save the Keras Deep NN
     #
     def save(self, filename: str=None):
+        # No save as model is not updated during runs
         return
 
     #
     # Load the Keras Deep NN
     #
     def load(self, filename: str=None):
+        if Path(filename).is_file():
+            self.__model = keras.models.load_model(filename)
         return
 
 # ********************

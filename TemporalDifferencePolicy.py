@@ -6,7 +6,6 @@ from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersista
 from EvaluationException import EvaluationExcpetion
 from random import randint
 from FixedGames import FixedGames
-from typing import Tuple
 
 
 class TemporalDifferencePolicy(Policy):

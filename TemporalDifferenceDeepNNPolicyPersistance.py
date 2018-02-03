@@ -54,7 +54,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
     # Convert a state string to numpy vector
     #
     @classmethod
-    def __x_as_str_to_num_array(cls, xs: str) -> np.array:
+    def state_as_str_to_num_array(cls, xs: str) -> np.array:
         xl = list()
         s = 1
         for c in xs:
@@ -88,7 +88,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
     #
     def load_state_qval_as_xy(self, filename: str) -> Tuple[np.array, np.array]:
 
-        (qv, n , lr0 , df , lrd) = self.__temporal_difference_policy_persistance.load(filename)
+        (qv, n, lr0, df, lrd) = self.__temporal_difference_policy_persistance.load(filename)
 
         x = np.zeros((len(qv), 9))  # 9 Board Cells
         y = np.zeros((len(qv), 9))  # 9 Q Vals, 1 for each action for a given board state.
@@ -96,7 +96,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
         mn = np.finfo('d').max
         mx = -mn
         for qx, qy in qv.items():
-            x[i] = self.__x_as_str_to_num_array(qx)
+            x[i] = self.state_as_str_to_num_array(qx)
             y[i] = self.__qv_as_numpy_array(qy)
             mx = np.max(y[i])
             mn = np.min(y[i])

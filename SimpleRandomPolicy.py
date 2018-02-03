@@ -21,7 +21,7 @@ class SimpleRandomPolicy(Policy):
     # action : the action played by this agent that moved the state to the state passed
     # reward : the reward associated with the given state/action pair.
     #
-    def update_policy(self, agent_name: str, prev_state: State, prev_action: int, state: State, action: int, reward: float):
+    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
         return
 
     #
@@ -30,3 +30,10 @@ class SimpleRandomPolicy(Policy):
     #
     def greedy_action(self, agent_name: str, state: State, possible_actions) -> int:
         return possible_actions[randint(0, len(possible_actions)-1)]
+
+    def save(self, filename: str = None):
+        return
+
+    def load(self, filename: str = None):
+        return
+
