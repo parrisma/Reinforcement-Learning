@@ -26,13 +26,20 @@ class TemporalDifferencePolicy(Policy):
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, lg: logging, filename: str="", fixed_games: FixedGames=None, load_file: bool=False):
+    def __init__(self,
+                 lg: logging,
+                 filename: str="",
+                 fixed_games:
+                 FixedGames=None,
+                 load_qval_file: bool=False,
+                 manage_qval_file: bool=False):
         self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
         self.__fixed_games = fixed_games
+        self.__manage_qval_file = manage_qval_file
 
-        if load_file:
+        if load_qval_file:
             try:
                 (TemporalDifferencePolicy.__q_values,
                  TemporalDifferencePolicy.__n,
@@ -101,11 +108,10 @@ class TemporalDifferencePolicy(Policy):
             if state_name in cls.__q_values:
                 sz = len(cls.__q_values[state_name])
                 q_values = np.full(sz, np.nan)
-                q_actions = np.full(sz, np.int(0))
+                q_actions = np.array(sorted(list(cls.__q_values[state_name].keys())))
                 i = 0
-                for k, v in cls.__q_values[state_name].items():
-                    q_values[i] = v
-                    q_actions[i] = np.int(k)
+                for actn in q_actions:
+                    q_values[i] = cls.__q_values[state_name][actn]
                     i += 1
 
         return q_values, q_actions
@@ -125,8 +131,9 @@ class TemporalDifferencePolicy(Policy):
 
         # Update master count of policy learning events
         TemporalDifferencePolicy.__n += 1
-        if self.__n % 10 == 0:
-            self.__save()
+        if self.__n % 5000 == 0:
+            if self.__manage_qval_file:
+                self.__save()
 
         lr = TemporalDifferencePolicy.__q_learning_rate()
 
@@ -215,7 +222,7 @@ class TemporalDifferencePolicy(Policy):
     #
     # Import the current policy to the given file name
     #
-    def load(self, filename: str)-> Tuple[dict, int, np.float, np.float, np.float]:
+    def load(self, filename: str=None):
         fn = self.fileName(filename)
         if fn is not None and len(fn) > 0:
             (TemporalDifferencePolicy.__q_values,
@@ -244,13 +251,17 @@ class TemporalDifferencePolicy(Policy):
         at = 0
         if a is not None:
             a = np.sort(a)
+        mxq = np.max(q)
         for i in range(0, 3):
             for j in range(0, 3):
                 if a is not None and at < len(a) and a[at] == j+(i*3):
-                    s += "[" + '{:+.16f}'.format(q[at]) + "] "
+                    qpct = (q[at]/mxq)*100
+                    if np.isnan(qpct):
+                        qpct = 0
+                    s += "[(" + '{:+3d}'.format(int(qpct)) + "%) " + '{:+.16f}'.format(q[at]) + "] "
                     at += 1
                 else:
-                    s += "[                   ] "
+                    s += "[                           ] "
             s += "\n"
         return s
 

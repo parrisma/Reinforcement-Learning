@@ -22,16 +22,16 @@ if not learn_mode:
     itr = 100
     lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.DEBUG).get_logger()
 else:
-    epgrdy = 0.5
-    itr = 100000
+    epgrdy = 1.0
+    itr = 500000
     lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.INFO).get_logger()
 
 
 agent_x = TicTacToeAgent(1,
                          "X",
-                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None, load_file=True),
+                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None, load_qval_file=True, manage_qval_file=True),
                          epsilon_greedy=epgrdy,
-                         exploration_play=StrategyExploration(),
+                         exploration_play=PureRandomExploration(),
                          lg=lg)
 if not learn_mode:
     agent_o = TicTacToeAgent(-1,

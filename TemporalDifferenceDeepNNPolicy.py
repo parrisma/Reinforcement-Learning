@@ -1,14 +1,15 @@
 import unittest
 import logging
+from pathlib import Path
+import random
+import numpy as np
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
-from Persistance import Persistance
-import numpy as np
-from pathlib import Path
 from Policy import Policy
 from State import State
-from typing import Tuple
+from TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance
+from EnvironmentLogging import EnvironmentLogging
 
 #
 # This depends on the saved Q-Values from TemporalDifferencePolicy. It trains itself on those Q Values
@@ -20,26 +21,27 @@ from typing import Tuple
 class TemporalDifferenceDeepNNPolicy(Policy):
 
     __model = None
+    __epochs = 50
+    __batch_size = 10
 
     #
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, agent_name: str, lg: logging):
+    def __init__(self, lg: logging):
         self.__lg = lg
-        self.__agent_name = agent_name
         return
 
     #
     # Define the model that will approximate the Q Value function.
-    # X: 1 by 10 : Actor Id + State Of the Board.
+    # X: 1 by 9 : State Of the Board.
     # Y: 1 by 9 : Q Values for the 9 possible actions.
     #
     @classmethod
-    def __model(cls) -> keras.models.Sequential:
+    def __set_up_model(cls) -> keras.models.Sequential:
 
         model = Sequential()
-        model.add(Dense(1000, input_dim=10, activation='relu'))
+        model.add(Dense(1000, input_dim=9, activation='relu'))
         model.add(Dense(512, activation='relu'))
         model.add(Dense(512, activation='relu'))
         model.add(Dense(512, activation='relu'))
@@ -55,14 +57,31 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     #
     # The given file name is the name of a Q Value dump file.
     #
-    def train(self, file_name: str):
-        return
+    def train(self, qval_file_name: str, model_file_name: str, load_model_if_present: bool=False) ->float:
+        #
+        # Load the Q Values and States as learned by the TemporalDifferencePolicy class.
+        #
+        x, y = TemporalDifferenceDeepNNPolicyPersistance(lg=self.__lg).load_state_qval_as_xy(filename=qval_file_name)
+
+        model = None
+        if load_model_if_present:
+            if Path(model_file_name).is_file():
+                model = keras.models.load_model(model_file_name)
+
+        if model is None:
+            model = self.__set_up_model()
+            model.fit(x, y, epochs=self.__epochs, batch_size=self.__batch_size)
+            model.save(model_file_name)
+
+        scores = model.evaluate(x, y)
+        self.__lg.debug("%s: %.2f%%" % (model.metrics_names[1], scores[1] * 100))
+        return scores[1] * 100
 
     #
     # We do not update the policy, we just train the model once at the outset via the train() method.
     # This is **not** a Critic / Actor Pattern
     #
-    def update_policy(self, agent_name: str, prev_state: State, prev_action: int, state: State, action: int, reward: float):
+    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
         return
 
     #
@@ -81,7 +100,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     #
     # Load the Keras Deep NN
     #
-    def load(self, filename: str)-> Tuple[dict, int, np.float, np.float, np.float]:
+    def load(self, filename: str=None):
         return
 
 # ********************
@@ -91,8 +110,23 @@ class TemporalDifferenceDeepNNPolicy(Policy):
 
 class TestTemporalDifferenceDeepNNPolicy(unittest.TestCase):
 
+        __qval_file = 'qvn_dump.pb'
+        __model_file = 'model.keras'
+        __lg = None
+
+        @classmethod
+        def setUpClass(cls):
+            random.seed(42)
+            np.random.seed(42)
+            cls.__lg = EnvironmentLogging("TestTemporalDifferenceDeepNNPolicy",
+                                          "TestTemporalDifferenceDeepNNPolicy.log",
+                                          logging.INFO).get_logger()
+
+
         def test_training(self):
-            #self.assertEqual(se.select_action(possible_actions), expected_action)
+            tddnnp = TemporalDifferenceDeepNNPolicy(lg=self.__lg)
+            accuracy = tddnnp.train(self.__qval_file, self.__model_file, load_model_if_present=True)
+            self.assertGreaterEqual(accuracy, float(90))
             return
 
 #

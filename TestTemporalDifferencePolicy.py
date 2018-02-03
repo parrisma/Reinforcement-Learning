@@ -61,7 +61,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
             expected_action = 0
             reward=1.0
 
-            tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_file=False)
+            tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
             tdp.update_policy(agent_name=test_agent_1,
                               prev_state=None,
                               prev_action=0,
@@ -97,7 +97,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
             reward = 1.0
             niter = 100
 
-            tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_file=False)
+            tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
             for i in range(0, niter):
                 tdp.update_policy(agent_name=test_agent_1,
                                   prev_state=None,

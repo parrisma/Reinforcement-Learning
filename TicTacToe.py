@@ -25,6 +25,7 @@ class TicTacToe(Environment):
     attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
     attribute_agent = ("agent", "The last agent to make a move", Agent)
     attribute_board = ("board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
+    __episode = 'episode number'
 
     #
     # Constructor has no arguments as it just sets the game
@@ -41,6 +42,7 @@ class TicTacToe(Environment):
         self.__next_agent = {x.name(): o, o.name(): x}
         self.__x_agent.session_init(self.actions())
         self.__o_agent.session_init(self.actions())
+        self.__stats = None
         return
 
     #
@@ -67,10 +69,35 @@ class TicTacToe(Environment):
         return None
 
     #
+    # Keep stats of wins by agent.
+    #
+    def __keep_stats(self, reset: bool=False):
+        if reset is True or self.__stats is None:
+            self.__stats = dict()
+            self.__stats[self.__episode] = 1
+            self.__stats[self.__o_agent.name()] = 0
+            self.__stats[self.__x_agent.name()] = 0
+
+        if self.__episode_won():
+            self.__stats[self.__agent.name()] = self.__stats[self.__agent.name()] + 1
+            self.__stats[self.__episode] = self.__stats[self.__episode] + 1
+            self.__lg.debug(self.__agent.name() + " Wins")
+
+        if self.__stats[self.__episode] % 100 == 0:
+            self.__lg.info("Stats: Agent : " + self.__x_agent.name() + " [" +
+                           str(round((self.__stats[self.__x_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
+                           "Agent : " + self.__o_agent.name() + " [" +
+                           str(round((self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] "
+                          )
+        return
+
+
+    #
     # Run the given number of iterations
     #
     def run(self, iterations: int):
         i = 0
+        self.__keep_stats(reset=True)
         while i <= iterations:
             self.__lg.debug("Start Episode")
             self.reset()
@@ -89,6 +116,7 @@ class TicTacToe(Environment):
                 if i % 500 == 0:
                     self.__lg.info("Iteration: " + str(i))
 
+            self.__keep_stats()
             self.__lg.debug("Episode Complete")
             state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
             self.__lg.debug(state.state_as_visualisation())
