@@ -19,7 +19,13 @@ class HumanPolicy(Policy):
     #
     # No policy update, just show the resulting state/reward.
     #
-    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
+    def update_policy(self,
+                      agent_name: str,
+                      state: State,
+                      next_state: State,
+                      action: int,
+                      reward: float,
+                      episode_complete: bool):
         return
 
     #

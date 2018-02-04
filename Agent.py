@@ -67,7 +67,13 @@ class Agent(metaclass=abc.ABCMeta):
     # next_state: The State after the action is taken : S'
     # action    : The action that transitioned S to S'
     # reward    : The reward for playing action in state S
+    # episode_complete : If environment is episodic, then true if the reward relates to the last reward in an episode.
     #
     @abc.abstractmethod
-    def reward(self, state: State, next_state: State, action: int, reward_for_play: float):
+    def reward(self,
+               state: State,
+               next_state: State,
+               action: int,
+               reward_for_play: float,
+               episode_complete: bool):
         pass

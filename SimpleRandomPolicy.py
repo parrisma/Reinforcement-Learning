@@ -21,7 +21,13 @@ class SimpleRandomPolicy(Policy):
     # action : the action played by this agent that moved the state to the state passed
     # reward : the reward associated with the given state/action pair.
     #
-    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
+    def update_policy(self,
+                      agent_name: str,
+                      state: State,
+                      next_state: State,
+                      action: int,
+                      reward: float,
+                      episode_complete: bool):
         return
 
     #

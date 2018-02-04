@@ -174,13 +174,13 @@ class TicTacToe(Environment):
         if self.episode_complete():
             attributes = self.attributes()
             if attributes[self.attribute_won[0]]:
-                agent.reward(state, next_state, action, self.__win)
+                agent.reward(state, next_state, action, self.__win, self.episode_complete())
                 return None  # episode complete - no next agent to go
             if attributes[self.attribute_draw[0]]:
-                agent.reward(state, next_state, action, self.__draw)
+                agent.reward(state, next_state, action, self.__draw, self.episode_complete())
                 return None  # episode complete - no next agent to go
 
-        agent.reward(state, next_state, action, self.__play)
+        agent.reward(state, next_state, action, self.__play, self.episode_complete())
         return other_agent  # play moves to next agent
 
     #

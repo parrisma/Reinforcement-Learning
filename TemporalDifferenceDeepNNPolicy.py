@@ -22,7 +22,6 @@ from EvaluationException import EvaluationExcpetion
 
 class TemporalDifferenceDeepNNPolicy(Policy):
 
-    __model = None
     __epochs = 50
     __batch_size = 10
 
@@ -32,6 +31,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     #
     def __init__(self, lg: logging):
         self.__lg = lg
+        self.__model = None
         return
 
     #
@@ -83,7 +83,13 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     # We do not update the policy, we just train the model once at the outset via the train() method.
     # This is **not** a Critic / Actor Pattern
     #
-    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
+    def update_policy(self,
+                      agent_name: str,
+                      state: State,
+                      next_state: State,
+                      action: int,
+                      reward: float,
+                      episode_complete: bool):
         return
 
     #
@@ -93,7 +99,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
 
         qvs = None
         if self.__model is not None:
-            x = TemporalDifferenceDeepNNPolicyPersistance.state_as_str_to_num_array(state.state_as_string())
+            x = TemporalDifferenceDeepNNPolicyPersistance.state_as_str_to_numpy_array(state.state_as_string())
             qvs = self.__model.predict(np.array([x]))[0]
             self.__lg.debug("Predict Y:= " + str(qvs))
         else:
@@ -143,7 +149,6 @@ class TestTemporalDifferenceDeepNNPolicy(unittest.TestCase):
             cls.__lg = EnvironmentLogging("TestTemporalDifferenceDeepNNPolicy",
                                           "TestTemporalDifferenceDeepNNPolicy.log",
                                           logging.INFO).get_logger()
-
 
         def test_training(self):
             tddnnp = TemporalDifferenceDeepNNPolicy(lg=self.__lg)

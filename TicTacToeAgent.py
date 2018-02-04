@@ -81,12 +81,13 @@ class TicTacToeAgent(Agent):
     # Environment call back to reward agent for a play chosen for the given
     # state passed.
     #
-    def reward(self, state: State, next_state: State, action: int, reward_for_play: float):
+    def reward(self, state: State, next_state: State, action: int, reward_for_play: float, episode_complete: bool):
         self.__policy.update_policy(self.name(),
                                     state,
                                     next_state,
                                     action,
-                                    reward_for_play)
+                                    reward_for_play,
+                                    episode_complete)
         return
 
     #

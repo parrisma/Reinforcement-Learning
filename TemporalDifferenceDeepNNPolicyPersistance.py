@@ -54,7 +54,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
     # Convert a state string to numpy vector
     #
     @classmethod
-    def state_as_str_to_num_array(cls, xs: str) -> np.array:
+    def state_as_str_to_numpy_array(cls, xs: str) -> np.array:
         xl = list()
         s = 1
         for c in xs:
@@ -96,7 +96,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
         mn = np.finfo('d').max
         mx = -mn
         for qx, qy in qv.items():
-            x[i] = self.state_as_str_to_num_array(qx)
+            x[i] = self.state_as_str_to_numpy_array(qx)
             y[i] = self.__qv_as_numpy_array(qy)
             mx = np.max(y[i])
             mn = np.min(y[i])

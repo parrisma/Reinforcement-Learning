@@ -124,7 +124,13 @@ class TemporalDifferencePolicy(Policy):
     # action : the action played by this agent that moved the state to the state passed
     # reward : the reward associated with the given state/action pair.
     # ToDo
-    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float):
+    def update_policy(self,
+                      agent_name: str,
+                      state: State,
+                      next_state: State,
+                      action: int,
+                      reward: float,
+                      episode_complete: bool):
 
         self.__lg.debug(agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
 
