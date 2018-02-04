@@ -117,6 +117,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
         return greedy_actions[randint(0, len(greedy_actions)-1)]
 
     #
+
     # Save the Keras Deep NN
     #
     def save(self, filename: str=None):

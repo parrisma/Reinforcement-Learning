@@ -3,19 +3,19 @@ from TicTacToeAgent import TicTacToeAgent
 from PureRandomExploration import PureRandomExploration
 from TicTacToe import TicTacToe
 from EnvironmentLogging import EnvironmentLogging
-from TemporalDifferenceDeepNNPolicy import TemporalDifferenceDeepNNPolicy
+from TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
 from SimpleRandomPolicy import SimpleRandomPolicy
 
-itr = 5000
-lg = EnvironmentLogging("TestRig4", "TestRigFour.log", logging.INFO).get_logger()
+itr = 500000
+lg = EnvironmentLogging("TestRig5", "TestRigFive.log", logging.INFO).get_logger()
 
 
-tddnnp = TemporalDifferenceDeepNNPolicy(lg=lg)
-tddnnp.load('model.keras')
+fn = "keras.model.critic"
+tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(lg=lg, model_file_name=fn, load_model=True)
 
 agent_x = TicTacToeAgent(1,
                          "X",
-                         tddnnp,
+                         tdacdnnp,
                          epsilon_greedy=0,
                          exploration_play=PureRandomExploration(),
                          lg=lg)
