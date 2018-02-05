@@ -168,19 +168,21 @@ class TicTacToe(Environment):
 
         # Make the play on the board.
         action = agent.chose_action(state, self.__actions_ids_left_to_take())
+        if action not in self.__actions_ids_left_to_take():
+            print("Opps")
         self.__take_action(self.__actions[action], agent)
         next_state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
 
         if self.episode_complete():
             attributes = self.attributes()
             if attributes[self.attribute_won[0]]:
-                agent.reward(state, next_state, action, self.__win, self.episode_complete())
+                agent.reward(state, next_state, action, self.__win, True)
                 return None  # episode complete - no next agent to go
             if attributes[self.attribute_draw[0]]:
-                agent.reward(state, next_state, action, self.__draw, self.episode_complete())
+                agent.reward(state, next_state, action, self.__draw, True)
                 return None  # episode complete - no next agent to go
 
-        agent.reward(state, next_state, action, self.__play, self.episode_complete())
+        agent.reward(state, next_state, action, self.__play, False)
         return other_agent  # play moves to next agent
 
     #
