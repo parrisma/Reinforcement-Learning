@@ -8,6 +8,7 @@ from EnvironmentLogging import EnvironmentLogging
 from TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
 from SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithReplayMemory
 from ReplayMemory import ReplayMemory
+from ModelParameters import ModelParameters
 
 random.seed(42)
 np.random.seed(42)
@@ -18,7 +19,11 @@ lg = EnvironmentLogging("TestRig5", "TestRigFive.log", logging.INFO).get_logger(
 replay_memory = ReplayMemory(lg, 1000)
 
 fn = "keras.model.critic"
-tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(lg=lg, replay_memory=replay_memory, model_file_name=fn, load_model=True)
+tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(lg=lg,
+                                                     replay_memory=replay_memory,
+                                                     model_file_name=fn,
+                                                     model_parameters=ModelParameters(),
+                                                     load_model=True)
 
 agent_x = TicTacToeAgent(1,
                          "X",

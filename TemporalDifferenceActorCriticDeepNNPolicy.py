@@ -12,6 +12,8 @@ from State import State
 from EnvironmentLogging import EnvironmentLogging
 from EvaluationException import EvaluationExcpetion
 from ReplayMemory import ReplayMemory
+from TestState import TestState
+from ModelParameters import ModelParameters
 
 #
 # This follows the ActorCritic pattern.
@@ -19,14 +21,6 @@ from ReplayMemory import ReplayMemory
 
 
 class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
-
-    # Model Parameters
-    __epochs = 100
-    __update_every_n_episodes = 100
-    __sample_size = 50  # episodes => about 500 events.
-    __batch_size = 10
-    __replay_mem_size = 1000
-    __save_every_n_critic_updates = 100
 
     # Learning Parameters
     __n = 0  # number of learning events
@@ -38,7 +32,14 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     # At inti time the only thing needed is the universal set of possible
     # actions for the given Environment
     #
-    def __init__(self, lg: logging, replay_memory: ReplayMemory, model_file_name: str, load_model: bool=False):
+    def __init__(self,
+                 lg: logging,
+                 replay_memory:
+                 ReplayMemory,
+                 model_file_name: str,
+                 model_parameters: ModelParameters=None,
+                 load_model: bool=False):
+
         self.__lg = lg
         if load_model:
             self.load(model_file_name)
@@ -49,6 +50,18 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         self.__model_file_name = model_file_name
         self.__critic_updates = 0
         self.__replay_memory = replay_memory
+        if model_parameters is None:
+            mp = ModelParameters()  # Defaults
+        else:
+            mp = model_parameters
+
+        self.__epochs = mp.epochs
+        self.__update_every_n_episodes = mp.update_every_n_episodes
+        self.__sample_size = mp.sample_size
+        self.__batch_size = mp.batch_size
+        self.__replay_mem_size = mp.replay_mem_size
+        self.__save_every_n_critic_updates = mp.save_every_n_critic_updates
+
         return
 
     #
@@ -60,11 +73,11 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     def __set_up_model(cls) -> keras.models.Sequential:
 
         model = Sequential()
-        model.add(Dense(1000, input_dim=9, activation='relu', kernel_initializer=keras.initializers.Zeros(), bias_initializer=keras.initializers.Zeros()))
-        model.add(Dense(512, activation='relu', kernel_initializer=keras.initializers.Zeros(), bias_initializer=keras.initializers.Zeros()))
-        model.add(Dense(512, activation='relu', kernel_initializer=keras.initializers.Zeros(), bias_initializer=keras.initializers.Zeros()))
-        model.add(Dense(512, activation='relu', kernel_initializer=keras.initializers.Zeros(), bias_initializer=keras.initializers.Zeros()))
-        model.add(Dense(9, kernel_initializer=keras.initializers.Zeros(), bias_initializer=keras.initializers.Zeros()))
+        model.add(Dense(1000, input_dim=9, activation='relu'))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dense(512, activation='relu'))
+        model.add(Dense(9))
         cls.__compile_model(model)
 
         return model
@@ -255,8 +268,41 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
                                           "TestTemporalDifferenceDeepNNPolicy.log",
                                           logging.INFO).get_logger()
 
+        #
+        # Test convergence on single game pattern.
+        #
+        # Game is moves 0,2,4,6,8 (diagonal win)
+        #
         def test_training(self):
-            self.assertGreaterEqual(1,1)
+            ts0 = TestState("000000000")
+            ts1 = TestState("100000000")
+            ts2 = TestState("10-1000000")
+            ts3 = TestState("10-1010000")
+            ts4 = TestState("10-1010-100")
+            ts5 = TestState("10-1010-101")
+
+            test_cases = (('1', ts0, ts1, 0, 0.0, False),
+                          ('-1', ts1, ts2, 2, 0.0, False),
+                          ('1', ts2, ts3, 4, 0.0, False),
+                          ('-1', ts3, ts4, 6, 0.0, False),
+                          ('1', ts4, ts5, 8, 100.0, True),
+                          )
+
+            rpmem_sz = 500
+            rm = ReplayMemory(self.__lg, rpmem_sz)
+            mp = ModelParameters(10, 10, 50, 10, rpmem_sz, 25)
+            tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(self.__lg, rm, "./model.test", mp, False)
+
+            for i in range(0, 200):
+                case = test_cases[i % 5]
+                tdacdnnp.update_policy(case[0], case[1], case[2], case[3], case[4], case[5])
+
+            pa0 = tdacdnnp.greedy_action("1", ts0, [0, 1, 2, 3, 4, 5, 6, 7, 8])
+            pa1 = tdacdnnp.greedy_action("1", ts1, [0, 1, 3, 4, 5, 6, 7, 8])
+            pa2 = tdacdnnp.greedy_action("1", ts2, [0, 1, 3, 5, 6, 7, 8])
+            pa3 = tdacdnnp.greedy_action("1", ts3, [0, 1, 3, 5, 7, 8])
+            pa4 = tdacdnnp.greedy_action("1", ts4, [0, 1, 3, 5, 7])
+
             return
 
 #
