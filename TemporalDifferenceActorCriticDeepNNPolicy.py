@@ -44,8 +44,8 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         if load_model:
             self.load(model_file_name)
         else:
-            self.__actor = self.__set_up_model()
-            self.__critic = self.__set_up_model()
+            self.__actor = self.create_new_model_instance()
+            self.__critic = self.create_new_model_instance()
         self.__episodes_played = 0
         self.__model_file_name = model_file_name
         self.__critic_updates = 0
@@ -70,7 +70,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     # Y: 1 by 9 : Q Values for the 9 possible actions.
     #
     @classmethod
-    def __set_up_model(cls) -> keras.models.Sequential:
+    def create_new_model_instance(cls) -> keras.models.Sequential:
 
         model = Sequential()
         model.add(Dense(1000, input_dim=9, activation='relu'))
@@ -244,8 +244,8 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
             self.__compile_model(self.__critic)
             self.__lg.info("Critic & Actor Loaded from file: " + filename)
         else:
-            self.__actor = self.__set_up_model()
-            self.__critic = self.__set_up_model()
+            self.__actor = self.create_new_model_instance()
+            self.__critic = self.create_new_model_instance()
             self.__lg.info("Critic & Actor not loaded as file not found: " + filename)
         return
 
@@ -267,6 +267,39 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
             cls.__lg = EnvironmentLogging("TestTemporalDifferenceDeepNNPolicy",
                                           "TestTemporalDifferenceDeepNNPolicy.log",
                                           logging.INFO).get_logger()
+
+        #
+        # Test the NN model behaviour
+        #
+        def test_model_behaviour(self):
+
+            nn_model = TemporalDifferenceActorCriticDeepNNPolicy.create_new_model_instance()
+            x = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
+            y = np.array([1.1234, 2.1234, 3.1234, 4.1234, 5.1234, 6.1234, 7.1234, 8.1234, 9.1234])
+            nt = 500
+            xx = np.reshape(np.repeat(x, nt, axis=-1), (x.size, nt)).T
+            yy = np.reshape(np.repeat(y, nt, axis=-1), (y.size, nt)).T
+
+            err = 1e9
+            iter = 0
+            model_loss = 1e9
+            model_acc = 1e9
+            while err > 1e-6 and model_loss > 1e-9 and model_acc > 0.75 and iter < 10:
+                nn_model.fit(xx, yy, batch_size=10, epochs=50, shuffle=False)
+                pr = nn_model.predict(np.array([x]))[0]
+                err = np.max(np.absolute(y-pr))
+                scores = nn_model.evaluate(xx, yy)
+                model_loss = scores[0]
+                model_acc = scores[1]
+                iter += 1
+
+            self.__lg.debug("Final Prediction: " + str(pr))
+            self.assertGreater(1e-6, err)
+            self.assertGreater(1e-6, model_loss)
+            self.assertGreater(model_acc, 0.75)
+            return
+
+
 
         #
         # Test convergence on single game pattern.
@@ -311,6 +344,12 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    tests = TestTemporalDifferenceActorCriticDeepNNPolicy()
-    suite = unittest.TestLoader().loadTestsFromModule(tests)
-    unittest.TextTestRunner().run(suite)
+    if False:
+        tests = TestTemporalDifferenceActorCriticDeepNNPolicy()
+        suite = unittest.TestLoader().loadTestsFromModule(tests)
+        unittest.TextTestRunner().run(suite)
+    else:
+        suite = unittest.TestSuite()
+        suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour"))
+        unittest.TextTestRunner().run(suite)
+
