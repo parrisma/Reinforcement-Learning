@@ -2,15 +2,12 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/TemporalDifferencePolicy.py" line="33" />
-    <bookmark url="file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" line="287" />
+    <bookmark url="file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" line="290" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/TestTemporalDifferenceDeepNNPolicy.log" afterPath="$PROJECT_DIR$/TestTemporalDifferenceDeepNNPolicy.log" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +21,41 @@
       <file leaf-file-name="TemporalDifferenceActorCriticDeepNNPolicy.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="298" column="46" lean-forward="false" selection-start-line="298" selection-start-column="46" selection-end-line="298" selection-end-column="46" />
+            <state relative-caret-position="357">
+              <caret line="302" column="0" lean-forward="false" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/training.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="1729" column="0" lean-forward="false" selection-start-line="1729" selection-start-column="0" selection-end-line="1729" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="938" column="0" lean-forward="false" selection-start-line="938" selection-start-column="0" selection-end-line="938" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Conda/envs/tensorflow/Lib/unittest/case.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="850">
+              <caret line="637" column="0" lean-forward="true" selection-start-line="636" selection-start-column="32" selection-end-line="637" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -503,7 +530,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
-          <line>185</line>
+          <line>186</line>
           <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -513,23 +540,33 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
-          <line>332</line>
+          <line>401</line>
           <option name="timeStamp" value="287" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
-          <line>211</line>
+          <line>212</line>
           <option name="timeStamp" value="290" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
-          <line>227</line>
+          <line>228</line>
           <option name="timeStamp" value="291" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
-          <line>295</line>
+          <line>298</line>
           <option name="timeStamp" value="297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
+          <line>338</line>
+          <option name="timeStamp" value="312" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py</url>
+          <line>351</line>
+          <option name="timeStamp" value="313" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -539,7 +576,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="300" />
+      <option name="time" value="314" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -550,47 +587,52 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>self.assertGreater(1e-6, err)</expression-string>
+        <expression-string>model_acc &gt; 0.75</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>err - 1e-6</expression-string>
+        <expression-string>model_acc &gt; 0,75</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.assertAlmostEqual(err,1e-6,6)</expression-string>
+        <expression-string>model_loss &gt; 1e-9</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>err</expression-string>
+        <expression-string>err &gt; 1e-6</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>err=2.655029298637146e-07</expression-string>
+        <expression-string>sum((x[231] == xs)*(1,1,1,1,1,1,1,1,1))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>model_loss</expression-string>
+        <expression-string>(x[231] == xs)*(1,1,1,1,1,1,1,1,1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>nn_model.metrics_names</expression-string>
+        <expression-string>(x[231] == xs)*(1,1,1,1,1,1,1,1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.absolute(y-pr)</expression-string>
+        <expression-string>(x[231] == xs)*(1,2,3,4,5,6,7,8,9)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>pr</expression-string>
+        <expression-string>np.logical_and(x[231] == xs)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>x[231] == xs</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -799,7 +841,7 @@
         <state relative-caret-position="1127">
           <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -824,22 +866,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
           <caret line="700" column="0" lean-forward="false" selection-start-line="700" selection-start-column="0" selection-end-line="700" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/training.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="1729" column="0" lean-forward="false" selection-start-line="1729" selection-start-column="0" selection-end-line="1729" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="938" column="0" lean-forward="false" selection-start-line="938" selection-start-column="0" selection-end-line="938" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -883,18 +909,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/unittest/case.py">
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/training.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="869" column="0" lean-forward="false" selection-start-line="869" selection-start-column="0" selection-end-line="869" selection-end-column="0" />
+          <caret line="1729" column="0" lean-forward="false" selection-start-line="1729" selection-start-column="0" selection-end-line="1729" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="938" column="0" lean-forward="false" selection-start-line="938" selection-start-column="0" selection-end-line="938" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tensorflow/Lib/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="637" column="0" lean-forward="true" selection-start-line="636" selection-start-column="32" selection-end-line="637" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="298" column="46" lean-forward="false" selection-start-line="298" selection-start-column="46" selection-end-line="298" selection-end-column="46" />
+        <state relative-caret-position="357">
+          <caret line="302" column="0" lean-forward="false" selection-start-line="302" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

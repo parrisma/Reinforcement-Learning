@@ -73,10 +73,11 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     def create_new_model_instance(cls) -> keras.models.Sequential:
 
         model = Sequential()
-        model.add(Dense(1000, input_dim=9, activation='relu'))
-        model.add(Dense(512, activation='relu'))
-        model.add(Dense(512, activation='relu'))
-        model.add(Dense(512, activation='relu'))
+        model.add(Dense(500, input_dim=9, activation='relu'))
+        model.add(Dense(1000, activation='relu'))
+        model.add(Dense(750, activation='relu'))
+        model.add(Dense(500, activation='relu'))
+        model.add(Dense(100, activation='relu'))
         model.add(Dense(9))
         cls.__compile_model(model)
 
@@ -87,7 +88,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     #
     @classmethod
     def __compile_model(cls, model):
-        model.compile(loss='mean_squared_error', optimizer='rmsprop', metrics=['accuracy'])
+        model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
         return
 
     #
@@ -269,9 +270,11 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
                                           logging.INFO).get_logger()
 
         #
-        # Test the NN model behaviour
+        # Test the NN model behaviour.
         #
-        def test_model_behaviour(self):
+        # Is the defined model able to learn and predict a single state action pair.
+        #
+        def test_model_behaviour_1(self):
 
             nn_model = TemporalDifferenceActorCriticDeepNNPolicy.create_new_model_instance()
             x = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -284,7 +287,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
             iter = 0
             model_loss = 1e9
             model_acc = 1e9
-            while err > 1e-6 and model_loss > 1e-9 and model_acc > 0.75 and iter < 10:
+            while (err > 1e-6 or model_loss > 1e-9) and model_acc > 0.75 and iter < 10:
                 nn_model.fit(xx, yy, batch_size=10, epochs=50, shuffle=False)
                 pr = nn_model.predict(np.array([x]))[0]
                 err = np.max(np.absolute(y-pr))
@@ -299,7 +302,73 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
             self.assertGreater(model_acc, 0.75)
             return
 
+        #
+        # Test the NN model behaviour.
+        #
+        # Is the defined model able to learn and predict 1000 state action pairs in a reply memory
+        # of 10K samples with each pair repeated 10 times
+        #
+        def test_model_behaviour_1000(self):
 
+            nn_model = TemporalDifferenceActorCriticDeepNNPolicy.create_new_model_instance()
+            nt = 10000
+            x = np.empty((nt, 9))
+            y = np.empty((nt, 9))
+            for i in range(0, 1000):
+                xr = self.__rand_x()
+                yr = self.__rand_y()
+                for j in range(0, nt, 1000):
+                    print(str(i) + " : "  + str(j) + " : " + str(i+j))
+                    x[i+j] = xr
+                    y[i+j] = yr
+
+            xs = x[231]  # Save a test case to ensure x/y paris are preserved post shuffle
+            ys = y[231]
+
+            ridx = np.arange(0, nt)  # create an index and shuffle so both x/y can be shuffled together.
+            np.random.shuffle(ridx)
+            x = x[ridx]
+            y = y[ridx]
+
+            # double check the test cases are still in sync.
+            for i in range(0, nt):
+                if sum((x[i] == xs) * (1, 1, 1, 1, 1, 1, 1, 1, 1)) == 9:
+                    if sum((y[i] == ys) * (1, 1, 1, 1, 1, 1, 1, 1, 1)) != 9:
+                        raise RuntimeError("Opps")
+
+            err = 1e9
+            iter = 0
+            model_loss = 1e9
+            model_acc = 0
+            while err > 1e-6 and model_loss > 1e-9 and model_acc < 0.75 and iter < 10:
+                nn_model.fit(x, y, batch_size=50, epochs=50, shuffle=False)
+                pr = nn_model.predict(np.array([x[1000]]))[0]
+                err = np.max(np.absolute(y[1000]-pr))
+                scores = nn_model.evaluate(x, y)
+                model_loss = scores[0]
+                model_acc = scores[1]
+                iter += 1
+
+            self.__lg.debug("Final Prediction: " + str(pr))
+            self.assertGreater(1e-6, err)
+            self.assertGreater(1e-6, model_loss)
+            self.assertGreater(model_acc, 0.75)
+            return
+
+        #
+        # return a random x "state" vector
+        #
+        def __rand_x(self) -> np.array:
+            x = np.random.randint(low=-1, high=1, size=(1, 9))
+            x = x * np.float(1)
+            return x
+
+        #
+        # return a random y "state" vector
+        #
+        def __rand_y(self) -> np.array:
+            y = np.random.rand(1, 9)*100
+            return y
 
         #
         # Test convergence on single game pattern.
@@ -350,6 +419,6 @@ if __name__ == "__main__":
         unittest.TextTestRunner().run(suite)
     else:
         suite = unittest.TestSuite()
-        suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour"))
+        suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour_1"))
         unittest.TextTestRunner().run(suite)
 
