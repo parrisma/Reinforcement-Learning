@@ -1,6 +1,8 @@
+import unittest
 import numpy as np
 from typing import Tuple
 from ITemporalDifferencePolicyPersistance import ITemporalDifferencePolicyPersistance
+
 
 #
 # Save and Load Q Value Dictionary of form
@@ -42,6 +44,31 @@ class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
         return True
 
     #
+    # Dump the given q values dictionary to a simple text dump.
+    #
+    @classmethod
+    def save_as_csv(cls, qv: dict, filename: str):
+        out_f = None
+        try:
+            out_f = open(filename, "w")
+            qvs = np.zeros(9)
+            for state, q_val_dict in qv[0].items():
+                out_f.write("S:" + str(state).replace('-1', '2'))
+                out_f.write(",")
+                for action, q_val in q_val_dict.items():
+                    qvs[action] = q_val
+                for qv in qvs:
+                    out_f.write('{:.16f}'.format(qv) + ",")
+                out_f.write("\n")
+                qvs = np.zeros(9)
+        except Exception as exc:
+            print("Failed to save Q Values : " + str(exc))
+            return False
+        finally:
+            out_f.close()
+        return True
+
+    #
     # Load the given file into a TD Policy state/action/q value dictionary
     #
     @classmethod
@@ -75,3 +102,25 @@ class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
             if in_f is not None:
                 in_f.close()
         return qv, n, learning_rate_0, discount_factor, learning_rate_decay
+
+# ********************
+# *** UNIT TESTING ***
+# ********************
+
+
+class TestTemporalDifferencePolicyPersistance(unittest.TestCase):
+
+    def test_load_and_save(self):
+        tdpp = TemporalDifferencePolicyPersistance()
+        ld = tdpp.load("./qvn_dump.pb")
+        tdpp.save_as_csv(ld, "./qvn_dump.csv")
+
+#
+# Execute the tests.
+#
+
+
+if __name__ == "__main__":
+    tests = TestTemporalDifferencePolicyPersistance()
+    suite = unittest.TestLoader().loadTestsFromModule(tests)
+    unittest.TextTestRunner().run(suite)
