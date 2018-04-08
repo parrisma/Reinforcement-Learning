@@ -1,3 +1,0 @@
-From D:\Conda\envs\tf-gpu\lib\site-packages\keras\backend\tensorflow_backend.py:1340: calling reduce_mean (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
-Instructions for updating:
-keep_dims is deprecated, use keepdims instead
