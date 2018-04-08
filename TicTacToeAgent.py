@@ -2,7 +2,7 @@ import random
 import logging
 from EvaluationException import EvaluationExcpetion
 from State import State
-from Agent import Agent
+from reflrn import Agent
 from Policy import Policy
 from ExplorationPlay import ExplorationPlay
 

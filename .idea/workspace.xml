@@ -6,14 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/gridworld/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/__init__.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld4.py" afterPath="$PROJECT_DIR$/HelloWorld4.py" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/TestTemporalDifferenceDeepNNPolicy.log" afterPath="$PROJECT_DIR$/TestTemporalDifferenceDeepNNPolicy.log" />
+      <change beforePath="$PROJECT_DIR$/Agent.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/TicTacToeAgent.py" afterPath="$PROJECT_DIR$/TicTacToeAgent.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
@@ -78,25 +72,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TicTacToeAgent.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TicTacToeAgent.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+            <state relative-caret-position="68">
+              <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <marker date="1518254682467" expanded="true" signature="753:932" ph="..." />
+                <marker date="1523205788765" expanded="true" signature="754:933" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Agent.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Agent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -208,7 +191,6 @@
         <option value="$PROJECT_DIR$/TicTacToe.py" />
         <option value="$PROJECT_DIR$/SimpleRandomPolicyWithReplayMemory.py" />
         <option value="$PROJECT_DIR$/ReplayMemory.py" />
-        <option value="$PROJECT_DIR$/TicTacToeAgent.py" />
         <option value="$PROJECT_DIR$/TestState.py" />
         <option value="$PROJECT_DIR$/TestRigFive.py" />
         <option value="$PROJECT_DIR$/ModelParameters.py" />
@@ -221,6 +203,7 @@
         <option value="$PROJECT_DIR$/gridworld/__init__.py" />
         <option value="$PROJECT_DIR$/gridworld/reflrn/__init__.py" />
         <option value="$PROJECT_DIR$/reflrn/__init__.py" />
+        <option value="$PROJECT_DIR$/TicTacToeAgent.py" />
       </list>
     </option>
   </component>
@@ -887,7 +870,7 @@
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
-            <element signature="e#0#42#0" expanded="true" />
+            <element signature="e#0#42#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -897,7 +880,7 @@
         <state relative-caret-position="1173">
           <caret line="69" column="44" lean-forward="false" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -933,17 +916,6 @@
         <state relative-caret-position="867">
           <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="89" column="0" lean-forward="false" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1518254682467" expanded="true" signature="753:932" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -994,6 +966,16 @@
         <state relative-caret-position="68">
           <caret line="4" column="56" lean-forward="false" selection-start-line="4" selection-start-column="56" selection-end-line="4" selection-end-column="56" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TicTacToeAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="24" lean-forward="true" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding>
+            <marker date="1523205788765" expanded="true" signature="754:933" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
