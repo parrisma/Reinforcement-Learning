@@ -6,7 +6,8 @@ import keras
 from pathlib import Path
 from random import randint
 from keras.models import Sequential
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
+from keras.wrappers.scikit_learn import KerasRegressor
 from Policy import Policy
 from State import State
 from EnvironmentLogging import EnvironmentLogging
@@ -14,6 +15,7 @@ from EvaluationException import EvaluationExcpetion
 from ReplayMemory import ReplayMemory
 from TestState import TestState
 from ModelParameters import ModelParameters
+import matplotlib.pyplot as plt
 
 #
 # This follows the ActorCritic pattern.
@@ -73,11 +75,14 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     def create_new_model_instance(cls) -> keras.models.Sequential:
 
         model = Sequential()
-        model.add(Dense(500, input_dim=9, activation='relu'))
-        model.add(Dense(1000, activation='relu'))
-        model.add(Dense(750, activation='relu'))
-        model.add(Dense(500, activation='relu'))
+        model.add(Dense(50, input_dim=9, activation='relu'))
+        model.add(Dropout(0.5))
         model.add(Dense(100, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(500, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(100, activation='relu'))
+        model.add(Dropout(0.5))
         model.add(Dense(9))
         cls.__compile_model(model)
 
@@ -288,7 +293,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
             model_loss = 1e9
             model_acc = 1e9
             while (err > 1e-6 or model_loss > 1e-9) and model_acc > 0.75 and iter < 10:
-                nn_model.fit(xx, yy, batch_size=10, epochs=50, shuffle=False)
+                nn_model.fit(xx, yy, batch_size=35, epochs=50, shuffle=False)
                 pr = nn_model.predict(np.array([x]))[0]
                 err = np.max(np.absolute(y-pr))
                 scores = nn_model.evaluate(xx, yy)
@@ -305,49 +310,73 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
         #
         # Test the NN model behaviour.
         #
-        # Is the defined model able to learn and predict 1000 state action pairs in a reply memory
+        # Is the defined model able to learn and predict 1000 state action pairs in a replay memory
         # of 10K samples with each pair repeated 10 times
         #
         def test_model_behaviour_1000(self):
 
             nn_model = TemporalDifferenceActorCriticDeepNNPolicy.create_new_model_instance()
-            nt = 10000
+            nt = 100
             x = np.empty((nt, 9))
             y = np.empty((nt, 9))
-            for i in range(0, 1000):
+            for i in range(0, nt):
                 xr = self.__rand_x()
                 yr = self.__rand_y()
-                for j in range(0, nt, 1000):
-                    print(str(i) + " : "  + str(j) + " : " + str(i+j))
-                    x[i+j] = xr
-                    y[i+j] = yr
-
-            xs = x[231]  # Save a test case to ensure x/y paris are preserved post shuffle
-            ys = y[231]
-
-            ridx = np.arange(0, nt)  # create an index and shuffle so both x/y can be shuffled together.
-            np.random.shuffle(ridx)
-            x = x[ridx]
-            y = y[ridx]
-
-            # double check the test cases are still in sync.
-            for i in range(0, nt):
-                if sum((x[i] == xs) * (1, 1, 1, 1, 1, 1, 1, 1, 1)) == 9:
-                    if sum((y[i] == ys) * (1, 1, 1, 1, 1, 1, 1, 1, 1)) != 9:
-                        raise RuntimeError("Opps")
+                x[i] = xr
+                y[i] = yr
 
             err = 1e9
             iter = 0
             model_loss = 1e9
             model_acc = 0
-            while err > 1e-6 and model_loss > 1e-9 and model_acc < 0.75 and iter < 10:
-                nn_model.fit(x, y, batch_size=50, epochs=50, shuffle=False)
-                pr = nn_model.predict(np.array([x[1000]]))[0]
-                err = np.max(np.absolute(y[1000]-pr))
+            while err > 1e-6 and model_loss > 1e-9 and model_acc < 0.75 and iter < 1000:
+                nn_model.fit(x, y, batch_size=33, epochs=5000, shuffle=False)
+                pr = nn_model.predict(x)[0]
+                err = np.max(np.absolute(y-pr))
                 scores = nn_model.evaluate(x, y)
                 model_loss = scores[0]
                 model_acc = scores[1]
                 iter += 1
+
+            self.__lg.debug("Final Prediction: " + str(pr))
+            self.assertGreater(1e-6, err)
+            self.assertGreater(1e-6, model_loss)
+            self.assertGreater(model_acc, 0.75)
+            return
+
+        #
+        # Test the NN model behaviour.
+        #
+        # arbitrary quadratic
+        #
+        def test_model_behaviour_quad(self):
+
+            model = Sequential()
+            model.add(Dense(2, input_dim=2, activation='relu'))
+            model.add(Dropout(0.5))
+            model.add(Dense(1))
+            model.compile(loss='mean_squared_error', optimizer='adam')
+
+            nt = 200
+            x = np.empty((nt, 2))
+            y = np.empty((nt, 1))
+            for i in range(0, nt):
+                xr = np.array([i, i*i])
+                yr = 2*xr[0] + xr[1] + 1
+                x[i] = xr
+                y[i] = yr
+
+            plt.plot(x[:, 0], y)
+            plt.show()
+
+            estimator = KerasRegressor(build_fn=model, nb_epoch=100, batch_size=5, verbose=0)
+            estimator.fit(x, y)
+            pr = estimator.predict(x)
+            err = np.max(np.absolute(y-pr))
+            scores = model.evaluate(x, y)
+            model_loss = scores[0]
+            model_acc = scores[1]
+            iter += 1
 
             self.__lg.debug("Final Prediction: " + str(pr))
             self.assertGreater(1e-6, err)
@@ -419,6 +448,6 @@ if __name__ == "__main__":
         unittest.TextTestRunner().run(suite)
     else:
         suite = unittest.TestSuite()
-        suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour_1"))
+        suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour_quad"))
         unittest.TextTestRunner().run(suite)
 

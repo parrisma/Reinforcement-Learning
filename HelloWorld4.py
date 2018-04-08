@@ -1,23 +1,24 @@
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
-from keras.layers import Dense
+import tensorflow as tf
+from keras.layers import Dense, Dropout
 from keras.models import Sequential
-import TemporalDifferencePolicyPersistance
+from keras.utils import multi_gpu_model
 
 def baseline_model():
     # create model
-    model = Sequential()
-    model.add(Dense(2000, input_dim=9, kernel_initializer='normal', activation='relu'))
-    model.add(Dense(1500, activation='relu'))
-    model.add(Dense(1000, activation='relu'))
-    model.add(Dense(500, activation='relu'))
-    model.add(Dense(500, activation='relu'))
-    model.add(Dense(500, activation='relu'))
-    model.add(Dense(500, activation='relu'))
-    model.add(Dense(output_dim=9, kernel_initializer='normal'))
-    model.compile(loss='mean_squared_error', optimizer='adam')
-    return model
+    with tf.device('/cpu:0'):
+        model = Sequential()
+        model.add(Dense(2000, input_dim=9, kernel_initializer='normal', activation='relu'))
+        model.add(Dense(1000, activation='relu'))
+        model.add(Dense(500, activation='relu'))
+        model.add(Dense(100, activation='relu'))
+        model.add(Dense(100, activation='relu'))
+        model.add(Dense(output_dim=9, kernel_initializer='normal'))
+    pmodel = multi_gpu_model(model, gpus=2)
+    pmodel.compile(loss='mean_squared_error', optimizer='adam')
+    return pmodel
 
 
 def read_csv():
@@ -54,7 +55,7 @@ x, y = read_csv()
 
 ml = baseline_model()
 
-history = ml.fit(x=x, y=y, validation_split=0, batch_size=32, nb_epoch=500, verbose=2)
+history = ml.fit(x=x, y=y, validation_split=0, batch_size=32, nb_epoch=250, verbose=2)
 
 # Create our predicted y's based on the model
 yp = ml.predict(x, batch_size=32, verbose=0)
