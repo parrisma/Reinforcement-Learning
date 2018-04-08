@@ -8,13 +8,12 @@ from random import randint
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.wrappers.scikit_learn import KerasRegressor
-from Policy import Policy
-from State import State
-from EnvironmentLogging import EnvironmentLogging
-from EvaluationException import EvaluationExcpetion
-from ReplayMemory import ReplayMemory
-from TestState import TestState
-from ModelParameters import ModelParameters
+from reflrn import Policy
+from reflrn import State
+from reflrn import EnvironmentLogging
+from reflrn import EvaluationException
+from reflrn import ReplayMemory
+from reflrn import ModelParameters
 import matplotlib.pyplot as plt
 
 #
@@ -220,7 +219,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
             qvs = self.__actor.predict(np.array([self.state_as_str_to_numpy_array(state.state_as_string())]))[0]
             self.__lg.debug("Predict Y:= " + str(qvs))
         else:
-            raise EvaluationExcpetion("No (Keras) Model Loaded with which to predict Q Values")
+            raise EvaluationException("No (Keras) Model Loaded with which to predict Q Values")
 
         ou = np.max(qvs)
         greedy_actions = list()
@@ -229,7 +228,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
                 if i in possible_actions:
                     greedy_actions.append(int(i))
         if len(greedy_actions) == 0:
-            raise EvaluationExcpetion("Model did not predict a Q Values related to a possible action")
+            raise EvaluationException("Model did not predict a Q Values related to a possible action")
 
         return greedy_actions[randint(0, len(greedy_actions)-1)]
 

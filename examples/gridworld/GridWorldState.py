@@ -3,20 +3,17 @@ from reflrn import State
 from reflrn import Agent
 
 
-class TicTacToeState(State):
+class GridWorldState(State):
 
     #
     # Constructor has no arguments as it just sets the game
     #
-    def __init__(self, board: np.array, agent_x: Agent, agent_o: Agent):
+    def __init__(self, board: np.array, agent_x: Agent):
         self.__board = np.copy(board)  # State must be immutable
         self.__x_id = agent_x.id()
         self.__x_name = agent_x.name()
-        self.__o_id = agent_o.id()
-        self.__o_name = agent_o.name()
         self.__agents = dict()
         self.__agents[self.__x_id] = self.__x_name
-        self.__agents[self.__o_id] = self.__o_name
 
     #
     # An environment specific representation for Env. State

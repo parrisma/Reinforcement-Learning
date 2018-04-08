@@ -1,7 +1,7 @@
 import numpy as np
 import random
 from random import randint
-from TicTacToe import TicTacToe
+import tictactoe
 
 
 class PlayTicTacToe:

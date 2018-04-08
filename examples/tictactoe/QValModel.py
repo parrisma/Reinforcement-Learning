@@ -4,7 +4,7 @@ import keras
 import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense
-from Persistance import Persistance
+from reflrn import Persistance
 
 
 class QValModel:

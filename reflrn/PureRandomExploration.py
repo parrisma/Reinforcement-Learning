@@ -1,4 +1,4 @@
-from ExplorationPlay import ExplorationPlay
+from reflrn import ExplorationPlay
 from random import randint
 
 

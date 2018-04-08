@@ -1,5 +1,5 @@
 import abc
-from State import State
+from reflrn import State
 
 #
 # This is an interface specification for an reinforcement learning agent

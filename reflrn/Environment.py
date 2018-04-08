@@ -1,5 +1,5 @@
 import abc
-from State import State
+from reflrn import State
 
 #
 # This abstract base class is the fundamental contract with the Agents.

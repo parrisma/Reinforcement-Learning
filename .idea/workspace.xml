@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/tests/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/tictactoe/__init__.py" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/ReplayMemory.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/StrategyExploration.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/QValModel.py" afterPath="$PROJECT_DIR$/examples/tictactoe/QValModel.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/tests/TestState.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/tests/TestTemporalDifferencePolicy.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/tests/TestTicTacToe.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Agent.py" afterPath="$PROJECT_DIR$/reflrn/Agent.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Environment.py" afterPath="$PROJECT_DIR$/reflrn/Environment.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Policy.py" afterPath="$PROJECT_DIR$/reflrn/Policy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" afterPath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/StrategyExploration.py" afterPath="$PROJECT_DIR$/reflrn/StrategyExploration.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,7 +26,114 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ITemporalDifferencePolicyPersistance.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/ITemporalDifferencePolicyPersistance.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModelParameters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/ModelParameters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Persistance.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/Persistance.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Policy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/Policy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PureRandomExploration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/PureRandomExploration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReplayMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/ReplayMemory.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleRandomPolicyWithReplayMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="State.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/State.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StrategyExploration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/StrategyExploration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TemporalDifferenceActorCriticDeepNNPolicy.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4318">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,20 +182,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/TestTicTacToe.py" />
-        <option value="$PROJECT_DIR$/PlayTicTacToe.py" />
-        <option value="$PROJECT_DIR$/RandomNonLearningAgent.py" />
-        <option value="$PROJECT_DIR$/SImpleRandomPolicy.py" />
-        <option value="$PROJECT_DIR$/Environment.py" />
-        <option value="$PROJECT_DIR$/State.py" />
-        <option value="$PROJECT_DIR$/EvaluationException.py" />
-        <option value="$PROJECT_DIR$/TicTacToeState.py" />
-        <option value="$PROJECT_DIR$/FixedGames.py" />
-        <option value="$PROJECT_DIR$/RandomPlay.py" />
-        <option value="$PROJECT_DIR$/ExplorationPlay.py" />
-        <option value="$PROJECT_DIR$/PureRandomPlay.py" />
-        <option value="$PROJECT_DIR$/PureRandomExploration.py" />
-        <option value="$PROJECT_DIR$/EnvironmentLogging.py" />
         <option value="$PROJECT_DIR$/TemporalDifferencePolicyDeepNNPolicy.py" />
         <option value="$PROJECT_DIR$/StrategyExploration.py" />
         <option value="$PROJECT_DIR$/NeuralNet.py" />
@@ -117,6 +219,20 @@
         <option value="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" />
         <option value="$PROJECT_DIR$/examples/tests/__init__.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/__init__.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/QValModel.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldState.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorld.py" />
+        <option value="$PROJECT_DIR$/reflrn/Environment.py" />
+        <option value="$PROJECT_DIR$/reflrn/Agent.py" />
+        <option value="$PROJECT_DIR$/reflrn/Policy.py" />
+        <option value="$PROJECT_DIR$/reflrn/PureRandomExploration.py" />
+        <option value="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/StrategyExploration.py" />
+        <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
       </list>
     </option>
   </component>
@@ -158,6 +274,12 @@
               <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="gridworld" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -165,6 +287,11 @@
               <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
               <item name="tictactoe" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="reflrn" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -480,132 +607,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/TicTacToeState.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/tensorflow/python/client/session.py" />
-    <entry file="file://D:/Conda/envs/tfgpu/Lib/codecs.py" />
-    <entry file="file://D:/Conda/envs/tfgpu/Lib/site-packages/sklearn/utils/validation.py" />
-    <entry file="file://D:/Conda/envs/tfgpu/Lib/site-packages/sklearn/linear_model/base.py" />
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/engine/training.py" />
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/site-packages/keras/models.py" />
-    <entry file="file://D:/Conda/envs/tensorflow/Lib/unittest/case.py" />
-    <entry file="file://D:/Conda/envs/tfgpu/Lib/unittest/case.py" />
-    <entry file="file://D:/Conda/envs/tfgpu/Lib/site-packages/keras/wrappers/scikit_learn.py" />
-    <entry file="file://D:/Conda/envs/gpu/Lib/unittest/case.py" />
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Boston.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="39" lean-forward="false" selection-start-line="4" selection-start-column="39" selection-end-line="4" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HelloWorld.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Regression101.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestTemporalDifferencePolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="69" column="44" lean-forward="false" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestRigThree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Agent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestRigTwo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="49" lean-forward="false" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LICENCE.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/HelloWorld4.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="68" column="10" lean-forward="false" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gridworld/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="22" lean-forward="false" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gridworld/reflrn/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="5" lean-forward="false" selection-start-line="0" selection-start-column="5" selection-end-line="0" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -813,6 +814,228 @@
         <state relative-caret-position="17">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/qvn_dump.pb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="16" lean-forward="false" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="66" lean-forward="true" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/QValModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" lean-forward="false" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="68" column="38" lean-forward="false" selection-start-line="68" selection-start-column="38" selection-end-line="68" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#13#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorld.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Environment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="12" lean-forward="true" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/EnvironmentLogging.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/EvaluationException.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ExplorationPlay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/FixedGames.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/HumanPolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ITemporalDifferencePolicyPersistance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ModelParameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Persistance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Policy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/PureRandomExploration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/State.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/StrategyExploration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="11" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4318">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

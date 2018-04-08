@@ -4,44 +4,29 @@ from random import randint
 from reflrn import Environment
 from reflrn import Agent
 from reflrn import State
-from .TicTacToeState import TicTacToeState
+from .GridWorldState import GridWorldState
 
 
-class TicTacToe(Environment):
+class GridWorld(Environment):
 
-    # There are 5812 legal board states that can be reached before there is a winner
-    # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
+    # The "game board" is passed in at construction time.
 
-    __play = float(0)  # reward for playing an action
-    __draw = float(0)  # reward for playing to end but no one wins
-    __win = float(100)  # reward for winning a game
-    __no_agent = None
-    __win_mask = np.full((1, 3), 3, np.int8)
-    __actions = {0: (0, 0), 1: (0, 1), 2: (0, 2), 3: (1, 0), 4: (1, 1), 5: (1, 2), 6: (2, 0), 7: (2, 1), 8: (2, 2)}
-    empty_cell = np.nan  # value of a free action space on board
+    __actions = {0: (1, 0), 1: (-1, 0), 2: (0, 1), 3: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
     asStr = True
-    attribute_draw = ("Draw", "True if episode ended in a drawn state", bool)
-    attribute_won = ("Won", "True if episode ended in a win state", bool)
-    attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
-    attribute_agent = ("agent", "The last agent to make a move", Agent)
-    attribute_board = ("board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
     __episode = 'episode number'
 
     #
     # Constructor has no arguments as it just sets the game
     # to an initial up-played set-up
     #
-    def __init__(self, x: Agent, o: Agent, lg: logging):
+    def __init__(self, x: Agent, lg: logging):
         self.__lg = lg
-        self.__board = TicTacToe.__empty_board()
+        self.__board = GridWorld.__empty_board()
         self.__last_board = None
-        self.__agent = TicTacToe.__no_agent
-        self.__last_agent = TicTacToe.__no_agent
+        self.__agent = GridWorld.__no_agent
+        self.__last_agent = GridWorld.__no_agent
         self.__x_agent = x
-        self.__o_agent = o
-        self.__next_agent = {x.name(): o, o.name(): x}
         self.__x_agent.session_init(self.actions())
-        self.__o_agent.session_init(self.actions())
         self.__stats = None
         return
 
@@ -50,10 +35,10 @@ class TicTacToe(Environment):
     # and the board contains no moves.
     #
     def reset(self):
-        self.__board = TicTacToe.__empty_board()
+        self.__board = GridWorld.__empty_board()
         self.__last_board = None
-        self.__agent = TicTacToe.__no_agent
-        self.__last_agent = TicTacToe.__no_agent
+        self.__agent = GridWorld.__no_agent
+        self.__last_agent = GridWorld.__no_agent
         return
 
     #
@@ -101,13 +86,13 @@ class TicTacToe(Environment):
         while i <= iterations:
             self.__lg.debug("Start Episode")
             self.reset()
-            state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+            state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
             self.__x_agent.episode_init(state)
             self.__o_agent.episode_init(state)
             agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
 
             while not self.episode_complete():
-                state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+                state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
                 self.__lg.debug(agent.name())
                 self.__lg.debug(state.state_as_string())
                 self.__lg.debug(state.state_as_visualisation())
@@ -118,7 +103,7 @@ class TicTacToe(Environment):
 
             self.__keep_stats()
             self.__lg.debug("Episode Complete")
-            state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+            state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
             self.__lg.debug(state.state_as_visualisation())
             self.__x_agent.episode_complete(state)
             self.__o_agent.episode_complete(state)
@@ -142,7 +127,7 @@ class TicTacToe(Environment):
     #
     @classmethod
     def actions(cls) -> [int]:
-        return list(map(lambda a: int(a), list(TicTacToe.__actions.keys())))
+        return list(map(lambda a: int(a), list(GridWorld.__actions.keys())))
 
     #
     # Assume the play_action has been validated by play_action method
@@ -164,14 +149,14 @@ class TicTacToe(Environment):
     def __play_action(self, agent: Agent) -> Agent:
 
         other_agent = self.__next_agent[agent.name()]
-        state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+        state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
 
         # Make the play on the board.
         action = agent.chose_action(state, self.__actions_ids_left_to_take())
         if action not in self.__actions_ids_left_to_take():
             print("Opps")
         self.__take_action(self.__actions[action], agent)
-        next_state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
+        next_state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
 
         if self.episode_complete():
             attributes = self.attributes()
@@ -190,12 +175,12 @@ class TicTacToe(Environment):
     #
     def attributes(self):
         attr_dict = dict()
-        attr_dict[TicTacToe.attribute_draw[0]] = not self.__actions_left_to_take()
-        attr_dict[TicTacToe.attribute_won[0]] = self.__episode_won()
-        attr_dict[TicTacToe.attribute_complete[0]] = \
-            attr_dict[TicTacToe.attribute_draw[0]] or attr_dict[TicTacToe.attribute_won[0]]
-        attr_dict[TicTacToe.attribute_agent[0]] = self.__agent
-        attr_dict[TicTacToe.attribute_board[0]] = np.copy(self.__board)
+        attr_dict[GridWorld.attribute_draw[0]] = not self.__actions_left_to_take()
+        attr_dict[GridWorld.attribute_won[0]] = self.__episode_won()
+        attr_dict[GridWorld.attribute_complete[0]] = \
+            attr_dict[GridWorld.attribute_draw[0]] or attr_dict[GridWorld.attribute_won[0]]
+        attr_dict[GridWorld.attribute_agent[0]] = self.__agent
+        attr_dict[GridWorld.attribute_board[0]] = np.copy(self.__board)
         return attr_dict
 
     #
@@ -305,4 +290,4 @@ class TicTacToe(Environment):
     # Return the State of the environment
     #
     def state(self) -> State:
-        return TicTacToeState(self.__board)
+        return GridWorldState(self.__board)
