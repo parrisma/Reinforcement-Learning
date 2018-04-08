@@ -1,58 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/TemporalDifferencePolicy.py" line="33" />
-    <bookmark url="file://$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" line="290" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Action.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Environment.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/EnvironmentLogging.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/EvaluationException.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ExplorationPlay.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/HumanPolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ITemporalDifferencePolicyPersistance.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/LinearAlgebraUdacity.ipynb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ModelParameters.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Persistance.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/PlayTicTacToe.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Policy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/PureRandomExploration.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/QValModel.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ReplayMemory.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Reward.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/SimpleRandomPolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/SimpleRandomPolicyWithReplayMemory.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/State.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/StrategyExploration.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicyPersistance.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferencePolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TemporalDifferencePolicyPersistance.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRig.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigFive.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigFour.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigModel.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigThree.log" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigThree.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigTwo.log" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestRigTwo.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestState.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestTemporalDifferenceDeepNNPolicy.log" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestTemporalDifferencePolicy.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TestTicTacToe.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TicTacToe.ipynb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TicTacToe.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TicTacToeAgent.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/TicTacToeState.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/bck_qvn_dump.pb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/gridworld/__init__.py" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/housing.csv" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/keras.model.critic" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/qvn_dump.pb" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/qvn_dump2.xlsx" afterPath="" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/tests/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/tictactoe/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/ReplayMemory.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/StrategyExploration.py" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,18 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FixedGames.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/FixedGames.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -122,8 +66,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Action.py" />
-        <option value="$PROJECT_DIR$/Reward.py" />
         <option value="$PROJECT_DIR$/TestTicTacToe.py" />
         <option value="$PROJECT_DIR$/PlayTicTacToe.py" />
         <option value="$PROJECT_DIR$/RandomNonLearningAgent.py" />
@@ -173,6 +115,8 @@
         <option value="$PROJECT_DIR$/ReplayMemory.py" />
         <option value="$PROJECT_DIR$/HumanPolicy.py" />
         <option value="$PROJECT_DIR$/TemporalDifferenceDeepNNPolicy.py" />
+        <option value="$PROJECT_DIR$/examples/tests/__init__.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/__init__.py" />
       </list>
     </option>
   </component>
@@ -183,7 +127,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -196,11 +140,42 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="tictactoe" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/reflrn" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples/tests" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
   </component>
   <component name="RecentsManager">
@@ -381,9 +356,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="12" width="2197" height="1385" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15046838" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15038973" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -506,14 +480,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/ProgramData/Anaconda3/envs/ML/Lib/unittest/case.py" />
-    <entry file="file://$PROJECT_DIR$/TestRigFive.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="36" column="77" lean-forward="false" selection-start-line="36" selection-start-column="77" selection-end-line="36" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TicTacToeState.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -830,6 +796,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tests/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
