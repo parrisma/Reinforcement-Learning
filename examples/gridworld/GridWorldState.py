@@ -1,6 +1,7 @@
 import numpy as np
 from reflrn import State
 from reflrn import Agent
+from .Grid import Grid
 
 
 class GridWorldState(State):
@@ -8,12 +9,10 @@ class GridWorldState(State):
     #
     # Constructor has no arguments as it just sets the game
     #
-    def __init__(self, board: np.array, agent_x: Agent):
-        self.__board = np.copy(board)  # State must be immutable
+    def __init__(self, grid: Grid, agent_x: Agent):
+        self.__grid = np.copy(board)  # State must be immutable
         self.__x_id = agent_x.id()
         self.__x_name = agent_x.name()
-        self.__agents = dict()
-        self.__agents[self.__x_id] = self.__x_name
 
     #
     # An environment specific representation for Env. State

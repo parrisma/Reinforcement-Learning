@@ -11,7 +11,6 @@ class GridWorld(Environment):
 
     # The "game board" is passed in at construction time.
 
-    __actions = {0: (1, 0), 1: (-1, 0), 2: (0, 1), 3: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
     asStr = True
     __episode = 'episode number'
 
