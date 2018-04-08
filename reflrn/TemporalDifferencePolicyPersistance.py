@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 from typing import Tuple
-from ITemporalDifferencePolicyPersistance import ITemporalDifferencePolicyPersistance
+from reflrn import ITemporalDifferencePolicyPersistance
 
 
 #

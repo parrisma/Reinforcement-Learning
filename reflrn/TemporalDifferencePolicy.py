@@ -1,11 +1,11 @@
 import numpy as np
 import logging
-from Policy import Policy
-from State import State
-from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
-from EvaluationException import EvaluationExcpetion
+from reflrn import Policy
+from reflrn import State
+from reflrn import TemporalDifferencePolicyPersistance
+from reflrn import EvaluationException
 from random import randint
-from FixedGames import FixedGames
+from reflrn import FixedGames
 
 
 class TemporalDifferencePolicy(Policy):
@@ -179,7 +179,7 @@ class TemporalDifferencePolicy(Policy):
         qvs, actions = TemporalDifferencePolicy.__get_q_vals_as_np_array(state)
         self.__lg.debug(self.vals_and_actions_as_str(qvs, actions))
         if qvs is None:
-            raise EvaluationExcpetion("No Q Values with which to select greedy action")
+            raise EvaluationException("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
         greedy_actions = list()
         for v, a in np.vstack([qvs, actions]).T:
@@ -187,7 +187,7 @@ class TemporalDifferencePolicy(Policy):
                 if a in possible_actions:
                     greedy_actions.append(int(a))
         if len(greedy_actions) == 0:
-            raise EvaluationExcpetion("No Q Values mapping to possible actions, cannot select greedy action")
+            raise EvaluationException("No Q Values mapping to possible actions, cannot select greedy action")
 
         return greedy_actions[randint(0, len(greedy_actions)-1)]
 

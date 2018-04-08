@@ -1,15 +1,15 @@
 import unittest
 import logging
-from pathlib import Path
 import random
-from random import randint
 import numpy as np
 import keras
+from pathlib import Path
+from random import randint
 from keras.models import Sequential
 from keras.layers import Dense
 from reflrn import Policy
 from reflrn import State
-from TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance
+from reflrn import TemporalDifferenceDeepNNPolicyPersistance
 from reflrn import EnvironmentLogging
 from reflrn import EvaluationException
 

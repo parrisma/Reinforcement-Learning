@@ -2,10 +2,10 @@ import unittest
 import logging
 import keras
 import numpy as np
-from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
 from pathlib import Path
 from typing import Tuple
-from EnvironmentLogging import EnvironmentLogging
+from reflrn import TemporalDifferencePolicyPersistance
+from reflrn import EnvironmentLogging
 
 #
 # Save and Load the Keras Model, as well as load the TemporalDifferencePolicy dump file used to train this model.
