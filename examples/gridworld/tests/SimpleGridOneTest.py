@@ -1,5 +1,6 @@
 import unittest
 from examples.gridworld.SimpleGridOne import SimpleGridOne
+from examples.gridworld.IllegalGridMoveException import IllegalGridMoveException
 
 
 class TestSimpleGridOne(unittest.TestCase):
@@ -22,6 +23,8 @@ class TestSimpleGridOne(unittest.TestCase):
                             (0, 0))
         alm = sg1.allowable_actions()
         self.assertEqual(alm, [])
+        for actn in sg1.actions():
+            self.assertRaises(IllegalGridMoveException, sg1.execute_action, actn)
         return
 
     def test_2(self):

@@ -1,6 +1,6 @@
 import numpy as np
 from .Grid import Grid
-from .IllegalGridMoveException import IllegalGridMoveExcpetion
+from .IllegalGridMoveException import IllegalGridMoveException
 from copy import deepcopy
 
 #
@@ -40,7 +40,7 @@ class SimpleGridOne(Grid):
 
     def execute_action(self, action: int) -> int:
         if action not in self.allowable_actions():
-            raise IllegalGridMoveExcpetion("Illegal Move on Grid as target cell blocked")
+            raise IllegalGridMoveException("Illegal Move on Grid as target cell blocked")
 
         self.__curr = self.__move(action)
         return self.__grid_reward(self.__curr)
