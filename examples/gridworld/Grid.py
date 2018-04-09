@@ -1,5 +1,5 @@
 import abc
-from .Grid import Grid
+
 
 #
 # This is the interface that all Grid World Grids need to implement.
@@ -33,5 +33,12 @@ class Grid(metaclass=abc.ABCMeta):
     # Deep Copy the Grid.
     #
     @abc.abstractmethod
-    def copy(self) -> Grid:
+    def copy(self):
+        pass
+
+    #
+    # What actions are allowable with agent at current location.
+    #
+    @abc.abstractmethod
+    def allowable_actions(self) -> [int]:
         pass

@@ -2,6 +2,8 @@
   <dictionary name="Necromancer">
     <words>
       <w>actn</w>
+      <w>blck</w>
+      <w>coords</w>
       <w>excpetion</w>
       <w>keras</w>
       <w>persistance</w>
