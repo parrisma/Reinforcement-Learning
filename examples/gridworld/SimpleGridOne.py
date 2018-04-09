@@ -34,13 +34,22 @@ class SimpleGridOne(Grid):
         self.__grid = grid_map[:]  # Deep Copy
         self.__grid_rows = len(self.__grid)
         self.__grid_cols = len(self.__grid[0])
-        self.__start = deepcopy(start_coords)
-        self.__finish = deepcopy(finish_coords)
-        self.__curr = (self.__start[0], self.__start[1])
+        if start_coords is not None:
+            self.__start = deepcopy(start_coords)
+            self.__curr = (self.__start[0], self.__start[1])
+        else:
+            self.__start = deepcopy((0, 0))
+            self.__curr = (0, 0)
+        if finish_coords is not None:
+            self.__finish = deepcopy(finish_coords)
+        else:
+            self.__finish = None
 
     def execute_action(self, action: int) -> int:
+        if self.__episode_over():
+            raise IllegalGridMoveException("Episode already complete, agent at finish cell on grid")
         if action not in self.allowable_actions():
-            raise IllegalGridMoveException("Illegal Move on Grid as target cell blocked")
+            raise IllegalGridMoveException("Illegal Grid Move, cell blocked or action would move out of grid")
 
         self.__curr = self.__move(action)
         return self.__grid_reward(self.__curr)
@@ -58,6 +67,11 @@ class SimpleGridOne(Grid):
                         self.__finish)
         cp.__curr = self.__curr
         return cp
+
+    def __episode_over(self) -> bool:
+        if self.__finish is None:
+            return False
+        return self.__curr == self.__finish
 
     def __move(self, action: int) -> ():
         return self.__curr + self.__actions[action]
