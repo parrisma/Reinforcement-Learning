@@ -1,12 +1,12 @@
 ~*
 venv/*
 dumps/*
-__pycache__/*
+**/__pycache__/*
 .pytest_cache
 *.h5
 *old*.pb
-temp/*
-*.keras
-*.log
+**/temp/*
+**/*.keras
+**/*.log
 *HelloWorld*.*
 *house*.*
