@@ -1,11 +1,11 @@
 import unittest
-from examples.gridworld.SimpleGridOne import SimpleGridOne
+
 from examples.gridworld.GridBlockedActionException import GridBlockedActionException
 from examples.gridworld.GridEpisodeOverException import GridEpisodeOverException
+from examples.gridworld.SimpleGridOne import SimpleGridOne
 
 
 class TestSimpleGridOne(unittest.TestCase):
-
     step = SimpleGridOne.STEP
     fire = SimpleGridOne.FIRE
     blck = SimpleGridOne.BLCK
@@ -25,7 +25,7 @@ class TestSimpleGridOne(unittest.TestCase):
         alm = sg1.allowable_actions()
         self.assertEqual(alm, [])
         for actn in sg1.actions():
-            self.assertRaises(GridEpisodeOverException, sg1.execute_action, actn) # Over as start == finish
+            self.assertRaises(GridEpisodeOverException, sg1.execute_action, actn)  # Over as start == finish
         return
 
     #
@@ -123,4 +123,3 @@ if __name__ == "__main__":
         suite = unittest.TestSuite()
         suite.addTest(TestSimpleGridOne("test_2"))
         unittest.TextTestRunner().run(suite)
-

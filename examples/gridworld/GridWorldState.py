@@ -1,6 +1,7 @@
 import numpy as np
-from reflrn import State
+
 from reflrn import Agent
+from reflrn import State
 from .Grid import Grid
 
 
@@ -35,7 +36,7 @@ class GridWorldState(State):
     #
     # Render the board as human readable with q values adjacent if supplied
     #
-    def state_as_visualisation(self) ->str:
+    def state_as_visualisation(self) -> str:
         s = ""
         for i in range(0, 3):
             rbd = ""
@@ -49,4 +50,3 @@ class GridWorldState(State):
             s += rbd + "\n"
         s += "\n"
         return s
-

@@ -1,5 +1,7 @@
 import abc
+
 from reflrn import State
+
 
 #
 # This abstract base class that is the contract for updating and interpreting the policy.
@@ -33,19 +35,19 @@ class Policy(metaclass=abc.ABCMeta):
     # possible_actions : Set of possible actions; where len() is always >= 1
     #
     @abc.abstractmethod
-    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) ->int:
+    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
         pass
 
     #
     # Export the current policy to the given file name
     #
     @abc.abstractmethod
-    def save(self, filename: str=None):
+    def save(self, filename: str = None):
         pass
 
     #
     # Import the current policy to the given file name
     #
     @abc.abstractmethod
-    def load(self, filename: str=None):
+    def load(self, filename: str = None):
         pass

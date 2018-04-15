@@ -1,14 +1,13 @@
-import random
-import numpy as np
 import logging
-from TicTacToeAgent import TicTacToeAgent
-from HumanPolicy import HumanPolicy
-from TemporalDifferencePolicy import TemporalDifferencePolicy
-from PureRandomExploration import PureRandomExploration
-from StrategyExploration import StrategyExploration
-from TicTacToe import TicTacToe
-from EnvironmentLogging import EnvironmentLogging
-from FixedGames import FixedGames
+import random
+
+import numpy as np
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.HumanPolicy import HumanPolicy
+from reflrn.PureRandomExploration import PureRandomExploration
+from reflrn.TemporalDifferencePolicy import TemporalDifferencePolicy
+from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 
 random.seed(42)
 np.random.seed(42)
@@ -26,10 +25,10 @@ else:
     itr = 500000
     lg = EnvironmentLogging("TestRig2", "TestRigTwo.log", logging.INFO).get_logger()
 
-
 agent_x = TicTacToeAgent(1,
                          "X",
-                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None, load_qval_file=True, manage_qval_file=True),
+                         TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None,
+                                                  load_qval_file=True, manage_qval_file=True),
                          epsilon_greedy=epgrdy,
                          exploration_play=PureRandomExploration(),
                          lg=lg)
@@ -42,7 +41,7 @@ if not learn_mode:
 else:
     agent_o = TicTacToeAgent(-1,
                              "O",
-                             TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None,),
+                             TemporalDifferencePolicy(lg=lg, filename="./qvn_dump.pb", fixed_games=None, ),
                              epsilon_greedy=epgrdy,
                              exploration_play=PureRandomExploration(),
                              lg=lg)

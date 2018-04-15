@@ -1,5 +1,7 @@
 import abc
+
 from reflrn import State
+
 
 #
 # This is an interface specification for an reinforcement learning agent
@@ -58,7 +60,7 @@ class Agent(metaclass=abc.ABCMeta):
     # possible_actions : The set of possible actions the agent can play from this state
     #
     @abc.abstractmethod
-    def chose_action(self, state: State, possible_actions: [int])-> int:
+    def chose_action(self, state: State, possible_actions: [int]) -> int:
         pass
 
     #

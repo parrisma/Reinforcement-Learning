@@ -1,19 +1,18 @@
 import logging
 import sys
 
+
 #
 # Create simple console & file logger.
 #
 
 
 class EnvironmentLogging:
-
     __lg = None
 
-    def __init__(self, env_name: str='root', log_file: str='', level=logging.DEBUG):
-
+    def __init__(self, env_name: str = 'root', log_file: str = '', level=logging.DEBUG):
         if len(log_file) == 0:
-            log_file = "./"+self.__class__.__name__+".log"
+            log_file = "./" + self.__class__.__name__ + ".log"
 
         logging.basicConfig(level=level,
                             format='%(message)s',

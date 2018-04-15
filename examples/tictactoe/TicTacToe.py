@@ -1,14 +1,15 @@
-import numpy as np
 import logging
 from random import randint
-from reflrn import Environment
+
+import numpy as np
+
 from reflrn import Agent
+from reflrn import Environment
 from reflrn import State
 from .TicTacToeState import TicTacToeState
 
 
 class TicTacToe(Environment):
-
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
@@ -24,7 +25,8 @@ class TicTacToe(Environment):
     attribute_won = ("Won", "True if episode ended in a win state", bool)
     attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
     attribute_agent = ("agent", "The last agent to make a move", Agent)
-    attribute_board = ("board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
+    attribute_board = (
+    "board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
     __episode = 'episode number'
 
     #
@@ -71,7 +73,7 @@ class TicTacToe(Environment):
     #
     # Keep stats of wins by agent.
     #
-    def __keep_stats(self, reset: bool=False):
+    def __keep_stats(self, reset: bool = False):
         if reset is True or self.__stats is None:
             self.__stats = dict()
             self.__stats[self.__episode] = 1
@@ -85,12 +87,13 @@ class TicTacToe(Environment):
 
         if self.__stats[self.__episode] % 100 == 0:
             self.__lg.info("Stats: Agent : " + self.__x_agent.name() + " [" +
-                           str(round((self.__stats[self.__x_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
+                           str(round(
+                               (self.__stats[self.__x_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
                            "Agent : " + self.__o_agent.name() + " [" +
-                           str(round((self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] "
-                          )
+                           str(round(
+                               (self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] "
+                           )
         return
-
 
     #
     # Run the given number of iterations
@@ -146,7 +149,7 @@ class TicTacToe(Environment):
 
     #
     # Assume the play_action has been validated by play_action method
-    # Make a copy of board before play_action is made and the last player
+    # Make a deep_copy of board before play_action is made and the last player
     #
     def __take_action(self, action: int, agent: Agent):
         self.__last_board = np.copy(self.__board)
@@ -265,7 +268,7 @@ class TicTacToe(Environment):
         cell_num = 0
         for actor in bd:
             if not np.isnan(actor):
-                mvs += str(int(actor)) + ":" + str(int(cell_num+1))+"~"
+                mvs += str(int(actor)) + ":" + str(int(cell_num + 1)) + "~"
             cell_num += 1
         if len(mvs) > 0:
             mvs = mvs[:-1]

@@ -1,5 +1,6 @@
 import abc
 
+
 #
 # This abstract makes a play based just on possible moves given. This is called
 # when the e-greedy asks for a random play to explore the state space. This can

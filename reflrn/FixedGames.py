@@ -16,7 +16,7 @@ class FixedGames:
         if cls.play_id >= len(cls.games[cls.game_id]):
             cls.play_id = 0
             cls.game_id += 1
-            if cls.game_id >= len(cls.games)-1:
+            if cls.game_id >= len(cls.games) - 1:
                 cls.game_id = 0
 
         a = cls.games[cls.game_id][cls.play_id]

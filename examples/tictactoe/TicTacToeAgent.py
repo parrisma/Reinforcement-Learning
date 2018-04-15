@@ -1,19 +1,20 @@
-import random
 import logging
-from reflrn import EvaluationException
-from reflrn import State
+import random
+
 from reflrn import Agent
-from reflrn import Policy
+from reflrn import EvaluationException
 from reflrn import ExplorationPlay
+from reflrn import Policy
+from reflrn import State
 
 
 class TicTacToeAgent(Agent):
 
     def __init__(self,
-                 agent_id: int,           # immutable & unique id for this agent
-                 agent_name: str,         # immutable & unique name for this agent
-                 policy: Policy,          # the policy to drive action selection.
-                 epsilon_greedy: float,   # if random() > epsilon greedy take greedy action else random action
+                 agent_id: int,  # immutable & unique id for this agent
+                 agent_name: str,  # immutable & unique name for this agent
+                 policy: Policy,  # the policy to drive action selection.
+                 epsilon_greedy: float,  # if random() > epsilon greedy take greedy action else random action
                  exploration_play: ExplorationPlay,  # Play to take when exploring (i.e. when not being greedy)
                  lg: logging):
         self.__lg = lg
@@ -65,14 +66,14 @@ class TicTacToeAgent(Agent):
             try:
                 # If there are q values for given state we can predict a greedy action
                 action = self.__policy.greedy_action(self.__name, state, possible_actions)
-                self.__lg.debug(self.__name + " chose greedy action : " + str(action+1))
+                self.__lg.debug(self.__name + " chose greedy action : " + str(action + 1))
             except EvaluationException:
                 # cannot predict a greedy action so random
                 action = self.__exploration.select_action(possible_actions)
-                self.__lg.debug(self.__name + " chose exploration action : " + str(action+1))
+                self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
         else:
             action = self.__exploration.select_action(possible_actions)
-            self.__lg.debug(self.__name + " chose exploration action : " + str(action+1))
+            self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
 
         return action
 

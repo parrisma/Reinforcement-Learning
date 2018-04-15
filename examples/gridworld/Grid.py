@@ -4,8 +4,6 @@ import abc
 #
 # This is the interface that all Grid World Grids need to implement.
 #
-
-
 class Grid(metaclass=abc.ABCMeta):
 
     #
@@ -33,7 +31,7 @@ class Grid(metaclass=abc.ABCMeta):
     # Deep Copy the Grid.
     #
     @abc.abstractmethod
-    def copy(self):
+    def deep_copy(self):
         pass
 
     #
@@ -41,4 +39,18 @@ class Grid(metaclass=abc.ABCMeta):
     #
     @abc.abstractmethod
     def allowable_actions(self) -> [int]:
+        pass
+
+    #
+    # Reset the grid to its state as at construction.
+    #
+    @abc.abstractmethod
+    def reset(self):
+        pass
+
+    #
+    # Is the episode complete, are we at the terminal finish state ?
+    #
+    @abc.abstractmethod
+    def episode_complete(self):
         pass

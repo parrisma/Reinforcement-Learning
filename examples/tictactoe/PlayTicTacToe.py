@@ -1,11 +1,10 @@
-import numpy as np
 import random
 from random import randint
-import tictactoe
+
+import numpy as np
 
 
 class PlayTicTacToe:
-
     __learning_rate_0 = 0.05
     __learning_rate_decay = 0.001
     __discount_factor = .8
@@ -102,7 +101,7 @@ class PlayTicTacToe:
         sa = ""
         sa += str(player)
         for cell in np.reshape(board, TicTacToe.num_actions()).tolist():
-                sa += str(TicTacToe.player_to_int(cell))
+            sa += str(TicTacToe.player_to_int(cell))
         return sa
 
     #
@@ -175,7 +174,8 @@ class PlayTicTacToe:
                 self.add_states_if_missing(s)
 
                 # Update Q Values for both players based on last play reward.
-                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward)
+                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + (
+                        (1 - learning_rate) * reward)
                 # Update any discounted rewards to previous game step.
                 if prev_s is not None:
                     (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
@@ -225,7 +225,8 @@ class PlayTicTacToe:
                 self.add_states_if_missing(s)
 
                 # Update Q Values for both players based on last play reward.
-                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + ((1 - learning_rate) * reward)
+                (self.__q_values[s])[mv - 1] = (learning_rate * (self.zero_if_nan(self.__q_values[s][mv - 1]))) + (
+                        (1 - learning_rate) * reward)
                 if prev_s is not None:
                     (self.__q_values[prev_s])[prev_mv - 1] -= (discount_rate * self.optimal_outcome(self.__q_values[s]))
 
@@ -260,8 +261,8 @@ class PlayTicTacToe:
             if q_vals is not None:
                 q_vals *= valid_moves
                 optimal_action = PlayTicTacToe.optimal_outcome(q_vals)
-                q_vals = (q_vals == optimal_action)*TicTacToe.actions()
-                q_vals = q_vals[np.where(q_vals!=0)]
+                q_vals = (q_vals == optimal_action) * TicTacToe.actions()
+                q_vals = q_vals[np.where(q_vals != 0)]
                 if q_vals.size > 0:
                     optimal_action = q_vals[randint(0, q_vals.size - 1)]
                 else:
@@ -327,7 +328,7 @@ class PlayTicTacToe:
         for x in range(0, num):
             profile = self.play()
             if profile not in distinct_games:
-                    distinct_games[profile] = ""
+                distinct_games[profile] = ""
             if self.__game.episode_complete(self.__game.board(), TicTacToe.player_x):
                 informed_wins += 1
                 PlayTicTacToe.record_game_stats(informed_game, profile)

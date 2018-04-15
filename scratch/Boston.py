@@ -1,17 +1,11 @@
-import numpy
 import math
-import pandas
-from keras.models import Sequential
-from keras.layers import Dense, Dropout
-from keras.optimizers import Adam
-from keras.wrappers.scikit_learn import KerasRegressor
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import KFold
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-import numpy as np
-from sklearn.preprocessing import PolynomialFeatures
+
 import matplotlib.pyplot as plt
+import numpy
+import numpy as np
+from keras.layers import Dense, Dropout
+from keras.models import Sequential
+from keras.optimizers import Adam
 
 nt = 100
 x = np.empty((nt, 1))
@@ -19,8 +13,10 @@ y = np.empty((nt, 1))
 v = -1.0
 for i in range(0, nt):
     x[i] = i
-    y[i] = 0.2+0.4*math.pow(v, 2)+0.3*v*math.sin(15*v)+0.05*math.cos(50*v) # (5 * v * v * v) - (2 * v * v) + (1.2 * v) - 3
+    y[i] = 0.2 + 0.4 * math.pow(v, 2) + 0.3 * v * math.sin(15 * v) + 0.05 * math.cos(
+        50 * v)  # (5 * v * v * v) - (2 * v * v) + (1.2 * v) - 3
     v += 0.01
+
 
 # define base model
 def baseline_model():
@@ -37,6 +33,7 @@ def baseline_model():
     optim = Adam(lr=0.001)
     model.compile(loss='mse', optimizer=optim)
     return model
+
 
 # fix random seed for reproducibility
 seed = 42
@@ -56,4 +53,3 @@ plt.xlabel('epoch')
 plt.legend(['train', 'valid'], loc='upper right')
 plt.show()
 print("")
-

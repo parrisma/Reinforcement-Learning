@@ -1,11 +1,14 @@
-import unittest
 import logging
-import keras
-import numpy as np
+import unittest
 from pathlib import Path
 from typing import Tuple
-from reflrn import TemporalDifferencePolicyPersistance
+
+import keras
+import numpy as np
+
 from reflrn import EnvironmentLogging
+from reflrn import TemporalDifferencePolicyPersistance
+
 
 #
 # Save and Load the Keras Model, as well as load the TemporalDifferencePolicy dump file used to train this model.
@@ -61,7 +64,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
             if c == '-':
                 s = -1
             else:
-                xl.append(float(c)*float(s))
+                xl.append(float(c) * float(s))
                 s = 1
         return np.asarray(xl, dtype=np.float32)
 
@@ -81,7 +84,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
     #
     @classmethod
     def __rescale(cls, v, mn, mx):
-        return (v-mn)/(mx-mn)
+        return (v - mn) / (mx - mn)
 
     #
     # Load the States and Q Values as X,Y Training Set.
@@ -100,11 +103,12 @@ class TemporalDifferenceDeepNNPolicyPersistance:
             y[i] = self.__qv_as_numpy_array(qy)
             mx = np.max(y[i])
             mn = np.min(y[i])
-            if mx-mn > 0:
+            if mx - mn > 0:
                 y[i] = (y[i] - mn) / (mx - mn)
             i += 1
 
         return x, y
+
 
 # ********************
 # *** UNIT TESTING ***
@@ -113,15 +117,15 @@ class TemporalDifferenceDeepNNPolicyPersistance:
 
 class TestTDDeepNNPolicyPersistance(unittest.TestCase):
 
-        def test_strategies(self):
+    def test_strategies(self):
+        lg = EnvironmentLogging("TemporalDifferenceDeepNNPolicyPersistance",
+                                "TemporalDifferenceDeepNNPolicyPersistance.log",
+                                logging.DEBUG).get_logger()
+        tdd = TemporalDifferenceDeepNNPolicyPersistance(lg=lg)
+        x, y = tdd.load_state_qval_as_xy("./qvn_dump.pb")
 
-            lg = EnvironmentLogging("TemporalDifferenceDeepNNPolicyPersistance",
-                                    "TemporalDifferenceDeepNNPolicyPersistance.log",
-                                    logging.DEBUG).get_logger()
-            tdd = TemporalDifferenceDeepNNPolicyPersistance(lg=lg)
-            x, y = tdd.load_state_qval_as_xy("./qvn_dump.pb")
+        self.assertEqual(np.size(x), np.size(y))
 
-            self.assertEqual(np.size(x), np.size(y))
 
 #
 # Execute the tests.

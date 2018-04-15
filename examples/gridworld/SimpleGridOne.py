@@ -1,8 +1,11 @@
+from copy import deepcopy
+
 import numpy as np
+
 from .Grid import Grid
 from .GridBlockedActionException import GridBlockedActionException
 from .GridEpisodeOverException import GridEpisodeOverException
-from copy import deepcopy
+
 
 #
 # Simple (small grid) with the basic North, South, East, West moves (no diagonal moves)
@@ -12,7 +15,6 @@ from copy import deepcopy
 
 
 class SimpleGridOne(Grid):
-
     STEP = np.float(-1)
     FIRE = np.float(-100)
     GOAL = np.float(+100)
@@ -46,6 +48,10 @@ class SimpleGridOne(Grid):
         else:
             self.__finish = None
 
+    def reset(self):
+        self.__curr = deepcopy(self.__start)
+        return
+
     def execute_action(self, action: int) -> int:
         if self.__episode_over():
             raise GridEpisodeOverException("Episode already complete, agent at finish cell on grid")
@@ -61,13 +67,16 @@ class SimpleGridOne(Grid):
     def id(self) -> int:
         return self.__grid_id
 
-    def copy(self) -> Grid:
+    def deep_copy(self) -> Grid:
         cp = type(self)(self.id(),
                         self.__grid,
                         self.__start,
                         self.__finish)
         cp.__curr = self.__curr
         return cp
+
+    def episode_complete(self):
+        return self.__episode_over()
 
     def __episode_over(self) -> bool:
         if self.__finish is None:

@@ -1,43 +1,31 @@
-import numpy as np
 import logging
 from random import randint
-from reflrn import Environment
+
+import numpy as np
+
 from reflrn import Agent
+from reflrn import Environment
 from reflrn import State
+from .Grid import Grid
 from .GridWorldState import GridWorldState
 
 
 class GridWorld(Environment):
 
-    # The "game board" is passed in at construction time.
-
-    asStr = True
-    __episode = 'episode number'
-
     #
-    # Constructor has no arguments as it just sets the game
-    # to an initial up-played set-up
+    # Boot strap from a single agent and single grid
     #
-    def __init__(self, x: Agent, lg: logging):
+    def __init__(self, x: Agent, grid: Grid, lg: logging):
         self.__lg = lg
-        self.__board = GridWorld.__empty_board()
-        self.__last_board = None
-        self.__agent = GridWorld.__no_agent
-        self.__last_agent = GridWorld.__no_agent
+        self.__grid = grid
         self.__x_agent = x
-        self.__x_agent.session_init(self.actions())
-        self.__stats = None
         return
 
     #
-    # Return game to initial state, where no one has played
-    # and the board contains no moves.
+    # Return game to initial state.
     #
     def reset(self):
-        self.__board = GridWorld.__empty_board()
-        self.__last_board = None
-        self.__agent = GridWorld.__no_agent
-        self.__last_agent = GridWorld.__no_agent
+        self.__grid.reset()
         return
 
     #
@@ -51,30 +39,6 @@ class GridWorld(Environment):
     #
     def attribute(self, attribute_name: str) -> object:
         return None
-
-    #
-    # Keep stats of wins by agent.
-    #
-    def __keep_stats(self, reset: bool=False):
-        if reset is True or self.__stats is None:
-            self.__stats = dict()
-            self.__stats[self.__episode] = 1
-            self.__stats[self.__o_agent.name()] = 0
-            self.__stats[self.__x_agent.name()] = 0
-
-        if self.__episode_won():
-            self.__stats[self.__agent.name()] = self.__stats[self.__agent.name()] + 1
-            self.__stats[self.__episode] = self.__stats[self.__episode] + 1
-            self.__lg.debug(self.__agent.name() + " Wins")
-
-        if self.__stats[self.__episode] % 100 == 0:
-            self.__lg.info("Stats: Agent : " + self.__x_agent.name() + " [" +
-                           str(round((self.__stats[self.__x_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
-                           "Agent : " + self.__o_agent.name() + " [" +
-                           str(round((self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] "
-                          )
-        return
-
 
     #
     # Run the given number of iterations
@@ -110,13 +74,6 @@ class GridWorld(Environment):
         self.__o_agent.terminate()
         return
 
-    #
-    # Return a new empty board.
-    #
-    @classmethod
-    def __empty_board(cls):
-        return np.full((3, 3), np.nan)
-
     @classmethod
     def no_agent(cls):
         return cls.__no_agent
@@ -127,17 +84,6 @@ class GridWorld(Environment):
     @classmethod
     def actions(cls) -> [int]:
         return list(map(lambda a: int(a), list(GridWorld.__actions.keys())))
-
-    #
-    # Assume the play_action has been validated by play_action method
-    # Make a copy of board before play_action is made and the last player
-    #
-    def __take_action(self, action: int, agent: Agent):
-        self.__last_board = np.copy(self.__board)
-        self.__last_agent = self.__agent
-        self.__agent = agent
-        self.__board[action] = self.__agent.id()
-        return
 
     #
     # Make the play chosen by the given agent. If it is a valid play
@@ -170,62 +116,12 @@ class GridWorld(Environment):
         return other_agent  # play moves to next agent
 
     #
-    # Return the attributes of the environment
-    #
-    def attributes(self):
-        attr_dict = dict()
-        attr_dict[GridWorld.attribute_draw[0]] = not self.__actions_left_to_take()
-        attr_dict[GridWorld.attribute_won[0]] = self.__episode_won()
-        attr_dict[GridWorld.attribute_complete[0]] = \
-            attr_dict[GridWorld.attribute_draw[0]] or attr_dict[GridWorld.attribute_won[0]]
-        attr_dict[GridWorld.attribute_agent[0]] = self.__agent
-        attr_dict[GridWorld.attribute_board[0]] = np.copy(self.__board)
-        return attr_dict
-
-    #
-    # Is there a winning move on the board.
-    #
-    def __episode_won(self):
-        rows = np.abs(np.sum(self.__board, axis=1))
-        cols = np.abs(np.sum(self.__board, axis=0))
-        diag_lr = np.abs(np.sum(self.__board.diagonal()))
-        diag_rl = np.abs(np.sum(np.rot90(self.__board).diagonal()))
-
-        if np.sum(rows == 3) > 0:
-            return True
-        if np.sum(cols == 3) > 0:
-            return True
-        if not np.isnan(diag_lr):
-            if ((np.mod(diag_lr, 3)) == 0) and diag_lr > 0:
-                return True
-        if not np.isnan(diag_rl):
-            if ((np.mod(diag_rl, 3)) == 0) and diag_rl > 0:
-                return True
-        return False
-
-    #
-    # Are there any remaining actions to be taken >
-    #
-    def __actions_left_to_take(self):
-        return self.__board[np.isnan(self.__board)].size > 0
-
-    #
-    # Are there any remaining actions to be taken >
-    #
-    def __actions_ids_left_to_take(self):
-        alt = np.reshape(self.__board, self.__board.size)
-        alt = np.asarray(self.actions())[np.isnan(alt) == True]
-        return alt
-
-    #
     # The episode is over if one agent has made a line of three on
     # any horizontal, vertical or diagonal or if there are no actions
     # left to take and neither agent has won.
     #
     def episode_complete(self):
-        if self.__episode_won() or not self.__actions_left_to_take():
-            return True
-        return False
+        return self.__grid.episode_complete()
 
     #
     # Convert an environment (board) from a string form to the
@@ -249,7 +145,7 @@ class GridWorld(Environment):
         cell_num = 0
         for actor in bd:
             if not np.isnan(actor):
-                mvs += str(int(actor)) + ":" + str(int(cell_num+1))+"~"
+                mvs += str(int(actor)) + ":" + str(int(cell_num + 1)) + "~"
             cell_num += 1
         if len(mvs) > 0:
             mvs = mvs[:-1]

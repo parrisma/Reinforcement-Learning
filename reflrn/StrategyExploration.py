@@ -1,6 +1,7 @@
 import unittest
-from reflrn import ExplorationPlay
 from random import randint
+
+from reflrn import ExplorationPlay
 
 
 #
@@ -57,21 +58,21 @@ class StrategyExploration(ExplorationPlay):
 
 class TestStrategyExploration(unittest.TestCase):
 
-        def test_strategies(self):
+    def test_strategies(self):
+        test_cases = [([2, 3, 4, 5, 6, 7, 8], 2),
+                      ([0, 1, 2, 5, 6, 7, 8], 5),
+                      ([0, 1, 2, 3, 4, 5, 8], 8),
+                      ([0, 1, 2, 4, 5, 7, 8], 0),
+                      ([0, 2, 3, 5, 6, 7, 8], 7),
+                      ([0, 1, 2, 3, 5, 6, 7], 0),
+                      ([0, 1, 3, 5, 6, 7, 8], 6),
+                      ([1, 2, 3, 5, 6, 7, 8], 8),
+                      ([0, 1, 2, 3, 5, 7, 8], 2)]
 
-            test_cases = [([2, 3, 4, 5, 6, 7, 8], 2),
-                          ([0, 1, 2, 5, 6, 7, 8], 5),
-                          ([0, 1, 2, 3, 4, 5, 8], 8),
-                          ([0, 1, 2, 4, 5, 7, 8], 0),
-                          ([0, 2, 3, 5, 6, 7, 8], 7),
-                          ([0, 1, 2, 3, 5, 6, 7], 0),
-                          ([0, 1, 3, 5, 6, 7, 8], 6),
-                          ([1, 2, 3, 5, 6, 7, 8], 8),
-                          ([0, 1, 2, 3, 5, 7, 8], 2)]
+        for possible_actions, expected_action in test_cases:
+            se = StrategyExploration()
+            self.assertEqual(se.select_action(possible_actions), expected_action)
 
-            for possible_actions, expected_action in test_cases:
-                se = StrategyExploration()
-                self.assertEqual(se.select_action(possible_actions), expected_action)
 
 #
 # Execute the tests.

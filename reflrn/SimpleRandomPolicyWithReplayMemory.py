@@ -1,8 +1,9 @@
 import logging
-from reflrn import Policy
-from reflrn import State
 from random import randint
+
+from reflrn import Policy
 from reflrn import ReplayMemory
+from reflrn import State
 
 
 class SimpleRandomPolicyWithReplayMemory(Policy):
@@ -45,11 +46,10 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
     # set of actions.
     #
     def greedy_action(self, agent_name: str, state: State, possible_actions) -> int:
-        return possible_actions[randint(0, len(possible_actions)-1)]
+        return possible_actions[randint(0, len(possible_actions) - 1)]
 
     def save(self, filename: str = None):
         return
 
     def load(self, filename: str = None):
         return
-

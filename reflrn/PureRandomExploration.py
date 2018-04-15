@@ -1,5 +1,6 @@
-from reflrn import ExplorationPlay
 from random import randint
+
+from reflrn import ExplorationPlay
 
 
 class PureRandomExploration(ExplorationPlay):

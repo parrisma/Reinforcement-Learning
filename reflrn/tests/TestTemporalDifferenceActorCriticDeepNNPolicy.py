@@ -1,20 +1,21 @@
-import unittest
 import logging
 import random
-import numpy as np
+import unittest
+
 import matplotlib.pyplot as plt
-from keras.models import Sequential
+import numpy as np
 from keras.layers import Dense, Dropout
+from keras.models import Sequential
 from keras.wrappers.scikit_learn import KerasRegressor
+
 from reflrn import EnvironmentLogging
-from reflrn import ReplayMemory
 from reflrn import ModelParameters
+from reflrn import ReplayMemory
 from reflrn import TemporalDifferenceActorCriticDeepNNPolicy
 from .TestState import TestState
 
 
 class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
-
     __qval_file = 'qvn_dump.pb'
     __model_file = 'model.keras'
     __lg = None
@@ -204,4 +205,3 @@ if __name__ == "__main__":
         suite = unittest.TestSuite()
         suite.addTest(TestTemporalDifferenceActorCriticDeepNNPolicy("test_model_behaviour_quad"))
         unittest.TextTestRunner().run(suite)
-

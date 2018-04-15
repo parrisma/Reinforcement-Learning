@@ -1,15 +1,18 @@
 import logging
-import numpy as np
-import keras
 from pathlib import Path
 from random import randint
-from keras.models import Sequential
+
+import keras
+import numpy as np
 from keras.layers import Dense, Dropout
-from reflrn import Policy
-from reflrn import State
+from keras.models import Sequential
+
 from reflrn import EvaluationException
-from reflrn import ReplayMemory
 from reflrn import ModelParameters
+from reflrn import Policy
+from reflrn import ReplayMemory
+from reflrn import State
+
 
 #
 # This follows the ActorCritic pattern.
@@ -17,7 +20,6 @@ from reflrn import ModelParameters
 
 
 class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
-
     # Learning Parameters
     __n = 0  # number of learning events
     __learning_rate_0 = float(0.05)
@@ -33,8 +35,8 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
                  replay_memory:
                  ReplayMemory,
                  model_file_name: str,
-                 model_parameters: ModelParameters=None,
-                 load_model: bool=False):
+                 model_parameters: ModelParameters = None,
+                 load_model: bool = False):
 
         self.__lg = lg
         if load_model:
@@ -120,7 +122,8 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
             self.__episodes_played += 1
 
         # Every so often, we train the critic from memories and swap it in as the new actor.
-        if self.__replay_memory.len() > self.__sample_size and (self.__episodes_played % self.__update_every_n_episodes) == 0:
+        if self.__replay_memory.len() > self.__sample_size and (
+                self.__episodes_played % self.__update_every_n_episodes) == 0:
             memories = self.get_random_memories()
             x, y = self.random_memories_to_training_xy(memories)
             self.train_critic_and_update_actor(x, y)
@@ -161,7 +164,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
             mn = np.min(qv)
             mx = np.max(qv)
             if mx - mn != 0:
-                qv = (qv-mn) / (mx - mn)
+                qv = (qv - mn) / (mx - mn)
 
             x[i] = s
             y[i] = qv
@@ -225,19 +228,19 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         if len(greedy_actions) == 0:
             raise EvaluationException("Model did not predict a Q Values related to a possible action")
 
-        return greedy_actions[randint(0, len(greedy_actions)-1)]
+        return greedy_actions[randint(0, len(greedy_actions) - 1)]
 
     #
     # Save, not relevant for this Policy type
     #
-    def save(self, filename: str=None):
+    def save(self, filename: str = None):
         # Save is done as part of policy update, not on the environment call back
         return
 
     #
     # Load the last critic Keras Deep NN
     #
-    def load(self, filename: str=None):
+    def load(self, filename: str = None):
         if Path(filename).is_file():
             self.__actor = keras.models.load_model(filename)
             self.__critic = keras.models.clone_model(self.__actor)

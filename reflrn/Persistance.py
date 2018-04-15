@@ -1,5 +1,6 @@
 import numpy as np
 
+
 #
 # Save and Load Q Value Dictionary of form
 #   Key = String
@@ -61,14 +62,14 @@ class Persistance:
         return qv
 
     @classmethod
-    def x_as_str_to_num_array(cls,xs):
+    def x_as_str_to_num_array(cls, xs):
         xl = list()
         s = 1
         for c in xs:
             if c == '-':
                 s = -1
             else:
-                xl.append(float(c)*float(s))
+                xl.append(float(c) * float(s))
                 s = 1
         return np.asarray(xl, dtype=np.float32)
 
@@ -77,7 +78,7 @@ class Persistance:
     #
     @classmethod
     def rescale(cls, v, mn, mx):
-        return (v-mn)/(mx-mn)
+        return (v - mn) / (mx - mn)
 
     #
     # Load as an X Y Network training set. Both are 9 by 1
@@ -88,16 +89,16 @@ class Persistance:
     @classmethod
     def load_as_X_Y(cls, filename):
         qv = cls.load(filename)
-        x = np.zeros((len(qv), 1+9))  # Player + 9 Board Cells
-        y = np.zeros((len(qv), 9)) # 9 Q Vals.
+        x = np.zeros((len(qv), 1 + 9))  # Player + 9 Board Cells
+        y = np.zeros((len(qv), 9))  # 9 Q Vals.
         i = 0
         mn = np.finfo('d').max
         mx = -mn
         for qx, qy in qv.items():
             x[i] = cls.x_as_str_to_num_array(qx)
             y[i] = qy
-            mx = max(mx, np.max(qy[np.isnan(qy)==False]))
-            mn = min(mn, np.min(qy[np.isnan(qy)==False]))
+            mx = max(mx, np.max(qy[np.isnan(qy) == False]))
+            mn = min(mn, np.min(qy[np.isnan(qy) == False]))
             i += 1
 
         mn *= 1.1

@@ -1,5 +1,6 @@
 import abc
 
+
 #
 # This abstract class provides an immutable state representation of the environment
 # it was constructed with.
@@ -14,7 +15,6 @@ class State(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def state(self) -> object:
         pass
-
 
     #
     # An string representation of the environment state

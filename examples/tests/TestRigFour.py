@@ -1,14 +1,14 @@
 import logging
-from TicTacToeAgent import TicTacToeAgent
-from PureRandomExploration import PureRandomExploration
-from TicTacToe import TicTacToe
-from EnvironmentLogging import EnvironmentLogging
-from TemporalDifferenceDeepNNPolicy import TemporalDifferenceDeepNNPolicy
-from SimpleRandomPolicy import SimpleRandomPolicy
+
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.PureRandomExploration import PureRandomExploration
+from reflrn import SimpleRandomPolicy
+from reflrn.TemporalDifferenceDeepNNPolicy import TemporalDifferenceDeepNNPolicy
+from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 
 itr = 5000
 lg = EnvironmentLogging("TestRig4", "TestRigFour.log", logging.INFO).get_logger()
-
 
 tddnnp = TemporalDifferenceDeepNNPolicy(lg=lg)
 tddnnp.load('model.keras')

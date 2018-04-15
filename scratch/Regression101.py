@@ -1,15 +1,14 @@
-from sklearn import datasets, linear_model
-from sklearn.model_selection import cross_val_score, KFold
-from keras.models import Sequential
-from sklearn.metrics import accuracy_score
-from keras.layers import Dense, Dropout
-from keras.wrappers.scikit_learn import KerasRegressor
-import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import PolynomialFeatures
 import matplotlib.pyplot as plt
+import numpy as np
+from keras.layers import Dense, Dropout
+from keras.models import Sequential
+from keras.wrappers.scikit_learn import KerasRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_score, KFold
+from sklearn.preprocessing import PolynomialFeatures
+
 seed = 42
+
 
 def baseline_model():
     model = Sequential()
@@ -25,6 +24,7 @@ def baseline_model():
     model.compile(loss='mean_squared_error', optimizer='adam')
     return model
 
+
 if __name__ == "__main__":
 
     nt = 200
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     y = np.empty((nt, 1))
     for i in range(0, nt):
         x[i] = i
-        y[i] = 2*i*i + 1.2*i + 3
+        y[i] = 2 * i * i + 1.2 * i + 3
 
     poly_features = PolynomialFeatures(degree=2, include_bias=False)
     x_poly = poly_features.fit_transform(x)

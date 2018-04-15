@@ -1,4 +1,3 @@
-
 class ModelParameters:
     epochs = 100
     update_every_n_episodes = 100
@@ -8,13 +7,12 @@ class ModelParameters:
     save_every_n_critic_updates = 100
 
     def __init__(self,
-                 epochs: int=100,
-                 update_every_n_episodes: int=100,
-                 sample_size: int=50,
-                 batch_size: int=10,
-                 replay_mem_size: int=1000,
-                 save_every_n_critic_updates: int=100):
-
+                 epochs: int = 100,
+                 update_every_n_episodes: int = 100,
+                 sample_size: int = 50,
+                 batch_size: int = 10,
+                 replay_mem_size: int = 1000,
+                 save_every_n_critic_updates: int = 100):
         self.epochs = epochs
         self.update_every_n_episodes = update_every_n_episodes
         self.sample_size = sample_size

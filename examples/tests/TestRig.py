@@ -1,8 +1,9 @@
-import numpy as np
 import random
-from PlayTicTacToe import PlayTicTacToe
-from Persistance import Persistance
 from pathlib import Path
+
+import numpy as np
+from reflrn.Persistance import Persistance
+from reflrn.PlayTicTacToe import PlayTicTacToe
 
 data_file = "./qv_dump.pb"
 my_file = Path(data_file)
@@ -12,7 +13,6 @@ np.random.seed(42)
 
 p = Persistance()
 x, y = p.load_as_X_Y("./qv_dump.pb")
-
 
 play = PlayTicTacToe(Persistance())
 play.forget_learning()

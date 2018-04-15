@@ -1,14 +1,15 @@
 import logging
 import random
+
 import numpy as np
-from TicTacToeAgent import TicTacToeAgent
-from PureRandomExploration import PureRandomExploration
-from TicTacToe import TicTacToe
-from EnvironmentLogging import EnvironmentLogging
-from TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
-from SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithReplayMemory
-from ReplayMemory import ReplayMemory
-from ModelParameters import ModelParameters
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.ModelParameters import ModelParameters
+from reflrn.PureRandomExploration import PureRandomExploration
+from reflrn.ReplayMemory import ReplayMemory
+from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithReplayMemory
+from reflrn.TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
+from reflrn.TicTacToe import TicTacToe
+from reflrn.TicTacToeAgent import TicTacToeAgent
 
 random.seed(42)
 np.random.seed(42)

@@ -1,15 +1,16 @@
-import numpy as np
 import logging
+from random import randint
+
+import numpy as np
+
+from reflrn import EvaluationException
+from reflrn import FixedGames
 from reflrn import Policy
 from reflrn import State
 from reflrn import TemporalDifferencePolicyPersistance
-from reflrn import EvaluationException
-from random import randint
-from reflrn import FixedGames
 
 
 class TemporalDifferencePolicy(Policy):
-
     #
     # Learning is for all agents of this *type* so q values are at class level, and all
     # methods that act on q values are class methods.
@@ -27,11 +28,11 @@ class TemporalDifferencePolicy(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 filename: str="",
+                 filename: str = "",
                  fixed_games:
-                 FixedGames=None,
-                 load_qval_file: bool=False,
-                 manage_qval_file: bool=False):
+                 FixedGames = None,
+                 load_qval_file: bool = False,
+                 manage_qval_file: bool = False):
         self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
@@ -132,7 +133,8 @@ class TemporalDifferencePolicy(Policy):
                       reward: float,
                       episode_complete: bool):
 
-        self.__lg.debug(agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
+        self.__lg.debug(
+            agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
 
         # Update master count of policy learning events
         TemporalDifferencePolicy.__n += 1
@@ -150,7 +152,7 @@ class TemporalDifferencePolicy(Policy):
 
         # Update current state to reflect the reward
         qv = TemporalDifferencePolicy.__get_q_value(state, action)
-        qv = (qv * (1-lr)) + (lr*reward) + qvp
+        qv = (qv * (1 - lr)) + (lr * reward) + qvp
         TemporalDifferencePolicy.__set_q_value(state, action, qv)
 
         return
@@ -189,7 +191,7 @@ class TemporalDifferencePolicy(Policy):
         if len(greedy_actions) == 0:
             raise EvaluationException("No Q Values mapping to possible actions, cannot select greedy action")
 
-        return greedy_actions[randint(0, len(greedy_actions)-1)]
+        return greedy_actions[randint(0, len(greedy_actions) - 1)]
 
     #
     # Save with class default filename.
@@ -201,7 +203,7 @@ class TemporalDifferencePolicy(Policy):
     # FileName, return the given file name of the one set as default during
     # class construction
     #
-    def fileName(self, filename: str)-> str:
+    def fileName(self, filename: str) -> str:
         fn = filename
         if fn is None or len(fn) == 0:
             fn = self.__filename
@@ -210,7 +212,7 @@ class TemporalDifferencePolicy(Policy):
     #
     # Export the current policy to the given file name
     #
-    def save(self, filename: str=None):
+    def save(self, filename: str = None):
         fn = self.fileName(filename)
         if fn is not None and len(fn) > 0:
             self.__persistance.save(TemporalDifferencePolicy.__q_values,
@@ -227,7 +229,7 @@ class TemporalDifferencePolicy(Policy):
     #
     # Import the current policy to the given file name
     #
-    def load(self, filename: str=None):
+    def load(self, filename: str = None):
         fn = self.fileName(filename)
         if fn is not None and len(fn) > 0:
             (TemporalDifferencePolicy.__q_values,
@@ -259,8 +261,8 @@ class TemporalDifferencePolicy(Policy):
         mxq = np.max(q)
         for i in range(0, 3):
             for j in range(0, 3):
-                if a is not None and at < len(a) and a[at] == j+(i*3):
-                    qpct = (q[at]/mxq)*100
+                if a is not None and at < len(a) and a[at] == j + (i * 3):
+                    qpct = (q[at] / mxq) * 100
                     if np.isnan(qpct):
                         qpct = 0
                     s += "[(" + '{:+3d}'.format(int(qpct)) + "%) " + '{:+.16f}'.format(q[at]) + "] "
@@ -269,4 +271,3 @@ class TemporalDifferencePolicy(Policy):
                     s += "[                           ] "
             s += "\n"
         return s
-

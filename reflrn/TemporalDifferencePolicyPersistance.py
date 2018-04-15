@@ -1,6 +1,8 @@
 import unittest
-import numpy as np
 from typing import Tuple
+
+import numpy as np
+
 from reflrn import ITemporalDifferencePolicyPersistance
 
 
@@ -34,7 +36,7 @@ class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
                 out_f.write(state)
                 out_f.write("#")
                 for action, q_val in q_val_dict.items():
-                    out_f.write(str(action)+':{:.16f}'.format(q_val) + "~")
+                    out_f.write(str(action) + ':{:.16f}'.format(q_val) + "~")
                 out_f.write("\n")
         except Exception as exc:
             print("Failed to save Q Values : " + str(exc))
@@ -103,6 +105,7 @@ class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
                 in_f.close()
         return qv, n, learning_rate_0, discount_factor, learning_rate_decay
 
+
 # ********************
 # *** UNIT TESTING ***
 # ********************
@@ -114,6 +117,7 @@ class TestTemporalDifferencePolicyPersistance(unittest.TestCase):
         tdpp = TemporalDifferencePolicyPersistance()
         ld = tdpp.load("./qvn_dump.pb")
         tdpp.save_as_csv(ld, "./qvn_dump.csv")
+
 
 #
 # Execute the tests.

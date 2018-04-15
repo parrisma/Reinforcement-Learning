@@ -2,8 +2,9 @@
 #
 import keras
 import numpy as np
-from keras.models import Sequential
 from keras.layers import Dense
+from keras.models import Sequential
+
 from reflrn import Persistance
 
 
@@ -25,7 +26,6 @@ class QValModel:
     # save the full model.
     #
     def train(self, qval_traing_set_filename, model_filename):
-
         # Load the training data
         p = Persistance()
         X, Y = p.load_as_X_Y(qval_traing_set_filename)
@@ -46,7 +46,7 @@ class QValModel:
         self.__model.save(model_filename)
 
         scores = self.__model.evaluate(X, Y)
-        print("\n%s: %.2f%%" % (self.__model.metrics_names[1], scores[1]*100))
+        print("\n%s: %.2f%%" % (self.__model.metrics_names[1], scores[1] * 100))
 
     #
     # Make an Informed Action given a board state by predicting the QValues

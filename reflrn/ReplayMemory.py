@@ -1,6 +1,8 @@
 import logging
-import numpy as np
 from collections import deque
+
+import numpy as np
+
 from reflrn import State
 
 
@@ -9,7 +11,6 @@ from reflrn import State
 #
 
 class ReplayMemory:
-
     # Memory List Entry Off Sets
     mem_episode_id = 0
     mem_state = 1
@@ -62,12 +63,12 @@ class ReplayMemory:
             episode_id = memory[ReplayMemory.mem_episode_id]
             episode_deque = deque([])
             episode_deque.append(memory)
-            i = idx-1
+            i = idx - 1
             while i >= 0 and self.__replay_memory[i][ReplayMemory.mem_episode_id] == episode_id:
                 episode_deque.appendleft(self.__replay_memory[i])
                 i -= 1
 
-            i = idx+1
+            i = idx + 1
             while i < ln and self.__replay_memory[i][ReplayMemory.mem_episode_id] == episode_id:
                 episode_deque.append(self.__replay_memory[i])
                 i += 1

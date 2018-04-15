@@ -1,6 +1,8 @@
 import unittest
+
 import numpy as np
 from TicTacToe import TicTacToe
+
 
 #
 # Unit Test Suite for the TicTacToe concrete implementation of an Environment.

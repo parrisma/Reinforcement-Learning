@@ -1,17 +1,20 @@
-import unittest
 import logging
 import random
-import numpy as np
-import keras
+import unittest
 from pathlib import Path
 from random import randint
-from keras.models import Sequential
+
+import keras
+import numpy as np
 from keras.layers import Dense
+from keras.models import Sequential
+
+from reflrn import EnvironmentLogging
+from reflrn import EvaluationException
 from reflrn import Policy
 from reflrn import State
 from reflrn import TemporalDifferenceDeepNNPolicyPersistance
-from reflrn import EnvironmentLogging
-from reflrn import EvaluationException
+
 
 #
 # This depends on the saved Q-Values from TemporalDifferencePolicy. It trains itself on those Q Values
@@ -21,7 +24,6 @@ from reflrn import EvaluationException
 
 
 class TemporalDifferenceDeepNNPolicy(Policy):
-
     __epochs = 50
     __batch_size = 10
 
@@ -59,7 +61,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     #
     # The given file name is the name of a Q Value dump file.
     #
-    def train(self, qval_file_name: str, model_file_name: str, load_model_if_present: bool=False) ->float:
+    def train(self, qval_file_name: str, model_file_name: str, load_model_if_present: bool = False) -> float:
         #
         # Load the Q Values and States as learned by the TemporalDifferencePolicy class.
         #
@@ -114,23 +116,24 @@ class TemporalDifferenceDeepNNPolicy(Policy):
         if len(greedy_actions) == 0:
             raise EvaluationException("Model did not predict a Q Values related to a possible action")
 
-        return greedy_actions[randint(0, len(greedy_actions)-1)]
+        return greedy_actions[randint(0, len(greedy_actions) - 1)]
 
     #
 
     # Save the Keras Deep NN
     #
-    def save(self, filename: str=None):
+    def save(self, filename: str = None):
         # No save as model is not updated during runs
         return
 
     #
     # Load the Keras Deep NN
     #
-    def load(self, filename: str=None):
+    def load(self, filename: str = None):
         if Path(filename).is_file():
             self.__model = keras.models.load_model(filename)
         return
+
 
 # ********************
 # *** UNIT TESTING ***
@@ -138,24 +141,24 @@ class TemporalDifferenceDeepNNPolicy(Policy):
 
 
 class TestTemporalDifferenceDeepNNPolicy(unittest.TestCase):
+    __qval_file = 'qvn_dump.pb'
+    __model_file = 'model.keras'
+    __lg = None
 
-        __qval_file = 'qvn_dump.pb'
-        __model_file = 'model.keras'
-        __lg = None
+    @classmethod
+    def setUpClass(cls):
+        random.seed(42)
+        np.random.seed(42)
+        cls.__lg = EnvironmentLogging("TestTemporalDifferenceDeepNNPolicy",
+                                      "TestTemporalDifferenceDeepNNPolicy.log",
+                                      logging.INFO).get_logger()
 
-        @classmethod
-        def setUpClass(cls):
-            random.seed(42)
-            np.random.seed(42)
-            cls.__lg = EnvironmentLogging("TestTemporalDifferenceDeepNNPolicy",
-                                          "TestTemporalDifferenceDeepNNPolicy.log",
-                                          logging.INFO).get_logger()
+    def test_training(self):
+        tddnnp = TemporalDifferenceDeepNNPolicy(lg=self.__lg)
+        accuracy = tddnnp.train(self.__qval_file, self.__model_file, load_model_if_present=True)
+        self.assertGreaterEqual(accuracy, float(90))
+        return
 
-        def test_training(self):
-            tddnnp = TemporalDifferenceDeepNNPolicy(lg=self.__lg)
-            accuracy = tddnnp.train(self.__qval_file, self.__model_file, load_model_if_present=True)
-            self.assertGreaterEqual(accuracy, float(90))
-            return
 
 #
 # Execute the tests.
