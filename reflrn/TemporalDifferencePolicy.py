@@ -8,12 +8,15 @@ from reflrn.FixedGames import FixedGames
 from reflrn.Policy import Policy
 from reflrn.State import State
 from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+from reflrn.RenderQValsAsStr import RenderQValsAsStr
 
 
 class TemporalDifferencePolicy(Policy):
     #
     # Learning is for all agents of this *type* so q values are at class level, and all
     # methods that act on q values are class methods.
+    #
+    # ToDo: q_vals should not be at class level, should pass in the q_val dicts so it can be shared only if required
     #
     __q_values = None  # key: Agent id + State & Value: (dictionary of key: action -> Value: Q value)
     __n = 0  # number of learning events
@@ -32,12 +35,14 @@ class TemporalDifferencePolicy(Policy):
                  fixed_games:
                  FixedGames = None,
                  load_qval_file: bool = False,
-                 manage_qval_file: bool = False):
+                 manage_qval_file: bool = False,
+                 q_val_render: RenderQValsAsStr = None):
         self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
         self.__fixed_games = fixed_games
         self.__manage_qval_file = manage_qval_file
+        self.__q_val_render = q_val_render
 
         if load_qval_file:
             try:
@@ -94,29 +99,6 @@ class TemporalDifferencePolicy(Policy):
         cls.__q_values[state_name][action] = q_value
 
     #
-    # get q values and associated actions as numpy array
-    #
-    @classmethod
-    def __get_q_vals_as_np_array(cls, state: State) -> np.array:
-        q_values = None
-        q_actions = None
-
-        # If there are no Q values learned yet we cannot predict a greedy action.
-        if cls.__q_values is not None:
-            state_name = state.state_as_string()
-
-            if state_name in cls.__q_values:
-                sz = len(cls.__q_values[state_name])
-                q_values = np.full(sz, np.nan)
-                q_actions = np.array(sorted(list(cls.__q_values[state_name].keys())))
-                i = 0
-                for actn in q_actions:
-                    q_values[i] = cls.__q_values[state_name][actn]
-                    i += 1
-
-        return q_values, q_actions
-
-    #
     # Use temporal difference methods to keep q values for the given state/action plays.
     #
     # prev_state : the previous state for this Agent; None if no previous state
@@ -169,6 +151,29 @@ class TemporalDifferencePolicy(Policy):
             return np.float(0)
 
     #
+    # get q values and associated actions as numpy array
+    #
+    @classmethod
+    def __get_q_vals_as_np_array(cls, state: State) -> np.array:
+        q_values = None
+        q_actions = None
+
+        # If there are no Q values learned yet we cannot predict a greedy action.
+        if cls.__q_values is not None:
+            state_name = state.state_as_string()
+
+            if state_name in cls.__q_values:
+                sz = len(cls.__q_values[state_name])
+                q_values = np.full(sz, np.nan)
+                q_actions = np.array(sorted(list(cls.__q_values[state_name].keys())))
+                i = 0
+                for actn in q_actions:
+                    q_values[i] = cls.__q_values[state_name][actn]
+                    i += 1
+
+        return q_values, q_actions
+
+    #
     # Greedy action; return the action that has the strongest Q value or if there is more
     # than one q value with the same strength, return an arbitrary action from those with
     # equal strength.
@@ -178,8 +183,9 @@ class TemporalDifferencePolicy(Policy):
         if self.__fixed_games is not None:
             return self.__fixed_games.next_action()
 
-        qvs, actions = TemporalDifferencePolicy.__get_q_vals_as_np_array(state)
-        self.__lg.debug(self.vals_and_actions_as_str(qvs, actions))
+        self.__lg.debug(self.vals_and_actions_as_str(state))
+
+        qvs, actions = self.__get_q_vals_as_np_array(state)
         if qvs is None:
             raise EvaluationException("No Q Values with which to select greedy action")
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
@@ -203,7 +209,7 @@ class TemporalDifferencePolicy(Policy):
     # FileName, return the given file name of the one set as default during
     # class construction
     #
-    def fileName(self, filename: str) -> str:
+    def file_name(self, filename: str) -> str:
         fn = filename
         if fn is None or len(fn) == 0:
             fn = self.__filename
@@ -213,7 +219,7 @@ class TemporalDifferencePolicy(Policy):
     # Export the current policy to the given file name
     #
     def save(self, filename: str = None):
-        fn = self.fileName(filename)
+        fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
             self.__persistance.save(TemporalDifferencePolicy.__q_values,
                                     TemporalDifferencePolicy.__n,
@@ -230,7 +236,7 @@ class TemporalDifferencePolicy(Policy):
     # Import the current policy to the given file name
     #
     def load(self, filename: str = None):
-        fn = self.fileName(filename)
+        fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
             (TemporalDifferencePolicy.__q_values,
              TemporalDifferencePolicy.__n,
@@ -252,22 +258,6 @@ class TemporalDifferencePolicy(Policy):
     # possible to see what q values are being selected from in the way that they
     # relate to the board. (3 x 3)
     #
-    @classmethod
-    def vals_and_actions_as_str(cls, q: [np.float], a: [int]) -> str:
-        s = ""
-        at = 0
-        if a is not None:
-            a = np.sort(a)
-        mxq = np.max(q)
-        for i in range(0, 3):
-            for j in range(0, 3):
-                if a is not None and at < len(a) and a[at] == j + (i * 3):
-                    qpct = (q[at] / mxq) * 100
-                    if np.isnan(qpct):
-                        qpct = 0
-                    s += "[(" + '{:+3d}'.format(int(qpct)) + "%) " + '{:+.16f}'.format(q[at]) + "] "
-                    at += 1
-                else:
-                    s += "[                           ] "
-            s += "\n"
-        return s
+    def vals_and_actions_as_str(self, state: State) -> str:
+        return self.__q_val_render.render_as_str(state, self.__q_values)
+

@@ -28,8 +28,10 @@ class GridWorldState(State):
         st = ""
         nst = self.__grid.state()
         for cell in np.reshape(nst, len(nst)):
+            if len(st) > 0:
+                st = st + ","
             if np.isnan(cell):
-                st += "0"
+                st += "?"
             else:
                 st += str(int(cell))
         return st

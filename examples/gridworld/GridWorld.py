@@ -1,4 +1,5 @@
 import logging
+import numpy as np
 
 from reflrn.Agent import Agent
 from reflrn.Environment import Environment
@@ -69,7 +70,7 @@ class GridWorld(Environment):
         self.__x_agent.terminate()
         return
 
-    def __keep_stats(self, reset: bool):
+    def __keep_stats(self, reset: bool=False):
         pass
 
     @classmethod
@@ -98,16 +99,21 @@ class GridWorld(Environment):
         if action not in self.__grid.allowable_actions():
             raise IllegalGridMoveException("Action chosen by agent is not allowable from current location on grid ["
                                            + str(action) + "]")
-        self.__take_action(self.__actions[action], agent)
+        reward = self.__take_action(action, agent)
         next_state = GridWorldState(self.__grid, agent)
 
-        reward = self.__grid.execute_action(action)
         if self.episode_complete():
             agent.reward(state, next_state, action, reward, True)
             return None  # episode complete - no next agent to go
         else:
             agent.reward(state, next_state, action, reward, False)
             return agent  # play stays with (only) agent
+
+    #
+    #
+    #
+    def __take_action(self, action:int, agent: Agent) -> np.float :
+        return self.__grid.execute_action(action)
 
     #
     # The episode is over if one agent has made a line of three on

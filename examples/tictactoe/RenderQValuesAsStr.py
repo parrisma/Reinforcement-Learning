@@ -6,7 +6,7 @@ from reflrn.State import State
 
 class RenderQValuesAsStr(RenderQValsAsStr):
 
-    def update_policy(self, curr_state: State, q_vals: dict) -> str:
+    def render_as_str(self, curr_state: State, q_vals: dict) -> str:
         s = ""
         at = 0
 

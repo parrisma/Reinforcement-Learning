@@ -1,5 +1,7 @@
 from copy import deepcopy
+
 import numpy as np
+
 from .Grid import Grid
 from .GridBlockedActionException import GridBlockedActionException
 from .GridEpisodeOverException import GridEpisodeOverException
@@ -120,12 +122,17 @@ class SimpleGridOne(Grid):
     # What will the new current coordinates be if the given action
     # was applied.
     #
-    def __new_coords_after_action(self, action: int) -> ():
+    def __new_coords_after_action(self, action: int) -> [int]:
         mv = self.__actions[action]
         nw = deepcopy(self.__curr)
         nw[0] += mv[0]
         nw[1] += mv[1]
         return nw
+
+    @classmethod
+    def coords_after_action(cls, x: int, y: int, action: int) -> [int]:
+        mv = cls.__actions[action]
+        return [x + mv[0], y + mv[1]]
 
     #
     # What is the defined reward for the given grid location.

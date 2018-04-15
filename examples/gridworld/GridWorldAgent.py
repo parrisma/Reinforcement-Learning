@@ -65,14 +65,14 @@ class GridWorldAgent(Agent):
             try:
                 # If there are q values for given state we can predict a greedy action
                 action = self.__policy.greedy_action(self.__name, state, possible_actions)
-                self.__lg.debug(self.__name + " chose greedy action : " + str(action + 1))
+                self.__lg.debug(self.__name + " chose greedy action : " + str(action))
             except EvaluationException:
                 # cannot predict a greedy action so random
                 action = self.__exploration.select_action(possible_actions)
-                self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
+                self.__lg.debug(self.__name + " chose exploration action : " + str(action))
         else:
             action = self.__exploration.select_action(possible_actions)
-            self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
+            self.__lg.debug(self.__name + " chose exploration action : " + str(action))
 
         return action
 
