@@ -3,7 +3,7 @@ from typing import Tuple
 
 import numpy as np
 
-from reflrn import ITemporalDifferencePolicyPersistance
+from reflrn.ITemporalDifferencePolicyPersistance import ITemporalDifferencePolicyPersistance
 
 
 #

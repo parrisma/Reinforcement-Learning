@@ -7,11 +7,11 @@ import numpy as np
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
 
-from reflrn import EvaluationException
-from reflrn import ModelParameters
-from reflrn import Policy
-from reflrn import ReplayMemory
-from reflrn import State
+from reflrn.EvaluationException import EvaluationException
+from reflrn.ModelParameters import ModelParameters
+from reflrn.Policy import Policy
+from reflrn.ReplayMemory import ReplayMemory
+from reflrn.State import State
 
 
 #

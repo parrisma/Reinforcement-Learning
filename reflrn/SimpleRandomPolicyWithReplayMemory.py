@@ -1,9 +1,9 @@
 import logging
 from random import randint
 
-from reflrn import Policy
-from reflrn import ReplayMemory
-from reflrn import State
+from reflrn.Policy import Policy
+from reflrn.ReplayMemory import ReplayMemory
+from reflrn.State import State
 
 
 class SimpleRandomPolicyWithReplayMemory(Policy):

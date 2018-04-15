@@ -9,11 +9,11 @@ import numpy as np
 from keras.layers import Dense
 from keras.models import Sequential
 
-from reflrn import EnvironmentLogging
-from reflrn import EvaluationException
-from reflrn import Policy
-from reflrn import State
-from reflrn import TemporalDifferenceDeepNNPolicyPersistance
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.EvaluationException import EvaluationException
+from reflrn.Policy import Policy
+from reflrn.State import State
+from reflrn.TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance
 
 
 #

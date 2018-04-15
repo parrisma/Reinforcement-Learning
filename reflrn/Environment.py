@@ -1,6 +1,6 @@
 import abc
 
-from reflrn import State
+from reflrn.State import State
 
 
 #

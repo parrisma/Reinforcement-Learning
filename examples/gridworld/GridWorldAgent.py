@@ -1,14 +1,14 @@
 import logging
 import random
 
-from reflrn import Agent
-from reflrn import EvaluationException
-from reflrn import ExplorationPlay
-from reflrn import Policy
-from reflrn import State
+from reflrn.Agent import Agent
+from reflrn.EvaluationException import EvaluationException
+from reflrn.ExplorationPlay import ExplorationPlay
+from reflrn.Policy import Policy
+from reflrn.State import State
 
 
-class TicTacToeAgent(Agent):
+class GridWorldAgent(Agent):
 
     def __init__(self,
                  agent_id: int,  # immutable & unique id for this agent
@@ -38,20 +38,19 @@ class TicTacToeAgent(Agent):
     # Environment call back when environment shuts down
     #
     def terminate(self):
-        self.__policy.save()
-        return
+        pass
 
     #
     # Environment call back when episode starts
     #
     def episode_init(self, state: State):
-        return
+        pass
 
     #
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        return
+        pass
 
     #
     # Environment call back to ask the agent to chose an action
@@ -95,4 +94,4 @@ class TicTacToeAgent(Agent):
     # and the action set is given as dictionary
     #
     def session_init(self, actions: dict):
-        return
+        pass

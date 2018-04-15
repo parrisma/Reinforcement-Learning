@@ -1,4 +1,5 @@
 import abc
+import numpy as np
 
 
 #
@@ -52,5 +53,12 @@ class Grid(metaclass=abc.ABCMeta):
     # Is the episode complete, are we at the terminal finish state ?
     #
     @abc.abstractmethod
-    def episode_complete(self):
+    def episode_complete(self) -> bool:
+        pass
+
+    #
+    # Return a numpy array of the grid "state"
+    #
+    @abc.abstractmethod
+    def state(self) -> [np.float]:
         pass

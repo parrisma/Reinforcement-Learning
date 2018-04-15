@@ -6,8 +6,8 @@ from typing import Tuple
 import keras
 import numpy as np
 
-from reflrn import EnvironmentLogging
-from reflrn import TemporalDifferencePolicyPersistance
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
 
 
 #

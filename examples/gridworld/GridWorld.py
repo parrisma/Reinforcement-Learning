@@ -1,13 +1,11 @@
 import logging
-from random import randint
 
-import numpy as np
-
-from reflrn import Agent
-from reflrn import Environment
-from reflrn import State
+from reflrn.Agent import Agent
+from reflrn.Environment import Environment
+from reflrn.State import State
 from .Grid import Grid
 from .GridWorldState import GridWorldState
+from .IllegalGridMoveException import IllegalGridMoveException
 
 
 class GridWorld(Environment):
@@ -49,13 +47,12 @@ class GridWorld(Environment):
         while i <= iterations:
             self.__lg.debug("Start Episode")
             self.reset()
-            state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
+            state = GridWorldState(self.__grid, self.__x_agent)
             self.__x_agent.episode_init(state)
-            self.__o_agent.episode_init(state)
-            agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
 
+            agent = self.__x_agent
             while not self.episode_complete():
-                state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
+                state = GridWorldState(self.__grid, agent)
                 self.__lg.debug(agent.name())
                 self.__lg.debug(state.state_as_string())
                 self.__lg.debug(state.state_as_visualisation())
@@ -66,13 +63,14 @@ class GridWorld(Environment):
 
             self.__keep_stats()
             self.__lg.debug("Episode Complete")
-            state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
+            state = GridWorldState(self.__grid, self.__x_agent)
             self.__lg.debug(state.state_as_visualisation())
             self.__x_agent.episode_complete(state)
-            self.__o_agent.episode_complete(state)
         self.__x_agent.terminate()
-        self.__o_agent.terminate()
         return
+
+    def __keep_stats(self, reset: bool):
+        pass
 
     @classmethod
     def no_agent(cls):
@@ -93,27 +91,23 @@ class GridWorld(Environment):
     # ToDo
     def __play_action(self, agent: Agent) -> Agent:
 
-        other_agent = self.__next_agent[agent.name()]
-        state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
+        state = GridWorldState(self.__grid, agent)
 
         # Make the play on the board.
-        action = agent.chose_action(state, self.__actions_ids_left_to_take())
-        if action not in self.__actions_ids_left_to_take():
-            print("Opps")
+        action = agent.chose_action(state, self.__grid.allowable_actions())
+        if action not in self.__grid.allowable_actions():
+            raise IllegalGridMoveException("Action chosen by agent is not allowable from current location on grid ["
+                                           + str(action) + "]")
         self.__take_action(self.__actions[action], agent)
-        next_state = GridWorldState(self.__board, self.__x_agent, self.__o_agent)
+        next_state = GridWorldState(self.__grid, agent)
 
+        reward = self.__grid.execute_action(action)
         if self.episode_complete():
-            attributes = self.attributes()
-            if attributes[self.attribute_won[0]]:
-                agent.reward(state, next_state, action, self.__win, True)
-                return None  # episode complete - no next agent to go
-            if attributes[self.attribute_draw[0]]:
-                agent.reward(state, next_state, action, self.__draw, True)
-                return None  # episode complete - no next agent to go
-
-        agent.reward(state, next_state, action, self.__play, False)
-        return other_agent  # play moves to next agent
+            agent.reward(state, next_state, action, reward, True)
+            return None  # episode complete - no next agent to go
+        else:
+            agent.reward(state, next_state, action, reward, False)
+            return agent  # play stays with (only) agent
 
     #
     # The episode is over if one agent has made a line of three on
@@ -124,38 +118,10 @@ class GridWorld(Environment):
         return self.__grid.episode_complete()
 
     #
-    # Convert an environment (board) from a string form to the
-    # internal board state.
-    #
-    def __string_to_internal_state(self, moves_as_str):
-        mvs = moves_as_str.split('~')
-        if moves_as_str is not None:
-            for mv in mvs:
-                if len(mv) > 0:
-                    pl, ps = mv.split(":")
-                    self.__take_action(int(ps), int(pl))
-        return
-
-    #
-    # Convert internal (board) state to string
-    #
-    def __internal_state_to_string(self, board) -> str:
-        mvs = ""
-        bd = np.reshape(self.__board, self.__board.size)
-        cell_num = 0
-        for actor in bd:
-            if not np.isnan(actor):
-                mvs += str(int(actor)) + ":" + str(int(cell_num + 1)) + "~"
-            cell_num += 1
-        if len(mvs) > 0:
-            mvs = mvs[:-1]
-        return mvs
-
-    #
     # The current state of the environment as string
     #
     def state_as_str(self) -> str:
-        return self.__internal_state_to_string(self.__board)
+        return GridWorldState(self.__grid, self.__x_agent)
 
     #
     # Load Environment from file
@@ -173,16 +139,23 @@ class GridWorld(Environment):
     # Expose current environment state as string
     #
     def export_state(self):
-        return self.__internal_state_to_string(self.__board)
+        raise NotImplementedError("export_state() not implemented for TicTacTo")
 
     #
     # Set environment state from string
     #
     def import_state(self, state_as_string):
-        self.__string_to_internal_state(state_as_string)
+        raise NotImplementedError("import_state() not implemented for TicTacTo")
 
     #
     # Return the State of the environment
     #
     def state(self) -> State:
-        return GridWorldState(self.__board)
+        return GridWorldState(self.__grid, self.__x_agent)
+
+    #
+    # No attributes supported at this point
+    #
+    def attributes(self) -> dict:
+        return None
+

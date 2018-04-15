@@ -3,7 +3,7 @@ from collections import deque
 
 import numpy as np
 
-from reflrn import State
+from reflrn.State import State
 
 
 #
