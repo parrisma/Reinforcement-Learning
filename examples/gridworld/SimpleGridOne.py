@@ -19,6 +19,7 @@ class SimpleGridOne(Grid):
     FIRE = np.float(-100)
     GOAL = np.float(+100)
     BLCK = np.float(-101)
+    FIN = GOAL
     FREE = np.float(0)
     NORTH = np.int(0)
     SOUTH = np.int(1)
@@ -36,8 +37,7 @@ class SimpleGridOne(Grid):
     def __init__(self,
                  grid_id: int,
                  grid_map: [],
-                 start_coords: [],
-                 finish_coords: []
+                 start_coords: []
                  ):
         self.__grid_id = grid_id
         self.__grid = grid_map[:]  # Deep Copy
@@ -49,10 +49,12 @@ class SimpleGridOne(Grid):
         else:
             self.__start = deepcopy([0, 0])
             self.__curr = [0, 0]
-        if finish_coords is not None:
-            self.__finish = deepcopy(finish_coords)
-        else:
-            self.__finish = None
+
+    #
+    # What is teh shape of the grid
+    #
+    def shape(self) -> [int]:
+        return [self.__grid_rows, self.__grid_cols]
 
     #
     # What is the "state" of the grid. Where state is in the context of State-Action-Reward.
@@ -72,7 +74,7 @@ class SimpleGridOne(Grid):
     #
     # Execute the given action and return the reward earned for moving to the new grid location.
     #
-    def execute_action(self, action: int) -> int:
+    def execute_action(self, action: int) -> np.float:
         if self.__episode_over():
             raise GridEpisodeOverException("Episode already complete, agent at finish cell on grid")
         if action not in self.allowable_actions():
@@ -99,8 +101,7 @@ class SimpleGridOne(Grid):
     def deep_copy(self) -> Grid:
         cp = type(self)(self.id(),
                         self.__grid,
-                        self.__start,
-                        self.__finish)
+                        self.__start)
         cp.__curr = self.__curr
         return cp
 
@@ -114,9 +115,7 @@ class SimpleGridOne(Grid):
     # Is the current location at a defined terminal (finish) location.
     #
     def __episode_over(self) -> bool:
-        if self.__finish is None:
-            return False
-        return self.__curr == self.__finish
+        return self.__grid_reward(self.__curr) == self.FIN
 
     #
     # What will the new current coordinates be if the given action

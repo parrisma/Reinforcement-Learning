@@ -62,3 +62,10 @@ class Grid(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def state(self) -> [np.float]:
         pass
+
+    #
+    # Return grid dimensions
+    #
+    @abc.abstractmethod
+    def shape(self) -> [int]:
+        pass

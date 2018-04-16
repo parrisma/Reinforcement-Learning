@@ -8,7 +8,7 @@ from reflrn.FixedGames import FixedGames
 from reflrn.Policy import Policy
 from reflrn.State import State
 from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
-from reflrn.RenderQValsAsStr import RenderQValsAsStr
+from reflrn.RenderQVals import RenderQVals
 
 
 class TemporalDifferencePolicy(Policy):
@@ -36,7 +36,7 @@ class TemporalDifferencePolicy(Policy):
                  FixedGames = None,
                  load_qval_file: bool = False,
                  manage_qval_file: bool = False,
-                 q_val_render: RenderQValsAsStr = None):
+                 q_val_render: RenderQVals = None):
         self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferencePolicyPersistance()
@@ -259,5 +259,5 @@ class TemporalDifferencePolicy(Policy):
     # relate to the board. (3 x 3)
     #
     def vals_and_actions_as_str(self, state: State) -> str:
-        return self.__q_val_render.render_as_str(state, self.__q_values)
+        return self.__q_val_render.render(state, self.__q_values)
 

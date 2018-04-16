@@ -16,11 +16,10 @@ class TestSimpleGridOne(unittest.TestCase):
     #
     def test_1(self):
         grid = [
-            [self.step]
+            [self.goal]
         ]
         sg1 = SimpleGridOne(1,
                             grid,
-                            [0, 0],
                             [0, 0])
         alm = sg1.allowable_actions()
         self.assertEqual(alm, [])
@@ -38,8 +37,7 @@ class TestSimpleGridOne(unittest.TestCase):
         ]
         sg1 = SimpleGridOne(2,
                             grid,
-                            [1, 0],
-                            [0, 0])
+                            [1, 0])
 
         # At start, can go North & West
         alm = sg1.allowable_actions()
@@ -88,8 +86,7 @@ class TestSimpleGridOne(unittest.TestCase):
         ]
         sg1 = SimpleGridOne(3,
                             grid,
-                            [3, 0],
-                            [0, 2])
+                            [3, 0])
 
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
         self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)

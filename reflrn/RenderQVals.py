@@ -6,11 +6,11 @@ from reflrn.State import State
 #
 
 
-class RenderQValsAsStr(metaclass=abc.ABCMeta):
+class RenderQVals(metaclass=abc.ABCMeta):
 
     #
     # Render a given QVal Dictionary as a string.
     #
     @abc.abstractmethod
-    def render_as_str(self, curr_state: State, q_vals: dict) -> str:
+    def render(self, curr_state: State, q_vals: dict) -> str:
         pass

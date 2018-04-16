@@ -1,12 +1,12 @@
 import numpy as np
 
-from reflrn.RenderQValsAsStr import RenderQValsAsStr
+from reflrn.RenderQVals import RenderQVals
 from reflrn.State import State
 
 
-class RenderQValuesAsStr(RenderQValsAsStr):
+class RenderQValues(RenderQVals):
 
-    def render_as_str(self, curr_state: State, q_vals: dict) -> str:
+    def render(self, curr_state: State, q_vals: dict) -> str:
         s = ""
         at = 0
 
