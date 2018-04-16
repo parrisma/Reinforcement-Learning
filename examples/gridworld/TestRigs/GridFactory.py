@@ -1,3 +1,5 @@
+import numpy as np
+
 from examples.gridworld.Grid import Grid
 from examples.gridworld.SimpleGridOne import SimpleGridOne
 
@@ -48,5 +50,15 @@ class GridFactory:
         sg1 = SimpleGridOne(3,
                             grid,
                             [4, 0])
+        return sg1
 
+    @classmethod
+    def test_grid_four(cls) -> Grid:
+        r = 20
+        c = 20
+        grid = np.full((r, c), cls.step)
+        grid[10][10] = cls.goal
+        sg1 = SimpleGridOne(4,
+                            grid,
+                            [r-1, c-1])
         return sg1

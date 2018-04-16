@@ -7,7 +7,6 @@ from reflrn.State import State
 
 
 class SimpleGridOneRenderQValues(RenderQVals):
-
     __i = 0
 
     def __init__(self,
@@ -40,6 +39,9 @@ class SimpleGridOneRenderQValues(RenderQVals):
                 for i in range(0, self.__num_rows):
                     for j in range(0, self.__num_cols):
                         qgrid[i][j] = (((qgrid[i][j] - mn) / (mx - mn)) - 0) * 100
+                        # if qgrid[i][j] < np.float(1):
+                        #    qgrid[i][j] = np.float(1)
+                        # qgrid[i][j] = np.log(qgrid[i][j])
                 fmt = '{0:.2f}%'
             else:
                 fmt = '{:+.16f}'
@@ -51,7 +53,7 @@ class SimpleGridOneRenderQValues(RenderQVals):
 
             if self.__do_plot:
                 if self.__i == 0:
-                    plt.imshow(qgrid, cmap='hot', interpolation='nearest')
+                    plt.imshow(qgrid, cmap='coolwarm', interpolation='nearest')
                     plt.draw()
                     plt.pause(0.0001)
                     plt.show(block=False)

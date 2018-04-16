@@ -68,10 +68,10 @@ class GridWorldAgent(Agent):
                 self.__lg.debug(self.__name + " chose greedy action : " + str(action))
             except EvaluationException:
                 # cannot predict a greedy action so random
-                action = self.__exploration.select_action(possible_actions)
+                action = self.__exploration.select_action(self, state, possible_actions)
                 self.__lg.debug(self.__name + " chose exploration action : " + str(action))
         else:
-            action = self.__exploration.select_action(possible_actions)
+            action = self.__exploration.select_action(self, state, possible_actions)
             self.__lg.debug(self.__name + " chose exploration action : " + str(action))
 
         return action

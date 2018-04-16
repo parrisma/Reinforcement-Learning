@@ -1,5 +1,6 @@
 import abc
-
+from reflrn.Agent import Agent
+from reflrn.State import State
 
 #
 # This abstract makes a play based just on possible moves given. This is called
@@ -15,5 +16,9 @@ class ExplorationPlay(metaclass=abc.ABCMeta):
     # Select an action from the possible actions supplied.
     #
     @abc.abstractmethod
-    def select_action(self, possible_actions: [int]) -> int:
+    def select_action(self,
+                      agent: Agent,
+                      state: State,
+                      possible_actions: [int]
+                      ) -> int:
         pass

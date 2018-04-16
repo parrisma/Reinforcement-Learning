@@ -6,9 +6,9 @@ import numpy as np
 from reflrn.EvaluationException import EvaluationException
 from reflrn.FixedGames import FixedGames
 from reflrn.Policy import Policy
+from reflrn.RenderQVals import RenderQVals
 from reflrn.State import State
 from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
-from reflrn.RenderQVals import RenderQVals
 
 
 class TemporalDifferencePolicy(Policy):
@@ -32,8 +32,7 @@ class TemporalDifferencePolicy(Policy):
     def __init__(self,
                  lg: logging,
                  filename: str = "",
-                 fixed_games:
-                 FixedGames = None,
+                 fixed_games: FixedGames = None,
                  load_qval_file: bool = False,
                  manage_qval_file: bool = False,
                  q_val_render: RenderQVals = None):
@@ -260,4 +259,3 @@ class TemporalDifferencePolicy(Policy):
     #
     def vals_and_actions_as_str(self, state: State) -> str:
         return self.__q_val_render.render(state, self.__q_values)
-
