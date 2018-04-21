@@ -57,7 +57,8 @@ class GridFactory:
         r = 20
         c = 20
         grid = np.full((r, c), cls.step)
-        grid[10][10] = cls.goal
+        grid[5][5] = cls.goal
+        grid[15][15] = cls.fire
         sg1 = SimpleGridOne(4,
                             grid,
                             [r-1, c-1])

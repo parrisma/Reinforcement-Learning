@@ -15,10 +15,10 @@ from .GridEpisodeOverException import GridEpisodeOverException
 
 
 class SimpleGridOne(Grid):
-    STEP = np.float(-1)
-    FIRE = np.float(-100)
-    GOAL = np.float(+100)
-    BLCK = np.float(-101)
+    STEP = np.float(-0.1)
+    FIRE = np.float(-1)
+    GOAL = np.float(+1)
+    BLCK = np.float(-1.1)
     FIN = GOAL
     FREE = np.float(0)
     NORTH = np.int(0)

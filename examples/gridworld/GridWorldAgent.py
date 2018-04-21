@@ -23,6 +23,7 @@ class GridWorldAgent(Agent):
         self.__policy = policy
         self.__epsilon_greedy = epsilon_greedy
         self.__exploration = exploration_play
+        self.__generation = 0
 
     # Return immutable id
     #
@@ -50,6 +51,7 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
+        self.__generation += 1
         pass
 
     #

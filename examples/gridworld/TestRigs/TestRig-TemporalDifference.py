@@ -18,7 +18,7 @@ np.random.seed(42)
 # Set Manually and re-run
 #
 epgrdy = 0.5
-itr = 3000
+itr = 100000
 lg = EnvironmentLogging("TestRig-TemporalDifference", "TestRig-TemporalDifference.log", logging.DEBUG).get_logger()
 
 test_grid = GridFactory.test_grid_four()
@@ -31,7 +31,7 @@ agent_x = GridWorldAgent(1,
                                                   fixed_games=None,
                                                   q_val_render=SimpleGridOneRenderQValues(sh[0],
                                                                                           sh[1],
-                                                                                          do_scale=True,
+                                                                                          do_scale=False,
                                                                                           do_plot=True)
                                                   ),
                          epsilon_greedy=epgrdy,
