@@ -6,6 +6,7 @@ import numpy as np
 from reflrn.EvaluationException import EvaluationException
 from reflrn.FixedGames import FixedGames
 from reflrn.Policy import Policy
+from reflrn.RandomPolicy import RandomPolicy
 from reflrn.RenderQVals import RenderQVals
 from reflrn.State import State
 from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
@@ -42,6 +43,7 @@ class TemporalDifferencePolicy(Policy):
         self.__fixed_games = fixed_games
         self.__manage_qval_file = manage_qval_file
         self.__q_val_render = q_val_render
+        self.__fallback_policy = RandomPolicy(prefer_new=True)
 
         if load_qval_file:
             try:
@@ -177,7 +179,7 @@ class TemporalDifferencePolicy(Policy):
     # than one q value with the same strength, return an arbitrary action from those with
     # equal strength.
     #
-    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+    def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
 
         if self.__fixed_games is not None:
             return self.__fixed_games.next_action()
@@ -185,8 +187,12 @@ class TemporalDifferencePolicy(Policy):
         self.__lg.debug(self.vals_and_actions_as_str(state))
 
         qvs, actions = self.__get_q_vals_as_np_array(state)
+
+        # If no Q Values to drive direction then use the fallback policy.
+        # the fallback policy will always return an action.
         if qvs is None:
-            raise EvaluationException("No Q Values with which to select greedy action")
+            return self.__fallback_policy.select_action(agent_name, state, possible_actions)
+
         ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
         greedy_actions = list()
         for v, a in np.vstack([qvs, actions]).T:

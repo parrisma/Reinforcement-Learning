@@ -1,10 +1,7 @@
 import logging
-import random
 
 from reflrn.Agent import Agent
-from reflrn.EvaluationException import EvaluationException
-from reflrn.ExplorationPlay import ExplorationPlay
-from reflrn.Policy import Policy
+from reflrn.ExplorationStrategy import ExplorationStrategy
 from reflrn.State import State
 
 
@@ -13,16 +10,13 @@ class GridWorldAgent(Agent):
     def __init__(self,
                  agent_id: int,  # immutable & unique id for this agent
                  agent_name: str,  # immutable & unique name for this agent
-                 policy: Policy,  # the policy to drive action selection.
-                 epsilon_greedy: float,  # if random() > epsilon greedy take greedy action else random action
-                 exploration_play: ExplorationPlay,  # Play to take when exploring (i.e. when not being greedy)
+                 exploration_strategy: ExplorationStrategy,
                  lg: logging):
         self.__lg = lg
         self.__id = agent_id
         self.__name = agent_name
-        self.__policy = policy
-        self.__epsilon_greedy = epsilon_greedy
-        self.__exploration = exploration_play
+        self.__exploration_strategy = exploration_strategy
+        self.__policy = None
         self.__generation = 0
 
     # Return immutable id
@@ -61,34 +55,23 @@ class GridWorldAgent(Agent):
     # possible_actions : The set of possible actions the agent can play from this state
     #
     def chose_action(self, state: State, possible_actions: [int]) -> int:
-
-        # if random() > epsilon greedy then take greedy action else a random action
-        if random.random() > self.__epsilon_greedy:
-            try:
-                # If there are q values for given state we can predict a greedy action
-                action = self.__policy.greedy_action(self.__name, state, possible_actions)
-                self.__lg.debug(self.__name + " chose greedy action : " + str(action))
-            except EvaluationException:
-                # cannot predict a greedy action so random
-                action = self.__exploration.select_action(self, state, possible_actions)
-                self.__lg.debug(self.__name + " chose exploration action : " + str(action))
-        else:
-            action = self.__exploration.select_action(self, state, possible_actions)
-            self.__lg.debug(self.__name + " chose exploration action : " + str(action))
-
-        return action
+        self.__policy = self.__exploration_strategy.chose_action_policy(self.__name,
+                                                                        self.__generation,
+                                                                        state,
+                                                                        possible_actions)
+        return self.__policy.select_action(self.name(), state, possible_actions)
 
     #
     # Environment call back to reward agent for a play chosen for the given
     # state passed.
     #
     def reward(self, state: State, next_state: State, action: int, reward_for_play: float, episode_complete: bool):
-        self.__policy.update_policy(self.name(),
-                                    state,
-                                    next_state,
-                                    action,
-                                    reward_for_play,
-                                    episode_complete)
+        self.__exploration_strategy.update_strategy(self.name(),
+                                                    state,
+                                                    next_state,
+                                                    action,
+                                                    reward_for_play,
+                                                    episode_complete)
         return
 
     #
@@ -96,4 +79,6 @@ class GridWorldAgent(Agent):
     # and the action set is given as dictionary
     #
     def session_init(self, actions: dict):
-        pass
+        self.__policy = None
+        self.__generation = 0
+        return

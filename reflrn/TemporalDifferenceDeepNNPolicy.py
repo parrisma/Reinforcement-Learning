@@ -97,7 +97,7 @@ class TemporalDifferenceDeepNNPolicy(Policy):
     #
     # Greedy action; request human user to input action.
     #
-    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+    def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
 
         qvs = None
         if self.__model is not None:

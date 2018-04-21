@@ -62,16 +62,16 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
         reward = 1.0
 
         tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
-        tdp.update_policy(agent_name=test_agent_1,
-                          prev_state=None,
-                          prev_action=0,
-                          state=test_state_1,
-                          action=expected_action,
-                          reward=reward)
+        tdp.update_strategy(agent_name=test_agent_1,
+                            prev_state=None,
+                            prev_action=0,
+                            state=test_state_1,
+                            action=expected_action,
+                            reward=reward)
         tdp.save(temp_file)
 
         # Only 1 action, and that action has a reward so must be the greedy action
-        self.assertEqual(tdp.greedy_action("TestAgentName", test_state_1, possible_actions), expected_action)
+        self.assertEqual(tdp.select_action("TestAgentName", test_state_1, possible_actions), expected_action)
 
         (qv_dict, n, lr0, df, lrd) = tdp.load(temp_file)
         os.remove(temp_file)
@@ -99,16 +99,16 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
 
         tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
         for i in range(0, niter):
-            tdp.update_policy(agent_name=test_agent_1,
-                              prev_state=None,
-                              prev_action=0,
-                              state=test_state_2,
-                              action=expected_action,
-                              reward=reward)
+            tdp.update_strategy(agent_name=test_agent_1,
+                                prev_state=None,
+                                prev_action=0,
+                                state=test_state_2,
+                                action=expected_action,
+                                reward=reward)
         tdp.save(temp_file)
 
         # Only 1 action, and that action has a reward so must be the greedy action
-        self.assertEqual(tdp.greedy_action("TestAgentName", test_state_2, possible_actions), expected_action)
+        self.assertEqual(tdp.select_action("TestAgentName", test_state_2, possible_actions), expected_action)
 
         (qv_dict, n, lr0, df, lrd) = tdp.load(temp_file)
         os.remove(temp_file)

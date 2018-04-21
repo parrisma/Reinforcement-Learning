@@ -35,7 +35,7 @@ class Policy(metaclass=abc.ABCMeta):
     # possible_actions : Set of possible actions; where len() is always >= 1
     #
     @abc.abstractmethod
-    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+    def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
         pass
 
     #

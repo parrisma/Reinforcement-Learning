@@ -8,7 +8,8 @@ from examples.gridworld.GridWorldAgent import GridWorldAgent
 from examples.gridworld.SimpleGridOneRenderQValues import SimpleGridOneRenderQValues
 from examples.gridworld.TestRigs.GridFactory import GridFactory
 from reflrn.EnvironmentLogging import EnvironmentLogging
-from reflrn.PureRandomExploration import PureRandomExploration
+from reflrn.EpsilonGreedyExplorationStrategy import EpsilonGreedyExplorationStrategy
+from reflrn.RandomPolicy import RandomPolicy
 from reflrn.TemporalDifferencePolicy import TemporalDifferencePolicy
 
 random.seed(42)
@@ -24,18 +25,22 @@ lg = EnvironmentLogging("TestRig-TemporalDifference", "TestRig-TemporalDifferenc
 test_grid = GridFactory.test_grid_four()
 sh = test_grid.shape()
 
-agent_x = GridWorldAgent(1,
-                         "GridAgent",
-                         TemporalDifferencePolicy(lg=lg,
-                                                  filename="./gridworld-tmpr-diff.pb",
-                                                  fixed_games=None,
-                                                  q_val_render=SimpleGridOneRenderQValues(sh[0],
-                                                                                          sh[1],
-                                                                                          do_scale=False,
-                                                                                          do_plot=True)
-                                                  ),
-                         epsilon_greedy=epgrdy,
-                         exploration_play=PureRandomExploration(prefer_new=True),
+epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(
+    greedy_policy=TemporalDifferencePolicy(lg=lg,
+                                           filename="./gridworld-tmpr-diff.pb",
+                                           fixed_games=None,
+                                           q_val_render=SimpleGridOneRenderQValues(sh[0],
+                                                                                   sh[1],
+                                                                                   do_scale=False,
+                                                                                   do_plot=True)
+                                           ),
+    exploration_policy=RandomPolicy(prefer_new=True),
+    epsilon=epgrdy,
+    lg=lg)
+
+agent_x = GridWorldAgent(agent_id=1,
+                         agent_name="GridAgent",
+                         exploration_strategy=epsilon_greedy_strategy,
                          lg=lg)
 
 game = GridWorld(agent_x, test_grid, lg)

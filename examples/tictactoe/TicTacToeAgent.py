@@ -65,7 +65,7 @@ class TicTacToeAgent(Agent):
         if random.random() > self.__epsilon_greedy:
             try:
                 # If there are q values for given state we can predict a greedy action
-                action = self.__policy.greedy_action(self.__name, state, possible_actions)
+                action = self.__policy.select_action(self.__name, state, possible_actions)
                 self.__lg.debug(self.__name + " chose greedy action : " + str(action + 1))
             except EvaluationException:
                 # cannot predict a greedy action so random
@@ -82,12 +82,12 @@ class TicTacToeAgent(Agent):
     # state passed.
     #
     def reward(self, state: State, next_state: State, action: int, reward_for_play: float, episode_complete: bool):
-        self.__policy.update_policy(self.name(),
-                                    state,
-                                    next_state,
-                                    action,
-                                    reward_for_play,
-                                    episode_complete)
+        self.__policy.update_strategy(self.name(),
+                                      state,
+                                      next_state,
+                                      action,
+                                      reward_for_play,
+                                      episode_complete)
         return
 
     #

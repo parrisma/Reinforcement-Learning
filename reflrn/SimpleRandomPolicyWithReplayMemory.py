@@ -45,7 +45,7 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
     # Greedy action; this is random policy so just return any random action from the
     # set of actions.
     #
-    def greedy_action(self, agent_name: str, state: State, possible_actions) -> int:
+    def select_action(self, agent_name: str, state: State, possible_actions) -> int:
         return possible_actions[randint(0, len(possible_actions) - 1)]
 
     def save(self, filename: str = None):

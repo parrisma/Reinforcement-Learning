@@ -180,13 +180,13 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
 
         for i in range(0, 200):
             case = test_cases[i % 5]
-            tdacdnnp.update_policy(case[0], case[1], case[2], case[3], case[4], case[5])
+            tdacdnnp.update_strategy(case[0], case[1], case[2], case[3], case[4], case[5])
 
-        pa0 = tdacdnnp.greedy_action("1", ts0, [0, 1, 2, 3, 4, 5, 6, 7, 8])
-        pa1 = tdacdnnp.greedy_action("1", ts1, [0, 1, 3, 4, 5, 6, 7, 8])
-        pa2 = tdacdnnp.greedy_action("1", ts2, [0, 1, 3, 5, 6, 7, 8])
-        pa3 = tdacdnnp.greedy_action("1", ts3, [0, 1, 3, 5, 7, 8])
-        pa4 = tdacdnnp.greedy_action("1", ts4, [0, 1, 3, 5, 7])
+        pa0 = tdacdnnp.select_action("1", ts0, [0, 1, 2, 3, 4, 5, 6, 7, 8])
+        pa1 = tdacdnnp.select_action("1", ts1, [0, 1, 3, 4, 5, 6, 7, 8])
+        pa2 = tdacdnnp.select_action("1", ts2, [0, 1, 3, 5, 6, 7, 8])
+        pa3 = tdacdnnp.select_action("1", ts3, [0, 1, 3, 5, 7, 8])
+        pa4 = tdacdnnp.select_action("1", ts4, [0, 1, 3, 5, 7])
 
         return
 

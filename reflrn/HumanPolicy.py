@@ -33,7 +33,7 @@ class HumanPolicy(Policy):
     #
     # Greedy action; request human user to input action.
     #
-    def greedy_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+    def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
         input_request = "Make you move selection as agent: " + self.__agent_name + " from possible actions ("
         for mv in possible_actions:
             input_request += str(mv + 1) + ", "
