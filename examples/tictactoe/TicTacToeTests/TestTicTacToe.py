@@ -46,7 +46,7 @@ class TestTicTacToe(unittest.TestCase):
 
 
 #
-# Execute the tests.
+# Execute the ReflrnTests.
 #
 if __name__ == "__main__":
     tests = TestTicTacToe()
