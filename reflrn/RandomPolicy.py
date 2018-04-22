@@ -2,8 +2,8 @@ import sys
 from random import randint
 from random import shuffle
 
-from reflrn.Policy import Policy
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 
 
 class RandomPolicy(Policy):
@@ -15,7 +15,8 @@ class RandomPolicy(Policy):
         self.__trace = dict()
 
     #
-    # This is a pure random policy, just pick any of the possible actions.
+    # This is a pure random policy, just pick any of the possible actions. If prefer_new is true an action is
+    # chosen that has been least visited from the current state.
     #
     def select_action(self,
                       agent_name: str,

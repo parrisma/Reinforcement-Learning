@@ -9,9 +9,9 @@ from keras.models import Sequential
 
 from reflrn.EvaluationException import EvaluationException
 from reflrn.ModelParameters import ModelParameters
-from reflrn.Policy import Policy
-from reflrn.ReplayMemory import ReplayMemory
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.Interface.State import State
 
 
 #
@@ -33,7 +33,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     def __init__(self,
                  lg: logging,
                  replay_memory:
-                 ReplayMemory,
+                 DequeReplayMemory,
                  model_file_name: str,
                  model_parameters: ModelParameters = None,
                  load_model: bool = False):
@@ -115,7 +115,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         self.__n += 1
 
         # Track the SAR for critic training.
-        self.__replay_memory.appendMemory(state, next_state, action, reward, episode_complete)
+        self.__replay_memory.append_memory(state, next_state, action, reward, episode_complete)
 
         # Track the number of finished episodes, this drives the learning updates.
         if episode_complete:
@@ -132,7 +132,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     # Extract a random set of memories equal to the defined sample size.
     #
     def get_random_memories(self):
-        return self.__replay_memory.getRandomMemories(self.__sample_size)
+        return self.__replay_memory.get_random_memories(self.__sample_size)
 
     #
     # Convert a given set of memories to x,y training inputs. As part of this we apply the temporal difference
@@ -143,10 +143,10 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         x = np.empty((lnm, 9))
         y = np.empty((lnm, 9))
         for i in range(0, lnm):
-            state = memories[ReplayMemory.mem_state][i]
-            next_state = memories[ReplayMemory.mem_next_state][i]
-            action = memories[ReplayMemory.mem_action][i]
-            reward = memories[ReplayMemory.mem_reward][i]
+            state = memories[DequeReplayMemory.mem_state][i]
+            next_state = memories[DequeReplayMemory.mem_next_state][i]
+            action = memories[DequeReplayMemory.mem_action][i]
+            reward = memories[DequeReplayMemory.mem_reward][i]
 
             # Extract states as numpy arrays (in form needed for the NN as input X)
 

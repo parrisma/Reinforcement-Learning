@@ -3,8 +3,8 @@ from typing import Tuple
 
 import numpy as np
 
-from reflrn.Policy import Policy
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 
 
 class HumanPolicy(Policy):

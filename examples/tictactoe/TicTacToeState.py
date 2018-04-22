@@ -1,7 +1,6 @@
 import numpy as np
 
-from reflrn import Agent
-from reflrn import State
+from reflrn.Interface import Agent, State
 
 
 class TicTacToeState(State):

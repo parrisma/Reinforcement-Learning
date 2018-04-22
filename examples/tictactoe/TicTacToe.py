@@ -3,9 +3,7 @@ from random import randint
 
 import numpy as np
 
-from reflrn import Agent
-from reflrn import Environment
-from reflrn import State
+from reflrn.Interface import Agent, Environment, State
 from .TicTacToeState import TicTacToeState
 
 

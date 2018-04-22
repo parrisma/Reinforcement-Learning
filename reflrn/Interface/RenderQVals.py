@@ -1,8 +1,8 @@
 import abc
-from reflrn.State import State
+from reflrn.Interface.State import State
 
 #
-# For Debug, render given Q Values Dictionary as String.
+# For Debug, render given Q Values Dictionary in visual way for debugging.
 #
 
 

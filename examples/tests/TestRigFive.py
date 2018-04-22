@@ -5,7 +5,7 @@ import numpy as np
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.ModelParameters import ModelParameters
 from reflrn.PureRandomExploration import PureRandomExploration
-from reflrn.ReplayMemory import ReplayMemory
+from reflrn.DequeReplayMemory import DequeReplayMemory
 from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithReplayMemory
 from reflrn.TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
 from reflrn.TicTacToe import TicTacToe
@@ -17,7 +17,7 @@ np.random.seed(42)
 itr = 500000
 lg = EnvironmentLogging("TestRig5", "TestRigFive.log", logging.INFO).get_logger()
 
-replay_memory = ReplayMemory(lg, 1000)
+replay_memory = DequeReplayMemory(lg, 1000)
 
 fn = "keras.model.critic"
 tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(lg=lg,

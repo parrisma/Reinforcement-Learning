@@ -1,9 +1,9 @@
 import logging
 from random import randint
 
-from reflrn.Policy import Policy
-from reflrn.ReplayMemory import ReplayMemory
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.Interface.State import State
 
 
 class SimpleRandomPolicyWithReplayMemory(Policy):
@@ -14,7 +14,7 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 replay_memory: ReplayMemory):
+                 replay_memory: DequeReplayMemory):
         self.__lg = lg
         self.__replay_memory = replay_memory
         return
@@ -38,7 +38,7 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
                       action: int,
                       reward: float,
                       episode_complete: bool):
-        self.__replay_memory.appendMemory(state, next_state, action, reward, episode_complete)
+        self.__replay_memory.append_memory(state, next_state, action, reward, episode_complete)
         return
 
     #

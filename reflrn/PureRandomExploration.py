@@ -1,9 +1,9 @@
 import sys
 from random import randint
 from random import shuffle
-from reflrn.Agent import Agent
-from reflrn.ExplorationPlay import ExplorationPlay
-from reflrn.State import State
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.ExplorationPlay import ExplorationPlay
+from reflrn.Interface.State import State
 
 
 class PureRandomExploration(ExplorationPlay):

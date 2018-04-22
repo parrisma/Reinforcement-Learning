@@ -11,8 +11,8 @@ from keras.models import Sequential
 
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.EvaluationException import EvaluationException
-from reflrn.Policy import Policy
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 from reflrn.TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance
 
 

@@ -5,14 +5,14 @@ import numpy as np
 
 from reflrn.EvaluationException import EvaluationException
 from reflrn.FixedGames import FixedGames
-from reflrn.Policy import Policy
+from reflrn.Interface.Policy import Policy
 from reflrn.RandomPolicy import RandomPolicy
-from reflrn.RenderQVals import RenderQVals
-from reflrn.State import State
-from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+from reflrn.Interface.RenderQVals import RenderQVals
+from reflrn.Interface.State import State
+from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
-class TemporalDifferencePolicy(Policy):
+class TemporalDifferenceQValPolicy(Policy):
     #
     # Learning is for all agents of this *type* so q values are at class level, and all
     # methods that act on q values are class methods.
@@ -39,7 +39,7 @@ class TemporalDifferencePolicy(Policy):
                  q_val_render: RenderQVals = None):
         self.__lg = lg
         self.__filename = filename
-        self.__persistance = TemporalDifferencePolicyPersistance()
+        self.__persistance = TemporalDifferenceQValPolicyPersistance()
         self.__fixed_games = fixed_games
         self.__manage_qval_file = manage_qval_file
         self.__q_val_render = q_val_render
@@ -47,11 +47,11 @@ class TemporalDifferencePolicy(Policy):
 
         if load_qval_file:
             try:
-                (TemporalDifferencePolicy.__q_values,
-                 TemporalDifferencePolicy.__n,
-                 TemporalDifferencePolicy.__learning_rate_0,
-                 TemporalDifferencePolicy.__discount_factor,
-                 TemporalDifferencePolicy.__learning_rate_decay) \
+                (TemporalDifferenceQValPolicy.__q_values,
+                 TemporalDifferenceQValPolicy.__n,
+                 TemporalDifferenceQValPolicy.__learning_rate_0,
+                 TemporalDifferenceQValPolicy.__discount_factor,
+                 TemporalDifferenceQValPolicy.__learning_rate_decay) \
                     = self.__persistance.load(filename)
             except RuntimeError:
                 pass  # File does not exist, keep class level defaults
@@ -120,23 +120,23 @@ class TemporalDifferencePolicy(Policy):
             agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
 
         # Update master count of policy learning events
-        TemporalDifferencePolicy.__n += 1
+        TemporalDifferenceQValPolicy.__n += 1
         if self.__n % 5000 == 0:
             if self.__manage_qval_file:
                 self.__save()
 
-        lr = TemporalDifferencePolicy.__q_learning_rate()
+        lr = TemporalDifferenceQValPolicy.__q_learning_rate()
 
         # Establish the max (optimal) outcome taken from the target state.
         #
-        qvs, actn = TemporalDifferencePolicy.__get_q_vals_as_np_array(next_state)
-        ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
+        qvs, actn = TemporalDifferenceQValPolicy.__get_q_vals_as_np_array(next_state)
+        ou = TemporalDifferenceQValPolicy.__greedy_outcome(qvs)
         qvp = self.__discount_factor * ou * lr
 
         # Update current state to reflect the reward
-        qv = TemporalDifferencePolicy.__get_q_value(state, action)
+        qv = TemporalDifferenceQValPolicy.__get_q_value(state, action)
         qv = (qv * (1 - lr)) + (lr * reward) + qvp
-        TemporalDifferencePolicy.__set_q_value(state, action, qv)
+        TemporalDifferenceQValPolicy.__set_q_value(state, action, qv)
 
         return
 
@@ -193,7 +193,7 @@ class TemporalDifferencePolicy(Policy):
         if qvs is None:
             return self.__fallback_policy.select_action(agent_name, state, possible_actions)
 
-        ou = TemporalDifferencePolicy.__greedy_outcome(qvs)
+        ou = TemporalDifferenceQValPolicy.__greedy_outcome(qvs)
         greedy_actions = list()
         for v, a in np.vstack([qvs, actions]).T:
             if v == ou:
@@ -226,11 +226,11 @@ class TemporalDifferencePolicy(Policy):
     def save(self, filename: str = None):
         fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
-            self.__persistance.save(TemporalDifferencePolicy.__q_values,
-                                    TemporalDifferencePolicy.__n,
-                                    TemporalDifferencePolicy.__learning_rate_0,
-                                    TemporalDifferencePolicy.__discount_factor,
-                                    TemporalDifferencePolicy.__learning_rate_decay,
+            self.__persistance.save(TemporalDifferenceQValPolicy.__q_values,
+                                    TemporalDifferenceQValPolicy.__n,
+                                    TemporalDifferenceQValPolicy.__learning_rate_0,
+                                    TemporalDifferenceQValPolicy.__discount_factor,
+                                    TemporalDifferenceQValPolicy.__learning_rate_decay,
                                     fn)
         else:
             raise FileNotFoundError("File name for TemporalDifferencePolicy save does not exist: [" & fn & "]")
@@ -243,20 +243,20 @@ class TemporalDifferencePolicy(Policy):
     def load(self, filename: str = None):
         fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
-            (TemporalDifferencePolicy.__q_values,
-             TemporalDifferencePolicy.__n,
-             TemporalDifferencePolicy.__learning_rate_0,
-             TemporalDifferencePolicy.__discount_factor,
-             TemporalDifferencePolicy.__learning_rate_decay) \
+            (TemporalDifferenceQValPolicy.__q_values,
+             TemporalDifferenceQValPolicy.__n,
+             TemporalDifferenceQValPolicy.__learning_rate_0,
+             TemporalDifferenceQValPolicy.__discount_factor,
+             TemporalDifferenceQValPolicy.__learning_rate_decay) \
                 = self.__persistance.load(filename)
         else:
             raise FileNotFoundError("File name for TemporalDifferencePolicy Load does not exist: [" & fn & "]")
 
-        return (TemporalDifferencePolicy.__q_values,
-                TemporalDifferencePolicy.__n,
-                TemporalDifferencePolicy.__learning_rate_0,
-                TemporalDifferencePolicy.__discount_factor,
-                TemporalDifferencePolicy.__learning_rate_decay)
+        return (TemporalDifferenceQValPolicy.__q_values,
+                TemporalDifferenceQValPolicy.__n,
+                TemporalDifferenceQValPolicy.__learning_rate_0,
+                TemporalDifferenceQValPolicy.__discount_factor,
+                TemporalDifferenceQValPolicy.__learning_rate_decay)
 
     #
     # Q Values as a string (in grid form). This is just a visual debugger so it is

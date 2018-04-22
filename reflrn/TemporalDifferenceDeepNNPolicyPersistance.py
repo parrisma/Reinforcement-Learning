@@ -7,7 +7,7 @@ import keras
 import numpy as np
 
 from reflrn.EnvironmentLogging import EnvironmentLogging
-from reflrn.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
 #
@@ -19,7 +19,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
 
     def __init__(self, lg: logging):
         self.__lg = lg
-        self.__temporal_difference_policy_persistance = TemporalDifferencePolicyPersistance()
+        self.__temporal_difference_policy_persistance = TemporalDifferenceQValPolicyPersistance()
         return
 
     #

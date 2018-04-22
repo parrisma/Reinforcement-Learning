@@ -1,8 +1,8 @@
 import logging
 
-from reflrn.Agent import Agent
+from reflrn.Interface.Agent import Agent
 from reflrn.ExplorationStrategy import ExplorationStrategy
-from reflrn.State import State
+from reflrn.Interface.State import State
 
 
 class GridWorldAgent(Agent):
@@ -17,7 +17,7 @@ class GridWorldAgent(Agent):
         self.__name = agent_name
         self.__exploration_strategy = exploration_strategy
         self.__policy = None
-        self.__generation = 0
+        self.__episode = 0
 
     # Return immutable id
     #
@@ -45,7 +45,7 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        self.__generation += 1
+        self.__episode += 1
         pass
 
     #
@@ -56,7 +56,7 @@ class GridWorldAgent(Agent):
     #
     def chose_action(self, state: State, possible_actions: [int]) -> int:
         self.__policy = self.__exploration_strategy.chose_action_policy(self.__name,
-                                                                        self.__generation,
+                                                                        self.__episode,
                                                                         state,
                                                                         possible_actions)
         return self.__policy.select_action(self.name(), state, possible_actions)
@@ -80,5 +80,5 @@ class GridWorldAgent(Agent):
     #
     def session_init(self, actions: dict):
         self.__policy = None
-        self.__generation = 0
+        self.__episode = 0
         return

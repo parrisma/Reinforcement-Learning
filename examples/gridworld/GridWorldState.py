@@ -1,7 +1,7 @@
 import numpy as np
 
-from reflrn.Agent import Agent
-from reflrn.State import State
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.State import State
 from .Grid import Grid
 
 

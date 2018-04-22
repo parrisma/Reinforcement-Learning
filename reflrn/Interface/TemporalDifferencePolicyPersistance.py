@@ -9,7 +9,7 @@ import numpy as np
 #
 
 
-class ITemporalDifferencePolicyPersistance(metaclass=abc.ABCMeta):
+class TemporalDifferencePolicyPersistance(metaclass=abc.ABCMeta):
 
     #
     # Dump the given q values dictionary to a simple text dump.

@@ -1,7 +1,7 @@
 import unittest
 from random import randint
 
-from reflrn.ExplorationPlay import ExplorationPlay
+from reflrn.Interface.ExplorationPlay import ExplorationPlay
 
 
 #

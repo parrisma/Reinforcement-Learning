@@ -1,11 +1,8 @@
 import logging
 import random
 
-from reflrn import Agent
+from reflrn.Interface import Agent, Policy, State, ExplorationPlay
 from reflrn import EvaluationException
-from reflrn import ExplorationPlay
-from reflrn import Policy
-from reflrn import State
 
 
 class TicTacToeAgent(Agent):

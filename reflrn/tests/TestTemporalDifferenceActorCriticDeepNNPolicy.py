@@ -10,7 +10,7 @@ from keras.wrappers.scikit_learn import KerasRegressor
 
 from reflrn import EnvironmentLogging
 from reflrn import ModelParameters
-from reflrn import ReplayMemory
+from reflrn import DequeReplayMemory
 from reflrn import TemporalDifferenceActorCriticDeepNNPolicy
 from .TestState import TestState
 
@@ -174,7 +174,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
                       )
 
         rpmem_sz = 500
-        rm = ReplayMemory(self.__lg, rpmem_sz)
+        rm = DequeReplayMemory(self.__lg, rpmem_sz)
         mp = ModelParameters(10, 10, 50, 10, rpmem_sz, 25)
         tdacdnnp = TemporalDifferenceActorCriticDeepNNPolicy(self.__lg, rm, "./model.test", mp, False)
 

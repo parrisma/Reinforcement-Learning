@@ -1,7 +1,7 @@
 import abc
 
-from reflrn.Policy import Policy
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 
 
 #
@@ -19,7 +19,7 @@ class ExplorationStrategy(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def chose_action(self,
                      agent_name: str,
-                     iteration_number: int,
+                     episode_number: int,
                      state: State,
                      possible_actions: [int]) -> int:
         pass
@@ -32,7 +32,7 @@ class ExplorationStrategy(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def chose_action_policy(self,
                             agent_name: str,
-                            iteration_number: int,
+                            episode_number: int,
                             state: State,
                             possible_actions: [int]) -> Policy:
         pass

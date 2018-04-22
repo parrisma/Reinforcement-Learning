@@ -3,7 +3,7 @@ from typing import Tuple
 
 import numpy as np
 
-from reflrn.ITemporalDifferencePolicyPersistance import ITemporalDifferencePolicyPersistance
+from reflrn.Interface.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
 
 
 #
@@ -13,7 +13,7 @@ from reflrn.ITemporalDifferencePolicyPersistance import ITemporalDifferencePolic
 #
 
 
-class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
+class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistance):
 
     #
     # Dump the given q values dictionary to a simple text dump.
@@ -114,7 +114,7 @@ class TemporalDifferencePolicyPersistance(ITemporalDifferencePolicyPersistance):
 class TestTemporalDifferencePolicyPersistance(unittest.TestCase):
 
     def test_load_and_save(self):
-        tdpp = TemporalDifferencePolicyPersistance()
+        tdpp = TemporalDifferenceQValPolicyPersistance()
         ld = tdpp.load("./qvn_dump.pb")
         tdpp.save_as_csv(ld, "./qvn_dump.csv")
 

@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # this is needed from but shows as unused import : mpl_toolkits.mplot3d import Axes3D
-from mpl_toolkits.mplot3d import Axes3D
 from examples.gridworld.SimpleGridOne import SimpleGridOne
-from reflrn.RenderQVals import RenderQVals
-from reflrn.State import State
+from reflrn.Interface.RenderQVals import RenderQVals
+from reflrn.Interface.State import State
 
 
 class SimpleGridOneRenderQValues(RenderQVals):

@@ -1,7 +1,7 @@
 import numpy as np
 
-from reflrn.RenderQVals import RenderQVals
-from reflrn.State import State
+from reflrn.Interface.RenderQVals import RenderQVals
+from reflrn.Interface.State import State
 
 
 class RenderQValues(RenderQVals):

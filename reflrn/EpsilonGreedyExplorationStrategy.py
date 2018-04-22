@@ -4,8 +4,8 @@ import random
 import numpy as np
 
 from reflrn.ExplorationStrategy import ExplorationStrategy
-from reflrn.Policy import Policy
-from reflrn.State import State
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 
 
 class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
@@ -31,11 +31,11 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
     #
     def chose_action(self,
                      agent_name: str,
-                     iteration_number: int,
+                     episode_number: int,
                      state: State,
                      possible_actions: [int]) -> int:
         action = self.chose_action_policy(agent_name,
-                                          iteration_number,
+                                          episode_number,
                                           state,
                                           possible_actions).select_action(agent_name,
                                                                           state,
@@ -50,7 +50,7 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
     #
     def chose_action_policy(self,
                             agent_name: str,
-                            iteration_number: int,
+                            episode_number: int,
                             state: State,
                             possible_actions: [int]) -> Policy:
 

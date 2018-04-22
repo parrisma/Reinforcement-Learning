@@ -1,9 +1,9 @@
 import logging
 import numpy as np
 
-from reflrn.Agent import Agent
-from reflrn.Environment import Environment
-from reflrn.State import State
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.Environment import Environment
+from reflrn.Interface.State import State
 from .Grid import Grid
 from .GridWorldState import GridWorldState
 from .IllegalGridMoveException import IllegalGridMoveException

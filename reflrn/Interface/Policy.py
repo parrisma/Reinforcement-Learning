@@ -1,6 +1,6 @@
 import abc
 
-from reflrn.State import State
+from reflrn.Interface.State import State
 
 
 #
@@ -26,7 +26,7 @@ class Policy(metaclass=abc.ABCMeta):
                       next_state: State,
                       action: int,
                       reward: float,
-                      episode_complete: bool):
+                      episode_complete: bool) -> None:
         pass
 
     #
@@ -42,7 +42,7 @@ class Policy(metaclass=abc.ABCMeta):
     # Export the current policy to the given file name
     #
     @abc.abstractmethod
-    def save(self, filename: str = None):
+    def save(self, filename: str = None) -> None:
         pass
 
     #
