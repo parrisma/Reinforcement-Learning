@@ -98,7 +98,7 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
 
         if self.__current_episode_id != episode_id:
             if self.__current_episode_id is not None:
-                self.__episode_end(episode_id, len(self.__memory) - 2)
+                self.__episode_end(self.__current_episode_id, len(self.__memory) - 1)
             self.__episode_start(episode_id, len(self.__memory) - 1)
         return
 
@@ -109,7 +109,9 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
                         episode_id: int,
                         start_idx: int) -> None:
 
-        self.__index[ExplorationMemory.Memory.EPISODE][episode_id] = [start_idx, -1]
+        if episode_id not in self.__index[ExplorationMemory.Memory.EPISODE]:
+            self.__index[ExplorationMemory.Memory.EPISODE][episode_id] = [start_idx, -1]
+            self.__current_episode_id = episode_id
         return
 
     #

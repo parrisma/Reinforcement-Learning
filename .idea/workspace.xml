@@ -5,45 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/DummyPolicy.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/Grid.py" afterPath="$PROJECT_DIR$/examples/gridworld/Grid.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py" afterPath="$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridFactory.py" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridFactory.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/tests/SimpleGridOneTest.py" afterPath="$PROJECT_DIR$/examples/gridworld/tests/SimpleGridOneTest.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRig.py" afterPath="$PROJECT_DIR$/examples/tests/TestRig.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRigFive.py" afterPath="$PROJECT_DIR$/examples/tests/TestRigFive.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRigFour.py" afterPath="$PROJECT_DIR$/examples/tests/TestRigFour.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRigModel.py" afterPath="$PROJECT_DIR$/examples/tests/TestRigModel.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRigThree.py" afterPath="$PROJECT_DIR$/examples/tests/TestRigThree.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tests/TestRigTwo.py" afterPath="$PROJECT_DIR$/examples/tests/TestRigTwo.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" afterPath="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" afterPath="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ExplorationStrategy.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ExplorationPlay.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationPlay.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/RenderQVals.py" afterPath="$PROJECT_DIR$/reflrn/Interface/RenderQVals.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" afterPath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/StrategyExploration.py" afterPath="$PROJECT_DIR$/examples/tictactoe/StrategyExploration.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicyPersistance.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicyPersistance.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/tests/TestState.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/DummyState.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/tests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/tests/TestTemporalDifferencePolicy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/TestTemporalDifferencePolicy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,8 +21,8 @@
       <file leaf-file-name="TestExplorationMemoryEpsilonGreedy.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state relative-caret-position="600">
+              <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -79,8 +43,8 @@
       <file leaf-file-name="ExplorationMemoryEpsilonGreedy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="58" column="61" lean-forward="false" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
+            <state relative-caret-position="-355">
+              <caret line="100" column="84" lean-forward="false" selection-start-line="100" selection-start-column="84" selection-end-line="100" selection-end-column="84" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -91,7 +55,7 @@
       <file leaf-file-name="ExplorationMemory.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
+            <state relative-caret-position="-15">
               <caret line="34" column="45" lean-forward="true" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -222,8 +186,8 @@
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/DummyState.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/TestTemporalDifferencePolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
         <option value="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py" />
       </list>
     </option>
@@ -531,7 +495,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38388625" sideWeight="0.07620042" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29508197" sideWeight="0.49425888" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29508197" sideWeight="0.49425888" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18992805" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -614,8 +578,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py</url>
-          <line>58</line>
-          <option name="timeStamp" value="447" />
+          <line>112</line>
+          <option name="timeStamp" value="459" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -625,7 +589,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="448" />
+      <option name="time" value="460" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -636,12 +600,17 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>value</expression-string>
+        <expression-string>memory</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>memory</expression-string>
+        <expression-string>mem</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>expected</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -651,7 +620,12 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>expected</expression-string>
+        <expression-string>self</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>value</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -667,16 +641,6 @@
       </expression>
       <expression>
         <expression-string>cols[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>cols</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>mem</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1012,14 +976,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/IllegalGridMoveException.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1056,26 +1012,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="45" lean-forward="true" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="58" column="61" lean-forward="false" selection-start-line="58" selection-start-column="61" selection-end-line="58" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/tests/SimpleGridOneTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -1094,10 +1030,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="34" column="45" lean-forward="true" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-355">
+          <caret line="100" column="84" lean-forward="false" selection-start-line="100" selection-start-column="84" selection-end-line="100" selection-end-column="84" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="600">
+          <caret line="128" column="0" lean-forward="false" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

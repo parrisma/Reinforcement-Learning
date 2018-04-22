@@ -23,7 +23,12 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
     __dummy_state_2 = DummyState('DummyState2')
 
     __test_cases = [
-        [0, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0), True]
+        [0, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0), True],
+
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.1), False],
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.2), False],
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.3), True],
+        [2, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.4), True],
     ]
 
     @classmethod
@@ -60,7 +65,56 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
             self.assertRaises(ExplorationMemoryEpsilonGreedy.MemoryTypeSearchNotSupported,
                               emeg.get_memories_by_type,
                               mem_type,
-                              self.__test_cases[test_case_id][mem_type])
+                              None)
+
+        return
+
+    def test_multi_memory(self):
+        start_test_case_id = 1
+        episode_id = int(0)
+        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        self.__add_test_cases(emeg, self.__test_cases, [1, 2, 3, 4])
+
+        # Should be 3 and then 1
+        # episode_id
+        # (memories expected & start offset in test cases) x 3
+        for ep, cnt, st, al, sta, lst, stl in ((1, 3, 1, 4, 1, 1, 4), (2, 1, 4, 4, 1, 1, 4)):
+            memory = emeg.get_memories_by_episode(episode=ep)
+            self.assertEqual(len(memory), cnt)
+
+            i = st
+            for mem in memory:
+                self.assertEqual(self.__test_case_equal(self.__test_cases[i], mem), True)
+                i += 1
+
+            for mem_type in ExplorationMemoryEpsilonGreedy.SUPPORTED_GETBY_INDEX:
+                i = sta
+                memory = emeg.get_memories_by_type(mem_type,
+                                                   self.__test_cases[i][mem_type],
+                                                   last_only=False)
+                self.assertEqual(len(memory), al)
+                for mem in memory:
+                    self.assertEqual(self.__test_case_equal(self.__test_cases[i], mem), True)
+                    i += 1
+
+                i = stl
+                memory = emeg.get_memories_by_type(mem_type,
+                                                   self.__test_cases[i][mem_type],
+                                                   last_only=True)
+                self.assertEqual(len(memory), lst)
+                for mem in memory:
+                    self.assertEqual(self.__test_case_equal(self.__test_cases[i], mem), True)
+                    i += 1
+
+                memory = emeg.get_memories_by_type(mem_type,
+                                                   TestExplorationMemoryEpsilonGreedy.NonExistentThing())
+                self.assertEqual(None, memory)
+
+            for mem_type in ExplorationMemoryEpsilonGreedy.UNSUPPORTED_GETBY_INDEX:
+                self.assertRaises(ExplorationMemoryEpsilonGreedy.MemoryTypeSearchNotSupported,
+                                  emeg.get_memories_by_type,
+                                  mem_type,
+                                  None)
 
         return
 
@@ -100,7 +154,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                      action=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.ACTION],
                      reward=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.REWARD],
                      episode_complete=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.EPISODE_COMPLETE])
-            return
+        return
 
 
 #
