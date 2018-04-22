@@ -29,7 +29,7 @@ class RenderQValues(RenderQVals):
         return s
 
     #
-    # get q values and associated actions as numpy array
+    # get_memories_by_type q values and associated actions as numpy array
     #
     @classmethod
     def __get_q_vals_as_np_array(cls, q_val_dict: dict, state: State) -> np.array:

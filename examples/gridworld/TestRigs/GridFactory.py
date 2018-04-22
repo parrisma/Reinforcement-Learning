@@ -61,5 +61,5 @@ class GridFactory:
         grid[15][15] = cls.fire
         sg1 = SimpleGridOne(4,
                             grid,
-                            [r-1, c-1])
+                            [r - 1, c - 1])
         return sg1

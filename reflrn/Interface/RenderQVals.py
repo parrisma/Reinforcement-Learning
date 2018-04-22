@@ -1,5 +1,7 @@
 import abc
+
 from reflrn.Interface.State import State
+
 
 #
 # For Debug, render given Q Values Dictionary in visual way for debugging.

@@ -107,7 +107,7 @@ class TestSimpleGridOne(unittest.TestCase):
 
 
 #
-# Execute the tests.
+# Execute the ReflrnTests.
 #
 
 

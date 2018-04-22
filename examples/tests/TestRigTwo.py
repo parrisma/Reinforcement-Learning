@@ -2,12 +2,13 @@ import logging
 import random
 
 import numpy as np
+
+from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.HumanPolicy import HumanPolicy
 from reflrn.PureRandomExploration import PureRandomExploration
 from reflrn.TemporalDifferenceQValPolicy import TemporalDifferenceQValPolicy
-from examples.tictactoe.TicTacToe import TicTacToe
-from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 
 random.seed(42)
 np.random.seed(42)

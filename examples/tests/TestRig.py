@@ -2,8 +2,9 @@ import random
 from pathlib import Path
 
 import numpy as np
-from reflrn.Persistance import Persistance
 from reflrn.PlayTicTacToe import PlayTicTacToe
+
+from reflrn.Persistance import Persistance
 
 data_file = "./qv_dump.pb"
 my_file = Path(data_file)

@@ -128,7 +128,7 @@ class TestTDDeepNNPolicyPersistance(unittest.TestCase):
 
 
 #
-# Execute the tests.
+# Execute the ReflrnTests.
 #
 
 

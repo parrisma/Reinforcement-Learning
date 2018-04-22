@@ -27,7 +27,7 @@ class ExplorationStrategy(metaclass=abc.ABCMeta):
     #
     # return the Policy can be called to select the action. The assumption here is that the
     # implementation is selecting between a number of different policies according to it's
-    # defined strategy. In the case the returned policy can be called to get the next action.
+    # defined strategy. In the case the returned policy can be called to get_memories_by_type the next action.
     #
     @abc.abstractmethod
     def chose_action_policy(self,

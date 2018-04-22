@@ -24,7 +24,7 @@ class TicTacToe(Environment):
     attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
     attribute_agent = ("agent", "The last agent to make a move", Agent)
     attribute_board = (
-    "board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
+        "board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
     __episode = 'episode number'
 
     #

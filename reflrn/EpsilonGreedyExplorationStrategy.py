@@ -3,7 +3,7 @@ import random
 
 import numpy as np
 
-from reflrn.ExplorationStrategy import ExplorationStrategy
+from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 
@@ -26,7 +26,7 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
 
     #
     # Chose between the greedy policy and the exploration policy based on
-    # the epsilon threshold and calls that policy to get the next action.
+    # the epsilon threshold and calls that policy to get_memories_by_type the next action.
     # greedy policy is selected unless the random variable is > epsilon
     #
     def chose_action(self,

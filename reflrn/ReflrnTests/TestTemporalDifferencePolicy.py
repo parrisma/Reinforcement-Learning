@@ -4,9 +4,10 @@ import unittest
 from random import randint
 
 import numpy as np
-from State import State
-from TemporalDifferencePolicy import TemporalDifferencePolicy
-from TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+
+from reflrn.Interface.State import State
+from reflrn.Interface.TemporalDifferencePolicyPersistance import TemporalDifferencePolicyPersistance
+from reflrn.TemporalDifferenceQValPolicy import TemporalDifferenceQValPolicy
 
 
 class TestState(State):
@@ -61,7 +62,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
         expected_action = 0
         reward = 1.0
 
-        tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
+        tdp = TemporalDifferenceQValPolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
         tdp.update_strategy(agent_name=test_agent_1,
                             prev_state=None,
                             prev_action=0,
@@ -97,7 +98,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
         reward = 1.0
         niter = 100
 
-        tdp = TemporalDifferencePolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
+        tdp = TemporalDifferenceQValPolicy(lg=self.__lg, filename="", fixed_games=None, load_qval_file=False)
         for i in range(0, niter):
             tdp.update_strategy(agent_name=test_agent_1,
                                 prev_state=None,
@@ -122,7 +123,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
 
 
 #
-# Execute the tests.
+# Execute the ReflrnTests.
 #
 
 

@@ -1,4 +1,5 @@
 import logging
+
 import numpy as np
 
 from reflrn.Interface.Agent import Agent
@@ -70,7 +71,7 @@ class GridWorld(Environment):
         self.__x_agent.terminate()
         return
 
-    def __keep_stats(self, reset: bool=False):
+    def __keep_stats(self, reset: bool = False):
         pass
 
     @classmethod
@@ -112,7 +113,7 @@ class GridWorld(Environment):
     #
     #
     #
-    def __take_action(self, action:int, agent: Agent) -> np.float :
+    def __take_action(self, action: int, agent: Agent) -> np.float:
         return self.__grid.execute_action(action)
 
     #
@@ -133,25 +134,25 @@ class GridWorld(Environment):
     # Load Environment from file
     #
     def load(self, file_name: str):
-        raise NotImplementedError("load() not implemented for TicTacTo")
+        raise NotImplementedError("load() not implemented for GridWorld")
 
     #
     # Save Environment to file
     #
     def save(self, file_name: str):
-        raise NotImplementedError("save() not implemented for TicTacTo")
+        raise NotImplementedError("save() not implemented for GridWorld")
 
     #
     # Expose current environment state as string
     #
     def export_state(self):
-        raise NotImplementedError("export_state() not implemented for TicTacTo")
+        raise NotImplementedError("export_state() not implemented for GridWorld")
 
     #
     # Set environment state from string
     #
     def import_state(self, state_as_string):
-        raise NotImplementedError("import_state() not implemented for TicTacTo")
+        raise NotImplementedError("import_state() not implemented for GridWorld")
 
     #
     # Return the State of the environment
@@ -164,4 +165,3 @@ class GridWorld(Environment):
     #
     def attributes(self) -> dict:
         return None
-

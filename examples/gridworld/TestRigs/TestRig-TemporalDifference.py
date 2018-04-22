@@ -30,9 +30,9 @@ epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(
                                                filename="./gridworld-tmpr-diff.pb",
                                                fixed_games=None,
                                                q_val_render=SimpleGridOneRenderQValues(sh[0],
-                                                                                   sh[1],
-                                                                                   do_scale=False,
-                                                                                   do_plot=True)
+                                                                                       sh[1],
+                                                                                       do_scale=False,
+                                                                                       do_plot=True)
                                                ),
     exploration_policy=RandomPolicy(prefer_new=True),
     epsilon=epgrdy,

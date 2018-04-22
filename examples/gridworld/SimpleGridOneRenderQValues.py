@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import axes3d
 
-# this is needed from but shows as unused import : mpl_toolkits.mplot3d import Axes3D
 from examples.gridworld.SimpleGridOne import SimpleGridOne
 from reflrn.Interface.RenderQVals import RenderQVals
 from reflrn.Interface.State import State
@@ -12,7 +12,10 @@ class SimpleGridOneRenderQValues(RenderQVals):
     __cmap = 'gist_earth'
     __plot_pause = 0.0001
     PLOT_SURFACE = 1
-    PLOT_GRID = 2
+    PLOT_WIREFRAME = 2
+    PLOT_GRID = 3
+
+    __ = axes3d  # Dummy row to stop the import showing as unused
 
     def __init__(self,
                  num_rows: int,
@@ -28,6 +31,7 @@ class SimpleGridOneRenderQValues(RenderQVals):
         self.__plot_style = plot_style
         self.__plot_funcs = {
             self.PLOT_SURFACE: self.__plot_surface,
+            self.PLOT_WIREFRAME: self.__plot_wireframe,
             self.PLOT_GRID: self.__plot_grid,
         }
         self.__view_rot_step = 15
@@ -81,7 +85,19 @@ class SimpleGridOneRenderQValues(RenderQVals):
     #
     # Plot as a 3D surface
     #
-    def __plot_surface(self, grid: np.ndarray):
+    def __plot_surface(self, grid: np.ndarray) -> None:
+        self.__plot_3d(grid, wireframe=False)
+
+    #
+    # Plot as a 3D wire frame
+    #
+    def __plot_wireframe(self, grid: np.ndarray) -> None:
+        self.__plot_3d(grid, wireframe=True)
+
+    #
+    # Plot as a 3D surface
+    #
+    def __plot_3d(self, grid: np.ndarray, wireframe=True):
         if self.__fig is None:
             self.__fig = plt.figure()
         nr, nc = grid.shape
@@ -99,8 +115,11 @@ class SimpleGridOneRenderQValues(RenderQVals):
         if self.__view_rot_step > 0:
             self.__view_rot += self.__view_rot_step
             self.__view_rot = self.__view_rot_step % 360
-        ax.plot_surface(X, Y, Z, cmap=self.__cmap, linewidth=0, antialiased=False)
-        plt.pause(0.0001)
+        if wireframe:
+            ax.plot_wireframe(X, Y, Z, cmap=self.__cmap, rstride=1, cstride=1)
+        else:
+            ax.plot_surface(X, Y, Z, cmap=self.__cmap, linewidth=0, antialiased=False)
+        plt.pause(self.__plot_pause)
         plt.show(block=False)
         plt.gcf().clear()
         return
@@ -117,7 +136,7 @@ class SimpleGridOneRenderQValues(RenderQVals):
         ax.set_xticks(np.arange(0, self.__num_cols, int(self.__num_cols / 10)))
         ax.set_yticks(np.arange(0, self.__num_rows, int(self.__num_rows / 10)))
         ax.imshow(grid, cmap=self.__cmap, interpolation='nearest')
-        plt.pause(0.0001)
+        plt.pause(self.__plot_pause)
         plt.show(block=False)
         plt.gcf().clear()
         return

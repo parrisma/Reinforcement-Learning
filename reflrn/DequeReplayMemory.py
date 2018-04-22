@@ -60,7 +60,7 @@ class DequeReplayMemory(ReplayMemory):
         cols = [[], [], [], [], [], []]  # episode, state, next_state, action, reward, complete
         for idx in indices:
             memory = self.__replay_memory[idx]
-            # get the whole episode. Look forward and back until episode id changes
+            # get_memories_by_type the whole episode. Look forward and back until episode id changes
             episode_id = memory[DequeReplayMemory.mem_episode_id]
             episode_deque = deque([])
             episode_deque.append(memory)

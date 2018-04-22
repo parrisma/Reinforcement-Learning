@@ -1,10 +1,10 @@
 import logging
 
+from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.PureRandomExploration import PureRandomExploration
 from reflrn.TemporalDifferenceQValPolicy import TemporalDifferenceQValPolicy
-from examples.tictactoe.TicTacToe import TicTacToe
-from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 
 itr = 5000
 lg = EnvironmentLogging("TestRig3", "TestRigThree.log", logging.INFO).get_logger()

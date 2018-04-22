@@ -1,8 +1,8 @@
 import logging
 from random import randint
 
-from reflrn.Interface.Policy import Policy
 from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 
 

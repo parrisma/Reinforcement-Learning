@@ -8,11 +8,11 @@ from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.wrappers.scikit_learn import KerasRegressor
 
-from reflrn import EnvironmentLogging
-from reflrn import ModelParameters
-from reflrn import DequeReplayMemory
-from reflrn import TemporalDifferenceActorCriticDeepNNPolicy
-from .TestState import TestState
+from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.ModelParameters import ModelParameters
+from reflrn.TemporalDifferenceActorCriticDeepNNPolicy import TemporalDifferenceActorCriticDeepNNPolicy
+from .DummyState import DummyState
 
 
 class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
@@ -159,12 +159,12 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
     # Game is moves 0,2,4,6,8 (diagonal win)
     #
     def test_training(self):
-        ts0 = TestState("000000000")
-        ts1 = TestState("100000000")
-        ts2 = TestState("10-1000000")
-        ts3 = TestState("10-1010000")
-        ts4 = TestState("10-1010-100")
-        ts5 = TestState("10-1010-101")
+        ts0 = DummyState("000000000")
+        ts1 = DummyState("100000000")
+        ts2 = DummyState("10-1000000")
+        ts3 = DummyState("10-1010000")
+        ts4 = DummyState("10-1010-100")
+        ts5 = DummyState("10-1010-101")
 
         test_cases = (('1', ts0, ts1, 0, 0.0, False),
                       ('-1', ts1, ts2, 2, 0.0, False),
@@ -192,7 +192,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
 
 
 #
-# Execute the tests.
+# Execute the ReflrnTests.
 #
 
 

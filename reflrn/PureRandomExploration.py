@@ -1,6 +1,7 @@
 import sys
 from random import randint
 from random import shuffle
+
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.ExplorationPlay import ExplorationPlay
 from reflrn.Interface.State import State

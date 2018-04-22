@@ -1,7 +1,7 @@
 import logging
 
 from reflrn.Interface.Agent import Agent
-from reflrn.ExplorationStrategy import ExplorationStrategy
+from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.State import State
 
 

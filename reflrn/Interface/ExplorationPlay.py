@@ -1,6 +1,8 @@
 import abc
+
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.State import State
+
 
 #
 # This abstract makes a play based just on possible moves given. This is called

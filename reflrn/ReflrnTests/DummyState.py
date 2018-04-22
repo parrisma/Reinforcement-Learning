@@ -1,7 +1,7 @@
-from State import State
+from reflrn.Interface.State import State
 
 
-class TestState(State):
+class DummyState(State):
 
     def __init__(self, state_as_str: str):
         self.__state_as_str = state_as_str

@@ -6,9 +6,9 @@ import numpy as np
 from reflrn.EvaluationException import EvaluationException
 from reflrn.FixedGames import FixedGames
 from reflrn.Interface.Policy import Policy
-from reflrn.RandomPolicy import RandomPolicy
 from reflrn.Interface.RenderQVals import RenderQVals
 from reflrn.Interface.State import State
+from reflrn.RandomPolicy import RandomPolicy
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
@@ -152,7 +152,7 @@ class TemporalDifferenceQValPolicy(Policy):
             return np.float(0)
 
     #
-    # get q values and associated actions as numpy array
+    # get_memories_by_type q values and associated actions as numpy array
     #
     @classmethod
     def __get_q_vals_as_np_array(cls, state: State) -> np.array:

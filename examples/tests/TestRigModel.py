@@ -1,8 +1,9 @@
 import random
 
 import numpy as np
-from examples.tictactoe.PlayTicTacToe import PlayTicTacToe
 from QValModel import QValModel
+
+from examples.tictactoe.PlayTicTacToe import PlayTicTacToe
 
 model_filename = "model.h5"
 
