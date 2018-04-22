@@ -120,7 +120,7 @@ class TestTemporalDifferencePolicyPersistance(unittest.TestCase):
 
 
 #
-# Execute the ReflrnTests.
+# Execute the ReflrnUnitTests.
 #
 
 

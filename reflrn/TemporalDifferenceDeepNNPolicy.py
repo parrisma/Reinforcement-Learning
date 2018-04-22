@@ -161,7 +161,7 @@ class TestTemporalDifferenceDeepNNPolicy(unittest.TestCase):
 
 
 #
-# Execute the ReflrnTests.
+# Execute the ReflrnUnitTests.
 #
 
 

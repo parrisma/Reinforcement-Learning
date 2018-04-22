@@ -6,8 +6,8 @@ import numpy as np
 
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.ExplorationMemoryEpsilonGreedy import ExplorationMemoryEpsilonGreedy
-from reflrn.ReflrnTests.DummyPolicy import DummyPolicy
-from reflrn.ReflrnTests.DummyState import DummyState
+from reflrn.ReflrnUnitTests.DummyPolicy import DummyPolicy
+from reflrn.ReflrnUnitTests.DummyState import DummyState
 
 
 class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
@@ -70,8 +70,6 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
         return
 
     def test_multi_memory(self):
-        start_test_case_id = 1
-        episode_id = int(0)
         emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
         self.__add_test_cases(emeg, self.__test_cases, [1, 2, 3, 4])
 
@@ -158,7 +156,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
 
 
 #
-# Execute the ReflrnTests.
+# Execute the ReflrnUnitTests.
 #
 
 if __name__ == "__main__":

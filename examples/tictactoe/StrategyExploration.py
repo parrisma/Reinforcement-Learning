@@ -75,7 +75,7 @@ class TestStrategyExploration(unittest.TestCase):
 
 
 #
-# Execute the ReflrnTests.
+# Execute the ReflrnUnitTests.
 #
 
 

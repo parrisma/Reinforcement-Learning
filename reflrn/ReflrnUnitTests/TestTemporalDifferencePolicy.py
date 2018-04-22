@@ -123,7 +123,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
 
 
 #
-# Execute the ReflrnTests.
+# Execute the ReflrnUnitTests.
 #
 
 
