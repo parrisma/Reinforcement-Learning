@@ -5,7 +5,7 @@ from reflrn.Interface.RenderExplorationMemories import RenderExplorationMemory
 class RenderAgentExplorationMemory(RenderExplorationMemory):
     def render_episode(self, exploration_memory: ExplorationMemory, episode: int) -> str:
 
-        memory = exploration_memory.emeg.get_memories_by_episode(episode=ep)
+        memory = exploration_memory.get_memories_by_episode(episode=episode)
         ep_len = 0
         ep_cost = float(0)
         s = ''
@@ -13,6 +13,6 @@ class RenderAgentExplorationMemory(RenderExplorationMemory):
             ep_len = len(memory)
             for mem in memory:
                 ep_cost += mem[ExplorationMemory.Memory.REWARD]
-            s = 'Episode Length: ' + str(ep_len) + ' Episode Cost : ' + str(ep_cost)
+            s = 'Episode Summary : Length: ' + str(ep_len) + ' Cost : ' + str(ep_cost)
 
         return s

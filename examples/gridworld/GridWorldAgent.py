@@ -48,8 +48,7 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        rdr = RenderAgentExplorationMemory()
-        rdr.render_episode(self.__exploration_memory, self.__episode)
+        self.__lg.debug(RenderAgentExplorationMemory().render_episode(self.__exploration_memory, self.__episode))
         self.__episode += 1
         pass
 
@@ -77,6 +76,14 @@ class GridWorldAgent(Agent):
                                                     action,
                                                     reward_for_play,
                                                     episode_complete)
+
+        self.__update_exploration_memory(self.name(),
+                                         state,
+                                         next_state,
+                                         action,
+                                         reward_for_play,
+                                         episode_complete)
+
         return
 
     #
@@ -91,13 +98,13 @@ class GridWorldAgent(Agent):
     #
     # Update the exploration memory so we can track stats.
     #
-    def update_exploration_memory(self,
-                                  agent_name: str,
-                                  state: State,
-                                  next_state: State,
-                                  action: int,
-                                  reward: float,
-                                  episode_complete: bool) -> None:
+    def __update_exploration_memory(self,
+                                    agent_name: str,
+                                    state: State,
+                                    next_state: State,
+                                    action: int,
+                                    reward: float,
+                                    episode_complete: bool) -> None:
         self.__exploration_memory.add(episode_id=self.__episode,
                                       policy=self.__policy,
                                       agent_name=agent_name,
