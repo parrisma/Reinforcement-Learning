@@ -6,6 +6,7 @@ import numpy as np
 from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
+from reflrn.AgentExplorationMemory import AgentExplorationMemory
 
 
 class EpsilonGreedyExplorationStrategy(ExplorationStrategy):

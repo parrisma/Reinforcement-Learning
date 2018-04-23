@@ -1,8 +1,10 @@
 import logging
 
+from reflrn.AgentExplorationMemory import AgentExplorationMemory
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.State import State
+from reflrn.RenderAgentExplorationMemory import RenderAgentExplorationMemory
 
 
 class GridWorldAgent(Agent):
@@ -18,6 +20,7 @@ class GridWorldAgent(Agent):
         self.__exploration_strategy = exploration_strategy
         self.__policy = None
         self.__episode = 0
+        self.__exploration_memory = AgentExplorationMemory(self.__lg)
 
     # Return immutable id
     #
@@ -45,6 +48,8 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
+        rdr = RenderAgentExplorationMemory()
+        rdr.render_episode(self.__exploration_memory, self.__episode)
         self.__episode += 1
         pass
 
@@ -81,4 +86,24 @@ class GridWorldAgent(Agent):
     def session_init(self, actions: dict):
         self.__policy = None
         self.__episode = 0
+        return
+
+    #
+    # Update the exploration memory so we can track stats.
+    #
+    def update_exploration_memory(self,
+                                  agent_name: str,
+                                  state: State,
+                                  next_state: State,
+                                  action: int,
+                                  reward: float,
+                                  episode_complete: bool) -> None:
+        self.__exploration_memory.add(episode_id=self.__episode,
+                                      policy=self.__policy,
+                                      agent_name=agent_name,
+                                      state=state,
+                                      next_state=next_state,
+                                      action=action,
+                                      reward=reward,
+                                      episode_complete=episode_complete)
         return

@@ -5,12 +5,12 @@ import unittest
 import numpy as np
 
 from reflrn.EnvironmentLogging import EnvironmentLogging
-from reflrn.ExplorationMemoryEpsilonGreedy import ExplorationMemoryEpsilonGreedy
+from reflrn.AgentExplorationMemory import AgentExplorationMemory
 from reflrn.ReflrnUnitTests.DummyPolicy import DummyPolicy
 from reflrn.ReflrnUnitTests.DummyState import DummyState
 
 
-class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
+class TestAgentExplorationMemory(unittest.TestCase):
     # A Test Object That Cannot Be Found In The Memory (failure case test)
     class NonExistentThing:
         pass
@@ -49,16 +49,16 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                                       ).get_logger()
 
     def test_non_existent_episodes(self):
-        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        emeg = AgentExplorationMemory(self.__lg)
         for ep in (-1, None, float(99), "Junk"):
-            self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryNoSuchEpisode,
+            self.assertRaises(AgentExplorationMemory.ExplorationMemoryNoSuchEpisode,
                               emeg.get_memories_by_episode,
                               ep)
 
     def test_single_memory(self):
         test_case_id = 0
         episode_id = int(0)
-        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        emeg = AgentExplorationMemory(self.__lg)
         self.__add_test_cases(emeg, self.__test_cases, [test_case_id])
 
         # Should be only 1 Memory for this episode.
@@ -66,18 +66,18 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
         self.assertEqual(len(memory[0]), 8)
         self.assertEqual(self.__test_case_equal(self.__test_cases[test_case_id], memory[0]), True)
 
-        for mem_type in ExplorationMemoryEpsilonGreedy.SUPPORTED_GETBY_INDEX:
+        for mem_type in AgentExplorationMemory.SUPPORTED_GETBY_INDEX:
             memory = emeg.get_memories_by_type(mem_type,
                                                self.__test_cases[test_case_id][mem_type])
             self.assertEqual(len(memory), 1)
             self.assertEqual(self.__test_case_equal(self.__test_cases[test_case_id], memory[0]), True)
 
             memory = emeg.get_memories_by_type(mem_type,
-                                               TestExplorationMemoryEpsilonGreedy.NonExistentThing())
+                                               TestAgentExplorationMemory.NonExistentThing())
             self.assertEqual(None, memory)
 
-        for mem_type in ExplorationMemoryEpsilonGreedy.UNSUPPORTED_GETBY_INDEX:
-            self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryMemTypeSearchNotSupported,
+        for mem_type in AgentExplorationMemory.UNSUPPORTED_GETBY_INDEX:
+            self.assertRaises(AgentExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported,
                               emeg.get_memories_by_type,
                               mem_type,
                               None)
@@ -85,7 +85,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
         return
 
     def test_multi_memory(self):
-        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        emeg = AgentExplorationMemory(self.__lg)
         self.__add_test_cases(emeg, self.__test_cases, [1, 2, 3, 4])
 
         # Should be 3 and then 1
@@ -100,7 +100,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                 self.assertEqual(self.__test_case_equal(self.__test_cases[i], mem), True)
                 i += 1
 
-            for mem_type in ExplorationMemoryEpsilonGreedy.SUPPORTED_GETBY_INDEX:
+            for mem_type in AgentExplorationMemory.SUPPORTED_GETBY_INDEX:
                 i = sta
                 memory = emeg.get_memories_by_type(mem_type,
                                                    self.__test_cases[i][mem_type],
@@ -120,11 +120,11 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                     i += 1
 
                 memory = emeg.get_memories_by_type(mem_type,
-                                                   TestExplorationMemoryEpsilonGreedy.NonExistentThing())
+                                                   TestAgentExplorationMemory.NonExistentThing())
                 self.assertEqual(None, memory)
 
-            for mem_type in ExplorationMemoryEpsilonGreedy.UNSUPPORTED_GETBY_INDEX:
-                self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryMemTypeSearchNotSupported,
+            for mem_type in AgentExplorationMemory.UNSUPPORTED_GETBY_INDEX:
+                self.assertRaises(AgentExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported,
                                   emeg.get_memories_by_type,
                                   mem_type,
                                   None)
@@ -132,7 +132,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
         return
 
     def test_multi_memory2(self):
-        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        emeg = AgentExplorationMemory(self.__lg)
         self.__add_test_cases(emeg, self.__test_cases, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
 
         # in random order to ensure there is no inherent dependency on the order the
@@ -144,36 +144,36 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
 
         agent = "AgentOne"
         # Occupancies of Agent-1
-        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.AGENT,
+        memory = emeg.get_memories_by_type(AgentExplorationMemory.Memory.AGENT,
                                            agent,
                                            last_only=False)
         self.assertEqual(len(memory), 9)
         for mem in memory:
-            self.assertEqual(agent, mem[ExplorationMemoryEpsilonGreedy.Memory.AGENT])
+            self.assertEqual(agent, mem[AgentExplorationMemory.Memory.AGENT])
 
-        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.AGENT,
+        memory = emeg.get_memories_by_type(AgentExplorationMemory.Memory.AGENT,
                                            agent,
                                            last_only=True)  # Last Episode agent was *seen* in
         self.assertEqual(len(memory), 2)
         for mem in memory:
-            self.assertEqual(agent, mem[ExplorationMemoryEpsilonGreedy.Memory.AGENT])
-            self.assertEqual(4, mem[ExplorationMemoryEpsilonGreedy.Memory.EPISODE])  # Last seen in Ep 4
+            self.assertEqual(agent, mem[AgentExplorationMemory.Memory.AGENT])
+            self.assertEqual(4, mem[AgentExplorationMemory.Memory.EPISODE])  # Last seen in Ep 4
 
         action = 1
-        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.ACTION,
+        memory = emeg.get_memories_by_type(AgentExplorationMemory.Memory.ACTION,
                                            action,
                                            last_only=False)  # Last Episode action was *seen* in
         self.assertEqual(len(memory), 3)
         for mem in memory:
-            self.assertEqual(action, mem[ExplorationMemoryEpsilonGreedy.Memory.ACTION])
+            self.assertEqual(action, mem[AgentExplorationMemory.Memory.ACTION])
 
-        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.ACTION,
+        memory = emeg.get_memories_by_type(AgentExplorationMemory.Memory.ACTION,
                                            action,
                                            last_only=True)  # Last Episode agent was *seen* in
         self.assertEqual(len(memory), 1)
         for mem in memory:
-            self.assertEqual(action, mem[ExplorationMemoryEpsilonGreedy.Memory.ACTION])
-            self.assertEqual(5, mem[ExplorationMemoryEpsilonGreedy.Memory.EPISODE])  # Last seen in Ep 5
+            self.assertEqual(action, mem[AgentExplorationMemory.Memory.ACTION])
+            self.assertEqual(5, mem[AgentExplorationMemory.Memory.EPISODE])  # Last seen in Ep 5
 
         return
 
@@ -201,18 +201,18 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
     #
     @classmethod
     def __add_test_cases(cls,
-                         emeg: ExplorationMemoryEpsilonGreedy,
+                         emeg: AgentExplorationMemory,
                          test_cases: [[object]],
                          test_cases_to_add: [int]) -> None:
         for i in test_cases_to_add:
-            emeg.add(episode_id=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.EPISODE],
-                     policy=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.POLICY],
-                     agent_name=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.AGENT],
-                     state=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.STATE],
-                     next_state=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.NEXT_STATE],
-                     action=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.ACTION],
-                     reward=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.REWARD],
-                     episode_complete=test_cases[i][ExplorationMemoryEpsilonGreedy.Memory.EPISODE_COMPLETE])
+            emeg.add(episode_id=test_cases[i][AgentExplorationMemory.Memory.EPISODE],
+                     policy=test_cases[i][AgentExplorationMemory.Memory.POLICY],
+                     agent_name=test_cases[i][AgentExplorationMemory.Memory.AGENT],
+                     state=test_cases[i][AgentExplorationMemory.Memory.STATE],
+                     next_state=test_cases[i][AgentExplorationMemory.Memory.NEXT_STATE],
+                     action=test_cases[i][AgentExplorationMemory.Memory.ACTION],
+                     reward=test_cases[i][AgentExplorationMemory.Memory.REWARD],
+                     episode_complete=test_cases[i][AgentExplorationMemory.Memory.EPISODE_COMPLETE])
         return
 
 
@@ -222,10 +222,10 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
 
 if __name__ == "__main__":
     if True:
-        tests = TestExplorationMemoryEpsilonGreedy()
+        tests = TestAgentExplorationMemory()
         suite = unittest.TestLoader().loadTestsFromModule(tests)
         unittest.TextTestRunner().run(suite)
     else:
         suite = unittest.TestSuite()
-        suite.addTest(TestExplorationMemoryEpsilonGreedy("test_single_memory"))
+        suite.addTest(TestAgentExplorationMemory("test_single_memory"))
         unittest.TextTestRunner().run(suite)

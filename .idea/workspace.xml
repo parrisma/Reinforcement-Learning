@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/Interface/RenderExplorationMemories.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" afterPath="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/AgentExplorationMemory.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestExplorationMemoryEpsilonGreedy.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py">
+      <file leaf-file-name="AgentExplorationMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/AgentExplorationMemory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="55" column="33" lean-forward="true" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+            <state relative-caret-position="578">
+              <caret line="52" column="41" lean-forward="true" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -31,33 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
+      <file leaf-file-name="GridWorldAgent.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="732" column="0" lean-forward="false" selection-start-line="732" selection-start-column="0" selection-end-line="732" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemporalDifferenceDeepNNPolicy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-510">
-              <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExplorationMemoryEpsilonGreedy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2754">
-              <caret line="162" column="37" lean-forward="true" selection-start-line="162" selection-start-column="37" selection-end-line="162" selection-end-column="37" />
+            <state relative-caret-position="510">
+              <caret line="51" column="68" lean-forward="false" selection-start-line="51" selection-start-column="68" selection-end-line="51" selection-end-column="68" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -68,8 +49,8 @@
       <file leaf-file-name="ExplorationMemory.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="642">
-              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+            <state relative-caret-position="39">
+              <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -80,8 +61,8 @@
       <file leaf-file-name="TestRig-TemporalDifference.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -89,12 +70,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleGridOneTest.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py">
+      <file leaf-file-name="RenderExplorationMemories.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderExplorationMemories.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="306">
+              <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RenderAgentExplorationMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestAgentExplorationMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="141" column="61" lean-forward="true" selection-start-line="141" selection-start-column="21" selection-end-line="141" selection-end-column="61" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleGridOneRenderQValues.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,10 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/examples/tests/TestRigFour.py" />
-        <option value="$PROJECT_DIR$/reflrn/EvaluationException.py" />
-        <option value="$PROJECT_DIR$/reflrn/Agent.py" />
-        <option value="$PROJECT_DIR$/reflrn/Environment.py" />
         <option value="$PROJECT_DIR$/reflrn/HumanPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/ReplayMemory.py" />
         <option value="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
@@ -179,9 +192,7 @@
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferencePolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/RandomPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/ExplorationStrategy.py" />
-        <option value="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" />
         <option value="$PROJECT_DIR$/reflrn/ExplorationMemory.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" />
         <option value="$PROJECT_DIR$/reflrn/Interface/TemporalDifferencePolicyPersistance.py" />
@@ -200,8 +211,14 @@
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnTests/TestExplorationMemoryEpsilonGreedy.py" />
         <option value="$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" />
-        <option value="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py" />
+        <option value="$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py" />
+        <option value="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" />
+        <option value="$PROJECT_DIR$/reflrn/AgentExplorationMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/Interface/RenderExplorationMemories.py" />
+        <option value="$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
       </list>
     </option>
   </component>
@@ -321,25 +338,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.TestExplorationMemoryEpsilonGreedy (1)">
-    <configuration name="HelloWorld4" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/HelloWorld4.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.TestRig-TemporalDifference">
     <configuration name="SimpleGridOneTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -358,6 +357,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="TestAgentExplorationMemory" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TicTacToe" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="TestExplorationMemoryEpsilonGreedy (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -370,7 +387,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py" />
+      <option name="SCRIPT_NAME" value="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn\ReflrnUnitTests\TestAgentExplorationMemory.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -429,19 +446,19 @@
       <option name="ipnbPort" value="8888" />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.HelloWorld4" />
-      <item index="1" class="java.lang.String" itemvalue="Python.SimpleGridOneTest" />
-      <item index="2" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
-      <item index="3" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy" />
-      <item index="4" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
+      <item index="0" class="java.lang.String" itemvalue="Python.SimpleGridOneTest" />
+      <item index="1" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
+      <item index="2" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy" />
+      <item index="3" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy" />
-        <item index="2" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
-        <item index="3" class="java.lang.String" itemvalue="Python.SimpleGridOneTest" />
-        <item index="4" class="java.lang.String" itemvalue="Python.HelloWorld4" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
+        <item index="2" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy" />
+        <item index="4" class="java.lang.String" itemvalue="Python.SimpleGridOneTest" />
       </list>
     </recent_temporary>
   </component>
@@ -501,12 +518,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38388625" sideWeight="0.07620042" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29508197" sideWeight="0.49425888" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29508197" sideWeight="0.49425888" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18992805" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20686963" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20686963" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31069478" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
@@ -559,12 +576,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py</url>
-          <line>57</line>
+          <line>58</line>
           <option name="timeStamp" value="420" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py</url>
-          <line>60</line>
+          <line>61</line>
           <option name="timeStamp" value="421" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -583,14 +600,9 @@
           <option name="timeStamp" value="425" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py</url>
+          <url>file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py</url>
           <line>51</line>
           <option name="timeStamp" value="469" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py</url>
-          <line>174</line>
-          <option name="timeStamp" value="470" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -658,30 +670,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldState.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/Grid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
@@ -710,14 +698,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -802,14 +782,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderQVals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="4" column="52" lean-forward="true" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/Interface/Policy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -830,14 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
           <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -894,14 +858,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2465">
           <caret line="153" column="79" lean-forward="false" selection-start-line="153" selection-start-column="79" selection-end-line="153" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1015,44 +971,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-510">
-          <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
@@ -1061,20 +979,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/ExplorationMemoryEpsilonGreedy.py">
+    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2754">
-          <caret line="162" column="37" lean-forward="true" selection-start-line="162" selection-start-column="37" selection-end-line="162" selection-end-column="37" />
+        <state relative-caret-position="-510">
+          <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1021">
+          <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-437">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/AgentExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="52" column="41" lean-forward="true" selection-start-line="52" selection-start-column="41" selection-end-line="52" selection-end-column="41" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestExplorationMemoryEpsilonGreedy.py">
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="33" lean-forward="true" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+        <state relative-caret-position="39">
+          <caret line="44" column="0" lean-forward="false" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderExplorationMemories.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderQVals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="141" column="61" lean-forward="true" selection-start-line="141" selection-start-column="21" selection-end-line="141" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="51" column="68" lean-forward="false" selection-start-line="51" selection-start-column="68" selection-end-line="51" selection-end-column="68" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

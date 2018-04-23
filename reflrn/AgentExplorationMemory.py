@@ -10,7 +10,7 @@ from reflrn.Interface.State import State
 # Store memories in a DEQUE and index such that memories can be extracted by episode id or Memory Type
 #
 
-class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
+class AgentExplorationMemory(ExplorationMemory):
     __START = 0
     __END = 1
 
@@ -19,7 +19,7 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
     #
     def __init__(self,
                  lg: logging,
-                 replay_mem_size: int = 10000):
+                 replay_mem_size: int = 100000):  # 100K Entries Max
         self.__memory = deque([], maxlen=replay_mem_size)
         self.__lg = lg
         self.__index = dict()
