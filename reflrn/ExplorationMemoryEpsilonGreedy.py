@@ -7,7 +7,7 @@ from reflrn.Interface.State import State
 
 
 #
-# Store memories in a DEQUE and index such that memories can be extracted by Memory Type
+# Store memories in a DEQUE and index such that memories can be extracted by episode id or Memory Type
 #
 
 class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
@@ -76,12 +76,14 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
                              ) -> [[], [], [], [], [], [], [], []]:
 
         if get_by not in ExplorationMemory.SUPPORTED_GETBY_INDEX:
-            raise ExplorationMemory.MemoryTypeSearchNotSupported(str(get_by) + " Not Searchable")
+            raise ExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported(str(get_by) + " Not Searchable")
 
         return self.__get_memories(self.__get_episodes_for_memory(get_by,
                                                                   value,
                                                                   last_only
-                                                                  )
+                                                                  ),
+                                   get_by,
+                                   value
                                    )
 
     #
@@ -166,7 +168,9 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
     # Return all the Deque entries for the given list of episode id's
     #
     def __get_memories(self,
-                       episodes: []) -> [[], [], [], [], [], [], [], []]:
+                       episodes: [],
+                       get_by: ExplorationMemory.Memory = None,
+                       value: object = None) -> [[], [], [], [], [], [], [], []]:
 
         if episodes is None:
             return None
@@ -174,11 +178,17 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
         episode_deque = deque([])
         sorted_episodes = sorted(episodes)
         for episode in sorted_episodes:
+            if episode not in self.__index[ExplorationMemory.Memory.EPISODE]:
+                raise ExplorationMemory.ExplorationMemoryNoSuchEpisode(str(episode) + " does not exist in memory")
             st_idx, ed_idx = self.__index[ExplorationMemory.Memory.EPISODE][episode]
             if ed_idx == -1:
                 ed_idx = len(self.__memory)
             for idx in range(st_idx, ed_idx):
-                episode_deque.append(self.__memory[idx])
+                if get_by is not None and value is not None:
+                    if self.__memory_match(self.__memory[idx], get_by, value):
+                        episode_deque.append(self.__memory[idx])
+                else:
+                    episode_deque.append(self.__memory[idx])
 
         cols = [[None for i in range(8)] for j in
                 range(len(episode_deque))]  # episode_id, policy, agent, state, next_state,
@@ -192,3 +202,12 @@ class ExplorationMemoryEpsilonGreedy(ExplorationMemory):
             i += 1
 
         return cols
+
+    #
+    # Does the given memory match by just the given memory type and value.
+    #
+    @classmethod
+    def __memory_match(cls, memory: [[], [], [], [], [], [], [], []],
+                       get_by: ExplorationMemory.Memory,
+                       value: object) -> bool:
+        return memory[get_by] == value

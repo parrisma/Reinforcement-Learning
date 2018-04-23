@@ -21,7 +21,15 @@ class ExplorationMemory(metaclass=abc.ABCMeta):
         EPISODE_COMPLETE = int(7)
         MEM_TYPES = (EPISODE, POLICY, AGENT, STATE, NEXT_STATE, ACTION, REWARD, EPISODE_COMPLETE)
 
-    class MemoryTypeSearchNotSupported(Exception):
+    class ExplorationMemoryException(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)
+
+    class ExplorationMemoryMemTypeSearchNotSupported(ExplorationMemoryException):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)
+
+    class ExplorationMemoryNoSuchEpisode(ExplorationMemoryException):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
 

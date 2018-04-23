@@ -23,12 +23,20 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
     __dummy_state_2 = DummyState('DummyState2')
 
     __test_cases = [
-        [0, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0), True],
+        [0, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0), True],  # 0
 
-        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.1), False],
-        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.2), False],
-        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.3), True],
-        [2, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.4), True],
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.1), False],  # 1
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.2), False],  # 2
+        [1, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.3), True],  # 3
+        [2, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 0, float(0.4), True],  # 4
+
+        [3, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 1, float(0.1), False],  # 5
+        [3, __dummy_policy_1, "AgentTwo", __dummy_state_1, __dummy_state_2, 2, float(0.2), False],  # 6
+        [3, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 3, float(0.3), False],  # 7
+        [3, __dummy_policy_1, "AgentTwo", __dummy_state_1, __dummy_state_2, 1, float(0.4), True],  # 8
+        [4, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 3, float(0.5), False],  # 9
+        [4, __dummy_policy_1, "AgentOne", __dummy_state_1, __dummy_state_2, 5, float(0.6), True],  # 10
+        [5, __dummy_policy_1, "AgentTwo", __dummy_state_1, __dummy_state_2, 1, float(0.7), False]  # 11
     ]
 
     @classmethod
@@ -39,6 +47,13 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                                       "TestRig-TemporalDifference.log",
                                       logging.DEBUG
                                       ).get_logger()
+
+    def test_non_existent_episodes(self):
+        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        for ep in (-1, None, float(99), "Junk"):
+            self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryNoSuchEpisode,
+                              emeg.get_memories_by_episode,
+                              ep)
 
     def test_single_memory(self):
         test_case_id = 0
@@ -62,7 +77,7 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
             self.assertEqual(None, memory)
 
         for mem_type in ExplorationMemoryEpsilonGreedy.UNSUPPORTED_GETBY_INDEX:
-            self.assertRaises(ExplorationMemoryEpsilonGreedy.MemoryTypeSearchNotSupported,
+            self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryMemTypeSearchNotSupported,
                               emeg.get_memories_by_type,
                               mem_type,
                               None)
@@ -109,10 +124,56 @@ class TestExplorationMemoryEpsilonGreedy(unittest.TestCase):
                 self.assertEqual(None, memory)
 
             for mem_type in ExplorationMemoryEpsilonGreedy.UNSUPPORTED_GETBY_INDEX:
-                self.assertRaises(ExplorationMemoryEpsilonGreedy.MemoryTypeSearchNotSupported,
+                self.assertRaises(ExplorationMemoryEpsilonGreedy.ExplorationMemoryMemTypeSearchNotSupported,
                                   emeg.get_memories_by_type,
                                   mem_type,
                                   None)
+
+        return
+
+    def test_multi_memory2(self):
+        emeg = ExplorationMemoryEpsilonGreedy(self.__lg)
+        self.__add_test_cases(emeg, self.__test_cases, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+
+        # in random order to ensure there is no inherent dependency on the order the
+        # episodes are loaded.
+        #
+        for ep, cnt in ((3, 4), (5, 1), (4, 2), (0, 1), (2, 1), (1, 3)):
+            memory = emeg.get_memories_by_episode(episode=ep)
+            self.assertEqual(len(memory), cnt)
+
+        agent = "AgentOne"
+        # Occupancies of Agent-1
+        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.AGENT,
+                                           agent,
+                                           last_only=False)
+        self.assertEqual(len(memory), 9)
+        for mem in memory:
+            self.assertEqual(agent, mem[ExplorationMemoryEpsilonGreedy.Memory.AGENT])
+
+        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.AGENT,
+                                           agent,
+                                           last_only=True)  # Last Episode agent was *seen* in
+        self.assertEqual(len(memory), 2)
+        for mem in memory:
+            self.assertEqual(agent, mem[ExplorationMemoryEpsilonGreedy.Memory.AGENT])
+            self.assertEqual(4, mem[ExplorationMemoryEpsilonGreedy.Memory.EPISODE])  # Last seen in Ep 4
+
+        action = 1
+        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.ACTION,
+                                           action,
+                                           last_only=False)  # Last Episode action was *seen* in
+        self.assertEqual(len(memory), 3)
+        for mem in memory:
+            self.assertEqual(action, mem[ExplorationMemoryEpsilonGreedy.Memory.ACTION])
+
+        memory = emeg.get_memories_by_type(ExplorationMemoryEpsilonGreedy.Memory.ACTION,
+                                           action,
+                                           last_only=True)  # Last Episode agent was *seen* in
+        self.assertEqual(len(memory), 1)
+        for mem in memory:
+            self.assertEqual(action, mem[ExplorationMemoryEpsilonGreedy.Memory.ACTION])
+            self.assertEqual(5, mem[ExplorationMemoryEpsilonGreedy.Memory.EPISODE])  # Last seen in Ep 5
 
         return
 
