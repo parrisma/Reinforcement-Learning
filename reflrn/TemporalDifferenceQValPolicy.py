@@ -118,6 +118,8 @@ class TemporalDifferenceQValPolicy(Policy):
 
         self.__lg.debug(
             agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
+        lgm = self.vals_and_actions_as_str(state)
+        self.__lg.debug(lgm)
 
         # Update master count of policy learning events
         TemporalDifferenceQValPolicy.__n += 1
@@ -183,8 +185,6 @@ class TemporalDifferenceQValPolicy(Policy):
 
         if self.__fixed_games is not None:
             return self.__fixed_games.next_action()
-
-        self.__lg.debug(self.vals_and_actions_as_str(state))
 
         qvs, actions = self.__get_q_vals_as_np_array(state)
 

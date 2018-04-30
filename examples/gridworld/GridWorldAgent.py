@@ -48,7 +48,8 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        self.__lg.debug(RenderAgentExplorationMemory().render_episode(self.__exploration_memory, self.__episode))
+        self.__lg.info(RenderAgentExplorationMemory(self.__lg, True).render_episode(self.__exploration_memory,
+                                                                                    self.__episode))
         self.__episode += 1
         pass
 

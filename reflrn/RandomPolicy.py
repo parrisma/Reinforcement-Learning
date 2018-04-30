@@ -50,7 +50,8 @@ class RandomPolicy(Policy):
 
         return actn
 
-    def __key(self, agent_name: str, state: State, action: int):
+    @classmethod
+    def __key(cls, agent_name: str, state: State, action: int):
         return agent_name + ':' + state.state_as_string() + ':' + str(action)
 
     def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float,

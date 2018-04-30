@@ -6,7 +6,6 @@ import numpy as np
 from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
-from reflrn.AgentExplorationMemory import AgentExplorationMemory
 
 
 class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
@@ -55,7 +54,8 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
                             state: State,
                             possible_actions: [int]) -> Policy:
 
-        if random.random() > self.__epsilon:
+        if random.random() < self.__epsilon_decay(episode_number):
+            # if random.random() > self.__epsilon:
             self.__lg.debug(agent_name + " exploration policy selected")
             return self.__exploration_policy
         else:
@@ -79,3 +79,11 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
                                            action,
                                            reward,
                                            episode_complete)
+
+    def __epsilon_decay(self,
+                        episode_num: int) -> float:
+        initial = 1.0
+        k = .5 #.25
+        new_ep = initial * np.exp(-k * episode_num)
+        self.__lg.debug("New Epsilon :" + str(new_ep))
+        return new_ep

@@ -18,9 +18,10 @@ np.random.seed(42)
 #
 # Set Manually and re-run
 #
-epgrdy = 0.5
+epgrdy = 0.8
 itr = 100000
 lg = EnvironmentLogging("TestRig-TemporalDifference", "TestRig-TemporalDifference.log", logging.DEBUG).get_logger()
+lg.setLevel('DEBUG')
 
 test_grid = GridFactory.test_grid_four()
 sh = test_grid.shape()

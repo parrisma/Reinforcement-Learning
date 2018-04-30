@@ -11,6 +11,8 @@ class SimpleGridOneRenderQValues(RenderQVals):
     __i = 0
     __cmap = 'gist_earth'
     __plot_pause = 0.0001
+    __sep_s = ''
+    __sep_e = ','
     PLOT_SURFACE = 1
     PLOT_WIREFRAME = 2
     PLOT_GRID = 3
@@ -63,7 +65,7 @@ class SimpleGridOneRenderQValues(RenderQVals):
 
             for i in range(0, self.__num_rows):
                 for j in range(0, self.__num_cols):
-                    s += "[" + fmt.format(qgrid[i][j]) + "] "
+                    s += self.__sep_s + fmt.format(qgrid[i][j]) + self.__sep_e
                 s += "\n"
 
             if self.__do_plot:
