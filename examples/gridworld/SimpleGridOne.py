@@ -23,9 +23,8 @@ class SimpleGridOne(Grid):
     FREE = np.float(0)
     NORTH = np.int(0)
     SOUTH = np.int(1)
-    EAST = np.int(3)
-    WEST = np.int(4)
-    __actions = dict()
+    EAST = np.int(2)
+    WEST = np.int(3)
     __actions = {NORTH: (-1, 0), SOUTH: (1, 0), EAST: (0, 1), WEST: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
 
     #
@@ -87,7 +86,7 @@ class SimpleGridOne(Grid):
     # What is the list of all possible actions.
     #
     def actions(self) -> [int]:
-        return self.__actions.copy()
+        return [self.NORTH, self.SOUTH, self.EAST, self.WEST]
 
     #
     # Return the given id of the grid.

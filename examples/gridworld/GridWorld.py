@@ -71,19 +71,21 @@ class GridWorld(Environment):
         self.__x_agent.terminate()
         return
 
+    #
+    # record statistics for episode.
+    #
     def __keep_stats(self, reset: bool = False):
         pass
 
     @classmethod
     def no_agent(cls):
-        return cls.__no_agent
+        return None
 
     #
     # Return the actions as a list of integers.
     #
-    @classmethod
-    def actions(cls) -> [int]:
-        return list(map(lambda a: int(a), list(GridWorld.__actions.keys())))
+    def actions(self) -> [int]:
+        return self.__grid.actions()
 
     #
     # Make the play chosen by the given agent. If it is a valid play
@@ -128,7 +130,7 @@ class GridWorld(Environment):
     # The current state of the environment as string
     #
     def state_as_str(self) -> str:
-        return GridWorldState(self.__grid, self.__x_agent)
+        return GridWorldState(self.__grid, self.__x_agent).state_as_string()
 
     #
     # Load Environment from file

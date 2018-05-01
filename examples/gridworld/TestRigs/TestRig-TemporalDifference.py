@@ -30,6 +30,7 @@ epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(
     greedy_policy=TemporalDifferenceQValPolicy(lg=lg,
                                                filename="./gridworld-tmpr-diff.pb",
                                                fixed_games=None,
+                                               manage_qval_file=False,
                                                q_val_render=SimpleGridOneRenderQValues(sh[0],
                                                                                        sh[1],
                                                                                        do_scale=False,

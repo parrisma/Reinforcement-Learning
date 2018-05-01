@@ -14,17 +14,49 @@ from reflrn.Interface.TemporalDifferencePolicyPersistance import TemporalDiffere
 
 
 class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistance):
+    __enable_csv = False
+    __max_actions_per_state = 4  # ToDo this needs to be passes in as ctor time
+
+    #
+    # Enable / Disable csv file save.
+    #
+    @classmethod
+    def enable_csv_file_save(cls) -> None:
+        cls.__enable_csv = True
+
+    @classmethod
+    def disable_csv_file_save(cls) -> None:
+        cls.__enable_csv = False
 
     #
     # Dump the given q values dictionary to a simple text dump.
     #
     @classmethod
-    def save(cls, qv: dict,
+    def save(cls,
+             qv: dict,
              n: int,
              learning_rate_0: np.float,
              discount_factor: np.float,
              learning_rate_decay: np.float,
-             filename: str):
+             filename: str) -> bool:
+
+        cls.save_sparse(qv, n, learning_rate_0, discount_factor, learning_rate_decay, filename)
+        if cls.__enable_csv:
+            cls.save_as_csv(qv, cls.__with_csv_file_extension(filename))
+        return True
+
+    #
+    # Dump the given q values dictionary to a simple text dump. This is a sparse format that is used to
+    # restore the QV State.
+    #
+    @classmethod
+    def save_sparse(cls,
+                    qv: dict,
+                    n: int,
+                    learning_rate_0: np.float,
+                    discount_factor: np.float,
+                    learning_rate_decay: np.float,
+                    filename: str) -> bool:
         out_f = None
         try:
             out_f = open(filename, "w")
@@ -46,23 +78,25 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
         return True
 
     #
-    # Dump the given q values dictionary to a simple text dump.
+    # Dump the given q values dictionary to a simple text dump, but full csv format.
     #
     @classmethod
-    def save_as_csv(cls, qv: dict, filename: str):
+    def save_as_csv(cls,
+                    qv: dict,
+                    filename: str) -> bool:
         out_f = None
         try:
             out_f = open(filename, "w")
-            qvs = np.zeros(9)
-            for state, q_val_dict in qv[0].items():
-                out_f.write("S:" + str(state).replace('-1', '2'))
+            qvs = np.zeros(cls.__max_actions_per_state)
+            for state, q_val_dict in qv.items():
+                out_f.write("S:" + state)
                 out_f.write(",")
                 for action, q_val in q_val_dict.items():
                     qvs[action] = q_val
                 for qv in qvs:
                     out_f.write('{:.16f}'.format(qv) + ",")
                 out_f.write("\n")
-                qvs = np.zeros(9)
+                qvs = np.zeros(cls.__max_actions_per_state)
         except Exception as exc:
             print("Failed to save Q Values : " + str(exc))
             return False
@@ -71,10 +105,13 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
         return True
 
     #
-    # Load the given file into a TD Policy state/action/q value dictionary
+    # Load the given file into a TD Policy state/action/q value dictionary. This loads the sparse
+    # form of the save.
     #
     @classmethod
-    def load(cls, filename: str) -> Tuple[dict, int, np.float, np.float, np.float]:
+    def load(cls,
+             filename: str) -> Tuple[dict, int, np.float, np.float, np.float]:
+        n = learning_rate_0 = discount_factor = learning_rate_decay = np.float(0)
         in_f = None
         qv = dict()
         ln = 0
@@ -104,6 +141,23 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
             if in_f is not None:
                 in_f.close()
         return qv, n, learning_rate_0, discount_factor, learning_rate_decay
+
+    #
+    # Change file extension to .csv
+    #
+    @classmethod
+    def __with_csv_file_extension(cls, filename: str) -> str:
+        bits = filename.split('.')
+        ln = len(bits)
+
+        csv_filename = ''
+        if ln >= 1:
+            for i in range(0, ln - 1):
+                csv_filename += bits[i] + '.'
+            csv_filename += 'csv'
+        else:
+            csv_filename = filename + '.csv'
+        return csv_filename
 
 
 # ********************

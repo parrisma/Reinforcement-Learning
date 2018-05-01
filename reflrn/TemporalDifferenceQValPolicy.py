@@ -32,18 +32,22 @@ class TemporalDifferenceQValPolicy(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 filename: str = "",
+                 filename: str = None,
                  fixed_games: FixedGames = None,
                  load_qval_file: bool = False,
                  manage_qval_file: bool = False,
+                 save_every: int = 5000,
                  q_val_render: RenderQVals = None):
         self.__lg = lg
         self.__filename = filename
         self.__persistance = TemporalDifferenceQValPolicyPersistance()
+        self.__persistance.enable_csv_file_save()
         self.__fixed_games = fixed_games
         self.__manage_qval_file = manage_qval_file
+        self.__save_every = save_every  # how often do we dump down the q value file if save is enabled.
         self.__q_val_render = q_val_render
         self.__fallback_policy = RandomPolicy(prefer_new=True)
+        self.__frame_id = 0
 
         if load_qval_file:
             try:
@@ -117,15 +121,21 @@ class TemporalDifferenceQValPolicy(Policy):
                       episode_complete: bool):
 
         self.__lg.debug(
-            agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(action))
+            str(
+                self.__frame_id) + ":" + agent_name + " : " + state.state_as_string() + " : " + next_state.state_as_string() + " : " + str(
+                action))
+
         lgm = self.vals_and_actions_as_str(state)
-        self.__lg.debug(lgm)
+        if episode_complete:
+            self.__lg.debug(lgm)
+            self.__frame_id += 1
 
         # Update master count of policy learning events
         TemporalDifferenceQValPolicy.__n += 1
-        if self.__n % 5000 == 0:
+        if self.__n % self.__save_every == 0:
             if self.__manage_qval_file:
                 self.__save()
+        self.__n += 1
 
         lr = TemporalDifferenceQValPolicy.__q_learning_rate()
 
@@ -265,3 +275,9 @@ class TemporalDifferenceQValPolicy(Policy):
     #
     def vals_and_actions_as_str(self, state: State) -> str:
         return self.__q_val_render.render(state, self.__q_values)
+
+    #
+    # Log state
+    #
+    def __log_state(self):
+        pass
