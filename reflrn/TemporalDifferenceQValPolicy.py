@@ -129,13 +129,11 @@ class TemporalDifferenceQValPolicy(Policy):
         if episode_complete:
             self.__lg.debug(lgm)
             self.__frame_id += 1
+            if self.__manage_qval_file: # Save Q Vals At End Of Every Episode
+                self.__save()
 
         # Update master count of policy learning events
         TemporalDifferenceQValPolicy.__n += 1
-        if self.__n % self.__save_every == 0:
-            if self.__manage_qval_file:
-                self.__save()
-        self.__n += 1
 
         lr = TemporalDifferenceQValPolicy.__q_learning_rate()
 

@@ -15,7 +15,7 @@ from reflrn.Interface.TemporalDifferencePolicyPersistance import TemporalDiffere
 
 class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistance):
     __enable_csv = False
-    __max_actions_per_state = 4  # ToDo this needs to be passes in as ctor time
+    __max_actions_per_state = 4  # ToDo this needs to be passes in to save as CSV
 
     #
     # Enable / Disable csv file save.

@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestTemporalDifferenceQValPolicy.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/greedy_policy_test_1.pb" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
       <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" />
       <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/qv-analysis.xlsx" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/qv-analysis.xlsx" />
       <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
@@ -27,86 +27,18 @@
       <file leaf-file-name="TestRig-TemporalDifference.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="32" column="69" lean-forward="false" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridWorld.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorld.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state relative-caret-position="119">
+              <caret line="7" column="73" lean-forward="false" selection-start-line="7" selection-start-column="73" selection-end-line="7" selection-end-column="73" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RenderAgentExplorationMemory.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#16#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Grid.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/Grid.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleGridOne.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1610">
-              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemporalDifferenceQValPolicy.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TemporalDifferenceQValPolicy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="127" column="49" lean-forward="false" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TemporalDifferenceQValPolicyPersistance.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="91" column="41" lean-forward="false" selection-start-line="91" selection-start-column="41" selection-end-line="91" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridWorldAgent.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+            <state relative-caret-position="-160">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -114,11 +46,35 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EpsilonGreedyExplorationStrategy.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py">
+      <file leaf-file-name="TestTemporalDifferenceQValPolicy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestTemporalDifferenceQValPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+            <state relative-caret-position="731">
+              <caret line="47" column="57" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GridWorldState.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldState.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleGridOneRenderQValues.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="52" column="55" lean-forward="true" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -135,7 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>board</find>
       <find>invalid_ac</find>
       <find>rand</find>
       <find>randin</find>
@@ -165,6 +120,7 @@
       <find>ExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported(str(get_by) + &quot; Not Searchable&quot;)</find>
       <find>Summary</find>
       <find>debug</find>
+      <find>__frame_id</find>
     </findStrings>
     <replaceStrings>
       <replace>__grid</replace>
@@ -179,9 +135,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/reflrn/ReplayMemory.py" />
-        <option value="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
-        <option value="$PROJECT_DIR$/reflrn/StrategyExploration.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicyPersistance.py" />
@@ -224,11 +177,14 @@
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py" />
         <option value="$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py" />
-        <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/Grid.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorld.py" />
+        <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" />
+        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferenceQValPolicy.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestTemporalDifferenceQValPolicy.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
       </list>
     </option>
@@ -306,6 +262,12 @@
               <item name="reflrn" type="462c0819:PsiDirectoryNode" />
               <item name="Interface" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="reflrn" type="462c0819:PsiDirectoryNode" />
+              <item name="ReflrnUnitTests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -318,17 +280,18 @@
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\tictactoe\TicTacToeTests" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\tictactoe" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn\Interface" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld\TestRigs" />
       <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn" />
       <recent name="C:\Users\Admin_2\Google Drive\ML\TicTacToe" />
       <recent name="C:\Users\Admin_2\.PyCharmCE2017.3\config\scratches" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin_2\dev\TicTacToe-DeepLearning\examples\gridworld\GridWorldUnitTests" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\tictactoe\TicTacToeTests" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\tictactoe" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn\Interface" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -380,24 +343,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="TestExplorationMemoryEpsilonGreedy (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn\ReflrnUnitTests\TestAgentExplorationMemory.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="TestRig-TemporalDifference" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -411,6 +356,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="TicTacToe" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="TestTemporalDifferenceQValPolicy" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TicTacToe" />
+      <option name="SCRIPT_NAME" value="C:\Users\Admin_2\dev\TicTacToe-DeepLearning\examples\gridworld\GridWorldUnitTests\TestTemporalDifferenceQValPolicy.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -432,7 +395,7 @@
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
     </configuration>
-    <configuration name="py.test in SimpleGridOneTest.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="py.test in TestSimpleGridOne.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs />
@@ -444,23 +407,23 @@
       <module name="TicTacToe" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
-      <item index="1" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
-      <item index="2" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.py.test in SimpleGridOneTest.py" />
-      <item index="4" class="java.lang.String" itemvalue="Python.EpsilonGreedyExplorationStrategy" />
+      <item index="1" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleGridOne.py" />
+      <item index="3" class="java.lang.String" itemvalue="Python.EpsilonGreedyExplorationStrategy" />
+      <item index="4" class="java.lang.String" itemvalue="Python.TestTemporalDifferenceQValPolicy" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
-        <item index="1" class="java.lang.String" itemvalue="Python.EpsilonGreedyExplorationStrategy" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in SimpleGridOneTest.py" />
-        <item index="3" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
-        <item index="4" class="java.lang.String" itemvalue="Python.TestExplorationMemoryEpsilonGreedy (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TestTemporalDifferenceQValPolicy" />
+        <item index="2" class="java.lang.String" itemvalue="Python.EpsilonGreedyExplorationStrategy" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleGridOne.py" />
+        <item index="4" class="java.lang.String" itemvalue="Python.TestAgentExplorationMemory" />
       </list>
     </recent_temporary>
   </component>
@@ -524,12 +487,12 @@
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35868695" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35841957" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31044215" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31044215" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -560,17 +523,12 @@
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py</url>
-          <line>90</line>
-          <option name="timeStamp" value="375" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py</url>
+          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
           <line>37</line>
           <option name="timeStamp" value="387" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py</url>
+          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
           <line>25</line>
           <option name="timeStamp" value="404" />
         </line-breakpoint>
@@ -589,6 +547,16 @@
           <line>51</line>
           <option name="timeStamp" value="469" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py</url>
+          <line>129</line>
+          <option name="timeStamp" value="491" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py</url>
+          <line>52</line>
+          <option name="timeStamp" value="492" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -597,7 +565,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="488" />
+      <option name="time" value="493" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -607,6 +575,21 @@
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>(q_vals[k])[kqv]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>qgrid[x][y]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>qvals</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>qv</expression-string>
         <language-id>Python</language-id>
@@ -642,33 +625,9 @@
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>map(str.join, list(zip(['.'] * (ln - 1), bits[:ln - 1])))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>bits[:ln - 1]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/EnvironmentLogging.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -703,13 +662,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="27" lean-forward="false" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="36" column="79" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="79" />
         </state>
       </provider>
     </entry>
@@ -835,14 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/SimpleGridOneTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-788">
-          <caret line="11" column="29" lean-forward="false" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -857,17 +801,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferencePolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="824">
-          <caret line="74" column="29" lean-forward="false" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/GridFactory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="27" column="16" lean-forward="false" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -881,68 +819,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
+    <entry file="file://$PROJECT_DIR$/docker/Dockerfile" />
+    <entry file="file://$PROJECT_DIR$/docker/hello-world.py" />
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="391">
+          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docker/Dockerfile" />
-    <entry file="file://$PROJECT_DIR$/docker/hello-world.py" />
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/Grid.py">
+    <entry file="file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        <state relative-caret-position="396">
+          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferencePolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="124" column="0" lean-forward="false" selection-start-line="124" selection-start-column="0" selection-end-line="133" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="91" column="41" lean-forward="false" selection-start-line="91" selection-start-column="41" selection-end-line="91" selection-end-column="41" />
+        <state relative-caret-position="568">
+          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/Grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="32" column="69" lean-forward="false" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
+        <state relative-caret-position="714">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1610">
-          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-743">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -955,27 +899,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/RenderAgentExplorationMemory.py">
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1632">
+          <caret line="100" column="57" lean-forward="false" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/EpsilonGreedyExplorationStrategy.py">
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestTemporalDifferenceQValPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="731">
+          <caret line="47" column="57" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
+        <state relative-caret-position="1479">
           <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -983,18 +927,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="36" column="79" lean-forward="false" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1144">
+          <caret line="161" column="18" lean-forward="false" selection-start-line="161" selection-start-column="18" selection-end-line="161" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorld.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="476">
+          <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="127" column="49" lean-forward="false" selection-start-line="127" selection-start-column="49" selection-end-line="127" selection-end-column="49" />
+        <state relative-caret-position="-160">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="73" lean-forward="false" selection-start-line="7" selection-start-column="73" selection-end-line="7" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOneRenderQValues.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="52" column="55" lean-forward="true" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="55" />
           <folding />
         </state>
       </provider>
