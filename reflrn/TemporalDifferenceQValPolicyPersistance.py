@@ -89,7 +89,7 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
             out_f = open(filename, "w")
             qvs = np.zeros(cls.__max_actions_per_state)
             for state, q_val_dict in qv.items():
-                out_f.write("S:" + state)
+                out_f.write(state)
                 out_f.write(",")
                 for action, q_val in q_val_dict.items():
                     qvs[action] = q_val

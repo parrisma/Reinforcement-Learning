@@ -89,7 +89,7 @@ class TemporalDifferenceQValPolicy(Policy):
     # Get the given q value for the given agent, state and action
     #
     @classmethod
-    def __get_q_value(cls, state: State, action: int):
+    def __get_q_value(cls, state: State, action: int) -> float:
         state_name = state.state_as_string()
         cls.__manage_q_val_store(state.state_as_string(), action)
         return cls.__q_values[state_name][action]
@@ -98,7 +98,7 @@ class TemporalDifferenceQValPolicy(Policy):
     # Set the q value for the given agent, state and action
     #
     @classmethod
-    def __set_q_value(cls, state: State, action: int, q_value: float):
+    def __set_q_value(cls, state: State, action: int, q_value: float) -> None:
         state_name = state.state_as_string()
         cls.__manage_q_val_store(state_name, action)
         cls.__q_values[state_name][action] = q_value
@@ -118,7 +118,7 @@ class TemporalDifferenceQValPolicy(Policy):
                       next_state: State,
                       action: int,
                       reward: float,
-                      episode_complete: bool):
+                      episode_complete: bool) -> None:
 
         self.__lg.debug(
             str(

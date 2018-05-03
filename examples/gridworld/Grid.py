@@ -26,7 +26,7 @@ class Grid(metaclass=abc.ABCMeta):
     # Execute the given (allowable) action and return the reward and the state
     #
     @abc.abstractmethod
-    def execute_action(self, action: int) -> int:
+    def execute_action(self, action: int) -> int:  # ToDo is this type hint correct ?
         pass
 
     #

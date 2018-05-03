@@ -42,10 +42,30 @@ class TestTemporalDifferenceQValPolicy(unittest.TestCase):
         grid = GridFactory.test_grid_four()  # Create grid that matches the 20 by 20 test case.
         state = GridWorldState(grid, agent)
 
-        tdavp = TemporalDifferenceQValPolicy(self.__lg)
-        qvals = self.__tdqvpp.load("./greedy_policy_test_1.pb")
+        tdavp = TemporalDifferenceQValPolicy(lg=self.__lg,
+                                             filename="./greedy_policy_test_1.pb",
+                                             load_qval_file=True)
 
-        action = tdavp.select_action(agent.name(), state, grid.allowable_actions())
+        # ToDo
+        # Test not finished, but manual stepping has shown it gets stuck in a tight cell to cell loop
+        # if just the greedy policy is followed. Not sure why this is as in learning mode this should
+        # reduce the QValue score as the step cost is -1 and it would then select another max QVal from
+        # adjacent cell as new optimal ??
+        #
+        # The issue is that at this advanced stage (learning rate is very small) so updates are order
+        # -1e-06, so the impact on the QValue is minimal order < 100K iterations, by which time the
+        # random exploration move has happened. This means when we get stuck in loops we tend to have very
+        # long episodes while waiting to break out of these tight loops.
+        #
+        expected_actions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        i = 0
+        while not grid.episode_complete():  # i < len(expected_actions):
+            print(state.state_as_string())
+            action = tdavp.select_action(agent.name(), state, grid.allowable_actions())
+            grid.execute_action(action)
+            state = GridWorldState(grid, agent)
+            # self.assertEqual(expected_actions[i], action)
+            i += 1
         return
 
 
