@@ -7,7 +7,7 @@ from reflrn.Interface.RenderQVals import RenderQVals
 from reflrn.Interface.State import State
 
 
-class SimpleGridOneRenderQValues(RenderQVals):
+class RenderSimpleGridOneQValues(RenderQVals):
     __i = 0
     __cmap = 'gist_earth'
     __plot_pause = 0.0001

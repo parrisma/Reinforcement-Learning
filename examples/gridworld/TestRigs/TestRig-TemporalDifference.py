@@ -5,7 +5,7 @@ import numpy as np
 
 from examples.gridworld.GridWorld import GridWorld
 from examples.gridworld.GridWorldAgent import GridWorldAgent
-from examples.gridworld.SimpleGridOneRenderQValues import SimpleGridOneRenderQValues
+from examples.gridworld.RenderSimpleGridOneQValues import RenderSimpleGridOneQValues
 from examples.gridworld.TestRigs.GridFactory import GridFactory
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.EpsilonGreedyExplorationStrategy import EpsilonGreedyExplorationStrategy
@@ -30,10 +30,10 @@ epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(
     greedy_policy=TemporalDifferenceQValPolicy(lg=lg,
                                                filename="./gridworld-tmpr-diff.pb",
                                                fixed_games=None,
-                                               manage_qval_file=False,
-                                               load_qval_file=True,
+                                               manage_qval_file=True,
+                                               load_qval_file=False,
                                                save_every=100,
-                                               q_val_render=SimpleGridOneRenderQValues(sh[0],
+                                               q_val_render=RenderSimpleGridOneQValues(sh[0],
                                                                                        sh[1],
                                                                                        do_scale=False,
                                                                                        do_plot=True)

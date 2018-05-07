@@ -83,7 +83,7 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
     def __epsilon_decay(self,
                         episode_num: int) -> float:
         initial = 1.0
-        k = .25 #.25
+        k = .1
         new_ep = initial * np.exp(-k * episode_num)
         self.__lg.debug("New Epsilon :" + str(new_ep))
         if new_ep < 0.05:

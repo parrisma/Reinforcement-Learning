@@ -15,7 +15,7 @@ from .GridEpisodeOverException import GridEpisodeOverException
 
 
 class SimpleGridOne(Grid):
-    STEP = np.float(-0.1)
+    STEP = np.float(-0.2)
     FIRE = np.float(-1)
     GOAL = np.float(+1)
     BLCK = np.float(-1.1)
@@ -48,6 +48,7 @@ class SimpleGridOne(Grid):
         else:
             self.__start = deepcopy([0, 0])
             self.__curr = [0, 0]
+        self.__trace = None
 
     #
     # What is teh shape of the grid
@@ -80,6 +81,9 @@ class SimpleGridOne(Grid):
             raise GridBlockedActionException("Illegal Grid Move, cell blocked or action would move out of grid")
 
         self.__curr = self.__new_coords_after_action(action)
+        if self.__episode_over():
+            self.__episode_reset()
+        self.__track_location(self.__curr)
         return self.__grid_reward(self.__curr)
 
     #
@@ -105,7 +109,7 @@ class SimpleGridOne(Grid):
         return cp
 
     #
-    # Id the episode complete.
+    # Is the episode complete.
     #
     def episode_complete(self) -> bool:
         return self.__episode_over()
@@ -151,12 +155,40 @@ class SimpleGridOne(Grid):
         ams = []
         if self.__episode_over():
             return []
-        if self.__curr[0] > 0 and not self.__blocked(self.__new_coords_after_action(self.NORTH)):
+        new_coords = self.__new_coords_after_action(self.NORTH)
+        if self.__curr[0] > 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.NORTH)
-        if self.__curr[0] + 1 < self.__grid_rows and not self.__blocked(self.__new_coords_after_action(self.SOUTH)):
+        new_coords = self.__new_coords_after_action(self.SOUTH)
+        if self.__curr[0] + 1 < self.__grid_rows and not self.__blocked(
+                new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.SOUTH)
-        if self.__curr[1] > 0 and not self.__blocked(self.__new_coords_after_action(self.WEST)):
+        new_coords = self.__new_coords_after_action(self.WEST)
+        if self.__curr[1] > 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.WEST)
-        if self.__curr[1] + 1 < self.__grid_cols and not self.__blocked(self.__new_coords_after_action(self.EAST)):
+        new_coords = self.__new_coords_after_action(self.EAST)
+        if self.__curr[1] + 1 < self.__grid_cols and not self.__blocked(
+                new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.EAST)
         return ams
+
+    #
+    # Reset at end of episode.
+    #
+    def __episode_reset(self) -> None:
+        self.__trace = dict()
+        return
+
+    #
+    # Has this location been already visited in the current episode
+    #
+    def __location_already_visited(self, coords: ()) -> bool:
+        if self.__trace is not None:
+            return coords[0] == self.__curr[0] and coords[1] == self.__curr[1]
+        return False
+
+    #
+    # Tracxk the fact this location has been visited in current episode.
+    #
+    def __track_location(self, coords: ()) -> None:
+        self.__trace = coords
+        return

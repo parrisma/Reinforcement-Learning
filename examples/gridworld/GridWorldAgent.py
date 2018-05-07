@@ -4,7 +4,7 @@ from reflrn.AgentExplorationMemory import AgentExplorationMemory
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.State import State
-from reflrn.RenderAgentExplorationMemory import RenderAgentExplorationMemory
+from examples.gridworld.RenderGridWorldAgentExplorationMemory import RenderGridWorldAgentExplorationMemory
 
 
 class GridWorldAgent(Agent):
@@ -48,8 +48,8 @@ class GridWorldAgent(Agent):
     # Environment call back when episode is completed
     #
     def episode_complete(self, state: State):
-        self.__lg.info(RenderAgentExplorationMemory(self.__lg, True).render_episode(self.__exploration_memory,
-                                                                                    self.__episode))
+        self.__lg.info(RenderGridWorldAgentExplorationMemory(self.__lg, True).render_episode(self.__exploration_memory,
+                                                                                             self.__episode))
         self.__episode += 1
         pass
 

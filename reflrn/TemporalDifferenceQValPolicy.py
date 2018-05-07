@@ -21,10 +21,11 @@ class TemporalDifferenceQValPolicy(Policy):
     #
     __q_values = None  # key: Agent id + State & Value: (dictionary of key: action -> Value: Q value)
     __n = 0  # number of learning events
-    __learning_rate_0 = float(0.05)
+    __learning_rate_0 = float(1.0)
     __discount_factor = float(0.8)
-    __learning_rate_decay = float(0.001)
+    __learning_rate_decay = float(0.05)
     __fixed_games = None  # a class that allows canned games to be played
+    __rand_qval_init = True
 
     #
     # At inti time the only thing needed is the universal set of possible
@@ -65,8 +66,8 @@ class TemporalDifferenceQValPolicy(Policy):
     # Return the learning rate based on number of learning's to date
     #
     @classmethod
-    def __q_learning_rate(cls):
-        return cls.__learning_rate_0 / (1 + (cls.__n * cls.__learning_rate_decay))
+    def __q_learning_rate(cls, n: int):
+        return cls.__learning_rate_0 / (1 + (n * cls.__learning_rate_decay))
 
     #
     # Manage q value store
@@ -81,7 +82,7 @@ class TemporalDifferenceQValPolicy(Policy):
             cls.__q_values[q_val_state_name] = dict()
 
         if action not in cls.__q_values[q_val_state_name]:
-            cls.__q_values[q_val_state_name][action] = float(0)
+            cls.__q_values[q_val_state_name][action] = cls.__init_qval(cls.__rand_qval_init)
 
         return
 
@@ -129,13 +130,13 @@ class TemporalDifferenceQValPolicy(Policy):
         if episode_complete:
             self.__lg.debug(lgm)
             self.__frame_id += 1
-            if self.__manage_qval_file: # Save Q Vals At End Of Every Episode
+            if self.__manage_qval_file:  # Save Q Vals At End Of Every Episode
                 self.__save()
 
         # Update master count of policy learning events
         TemporalDifferenceQValPolicy.__n += 1
 
-        lr = TemporalDifferenceQValPolicy.__q_learning_rate()
+        lr = TemporalDifferenceQValPolicy.__q_learning_rate(self.__frame_id)
 
         # Establish the max (optimal) outcome taken from the target state.
         #
@@ -279,3 +280,13 @@ class TemporalDifferenceQValPolicy(Policy):
     #
     def __log_state(self):
         pass
+
+    #
+    # Q Value Initialize
+    #
+    @classmethod
+    def __init_qval(cls, rand_init: bool = True) -> np.float:
+        if rand_init:
+            return np.random.uniform(-1, 1)
+        else:
+            return np.float(0)

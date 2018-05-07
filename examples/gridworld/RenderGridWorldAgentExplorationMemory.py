@@ -9,7 +9,7 @@ from reflrn.Interface.ExplorationMemory import ExplorationMemory
 from reflrn.Interface.RenderExplorationMemories import RenderExplorationMemory
 
 
-class RenderAgentExplorationMemory(RenderExplorationMemory):
+class RenderGridWorldAgentExplorationMemory(RenderExplorationMemory):
     __plot_pause = 0.0001
 
     def __init__(self,
