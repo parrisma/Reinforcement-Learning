@@ -41,3 +41,10 @@ class GridWorldState(State):
     #
     def state_as_visualisation(self) -> str:
         return self.state_as_string()
+
+    #
+    # Return the array encoded form of the grid to be used as the X input to a NN.
+    #
+    def state_as_array(self):
+        return self.__grid
+

@@ -22,3 +22,13 @@ class State(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def state_as_string(self) -> str:
         pass
+
+    #
+    # State encoded as a numpy array that can be passed as the X (input) into
+    # a Neural Net. The dimensionality can vary depending on the implementation
+    # from a linear vector for a simple Sequential model to an 3D array for a
+    # multi layer convolutional model.
+    #
+    @abc.abstractmethod
+    def state_as_array(self):
+        pass

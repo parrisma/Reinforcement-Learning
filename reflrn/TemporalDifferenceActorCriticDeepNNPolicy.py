@@ -7,10 +7,11 @@ import numpy as np
 from keras.layers import Dense, Dropout
 from keras.models import Sequential
 
-from reflrn.DequeReplayMemory import DequeReplayMemory
-from reflrn.EvaluationException import EvaluationException
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
+from reflrn.Interface.Model import Model
+from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.EvaluationException import EvaluationException
 from reflrn.ModelParameters import ModelParameters
 
 
@@ -32,9 +33,10 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 replay_memory:
-                 DequeReplayMemory,
+                 replay_memory: DequeReplayMemory,
                  model_file_name: str,
+                 num_actions: int,
+                 model: Model,
                  model_parameters: ModelParameters = None,
                  load_model: bool = False):
 
@@ -48,11 +50,13 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         self.__model_file_name = model_file_name
         self.__critic_updates = 0
         self.__replay_memory = replay_memory
+        self.__model = model
         if model_parameters is None:
             mp = ModelParameters()  # Defaults
         else:
             mp = model_parameters
 
+        self.__num_actions = num_actions
         self.__epochs = mp.epochs
         self.__update_every_n_episodes = mp.update_every_n_episodes
         self.__sample_size = mp.sample_size
@@ -64,32 +68,16 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
 
     #
     # Define the model that will approximate the Q Value function.
-    # X: 1 by 9 : State Of the Board.
-    # Y: 1 by 9 : Q Values for the 9 possible actions.
+    # X & Y dimensions must match the num actions (= num q values per state)
     #
-    @classmethod
-    def create_new_model_instance(cls) -> keras.models.Sequential:
-
-        model = Sequential()
-        model.add(Dense(50, input_dim=9, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(100, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(100, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(9))
-        cls.__compile_model(model)
-
-        return model
+    def create_new_model_instance(self) -> keras.models.Sequential:
+        return self.__model.new_model()
 
     #
     # Compile the Keras Model
     #
-    @classmethod
-    def __compile_model(cls, model):
-        model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
+    def __compile_model(self, model):
+        self.__model.compile()
         return
 
     #
