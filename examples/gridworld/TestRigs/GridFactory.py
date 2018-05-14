@@ -63,3 +63,15 @@ class GridFactory:
                             grid,
                             [r - 1, c - 1])
         return sg1
+
+    @classmethod
+    def test_grid_five(cls) -> Grid:
+        r = 10
+        c = 10
+        grid = np.full((r, c), cls.step)
+        grid[2][2] = cls.goal
+        grid[7][7] = cls.fire
+        sg1 = SimpleGridOne(4,
+                            grid,
+                            [r - 1, c - 1])
+        return sg1

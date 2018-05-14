@@ -1,6 +1,7 @@
 import abc
 
 import numpy as np
+from reflrn.Interface.State import State
 
 
 #
@@ -58,10 +59,10 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Return a numpy array of the grid "state"
+    # Return a State representation of Grid World.
     #
     @abc.abstractmethod
-    def state(self) -> [np.float]:
+    def state(self) -> State:
         pass
 
     #

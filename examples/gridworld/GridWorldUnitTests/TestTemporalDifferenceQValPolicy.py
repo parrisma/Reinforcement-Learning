@@ -57,6 +57,10 @@ class TestTemporalDifferenceQValPolicy(unittest.TestCase):
         # random exploration move has happened. This means when we get stuck in loops we tend to have very
         # long episodes while waiting to break out of these tight loops.
         #
+        # ToDo
+        # We do know why this is as we have fixed the learning and exploration rates and it does converge in the
+        # test rig, so we need to re-validate here, we will then see a predictable set of steps to the goal.
+        #
         expected_actions = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         i = 0
         while not grid.episode_complete():  # i < len(expected_actions):

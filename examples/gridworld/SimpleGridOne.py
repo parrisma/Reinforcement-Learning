@@ -51,7 +51,7 @@ class SimpleGridOne(Grid):
         self.__trace = None
 
     #
-    # What is teh shape of the grid
+    # What is the shape of the grid
     #
     def shape(self) -> [int]:
         return [self.__grid_rows, self.__grid_cols]

@@ -1,5 +1,7 @@
 import abc
 import numpy as np
+from reflrn.Interface.State import State
+from reflrn.Interface.ReplayMemory import ReplayMemory
 
 
 #
@@ -24,11 +26,20 @@ class Model(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Predict the Q Values for the action space given the vector encoding of the
-    # grid state.
+    # Run supervised training given the matching input and out put training set.
+    #
     #
     @abc.abstractmethod
-    def predict(self, state_encoding: [np.float]) -> [np.float]:
+    def train(self, x, y) -> None:
+        pass
+
+    #
+    # Predict the Q Values for the action space given the vector encoding of the
+    # grid state.
+    # ToDo - Throw a custom error if model not present, compiled and trained ?
+    #
+    @abc.abstractmethod
+    def predict(self, state: State) -> [np.float]:
         pass
 
     #

@@ -2,6 +2,9 @@
   <dictionary name="Darren">
     <words>
       <w>convolutional</w>
+      <w>qvals</w>
+      <w>relu</w>
+      <w>tdqvpp</w>
     </words>
   </dictionary>
 </component>

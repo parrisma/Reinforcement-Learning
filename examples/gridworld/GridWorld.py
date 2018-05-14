@@ -49,12 +49,12 @@ class GridWorld(Environment):
         while i <= iterations:
             self.__lg.debug("Start Episode")
             self.reset()
-            state = GridWorldState(self.__grid, self.__x_agent)
+            state = GridWorldState(self.__grid)
             self.__x_agent.episode_init(state)
 
             agent = self.__x_agent
             while not self.episode_complete():
-                state = GridWorldState(self.__grid, agent)
+                state = GridWorldState(self.__grid)
                 self.__lg.debug(agent.name())
                 self.__lg.debug(state.state_as_string())
                 self.__lg.debug(state.state_as_visualisation())
@@ -65,7 +65,7 @@ class GridWorld(Environment):
 
             self.__keep_stats()
             self.__lg.debug("Episode Complete")
-            state = GridWorldState(self.__grid, self.__x_agent)
+            state = GridWorldState(self.__grid)
             self.__lg.debug(state.state_as_visualisation())
             self.__x_agent.episode_complete(state)
         self.__x_agent.terminate()
@@ -95,7 +95,7 @@ class GridWorld(Environment):
     # ToDo
     def __play_action(self, agent: Agent) -> Agent:
 
-        state = GridWorldState(self.__grid, agent)
+        state = GridWorldState(self.__grid)
 
         # Make the play on the board.
         action = agent.chose_action(state, self.__grid.allowable_actions())
@@ -103,7 +103,7 @@ class GridWorld(Environment):
             raise IllegalGridMoveException("Action chosen by agent is not allowable from current location on grid ["
                                            + str(action) + "]")
         reward = self.__take_action(action, agent)
-        next_state = GridWorldState(self.__grid, agent)
+        next_state = GridWorldState(self.__grid)
 
         if self.episode_complete():
             agent.reward(state, next_state, action, reward, True)

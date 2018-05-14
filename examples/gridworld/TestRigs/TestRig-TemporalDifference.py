@@ -23,7 +23,7 @@ itr = 200000
 lg = EnvironmentLogging("TestRig-TemporalDifference", "TestRig-TemporalDifference.log", logging.DEBUG).get_logger()
 lg.setLevel('DEBUG')
 
-test_grid = GridFactory.test_grid_four()
+test_grid = GridFactory.test_grid_five()
 sh = test_grid.shape()
 
 epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(

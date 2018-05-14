@@ -10,10 +10,8 @@ class GridWorldState(State):
     #
     # Constructor has no arguments as it just sets the game
     #
-    def __init__(self, grid: Grid, agent_x: Agent):
+    def __init__(self, grid: Grid):
         self.__grid = grid.deep_copy()  # State must be immutable
-        self.__x_id = agent_x.id()
-        self.__x_name = agent_x.name()
 
     #
     # An environment specific representation for Env. State
@@ -46,5 +44,4 @@ class GridWorldState(State):
     # Return the array encoded form of the grid to be used as the X input to a NN.
     #
     def state_as_array(self):
-        return self.__grid
-
+        return self.state()  # Grid-world state is an array of float
