@@ -110,7 +110,8 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
     #
     @classmethod
     def load(cls,
-             filename: str) -> Tuple[dict, int, np.float, np.float, np.float]:
+             filename: str
+             ) -> Tuple[dict, int, np.float, np.float, np.float]:
         n = learning_rate_0 = discount_factor = learning_rate_decay = np.float(0)
         in_f = None
         qv = dict()
