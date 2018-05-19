@@ -1,14 +1,20 @@
+import logging
 import random
 import unittest
-import logging
-import numpy as np
 
-from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
+import numpy as np
+import tensorflow as tf
+from keras.callbacks import LearningRateScheduler
+
 from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
+from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
 class TestGridWorldQValNNModel(unittest.TestCase):
     __lg = None
+    __lr_0 = 0.001
+    __lr = 0.001
+    __lr_epoch = 1
 
     #
     # Load csv (
@@ -18,6 +24,8 @@ class TestGridWorldQValNNModel(unittest.TestCase):
     def setUp(self):
         self.__lg = logging.getLogger(self.__class__.__name__)
         self.__tdqvpp = TemporalDifferenceQValPolicyPersistance()
+        np.random.seed(42)
+        tf.set_random_seed(42)
 
     #
     # See if the model can learn a saved set of stable QValues from a 10 by 10 grid
@@ -28,8 +36,6 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         qv = self.__load_saved_qvals(filename="TenByTenGridOfQValsTestCase1.pb",
                                      num_actions=4)
 
-        x, y = self.__get_all(qv)  # self.__get_sample_batch(qv, 10, 4)
-
         model = GridWorldQValNNModel(model_name="TestModel1",
                                      input_dimension=2,
                                      num_actions=4,
@@ -39,17 +45,28 @@ class TestGridWorldQValNNModel(unittest.TestCase):
                                      num_epoch=1
                                      )
 
+        # ml = model.new_model()
+        # model.compile()
+        xa, ya = self.__get_all(qv)  # self.__get_sample_batch(qv, 10, 4)
+        # ml.fit(x=xa, y=ya, batch_size=32, nb_epoch=5000, verbose=2, validation_split=0.2,
+        #       callbacks=[LearningRateScheduler(self.__lr_exp_decay)])
+        # yp = model.predict(xa)
+        # print(str(np.sum(np.power(ya[0] - yp[0], 2))))
+
         ml = model.new_model()
         model.compile()
-        ml.fit(x=x, y=y, validation_split=0.2, batch_size=32, nb_epoch=50000, verbose=2)
-        # for i in range(0, 100000):
-        #    x, y = self.__get_sample_batch(qv, 10, 4)
-        #    model.train(x, y)
-        x, y = self.__get_sample_batch(qv, 10, 4)
-        xx = np.zeros((1, 2))
-        xx[0] = x[0]
-        yp = model.predict(xx)
-        print(y[0] - yp[0])
+        self.__reset_lr()
+        for i in range(0, 5000):
+            x, y = self.__get_sample_batch(qv, 32, 4)
+            ml.fit(x=x, y=y, batch_size=16, nb_epoch=1, verbose=0,
+                   callbacks=[LearningRateScheduler(self.__lr_exp_decay)])
+            if i % 10 == 0:
+                yp = model.predict(xa)
+                print(str(i) + "," + str(np.sum(np.power(ya[0] - yp[0], 2))))
+            self.__inc_lr_epoch()
+
+        yp = model.predict(x)
+        print(np.sum(np.power(y[0] - yp[0], 2)))
 
         return
 
@@ -73,7 +90,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         # Convert to dictionary of list, where list is dense list by action.
         qvl = dict()
         for k1 in list(qv.keys()):
-            lqv = np.full(num_actions, np.float(-100))  # np.inf)
+            lqv = np.full(num_actions, np.float(0))  # np.inf)
             for k2 in list(qv[k1].keys()):
                 lqv[int(k2)] = qv[k1][k2]
             qvl[k1] = lqv
@@ -120,6 +137,28 @@ class TestGridWorldQValNNModel(unittest.TestCase):
             i += 1
 
         return x, y
+
+    #
+    # Reset the global learning rate
+    #
+    @classmethod
+    def __reset_lr(cls) -> None:
+        cls.__lr = cls.__lr_0
+        cls.__lr_epoch = 1
+
+    @classmethod
+    def __inc_lr_epoch(cls):
+        cls.__lr_epoch += 1
+
+    #
+    # Exponential decay of learning rate - use the global epoch not the local one passed int
+    #
+    @classmethod
+    def __lr_exp_decay(cls, _) -> float:
+        if cls.__lr_epoch % 200 == 0:
+            cls.__lr -= 0.0001
+            cls.__lr = max(0.00001, cls.__lr)
+        return cls.__lr
 
 
 #

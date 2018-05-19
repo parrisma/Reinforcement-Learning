@@ -1,9 +1,11 @@
 import logging
+
 import numpy as np
-from keras.layers import Dense, Dropout
+from keras import regularizers
+from keras.layers import Dense, Activation
 from keras.models import Sequential
+
 from reflrn.Interface.Model import Model
-from reflrn.Interface.State import State
 
 
 class GridWorldQValNNModel(Model):
@@ -46,15 +48,10 @@ class GridWorldQValNNModel(Model):
         # a custom model will most probably be required.
         l0_size = self.__num_actions * self.__num_grid_cells
         ln_size = int(l0_size / 2)
-        model.add(Dense(1000, input_dim=self.__input_dimension, kernel_initializer='normal', activation='relu'))
-        model.add(Dropout(0.25))
-        model.add(Dense(500, activation='relu'))  # ToDo - Add Dropout
-        model.add(Dropout(0.5))
-        model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.5))
-        model.add(Dense(500, activation='relu'))
+        model.add(Dense(250, input_dim=self.__input_dimension, kernel_initializer='normal'))
+        model.add(Activation('relu'))
+        model.add(Dense(500, kernel_initializer='normal', kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Activation('relu'))
         model.add(Dense(units=self.__num_actions, kernel_initializer='normal'))
         self.__model = model
         return self.__model

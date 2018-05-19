@@ -77,7 +77,7 @@ class RenderSimpleGridOneQValues(RenderQVals):
         return s
 
     #
-    # Render the defined type of polt in a on blocking way soc that the
+    # Render the defined type of plot in a on blocking way soc that the
     # plot can be updated in place cycle on cycle.
     #
     def __plot(self, grid: np.ndarray):
