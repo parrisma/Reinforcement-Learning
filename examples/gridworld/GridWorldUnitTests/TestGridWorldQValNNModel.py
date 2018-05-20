@@ -49,7 +49,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         # model.compile()
         xa, ya = self.__get_all(qv)  # self.__get_sample_batch(qv, 10, 4)
         # ml.fit(x=xa, y=ya, batch_size=32, nb_epoch=5000, verbose=2, validation_split=0.2,
-        #       callbacks=[LearningRateScheduler(self.__lr_exp_decay)])
+        #       callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
         # yp = model.predict(xa)
         # print(str(np.sum(np.power(ya[0] - yp[0], 2))))
 
@@ -59,7 +59,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         for i in range(0, 5000):
             x, y = self.__get_sample_batch(qv, 32, 4)
             ml.fit(x=x, y=y, batch_size=16, nb_epoch=1, verbose=0,
-                   callbacks=[LearningRateScheduler(self.__lr_exp_decay)])
+                   callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
             if i % 10 == 0:
                 yp = model.predict(xa)
                 print(str(i) + "," + str(np.sum(np.power(ya[0] - yp[0], 2))))
@@ -151,10 +151,10 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         cls.__lr_epoch += 1
 
     #
-    # Exponential decay of learning rate - use the global epoch not the local one passed int
+    # Step Down decay of learning rate - use the global epoch not the local one passed int
     #
     @classmethod
-    def __lr_exp_decay(cls, _) -> float:
+    def __lr_step_down_decay(cls, _) -> float:
         if cls.__lr_epoch % 200 == 0:
             cls.__lr -= 0.0001
             cls.__lr = max(0.00001, cls.__lr)
