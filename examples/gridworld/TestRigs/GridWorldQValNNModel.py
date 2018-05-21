@@ -4,6 +4,7 @@ import numpy as np
 from keras import regularizers
 from keras.layers import Dense, Activation
 from keras.models import Sequential
+from keras.callbacks import LearningRateScheduler
 
 from reflrn.Interface.Model import Model
 
@@ -24,7 +25,9 @@ class GridWorldQValNNModel(Model):
                  num_grid_cells: int,
                  lg: logging,
                  batch_size: int = 32,
-                 num_epoch=500):
+                 num_epoch: int = 1,
+                 lr_0: float = 0.001,
+                 lr_min: float = 0.001):
         self.__lg = lg
         self.__agent_name = model_name
         self.__input_dimension = input_dimension
@@ -34,6 +37,12 @@ class GridWorldQValNNModel(Model):
         self.__batch_size = batch_size
         self.__num_epoch = num_epoch
         self.__model_compiled = False
+
+        self.__lr_0 = lr_0
+        self.__lr_min = lr_min
+        self.__lr = lr_0
+        self.__lr_epoch = 1
+
         return
 
     #
@@ -76,8 +85,33 @@ class GridWorldQValNNModel(Model):
     # Given the replay memory train the model
     #
     def train(self, x, y) -> None:
-        self.__model.train_on_batch(x, y)
+        self.__model.fit(x=x, y=y, batch_size=16, epochs=1, verbose=0,
+                         callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
+        self.__inc_lr_epoch()  # count a global fitting call.
         return
+
+    #
+    # Reset the learning state of the model.
+    #
+    def reset(self) -> None:
+        self.__lr = self.__lr_0
+        self.__lr_epoch = 1
+
+    #
+    # Increment the global epoch count. This can be used when the learning rate etc are driven
+    # by an epoch cycle that is not linked directly to model training calls.
+    #
+    def __inc_lr_epoch(self):
+        self.__lr_epoch += 1
+
+    #
+    # Step Down decay of learning rate - use the global epoch not the local one passed int
+    #
+    def __lr_step_down_decay(self, _) -> float:
+        if self.__lr_epoch % 200 == 0:
+            self.__lr -= 0.0001
+            self.__lr = max(self.__lr_min, self.__lr)
+        return self.__lr
 
     #
     # Save the model using Keras built in save capability.

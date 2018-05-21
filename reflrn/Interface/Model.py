@@ -22,7 +22,7 @@ class Model(metaclass=abc.ABCMeta):
     # Compile the given Keras model.
     #
     @abc.abstractmethod
-    def compile(self):
+    def compile(self) -> None:
         pass
 
     #
@@ -39,14 +39,14 @@ class Model(metaclass=abc.ABCMeta):
     # ToDo - Throw a custom error if model not present, compiled and trained ?
     #
     @abc.abstractmethod
-    def predict(self, state: State) -> [np.float]:
+    def predict(self, x: [np.float]) -> [np.float]:
         pass
 
     #
     # Save the current state of the model to a file.
     #
     @abc.abstractmethod
-    def save(self, filename: str):
+    def save(self, filename: str) -> None:
         pass
 
     #
@@ -55,5 +55,12 @@ class Model(metaclass=abc.ABCMeta):
     # creates.
     #
     @abc.abstractmethod
-    def load(self, filename: str):
+    def load(self, filename: str) -> None:
+        pass
+
+    #
+    # Reset the state of the model
+    #
+    @abc.abstractmethod
+    def reset(self) -> None:
         pass

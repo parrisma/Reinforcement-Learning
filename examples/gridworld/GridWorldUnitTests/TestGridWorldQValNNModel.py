@@ -4,7 +4,6 @@ import unittest
 
 import numpy as np
 import tensorflow as tf
-from keras.callbacks import LearningRateScheduler
 
 from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
@@ -12,9 +11,6 @@ from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQVa
 
 class TestGridWorldQValNNModel(unittest.TestCase):
     __lg = None
-    __lr_0 = 0.001
-    __lr = 0.001
-    __lr_epoch = 1
 
     #
     # Load csv (
@@ -42,7 +38,9 @@ class TestGridWorldQValNNModel(unittest.TestCase):
                                      num_grid_cells=(10 * 10),
                                      lg=self.__lg,
                                      batch_size=1,
-                                     num_epoch=1
+                                     num_epoch=1,
+                                     lr_0=0.005,
+                                     lr_min=0.001
                                      )
 
         # ml = model.new_model()
@@ -53,20 +51,27 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         # yp = model.predict(xa)
         # print(str(np.sum(np.power(ya[0] - yp[0], 2))))
 
-        ml = model.new_model()
+        model.new_model()
         model.compile()
-        self.__reset_lr()
-        for i in range(0, 5000):
-            x, y = self.__get_sample_batch(qv, 32, 4)
-            ml.fit(x=x, y=y, batch_size=16, nb_epoch=1, verbose=0,
-                   callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
-            if i % 10 == 0:
-                yp = model.predict(xa)
-                print(str(i) + "," + str(np.sum(np.power(ya[0] - yp[0], 2))))
-            self.__inc_lr_epoch()
-
-        yp = model.predict(x)
-        print(np.sum(np.power(y[0] - yp[0], 2)))
+        model.reset()
+        j = 0
+        cst = np.zeros(500)
+        for z in range(0, 30):
+            for i in range(0, 5000):
+                x, y = self.__get_sample_batch(qv, 32, 4)
+                model.train(x=x, y=y)
+                if i % 10 == 0:
+                    yp = model.predict(xa)
+                    cst[j] += np.sum(np.power(ya[0] - yp[0], 2))
+                    print(str(i) + "," + str(cst[j]))
+                    j += 1
+            yp = model.predict(xa)
+            print(np.sum(np.power(ya[0] - yp[0], 2)))
+            print(ya[0])
+            print(yp[0])
+            j = 0
+        cst[j] /= 30
+        print(cst)
 
         return
 
@@ -137,28 +142,6 @@ class TestGridWorldQValNNModel(unittest.TestCase):
             i += 1
 
         return x, y
-
-    #
-    # Reset the global learning rate
-    #
-    @classmethod
-    def __reset_lr(cls) -> None:
-        cls.__lr = cls.__lr_0
-        cls.__lr_epoch = 1
-
-    @classmethod
-    def __inc_lr_epoch(cls):
-        cls.__lr_epoch += 1
-
-    #
-    # Step Down decay of learning rate - use the global epoch not the local one passed int
-    #
-    @classmethod
-    def __lr_step_down_decay(cls, _) -> float:
-        if cls.__lr_epoch % 200 == 0:
-            cls.__lr -= 0.0001
-            cls.__lr = max(0.00001, cls.__lr)
-        return cls.__lr
 
 
 #
