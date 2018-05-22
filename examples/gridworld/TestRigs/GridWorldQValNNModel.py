@@ -1,7 +1,8 @@
 import logging
+from pathlib import Path
 
 import numpy as np
-from keras import regularizers
+import keras
 from keras.layers import Dense, Activation
 from keras.models import Sequential
 from keras.callbacks import LearningRateScheduler
@@ -13,7 +14,7 @@ class GridWorldQValNNModel(Model):
 
     #
     # At init time we need
-    # - An arbitrary name for the model (debug only)
+    # - An arbitrary name for the model, used also for save/load filename.
     # - The NN input dimension.
     # - The max number of possible actions from a grid location.
     # - A logging channel.
@@ -52,14 +53,21 @@ class GridWorldQValNNModel(Model):
     #
     def new_model(self):
         model = Sequential()
-        # Base layer sizes off num-actions and num-grid-cells
-        # for small grids this is reasonable, for more complex grids
-        # a custom model will most probably be required.
-        l0_size = self.__num_actions * self.__num_grid_cells
-        ln_size = int(l0_size / 2)
-        model.add(Dense(250, input_dim=self.__input_dimension, kernel_initializer='normal'))
+        # One Input Layer
+        # Three Hidden Layers
+        # Output layer has no activation as this a a QVal regression net.
+        #
+        # Used on QVals from a test grid 10 by 10 no regularization is needed and testing
+        # with L2.Reg - kernel and dropout decreased the final accuracy even allowing significant training
+        # past the point where the cost function had stabilised.
+        #
+        model.add(Dense(25, input_dim=self.__input_dimension, kernel_initializer='he_uniform'))
         model.add(Activation('relu'))
-        model.add(Dense(500, kernel_initializer='normal', kernel_regularizer=regularizers.l2(0.01)))
+        model.add(Dense(50, kernel_initializer='he_uniform'))
+        model.add(Activation('relu'))
+        model.add(Dense(100, kernel_initializer='he_uniform'))
+        model.add(Activation('relu'))
+        model.add(Dense(200, kernel_initializer='he_uniform'))
         model.add(Activation('relu'))
         model.add(Dense(units=self.__num_actions, kernel_initializer='normal'))
         self.__model = model
@@ -105,7 +113,7 @@ class GridWorldQValNNModel(Model):
         self.__lr_epoch += 1
 
     #
-    # Step Down decay of learning rate - use the global epoch not the local one passed int
+    # Step Down decay of learning rate - use the global epoch not the local one passed in
     #
     def __lr_step_down_decay(self, _) -> float:
         if self.__lr_epoch % 200 == 0:
@@ -116,13 +124,33 @@ class GridWorldQValNNModel(Model):
     #
     # Save the model using Keras built in save capability.
     #
-    def save(self, filename: str):
-        pass
+    def save(self, filename: str) -> None:
+        try:
+            self.__model.save(filename)
+        except Exception as exc:
+            err = "Failed to save Keras model to file [" + filename + ": " + str(exc)
+            self.__lg.error(err)
+            raise RuntimeError(err)
+        finally:
+            pass
+        return
 
     #
     # Load the current state of the model from a file that was saved
     # from the same Keras model architecture as the new_model method
     # creates.
     #
-    def load(self, filename: str):
-        pass
+    def load(self, filename: str) -> None:
+        try:
+            if Path(filename).is_file():
+                model = keras.models.load_model(filename)
+            else:
+                raise FileExistsError("Keras Model File: [" + filename + "] Not found")
+        except Exception as exc:
+            err = "Failed to load Keras Deep NN model from file [" + filename + ": " + str(exc)
+            self.__lg.error(err)
+            raise RuntimeError(err)
+        finally:
+            pass
+        self.__model = model
+        return

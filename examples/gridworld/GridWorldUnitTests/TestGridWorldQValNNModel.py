@@ -7,6 +7,7 @@ import tensorflow as tf
 
 from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
+from reflrn.EnvironmentLogging import EnvironmentLogging
 
 
 class TestGridWorldQValNNModel(unittest.TestCase):
@@ -18,7 +19,8 @@ class TestGridWorldQValNNModel(unittest.TestCase):
     # Test level bootstrap of common elements
     #
     def setUp(self):
-        self.__lg = logging.getLogger(self.__class__.__name__)
+        self.__lg = EnvironmentLogging(self.__class__.__name__, self.__class__.__name__ + ".log",
+                                       logging.DEBUG).get_logger()
         self.__tdqvpp = TemporalDifferenceQValPolicyPersistance()
         np.random.seed(42)
         tf.set_random_seed(42)
@@ -43,35 +45,36 @@ class TestGridWorldQValNNModel(unittest.TestCase):
                                      lr_min=0.001
                                      )
 
-        # ml = model.new_model()
-        # model.compile()
         xa, ya = self.__get_all(qv)  # self.__get_sample_batch(qv, 10, 4)
-        # ml.fit(x=xa, y=ya, batch_size=32, nb_epoch=5000, verbose=2, validation_split=0.2,
-        #       callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
-        # yp = model.predict(xa)
-        # print(str(np.sum(np.power(ya[0] - yp[0], 2))))
 
-        model.new_model()
-        model.compile()
-        model.reset()
-        j = 0
-        cst = np.zeros(500)
-        for z in range(0, 30):
-            for i in range(0, 5000):
+        num_cycles = 5
+        num_epoch = 8000
+        report_every = 10
+        for z in range(0, num_cycles):
+            model.new_model()
+            model.compile()
+            cst = np.zeros(int(num_epoch / report_every))
+            model.reset()
+            j = 0
+            for i in range(0, num_epoch):
                 x, y = self.__get_sample_batch(qv, 32, 4)
                 model.train(x=x, y=y)
-                if i % 10 == 0:
+                if i % report_every == 0:
                     yp = model.predict(xa)
                     cst[j] += np.sum(np.power(ya[0] - yp[0], 2))
-                    print(str(i) + "," + str(cst[j]))
+                    self.__lg.debug(str(i) + "," + str(cst[j]))
                     j += 1
             yp = model.predict(xa)
-            print(np.sum(np.power(ya[0] - yp[0], 2)))
-            print(ya[0])
-            print(yp[0])
+            for i in range(1, len(ya)):
+                self.__lg.debug("=")
+                self.__lg.debug(np.sum(np.power(ya[i] - yp[i], 2)))
+                self.__lg.debug(str(ya[i]) + ' : ' + str(np.max(ya[i])))
+                self.__lg.debug(str(yp[i]) + ' : ' + str(np.max(yp[i])))
+                self.__lg.debug("=")
             j = 0
-        cst[j] /= 30
-        print(cst)
+        cst[j] /= num_cycles
+        for i in range(0, len(cst)):
+            self.__lg.debug(cst[i])
 
         return
 
