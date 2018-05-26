@@ -11,11 +11,7 @@ The library that defines the principles objects that compose a general framework
 
 It is structured around a set of interfaces:
 
-<<<<<<< HEAD
 ### `Environment.py` ###
-=======
-###`Environment.py`###
->>>>>>> 0c1c72ac31e2751a54d0fb193b68bfa4925ea79e
  * Is the root construct, it has `state` space and rewards
  * Supports the injection of one or more `agents` that can experience one or more episodes.
  
