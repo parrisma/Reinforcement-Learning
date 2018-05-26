@@ -11,29 +11,29 @@ The library that defines the principles objects that compose a general framework
 
 It is structured around a set of interfaces:
 
-###`Environment.py`
+### `Environment.py` ###
  * Is the root construct, it has `state` space and rewards
  * Supports the injection of one or more `agents` that can experience one or more episodes.
  
-###`Agent.py`
+### `Agent.py` ###
 * Is the entity that learns
 * Selecting actions according to a `policy` and learning to refine the policy based on teh rewards experienced.
 
-###`Policy.py`
+### `Policy.py` ###
 * Takes state, action rewards and learns to select future actions that will maximise the rewards for am agent in a 
 given environment
 
-###`State.py`
+### `State.py` ###
 * An environment specific representation visible to the agent
  
-###`ExplorationStrategy.py`
+### `ExplorationStrategy.py` ###
 * A strategy for selecting actions where deviation from the action predicted by the current policy is required such 
 that the agent can experience more of the environment.
 
-###`Model.py`
+### `Model.py` ###
 * The Neural Network that is learning the state to action optimisation.
 
-###`ReplayMemory.py`
+### `ReplayMemory.py` ###
 * A full history of all state-action-reward events
 
 
