@@ -6,7 +6,7 @@ library Structure
 
 
     /reflrn
-    
+
 The library that defines the principles objects that compose a general framework for building simple RL use cases.
 
 It is structured around a set of interfaces:
@@ -50,4 +50,3 @@ just North, South, East, West.
     /examples/tictactoe
     
 A two agent (adversarial) environment playing the simple game of TicTacToe.
-

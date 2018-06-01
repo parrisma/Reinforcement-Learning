@@ -35,7 +35,7 @@ class RenderGridWorldAgentExplorationMemory(RenderExplorationMemory):
             self.__episode_memory.append([s, ep_cost])
 
         if self.__do_plot:
-            #self.__plot()
+            #self.plot()
             pass
 
         return s

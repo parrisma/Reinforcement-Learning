@@ -1,12 +1,13 @@
 import logging
 from pathlib import Path
 
-import numpy as np
 import keras
+import numpy as np
+from keras.callbacks import LearningRateScheduler
 from keras.layers import Dense, Activation
 from keras.models import Sequential
-from keras.callbacks import LearningRateScheduler
 
+from examples.gridworld.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
 from reflrn.Interface.Model import Model
 
 
@@ -38,6 +39,7 @@ class GridWorldQValNNModel(Model):
         self.__batch_size = batch_size
         self.__num_epoch = num_epoch
         self.__model_compiled = False
+        self.__epochs = 10
 
         self.__lr_0 = lr_0
         self.__lr_min = lr_min
@@ -86,16 +88,31 @@ class GridWorldQValNNModel(Model):
     # grid state.
     #
     def predict(self, x) -> [np.float]:
-        if self.__model is not None and self.__model_compiled:
-            return self.__model.predict_on_batch(x)
+        self.__bootstrap_model()
+        return self.__model.predict_on_batch(x)
 
     #
     # Given the replay memory train the model
     #
     def train(self, x, y) -> None:
-        self.__model.fit(x=x, y=y, batch_size=16, epochs=1, verbose=0,
+        self.__bootstrap_model()
+        self.__model.fit(x=x,
+                         y=y,
+                         batch_size=self.__batch_size,
+                         epochs=self.__epochs,
+                         verbose=2,
                          callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
         self.__inc_lr_epoch()  # count a global fitting call.
+        return
+
+    #
+    # If the model has not been created or complied, do so.
+    #
+    def __bootstrap_model(self):
+        if self.__model is None:
+            self.new_model()
+        if not self.__model_compiled:
+            self.compile()
         return
 
     #
@@ -120,6 +137,28 @@ class GridWorldQValNNModel(Model):
             self.__lr -= 0.0001
             self.__lr = max(self.__lr_min, self.__lr)
         return self.__lr
+
+    #
+    # Clone the weights of the given model, or throw an exception
+    # if it is not an instance of this class as we can only copy
+    # weights of identical architecture
+    #
+    def clone_weights(self, model: 'Model') -> None:
+        if not isinstance(model, type(self)):
+            raise CannotCloneWeightsOfDifferentModelException(str(type(self)) + " <- " + str(type(model)))
+        if self.__model is None:
+            raise RuntimeError("Internal Model is value (None) as has not been initialised")
+        else:
+            self.__model.set_weights(model.get_weights())
+        return
+
+    #
+    # Return the model weights.
+    #
+    def get_weights(self):
+        if self.__model is None:
+            raise RuntimeError("Internal Model is value (None) as has not been initialised")
+        return self.__model.get_weights()
 
     #
     # Save the model using Keras built in save capability.

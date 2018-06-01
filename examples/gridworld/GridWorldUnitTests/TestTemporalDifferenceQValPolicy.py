@@ -20,7 +20,7 @@ class TestTemporalDifferenceQValPolicy(unittest.TestCase):
         self.__lg = logging.getLogger(self.__class__.__name__)
         self.__lg.addHandler(logging.NullHandler)
         self.__tdqvpp = TemporalDifferenceQValPolicyPersistance()
-        self.__agent_name = "TestAgent-TemporalDifferenceQValPolicy"
+        self.__agent_name = "TestAgent-DeepReplayQNetworkPolicy"
         self.__agent_id = 3142
         self.__exploration_strategy = None  # Not needed for these test cases.
 

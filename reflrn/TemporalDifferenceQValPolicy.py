@@ -15,7 +15,7 @@ from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQVa
 class TemporalDifferenceQValPolicy(Policy):
     #
     # Learning is for all agents of this *type* so q values are at class level, and all
-    # methods that act on q values are class methods.
+    # methods that select_action on q values are class methods.
     #
     # ToDo: q_vals should not be at class level, should pass in the q_val dicts so it can be shared only if required
     #

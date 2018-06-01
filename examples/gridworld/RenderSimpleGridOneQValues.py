@@ -10,7 +10,7 @@ from reflrn.Interface.State import State
 class RenderSimpleGridOneQValues(RenderQVals):
     __i = 0
     __cmap = 'gist_earth'
-    __plot_pause = 0.0001
+    __plot_pause = 0.001
     __sep_s = ''
     __sep_e = ','
     PLOT_SURFACE = 1
@@ -34,7 +34,7 @@ class RenderSimpleGridOneQValues(RenderQVals):
         self.__plot_funcs = {
             self.PLOT_SURFACE: self.__plot_surface,
             self.PLOT_WIREFRAME: self.__plot_wireframe,
-            self.PLOT_GRID: self.__plot_grid,
+            self.PLOT_GRID: self.plot_grid,
         }
         self.__view_rot_step = 15
         self.__view_rot = 0
@@ -71,7 +71,7 @@ class RenderSimpleGridOneQValues(RenderQVals):
             if self.__do_plot:
                 if self.__i == 10:
                     self.__i = 0
-                    self.__plot(qgrid)
+                    self.plot(qgrid)
                 self.__i += 1
 
         return s
@@ -80,7 +80,7 @@ class RenderSimpleGridOneQValues(RenderQVals):
     # Render the defined type of plot in a on blocking way soc that the
     # plot can be updated in place cycle on cycle.
     #
-    def __plot(self, grid: np.ndarray):
+    def plot(self, grid: np.ndarray):
         self.__plot_funcs[self.__plot_style](grid)
         return
 
@@ -112,8 +112,8 @@ class RenderSimpleGridOneQValues(RenderQVals):
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Q Value')
-        ax.set_xticks(np.arange(0, self.__num_cols, int(self.__num_cols / 10)))
-        ax.set_yticks(np.arange(0, self.__num_rows, int(self.__num_rows / 10)))
+        ax.set_xticks(np.arange(0, self.__num_cols, max(1, int(self.__num_cols / 10))))
+        ax.set_yticks(np.arange(0, self.__num_rows, max(1, int(self.__num_rows / 10))))
         if self.__view_rot_step > 0:
             self.__view_rot += self.__view_rot_step
             self.__view_rot = self.__view_rot_step % 360
@@ -129,14 +129,14 @@ class RenderSimpleGridOneQValues(RenderQVals):
     #
     # Plot as a 2D colour grid.
     #
-    def __plot_grid(self, grid: np.ndarray):
+    def plot_grid(self, grid: np.ndarray):
         if self.__fig is None:
             self.__fig = plt.figure()
         ax = self.__fig.gca()
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
-        ax.set_xticks(np.arange(0, self.__num_cols, int(self.__num_cols / 10)))
-        ax.set_yticks(np.arange(0, self.__num_rows, int(self.__num_rows / 10)))
+        ax.set_xticks(np.arange(0, self.__num_cols, max(1, int(self.__num_cols / 10))))
+        ax.set_yticks(np.arange(0, self.__num_rows, max(1, int(self.__num_cols / 10))))
         ax.imshow(grid, cmap=self.__cmap, interpolation='nearest')
         plt.pause(self.__plot_pause)
         plt.show(block=False)

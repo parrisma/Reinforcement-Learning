@@ -137,7 +137,7 @@ class TestGridActorCritic:
                 future_reward = self.target_critic_model.predict(
                     [new_state, target_action])[0][0]
                 reward += self.gamma * future_reward
-            self.critic_model.fit([cur_state, action], reward, verbose=0)
+            self.critic_model.fit([cur_state, action], np.array(reward).reshape(1, 1), verbose=0)
 
     def train(self):
         batch_size = 32
@@ -181,9 +181,14 @@ class TestGridActorCritic:
     #
     def actor_predict_action(self, cur_state):
         allowable_actions = self.env_grid.allowable_actions(cur_state)
-        actn = self.actor_model.predict(cur_state)
-        while actn not in allowable_actions:
-            actn = self.actor_model.predict(cur_state)
+        cur_state = np.array(cur_state).reshape((1, env_observation_space_shape[0]))  # Shape needed for NN
+        actn = int(np.round(self.actor_model.predict(cur_state)))  # convert from float to action (int)
+        mx = 0
+        while actn not in allowable_actions and mx < 10:
+            actn = int(np.round(self.actor_model.predict(cur_state)))  # convert from float to action (int)
+            mx += 1
+        if mx == 10:
+            actn = None
         return actn
 
     #
@@ -191,14 +196,25 @@ class TestGridActorCritic:
     # else make an action based on prediction the NN inside the actor.
     #
     def select_action(self, cur_state):
+        if self.env_grid.episode_complete():  # At goal state, so re spawn to start point.
+            self.env_grid.reset()
+            cur_state = self.env_grid.state()
         self.epsilon *= self.epsilon_decay
         if np.random.random() < self.epsilon:
+            actns = self.env_grid.allowable_actions(cur_state)
+            if len(actns) > 0:
+                return random.choice(actns)
+            else:
+                print("??")
+        actn = self.actor_predict_action(cur_state)
+        if actn is None:
             return random.choice(self.env_grid.allowable_actions(cur_state))
-        return self.actor_predict_action(cur_state)
+        else:
+            return actn
 
 
 #
-# Return a 5 by 5 grid as the environment. The aim isto learn the shortest
+# Return a 5 by 5 grid as the environment. The aim is to learn the shortest
 # path from the bottom right to the goal at (1,1), while avoiding the
 # penalty at (4,4). Each step has a negative cost, and it is this that drives
 # the push for shortest path in terms of minimising the cost function.
@@ -238,6 +254,8 @@ def main():
 
     env.reset()
     cur_state = env.state()
+
+    episode = 0
     while True:
         action = actor_critic.select_action(cur_state)
         reward = env.execute_action(action)
@@ -252,6 +270,17 @@ def main():
         actor_critic.train()
 
         cur_state = env.state()  # new_state
+
+        episode += 1
+        print(episode)
+        if episode % 100 == 0:
+            for i in range(0, 4):
+                s = ""
+                for j in range(0, 4):
+                    st = np.array([i, j]).reshape((1, env_observation_space_shape[0]))
+                    s += str(actor_critic.critic_model.predict(st)[0])
+                    s += ' , '
+                print(s)
 
 
 if __name__ == "__main__":

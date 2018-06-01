@@ -61,8 +61,8 @@ class SimpleGridOne(Grid):
     # for these simple grids the grid itself is immutable so the defined state is simply the
     # current "location" of the grid, i.e. the active cell location where the agent is.
     #
-    def state(self) -> [np.float]:
-        return [np.float(self.__curr[0]), np.float(self.__curr[1])]
+    def state(self) -> [np.int]:
+        return [np.int(self.__curr[0]), np.int(self.__curr[1])]
 
     #
     # Reset the grid state after episode end.
@@ -111,25 +111,34 @@ class SimpleGridOne(Grid):
     #
     # Is the episode complete.
     #
-    def episode_complete(self) -> bool:
-        return self.__episode_over()
+    def episode_complete(self,
+                         coords: () = None) -> bool:
+        return self.__episode_over(coords)
 
     #
     # Is the current location at a defined terminal (finish) location.
     #
-    def __episode_over(self) -> bool:
-        return self.__grid_reward(self.__curr) == self.FIN
+    def __episode_over(self,
+                       coords: () = None) -> bool:
+        if coords is None:
+            nw = deepcopy(self.__curr)
+        else:
+            nw = coords
+        return self.__grid_reward(nw) == self.FIN
 
     #
     # What will the new current coordinates be if the given action
     # was applied.
     #
-    def __new_coords_after_action(self, action: int) -> [int]:
+    def __new_coords_after_action(self,
+                                  action: int,
+                                  coords: () = None) -> [int]:
         mv = self.__actions[action]
-        nw = deepcopy(self.__curr)
-        nw[0] += mv[0]
-        nw[1] += mv[1]
-        return nw
+        if coords is None:
+            nw = deepcopy(self.__curr)
+        else:
+            nw = coords
+        return tuple((nw[0] + mv[0], nw[1] + mv[1]))
 
     @classmethod
     def coords_after_action(cls, x: int, y: int, action: int) -> [int]:
@@ -151,22 +160,23 @@ class SimpleGridOne(Grid):
     #
     # List of allowable actions from the current position
     #
-    def allowable_actions(self) -> [int]:
+    def allowable_actions(self,
+                          coords: () = None) -> [int]:
         ams = []
-        if self.__episode_over():
+        if self.__episode_over(coords):
             return []
-        new_coords = self.__new_coords_after_action(self.NORTH)
-        if self.__curr[0] > 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
+        new_coords = self.__new_coords_after_action(self.NORTH, coords)
+        if new_coords[0] >= 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.NORTH)
-        new_coords = self.__new_coords_after_action(self.SOUTH)
-        if self.__curr[0] + 1 < self.__grid_rows and not self.__blocked(
+        new_coords = self.__new_coords_after_action(self.SOUTH, coords)
+        if new_coords[0] < self.__grid_rows and not self.__blocked(
                 new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.SOUTH)
-        new_coords = self.__new_coords_after_action(self.WEST)
-        if self.__curr[1] > 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
+        new_coords = self.__new_coords_after_action(self.WEST, coords)
+        if new_coords[1] >= 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.WEST)
-        new_coords = self.__new_coords_after_action(self.EAST)
-        if self.__curr[1] + 1 < self.__grid_cols and not self.__blocked(
+        new_coords = self.__new_coords_after_action(self.EAST, coords)
+        if new_coords[1] < self.__grid_cols and not self.__blocked(
                 new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.EAST)
         return ams
@@ -187,7 +197,7 @@ class SimpleGridOne(Grid):
         return False
 
     #
-    # Tracxk the fact this location has been visited in current episode.
+    # Track the fact this location has been visited in current episode.
     #
     def __track_location(self, coords: ()) -> None:
         self.__trace = coords

@@ -12,6 +12,38 @@ class TestSimpleGridOne(unittest.TestCase):
     goal = SimpleGridOne.GOAL
 
     #
+    # Test, all possible moves on 3 by 3 grid
+    #
+    def test_0(self):
+        grid = [
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step]
+        ]
+        sg4 = SimpleGridOne(0,
+                            grid,
+                            [1, 1])
+
+        test_cases = [[(0, 0), 2, [SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(0, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(0, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
+                      [(1, 0), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
+                      [(1, 1), 4, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(1, 2), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
+                      [(2, 0), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
+                      [(2, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
+                      [(2, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.NORTH]]
+                      ]
+
+        for coords, ln, moves in test_cases:
+            aac = sg4.allowable_actions(coords)
+            self.assertEqual(len(aac), ln)
+            for mv in moves:
+                self.assertTrue(mv in aac)
+
+        return
+
+    #
     # Test
     #
     def test_1(self):
@@ -105,9 +137,43 @@ class TestSimpleGridOne(unittest.TestCase):
 
         return
 
+    #
+    # Test, where current coords are passed rather than taken from the internal state of the grid.
+    #
+    def test_4(self):
+        grid = [
+            [self.step, self.step, self.step],
+            [self.goal, self.step, self.step],
+            [self.step, self.fire, self.step],
+            [self.step, self.step, self.blck],
+            [self.step, self.step, self.step]
+        ]
+        sg4 = SimpleGridOne(4,
+                            grid,
+                            [4, 2])
+
+        self.assertEqual(sg4.episode_complete(), False)
+        coords = (1, 0)
+        self.assertEqual(sg4.episode_complete(coords), True)
+
+        coords = (4, 2)
+        aa = sg4.allowable_actions()
+        aac = sg4.allowable_actions(coords)
+        self.assertTrue(SimpleGridOne.WEST in aac)
+        self.assertTrue(len(aac), 1)
+        self.assertTrue(aa == aac)
+
+        coords = (0, 0)
+        aac = sg4.allowable_actions(coords)
+        self.assertTrue(SimpleGridOne.EAST in aac)
+        self.assertTrue(SimpleGridOne.SOUTH in aac)
+        self.assertTrue(len(aac), 2)
+
+        return
+
 
 #
-# Execute the ReflrnUnitTests.
+# Execute the UnitTests.
 #
 
 
@@ -118,5 +184,5 @@ if __name__ == "__main__":
         unittest.TextTestRunner().run(suite)
     else:
         suite = unittest.TestSuite()
-        suite.addTest(TestSimpleGridOne("test_2"))
+        suite.addTest(TestSimpleGridOne("test_0"))
         unittest.TextTestRunner().run(suite)

@@ -45,7 +45,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
                                      lr_min=0.001
                                      )
 
-        xa, ya = self.__get_all(qv)  # self.__get_sample_batch(qv, 10, 4)
+        xa, ya = self.__get_all(qv)  # self._get_sample_batch(qv, 10, 4)
 
         num_cycles = 5
         num_epoch = 8000
@@ -105,7 +105,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         return qvl
 
     #
-    # Get a random set of samples from the given QValues to act as a training
+    # Get a random set of samples from the given QValues to select_action as a training
     # batch for the model.
     #
     @classmethod
@@ -126,7 +126,7 @@ class TestGridWorldQValNNModel(unittest.TestCase):
         return x, y
 
     #
-    # Get a random set of samples from the given QValues to act as a training
+    # Get a random set of samples from the given QValues to select_action as a training
     # batch for the model.
     #
     @classmethod

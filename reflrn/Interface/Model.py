@@ -1,7 +1,6 @@
 import abc
+
 import numpy as np
-from reflrn.Interface.State import State
-from reflrn.Interface.ReplayMemory import ReplayMemory
 
 
 #
@@ -47,6 +46,20 @@ class Model(metaclass=abc.ABCMeta):
     #
     @abc.abstractmethod
     def save(self, filename: str) -> None:
+        pass
+
+    #
+    # Clone the weighs of an identical model
+    #
+    @abc.abstractmethod
+    def clone_weights(self, model: 'Model') -> None:
+        pass
+
+    #
+    # Clone the weighs of an identical model
+    #
+    @abc.abstractmethod
+    def get_weights(self):
         pass
 
     #

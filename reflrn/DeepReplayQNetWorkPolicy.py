@@ -12,10 +12,18 @@ from reflrn.RandomPolicy import RandomPolicy
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
-class TemporalDifferenceQValPolicy(Policy):
+#
+# This policy uses a Neural Network as an estimator of QValues. A simple batch randomly experience cache is used
+# avoid issues with correlated-states. In addition the learning is only periodic which counteracts issues with
+# non-stationary targets.
+#
+# MSVE = (reward + discount-factor*max(s',a',theta{fixed})-Q(s,a,theta))^2
+#
+
+class DeepReplayQNetworkPolicy(Policy):
     #
     # Learning is for all agents of this *type* so q values are at class level, and all
-    # methods that act on q values are class methods.
+    # methods that select_action on q values are class methods.
     #
     # ToDo: q_vals should not be at class level, should pass in the q_val dicts so it can be shared only if required
     #
@@ -32,34 +40,7 @@ class TemporalDifferenceQValPolicy(Policy):
     # actions for the given Environment
     #
     def __init__(self,
-                 lg: logging,
-                 filename: str = None,
-                 fixed_games: FixedGames = None,
-                 load_qval_file: bool = False,
-                 manage_qval_file: bool = False,
-                 save_every: int = 5000,
-                 q_val_render: RenderQVals = None):
-        self.__lg = lg
-        self.__filename = filename
-        self.__persistance = TemporalDifferenceQValPolicyPersistance()
-        self.__persistance.enable_csv_file_save()
-        self.__fixed_games = fixed_games
-        self.__manage_qval_file = manage_qval_file
-        self.__save_every = save_every  # how often do we dump down the q value file if save is enabled.
-        self.__q_val_render = q_val_render
-        self.__fallback_policy = RandomPolicy(prefer_new=True)
-        self.__frame_id = 0
-
-        if load_qval_file:
-            try:
-                (TemporalDifferenceQValPolicy.__q_values,
-                 TemporalDifferenceQValPolicy.__n,
-                 TemporalDifferenceQValPolicy.__learning_rate_0,
-                 TemporalDifferenceQValPolicy.__discount_factor,
-                 TemporalDifferenceQValPolicy.__learning_rate_decay) \
-                    = self.__persistance.load(filename)
-            except RuntimeError:
-                pass  # File does not exist, keep class level defaults
+                 lg: logging):
         return
 
     #
@@ -134,20 +115,20 @@ class TemporalDifferenceQValPolicy(Policy):
                 self.__save()
 
         # Update master count of policy learning events
-        TemporalDifferenceQValPolicy.__n += 1
+        DeepReplayQNetworkPolicy.__n += 1
 
-        lr = TemporalDifferenceQValPolicy.__q_learning_rate(self.__frame_id)
+        lr = DeepReplayQNetworkPolicy.__q_learning_rate(self.__frame_id)
 
         # Establish the max (optimal) outcome taken from the target state.
         #
-        qvs, actn = TemporalDifferenceQValPolicy.__get_q_vals_as_np_array(next_state)
-        ou = TemporalDifferenceQValPolicy.__greedy_outcome(qvs)
+        qvs, actn = DeepReplayQNetworkPolicy.__get_q_vals_as_np_array(next_state)
+        ou = DeepReplayQNetworkPolicy.__greedy_outcome(qvs)
         qvp = self.__discount_factor * ou * lr
 
         # Update current state to reflect the reward
-        qv = TemporalDifferenceQValPolicy.__get_q_value(state, action)
+        qv = DeepReplayQNetworkPolicy.__get_q_value(state, action)
         qv = (qv * (1 - lr)) + (lr * reward) + qvp
-        TemporalDifferenceQValPolicy.__set_q_value(state, action, qv)
+        DeepReplayQNetworkPolicy.__set_q_value(state, action, qv)
 
         return
 
@@ -202,7 +183,7 @@ class TemporalDifferenceQValPolicy(Policy):
         if qvs is None:
             return self.__fallback_policy.select_action(agent_name, state, possible_actions)
 
-        ou = TemporalDifferenceQValPolicy.__greedy_outcome(qvs)
+        ou = DeepReplayQNetworkPolicy.__greedy_outcome(qvs)
         greedy_actions = list()
         for v, a in np.vstack([qvs, actions]).T:
             if v == ou:
@@ -235,11 +216,11 @@ class TemporalDifferenceQValPolicy(Policy):
     def save(self, filename: str = None):
         fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
-            self.__persistance.save(TemporalDifferenceQValPolicy.__q_values,
-                                    TemporalDifferenceQValPolicy.__n,
-                                    TemporalDifferenceQValPolicy.__learning_rate_0,
-                                    TemporalDifferenceQValPolicy.__discount_factor,
-                                    TemporalDifferenceQValPolicy.__learning_rate_decay,
+            self.__persistance.save(DeepReplayQNetworkPolicy.__q_values,
+                                    DeepReplayQNetworkPolicy.__n,
+                                    DeepReplayQNetworkPolicy.__learning_rate_0,
+                                    DeepReplayQNetworkPolicy.__discount_factor,
+                                    DeepReplayQNetworkPolicy.__learning_rate_decay,
                                     fn)
         else:
             raise FileNotFoundError("File name for TemporalDifferencePolicy save does not exist: [" & fn & "]")
@@ -252,20 +233,20 @@ class TemporalDifferenceQValPolicy(Policy):
     def load(self, filename: str = None):
         fn = self.file_name(filename)
         if fn is not None and len(fn) > 0:
-            (TemporalDifferenceQValPolicy.__q_values,
-             TemporalDifferenceQValPolicy.__n,
-             TemporalDifferenceQValPolicy.__learning_rate_0,
-             TemporalDifferenceQValPolicy.__discount_factor,
-             TemporalDifferenceQValPolicy.__learning_rate_decay) \
+            (DeepReplayQNetworkPolicy.__q_values,
+             DeepReplayQNetworkPolicy.__n,
+             DeepReplayQNetworkPolicy.__learning_rate_0,
+             DeepReplayQNetworkPolicy.__discount_factor,
+             DeepReplayQNetworkPolicy.__learning_rate_decay) \
                 = self.__persistance.load(filename)
         else:
             raise FileNotFoundError("File name for TemporalDifferencePolicy Load does not exist: [" & fn & "]")
 
-        return (TemporalDifferenceQValPolicy.__q_values,
-                TemporalDifferenceQValPolicy.__n,
-                TemporalDifferenceQValPolicy.__learning_rate_0,
-                TemporalDifferenceQValPolicy.__discount_factor,
-                TemporalDifferenceQValPolicy.__learning_rate_decay)
+        return (DeepReplayQNetworkPolicy.__q_values,
+                DeepReplayQNetworkPolicy.__n,
+                DeepReplayQNetworkPolicy.__learning_rate_0,
+                DeepReplayQNetworkPolicy.__discount_factor,
+                DeepReplayQNetworkPolicy.__learning_rate_decay)
 
     #
     # Q Values as a string (in grid form). This is just a visual debugger so it is
