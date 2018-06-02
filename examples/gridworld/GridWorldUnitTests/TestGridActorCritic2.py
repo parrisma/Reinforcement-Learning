@@ -28,7 +28,7 @@ class TestGridActorCritic:
         self.sess = sess
         self.lg = lg
 
-        self.epoch = 0
+        self.episode = 0
 
         self.batch_size = 32
         self.input_dim = 2
@@ -80,7 +80,7 @@ class TestGridActorCritic:
     # Return the learning rate based on number of learning's to date
     #
     def learning_rate(self, ):
-        return self.learning_rate_0 / (1 + (self.epoch * self.learning_rate_decay))
+        return self.learning_rate_0 / (1 + (self.episode * self.learning_rate_decay))
 
     #
     # Add item to the replay-memory.
@@ -145,11 +145,11 @@ class TestGridActorCritic:
         return x, y
 
     #
-    # Train after every 10 epoch (goal states reached)
+    # Update actor every 5 episodes (goal states reached)
     #
     def train(self):
         if self._train_critic():
-            if self.epoch % 10 == 0:
+            if self.episode % 5 == 0:
                 self._update_actor_from_critic()
         return
 
@@ -219,7 +219,7 @@ class TestGridActorCritic:
             self.lg.debug("Goal Reached")
             self.env_grid.reset()
             cur_state = self.env_grid.state()
-            self.epoch += 1
+            self.episode += 1
 
         self.epsilon = max(0.1, self.epsilon * self.epsilon_decay)
         self.lg.debug("epsilon :" + str(self.epsilon))
@@ -241,12 +241,12 @@ class TestGridActorCritic:
 
 
 #
-# Return a 5 by 5 grid as the environment. The aim isto learn the shortest
-# path from the bottom right to the goal at (1,1), while avoiding the
-# penalty at (4,4). Each step has a negative cost, and it is this that drives
+# Return a grid as the environment. The aim is to learn the shortest
+# path from the start cell to a goal cell, while avoiding the
+# penalty cells (if any) . Each step has a negative cost, and it is this that drives
 # the push for shortest path in terms of minimising the cost function.
 #
-# The action space is N,S,E,W shape (1,4)
+# The action space is N,S,E,W=(0,1,2,3) shape (1,4)
 # The state is the grid coordinates (x,y) shape (1,2)
 #
 step = SimpleGridOne.STEP

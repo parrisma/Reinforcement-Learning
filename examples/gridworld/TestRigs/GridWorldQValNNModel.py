@@ -123,14 +123,14 @@ class GridWorldQValNNModel(Model):
         self.__lr_epoch = 1
 
     #
-    # Increment the global epoch count. This can be used when the learning rate etc are driven
-    # by an epoch cycle that is not linked directly to model training calls.
+    # Increment the global episode count. This can be used when the learning rate etc are driven
+    # by an episode cycle that is not linked directly to model training calls.
     #
     def __inc_lr_epoch(self):
         self.__lr_epoch += 1
 
     #
-    # Step Down decay of learning rate - use the global epoch not the local one passed in
+    # Step Down decay of learning rate - use the global episode not the local one passed in
     #
     def __lr_step_down_decay(self, _) -> float:
         if self.__lr_epoch % 200 == 0:
