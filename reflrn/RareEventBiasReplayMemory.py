@@ -24,11 +24,9 @@ class RareEventBiasReplayMemory(ReplayMemory):
     def __init__(self,
                  lg: logging,
                  replay_mem_size: int = 2000):
-        self.replay_mem_size = replay_mem_size
-        self.replay_memory = deque([], maxlen=self.replay_mem_size)
         self.lg = lg
-
-        self.core_memory = deque(maxlen=2000)
+        self.replay_mem_size = replay_mem_size
+        self.core_memory = deque([], maxlen=self.replay_mem_size)
         self.stddev = np.float(0)
         self.bias_memory = dict()
         self.bias_std = np.float(0)
@@ -157,6 +155,12 @@ class RareEventBiasReplayMemory(ReplayMemory):
             i += 1
 
         return d
+
+    #
+    # How many entries in reply memory
+    #
+    def get_num_memories(self):
+        return len(self.core_memory)
 
     class SampleSizeSmallerThanNumberOfBiases(Exception):
         def __init__(self, *args, **kwargs):

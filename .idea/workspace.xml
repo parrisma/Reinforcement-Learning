@@ -6,11 +6,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Small change to readme">
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,13 +20,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestGridActorCritic2.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TestGridActorCritic2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="125" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state relative-caret-position="140">
+              <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleGridOne.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-124">
+              <caret line="32" column="23" lean-forward="false" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -36,18 +47,8 @@
       <file leaf-file-name="RareEventBiasReplayMemory.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestRareEventBiasReplayMemory.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="779">
-              <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+            <state relative-caret-position="178">
+              <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -55,66 +56,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="case.py" pinned="false" current-in-tab="true">
-        <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
+      <file leaf-file-name="TemporalDifferenceQValPolicy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
+            <state relative-caret-position="250">
+              <caret line="138" column="59" lean-forward="false" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="59" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestAgentExplorationMemory.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py">
+      <file leaf-file-name="GridWorldQValNNModel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridBlockedActionException.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridBlockedActionException.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="25" lean-forward="false" selection-start-line="3" selection-start-column="25" selection-end-line="5" selection-end-column="49" />
+            <state relative-caret-position="909">
+              <caret line="91" column="19" lean-forward="false" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="19" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GridEpisodeOverException.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridEpisodeOverException.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="62" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="62" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IllegalGridMoveException.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/gridworld/IllegalGridMoveException.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="49" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DequeReplayMemory.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -131,17 +88,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>__learning_rate_0</find>
-      <find>agent</find>
-      <find>batch_size</find>
-      <find>fit</find>
-      <find>__batch_size</find>
-      <find>min</find>
-      <find>CSV</find>
-      <find>len</find>
-      <find>fisnish</find>
-      <find>exploration_play</find>
-      <find>pass</find>
       <find>assert</find>
       <find>ExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported(str(get_by) + &quot; Not Searchable&quot;)</find>
       <find>Summary</find>
@@ -161,6 +107,17 @@
       <find>exploration</find>
       <find>memory</find>
       <find>epoch</find>
+      <find>__q_learning_rate</find>
+      <find>replay_memory</find>
+      <find>core_memory</find>
+      <find>step</find>
+      <find>_get_sample_batch</find>
+      <find>allow</find>
+      <find>goal</find>
+      <find>reset</find>
+      <find>Step</find>
+      <find>train_on_new_episode</find>
+      <find>Sample</find>
     </findStrings>
     <replaceStrings>
       <replace>__grid</replace>
@@ -221,17 +178,17 @@
         <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/RenderSimpleGridOneQValues.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/RareEventBiasReplayMemory.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
-        <option value="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1891" />
+    <option name="width" value="2571" />
     <option name="height" value="1407" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -350,7 +307,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.py.test in TestRareEventBiasReplayMemory.py">
+  <component name="RunManager" selected="Python.TestGridActorCritic2">
     <configuration name="TestGridActorCritic" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -460,8 +417,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.py.test in TestRareEventBiasReplayMemory.py" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TestGridActorCritic2" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TestGridActorCritic2" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in TestRareEventBiasReplayMemory.py" />
         <item index="2" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
         <item index="3" class="java.lang.String" itemvalue="Python.TestGridActorCritic" />
         <item index="4" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleGridOne.py" />
@@ -507,12 +464,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 22m 08s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 22m 49s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
-    </history-entry>
     <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 27m 15s.xml">
       <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
     </history-entry>
@@ -537,9 +488,16 @@
     <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 44m 08s.xml">
       <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
     </history-entry>
+    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 53m 54s.xml">
+      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    </history-entry>
+    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 22h 06m 54s.xml">
+      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1891" height="1407" extended-state="0" />
+    <frame x="-7" y="0" width="2571" height="1407" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
@@ -547,13 +505,13 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998455" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35935086" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13972603" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20556414" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30989182" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30989182" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -707,6 +665,11 @@
           <line>126</line>
           <option name="timeStamp" value="673" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py</url>
+          <line>243</line>
+          <option name="timeStamp" value="723" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -715,7 +678,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="674" />
+      <option name="time" value="724" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -734,52 +697,47 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>case[0]</expression-string>
+        <expression-string>self</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>case</expression-string>
+        <expression-string>y</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>samples</expression-string>
+        <expression-string>qvs</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss[np.argmax(ss)]</expression-string>
+        <expression-string>da</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss</expression-string>
+        <expression-string>allowable_actions</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.bias_memory[k]</expression-string>
+        <expression-string>type(da)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>np.array(len(keys))</expression-string>
+        <expression-string>da = self.disallowed_actions(aact)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss[0]</expression-string>
+        <expression-string>qvs[da]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ss = np.array((1))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>ss = np.array(1)</expression-string>
+        <expression-string>qvs[aact]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -796,13 +754,6 @@
     <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/tensorflow/python/framework/errors_impl.py" />
     <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/loader.py" />
     <entry file="file://$PROJECT_DIR$/scratch/HelloWorld4.py" />
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/numpy/core/_methods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/keras/callbacks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9673">
@@ -838,13 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/numpy/core/fromnumeric.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="2419" column="0" lean-forward="false" selection-start-line="2419" selection-start-column="0" selection-end-line="2419" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -908,14 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/random.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="263" column="0" lean-forward="false" selection-start-line="263" selection-start-column="0" selection-end-line="263" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SampleCodeFromOtherSources/pendulum.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
@@ -959,29 +895,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/tensorflow/python/client/session.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="711" column="0" lean-forward="false" selection-start-line="711" selection-start-column="0" selection-end-line="711" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/EvaluationException.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="146" column="0" lean-forward="false" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1021,14 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/RenderSimpleGridOneQValues.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1073">
@@ -1036,30 +946,6 @@
           <folding>
             <element signature="e#0#31#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3026">
-          <caret line="160" column="35" lean-forward="true" selection-start-line="160" selection-start-column="35" selection-end-line="160" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="999">
-          <caret line="199" column="10" lean-forward="true" selection-start-line="199" selection-start-column="10" selection-end-line="199" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1086,7 +972,7 @@
         <state relative-caret-position="744">
           <caret line="42" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1115,22 +1001,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="125" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1140,25 +1016,7 @@
         <state relative-caret-position="1154">
           <caret line="59" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="138" column="0" lean-forward="false" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1168,6 +1026,110 @@
         <state relative-caret-position="772">
           <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="29" column="46" lean-forward="false" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="138" column="59" lean-forward="false" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="148" column="0" lean-forward="true" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="909">
+          <caret line="91" column="19" lean-forward="false" selection-start-line="91" selection-start-column="15" selection-end-line="91" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/numpy/core/_methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/numpy/core/fromnumeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="2319" column="0" lean-forward="false" selection-start-line="2319" selection-start-column="0" selection-end-line="2319" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="263" column="0" lean-forward="false" selection-start-line="263" selection-start-column="0" selection-end-line="263" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/site-packages/tensorflow/python/client/session.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="711" column="0" lean-forward="false" selection-start-line="711" selection-start-column="0" selection-end-line="711" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-124">
+          <caret line="32" column="23" lean-forward="false" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

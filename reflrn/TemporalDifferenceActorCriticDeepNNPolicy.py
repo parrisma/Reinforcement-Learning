@@ -16,7 +16,7 @@ from reflrn.ModelParameters import ModelParameters
 
 
 #
-# This follows the TestGridActorCritic pattern.
+# This follows the GridActorCritic pattern.
 #
 
 

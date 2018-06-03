@@ -1,4 +1,5 @@
 from copy import deepcopy
+from random import randint
 
 import numpy as np
 
@@ -26,6 +27,10 @@ class SimpleGridOne(Grid):
     EAST = np.int(2)
     WEST = np.int(3)
     __actions = {NORTH: (-1, 0), SOUTH: (1, 0), EAST: (0, 1), WEST: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
+    RESPAWN_RANDOM = 0
+    RESPAWN_CORNER = 1
+    RESPAWN_EDGE = 2
+    RESPAWN_DEFAULT = 3
 
     #
     # C-Tor.
@@ -36,19 +41,26 @@ class SimpleGridOne(Grid):
     def __init__(self,
                  grid_id: int,
                  grid_map: [],
-                 start_coords: []
+                 st_coords: []
                  ):
         self.__grid_id = grid_id
         self.__grid = grid_map[:]  # Deep Copy
         self.__grid_rows = len(self.__grid)
         self.__grid_cols = len(self.__grid[0])
-        if start_coords is not None:
-            self.__start = deepcopy(start_coords)
+        self.__st_coords = st_coords
+        if self.__st_coords is not None:
+            self.__start = st_coords
             self.__curr = [self.__start[0], self.__start[1]]
         else:
-            self.__start = deepcopy([0, 0])
+            self.__start = self.start_coords()
             self.__curr = [0, 0]
         self.__trace = None
+
+    def start_coords(self):
+        x = randint(0, self.__grid_cols - 1)
+        y = randint(0, self.__grid_rows - 1)
+        sc = (x, y)
+        return sc
 
     #
     # What is the shape of the grid
@@ -68,7 +80,10 @@ class SimpleGridOne(Grid):
     # Reset the grid state after episode end.
     #
     def reset(self):
-        self.__curr = deepcopy(self.__start)
+        if self.__st_coords is not None:
+            self.__curr = deepcopy(self.__start)
+        else:
+            self.__curr = self.start_coords()
         return
 
     #
