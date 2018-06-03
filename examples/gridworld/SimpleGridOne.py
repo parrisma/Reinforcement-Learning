@@ -131,8 +131,12 @@ class SimpleGridOne(Grid):
     #
     # Reset the grid state after episode end.
     #
-    def reset(self):
-        self.__curr = self.start_coords()
+    def reset(self,
+              coords: [] = None):
+        if coords is None:
+            self.__curr = self.start_coords()
+        else:
+            self.__curr = [coords[0], coords[1]]
         return
 
     #

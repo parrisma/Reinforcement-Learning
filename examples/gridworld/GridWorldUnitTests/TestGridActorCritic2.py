@@ -81,7 +81,7 @@ class GridActorCritic:
     # Return the learning rate based on number of learning's to date
     #
     def learning_rate(self):
-        return max(0.01, self.learning_rate_0 / (1 + (self.episode * self.learning_rate_decay)))
+        return self.learning_rate_0 / (1 + (self.episode * self.learning_rate_decay))
 
     #
     # Add item to the replay-memory.
@@ -201,6 +201,7 @@ class GridActorCritic:
     #
     def _get_actor_predicted_action(self, cur_state) -> int:
         cur_state = np.array(cur_state).reshape((1, 2))  # Shape needed for NN
+        aact = self.env_grid.allowable_actions(cur_state)
         actn = np.argmax(self.actor_model.predict(cur_state)[0])
         return actn
 
@@ -233,15 +234,15 @@ class GridActorCritic:
     # Make a greedy (random) action based on current value (decaying) of epsilon
     # else make an action based on prediction the NN inside the actor.
     #
-    def select_action(self, cur_state):
-        self.epsilon = max(0.1, self.epsilon * self.epsilon_decay)
+    def select_action(self,
+                      cur_state,
+                      greedy: bool = False):
+        self.epsilon = max(0.05, self.epsilon * self.epsilon_decay)
         self.lg.debug("epsilon :" + str(self.epsilon))
         allowable_actions = self.env_grid.allowable_actions(cur_state)
 
-        if np.random.random() < self.epsilon:
+        if np.random.random() < self.epsilon and not greedy:
             self.lg.debug("R")
-            if len(allowable_actions) == 0:
-                print("??")
             actn = self.random_action(cur_state, allowable_actions)
         else:
             actn = self.actor_predict_action(cur_state, allowable_actions)
@@ -291,15 +292,15 @@ def create_grid() -> SimpleGridOne:
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, fire, step, step, step, step, step, step, step, step],
+        [step, step, step, goal, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, fire, step, goal, step, fire, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, fire, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, fire, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
         [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step]
@@ -308,6 +309,31 @@ def create_grid() -> SimpleGridOne:
                         grid_map=grid,
                         respawn_type=SimpleGridOne.RESPAWN_RANDOM)
     return 15, 15, sg1
+
+
+#
+# What is the cost of finding a goal state from each corner. Actions are predicted by the actor
+# only, so no random actions. As such this can be taken as a measure of the agents improvment in
+# heading directly to a goal.
+#
+def optimal_path_check(grid_env: SimpleGridOne,
+                       actor_critic: GridActorCritic):
+    r, c = grid_env.shape()
+
+    corners = [(0, 0),
+               (0, r - 1),
+               (c - 1, 0),
+               (c - 1, r - 1)
+               ]
+
+    path_cost = 0
+    for corner in corners:
+        i = 0
+        grid_env.reset(coords=corner)
+        while not grid_env.episode_complete() and i < 5000:
+            path_cost += grid_env.execute_action(actor_critic.select_action(cur_state=grid_env.state(), greedy=True))
+            i += 1
+    return path_cost
 
 
 #
@@ -333,6 +359,7 @@ def main():
 
     while True:
         if env.episode_complete():
+            lg.debug("Optimal path cost : " + str(optimal_path_check(env, actor_critic)))
             env.reset()
             actor_critic.new_episode()
             cur_state = env.state()  # new_state
