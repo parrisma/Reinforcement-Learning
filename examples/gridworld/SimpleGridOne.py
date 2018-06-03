@@ -1,5 +1,5 @@
 from copy import deepcopy
-from random import randint
+from random import randint, choice
 
 import numpy as np
 
@@ -41,26 +41,78 @@ class SimpleGridOne(Grid):
     def __init__(self,
                  grid_id: int,
                  grid_map: [],
-                 st_coords: []
+                 st_coords: [] = None,
+                 respawn_type=RESPAWN_RANDOM
                  ):
         self.__grid_id = grid_id
         self.__grid = grid_map[:]  # Deep Copy
         self.__grid_rows = len(self.__grid)
         self.__grid_cols = len(self.__grid[0])
         self.__st_coords = st_coords
+        self.__trace = None
+        self.__respawn_type = respawn_type
+        self.__corners = None
+        self.__edges = None
+        self.__respawn_operator = {
+            SimpleGridOne.RESPAWN_DEFAULT: self.__respawn_default,
+            SimpleGridOne.RESPAWN_CORNER: self.__respawn_on_a_corner,
+            SimpleGridOne.RESPAWN_EDGE: self.__respawn_on_an_edge,
+            SimpleGridOne.RESPAWN_RANDOM: self.__respawn_random
+        }
+        self.__start = None
+        self.__curr = None
         if self.__st_coords is not None:
             self.__start = st_coords
             self.__curr = [self.__start[0], self.__start[1]]
         else:
-            self.__start = self.start_coords()
-            self.__curr = [0, 0]
-        self.__trace = None
+            self.__start = [0, 0]
+            self.__curr = deepcopy(self.__start)
 
     def start_coords(self):
+        return (self.__respawn_operator[self.__respawn_type])()
+
+    #
+    # Re Spawn on the single start point given to constructor or [0, 0] if
+    # no start coords were given.
+    #
+    def __respawn_default(self):
+        return deepcopy(self.__start)
+
+    #
+    # Re-Spawn anywhere on the grid.
+    #
+    def __respawn_random(self):
         x = randint(0, self.__grid_cols - 1)
         y = randint(0, self.__grid_rows - 1)
-        sc = (x, y)
-        return sc
+        xy = (x, y)
+        return xy
+
+    #
+    # Re-Spawn on any corner.
+    #
+    def __respawn_on_a_corner(self):
+        if self.__corners is None:
+            self.__corners = []
+            self.__corners.append((0, 0))
+            self.__corners.append((0, self.__grid_cols - 1))
+            self.__corners.append((self.__grid_rows - 1, 0))
+            self.__corners.append((self.__grid_rows - 1, self.__grid_cols - 1))
+        return deepcopy(choice(self.__corners))
+
+    #
+    # Re-Spawn any where on an edge.
+    #
+    def __respawn_on_an_edge(self):
+        if self.__edges is None:
+            self.__edges = []
+            for x in range(0, self.__grid_cols):
+                self.__edges.append((x, 0))
+                self.__edges.append((x, self.__grid_rows - 1))
+            for y in range(1, self.__grid_rows - 1):
+                self.__edges.append((0, y))
+                self.__edges.append((self.__grid_cols - 1, y))
+
+        return deepcopy(choice(self.__edges))
 
     #
     # What is the shape of the grid
@@ -80,10 +132,7 @@ class SimpleGridOne(Grid):
     # Reset the grid state after episode end.
     #
     def reset(self):
-        if self.__st_coords is not None:
-            self.__curr = deepcopy(self.__start)
-        else:
-            self.__curr = self.start_coords()
+        self.__curr = self.start_coords()
         return
 
     #

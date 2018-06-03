@@ -7,9 +7,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Small change to readme">
       <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
       <change beforePath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +22,8 @@
       <file leaf-file-name="TestGridActorCritic2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+            <state relative-caret-position="419">
+              <caret line="301" column="49" lean-forward="false" selection-start-line="301" selection-start-column="49" selection-end-line="301" selection-end-column="49" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -35,11 +34,33 @@
       <file leaf-file-name="SimpleGridOne.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-124">
-              <caret line="32" column="23" lean-forward="false" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+            <state relative-caret-position="589">
+              <caret line="112" column="57" lean-forward="false" selection-start-line="112" selection-start-column="57" selection-end-line="112" selection-end-column="57" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestSimpleGridOne.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="635">
+              <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="case.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="772">
+              <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -88,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>assert</find>
       <find>ExplorationMemory.ExplorationMemoryMemTypeSearchNotSupported(str(get_by) + &quot; Not Searchable&quot;)</find>
       <find>Summary</find>
       <find>debug</find>
@@ -117,6 +137,7 @@
       <find>reset</find>
       <find>Step</find>
       <find>train_on_new_episode</find>
+      <find>deep</find>
       <find>Sample</find>
     </findStrings>
     <replaceStrings>
@@ -169,7 +190,6 @@
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
         <option value="$PROJECT_DIR$/reflrn/DeepReplayQNetWorkPolicy.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic.ipynb" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
         <option value="$PROJECT_DIR$/SampleCodeFromOtherSources/pendulum.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/CannotCloneWeightsOfDifferentModelException.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/CannotCloneWeightsOfDifferentModelException.py" />
@@ -182,6 +202,7 @@
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
       </list>
     </option>
@@ -418,10 +439,10 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.TestGridActorCritic2" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in TestRareEventBiasReplayMemory.py" />
-        <item index="2" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
-        <item index="3" class="java.lang.String" itemvalue="Python.TestGridActorCritic" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleGridOne.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleGridOne.py" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test in TestRareEventBiasReplayMemory.py" />
+        <item index="3" class="java.lang.String" itemvalue="Python.TestRig-TemporalDifference" />
+        <item index="4" class="java.lang.String" itemvalue="Python.TestGridActorCritic" />
       </list>
     </recent_temporary>
   </component>
@@ -464,35 +485,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 27m 15s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 41m 01s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 31m 29s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 41m 59s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 31m 54s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 42m 09s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 32m 06s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 45m 00s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 33m 30s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 45m 24s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 36m 54s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 46m 00s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 42m 34s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 47m 24s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 44m 08s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 47m 37s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 21h 53m 54s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 47m 47s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
-    <history-entry file="py_test_in_TestRareEventBiasReplayMemory_py - 2018.06.02 at 22h 06m 54s.xml">
-      <configuration name="py.test in TestRareEventBiasReplayMemory.py" configurationId="tests" />
+    <history-entry file="py_test_in_TestSimpleGridOne_py - 2018.06.03 at 15h 48m 13s.xml">
+      <configuration name="py.test in TestSimpleGridOne.py" configurationId="tests" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -503,7 +524,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32998455" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35935086" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35935086" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13972603" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -612,22 +633,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
-          <line>166</line>
-          <option name="timeStamp" value="574" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
-          <line>127</line>
-          <option name="timeStamp" value="575" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
-          <line>185</line>
+          <line>257</line>
           <option name="timeStamp" value="577" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
-          <line>181</line>
+          <line>253</line>
           <option name="timeStamp" value="578" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -670,6 +681,11 @@
           <line>243</line>
           <option name="timeStamp" value="723" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py</url>
+          <line>229</line>
+          <option name="timeStamp" value="733" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -678,7 +694,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="724" />
+      <option name="time" value="734" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -697,47 +713,47 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>str((c[0], c[1])) in corners</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>str((0, 0)) in corners</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>corners</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>c</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>str((1,1)) in corners</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>self</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>y</expression-string>
+        <expression-string>_SimpleGridOne_actions</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>qvs</expression-string>
+        <expression-string>print(c[0])</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>da</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>allowable_actions</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>type(da)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>da = self.disallowed_actions(aact)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>qvs[da]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>qvs[aact]</expression-string>
+        <expression-string>str((0,0)) in corners</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1011,24 +1027,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1154">
-          <caret line="59" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1113,20 +1111,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Conda/envs/tf-gpu/Lib/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="772">
+          <caret line="604" column="0" lean-forward="false" selection-start-line="604" selection-start-column="0" selection-end-line="604" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="32" column="23" lean-forward="false" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+        <state relative-caret-position="589">
+          <caret line="112" column="57" lean-forward="false" selection-start-line="112" selection-start-column="57" selection-end-line="112" selection-end-column="57" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="243" column="14" lean-forward="false" selection-start-line="243" selection-start-column="14" selection-end-line="243" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="15" column="67" lean-forward="false" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
+        <state relative-caret-position="419">
+          <caret line="301" column="49" lean-forward="false" selection-start-line="301" selection-start-column="49" selection-end-line="301" selection-end-column="49" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

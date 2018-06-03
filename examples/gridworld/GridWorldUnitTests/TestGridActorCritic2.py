@@ -288,21 +288,26 @@ goal = SimpleGridOne.GOAL
 
 def create_grid() -> SimpleGridOne:
     grid = [
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, goal, goal, goal, step, step, step, step],
-        [step, step, step, goal, goal, goal, step, step, step, step],
-        [step, step, step, goal, goal, goal, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
-        [step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, fire, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, fire, step, goal, step, fire, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, fire, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step],
+        [step, step, step, step, step, step, step, step, step, step, step, step, step, step, step]
     ]
-    sg1 = SimpleGridOne(1,
-                        grid,
-                        None)
-    return 10, 10, sg1
+    sg1 = SimpleGridOne(grid_id=1,
+                        grid_map=grid,
+                        respawn_type=SimpleGridOne.RESPAWN_RANDOM)
+    return 15, 15, sg1
 
 
 #

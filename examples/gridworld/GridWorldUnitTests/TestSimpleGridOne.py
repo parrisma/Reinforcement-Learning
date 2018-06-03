@@ -171,6 +171,78 @@ class TestSimpleGridOne(unittest.TestCase):
 
         return
 
+    #
+    # Test the re-spawn mode where
+    #
+    def test_respawn_1_by_1(self):
+        grid = [
+            [self.step]
+        ]
+        sg5 = SimpleGridOne(grid_id=5,
+                            grid_map=grid,
+                            respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
+        sg5.reset()
+        c = sg5.state()
+        self.assertTrue(c[0] == 0 and c[1] == 0)
+
+        sg5 = SimpleGridOne(grid_id=5,
+                            grid_map=grid,
+                            st_coords=[0, 0],
+                            respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
+        sg5.reset()
+        c = sg5.state()
+        self.assertTrue(c[0] == 0 and c[1] == 0)
+
+        return
+
+    def test_respawn_3_by_3(self):
+        grid = [
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step]
+        ]
+        sg6 = SimpleGridOne(grid_id=6,
+                            grid_map=grid,
+                            st_coords=[1, 1],
+                            respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
+        sg6.reset()
+        c = sg6.state()
+        self.assertTrue(c[0] == 1 and c[1] == 1)
+
+        sg6 = SimpleGridOne(grid_id=6,
+                            grid_map=grid,
+                            respawn_type=SimpleGridOne.RESPAWN_CORNER)
+
+        corners = {str((0, 0)): False,
+                   str((0, 2)): False,
+                   str((2, 0)): False,
+                   str((2, 2)): False
+                   }
+        for i in range(1, 50):
+            sg6.reset()
+            c = sg6.state()
+            self.assertTrue(str((c[0], c[1])) in corners)
+
+        sg6 = SimpleGridOne(grid_id=6,
+                            grid_map=grid,
+                            respawn_type=SimpleGridOne.RESPAWN_EDGE)
+
+        edges = {str((0, 0)): False,
+                 str((0, 1)): False,
+                 str((0, 2)): False,
+                 str((2, 0)): False,
+                 str((2, 1)): False,
+                 str((2, 2)): False,
+                 str((1, 0)): False,
+                 str((1, 2)): False
+                 }
+        for i in range(1, 50):
+            sg6.reset()
+            c = sg6.state()
+            self.assertTrue(str((c[0], c[1])) in edges)
+
+        return
+
 
 #
 # Execute the UnitTests.
