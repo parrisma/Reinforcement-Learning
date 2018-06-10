@@ -122,15 +122,13 @@ class GridActorCritic:
     # What is the prediction vector for the given state. This is adjusted to discount
     # dis-allowed actions.
     #
+    # Will fail if the given state is the goal state as there are no allowable actions.
+    #
     def _state_qval_prediction(self,
-                               state):
+                               state) -> [np.float]:
         aa = self.env_grid.allowable_actions(state)
-        if len(aa) == 0:
-            print("?")
         da = self.env_grid.disallowed_actions(aa)
         qvp = self._actor_prediction(state)[0]  # Actor estimate of QVals for next state. (after action)
-        if len(qvp) == 0 or len(aa) == 0:
-            print("?")
         if len(aa) < self.num_actions:
             lv = np.min(qvp[aa])
             lv = lv - (0.01 * np.sign(lv) * lv)
@@ -200,16 +198,25 @@ class GridActorCritic:
         i = 0
         for sample in samples:
             cur_state, new_state, action, reward, done = sample
-            aact = self.env_grid.allowable_actions(cur_state)
+            aact = self.env_grid.allowable_actions(new_state)
             da = self.env_grid.disallowed_actions(aact)
             lr = self.learning_rate()
 
-            if self.env_grid.episode_complete(new_state):
-                qvp = reward
-            else:
-                qvp, _, _ = self.simulated_qval(cur_state, new_state, self.gamma, steps=3)
-            qvp *= lr
+            qvns = self._state_qval_prediction(new_state)  # Actor estimate of QVals for
+            qvnsa = np.argmax(qvns)
+            if self.env_grid.coords_after_action(new_state[0], new_state[1], qvnsa):
+                print('?')
+                aact.remove(qvnsa)
+                da.append(qvnsa)
+                lv = np.min(qvns[aact])
+                lv = lv - (0.01 * np.sign(lv) * lv)
+                qv[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
 
+            # current state.
+            qvp = 0
+
+            aact = self.env_grid.allowable_actions(cur_state)
+            da = self.env_grid.disallowed_actions(aact)
             qvs = self._actor_prediction(cur_state)[0]  # Actor estimate of QVals for current state.
             if len(aact) < self.num_actions:
                 lv = np.min(qvs[aact])
