@@ -36,7 +36,7 @@ class RenderSimpleGridOneQValues(RenderQVals):
             self.PLOT_WIREFRAME: self.__plot_wireframe,
             self.PLOT_GRID: self.plot_grid,
         }
-        self.__view_rot_step = 15
+        self.__view_rot_step = 0
         self.__view_rot = 0
 
     def render(self, curr_state: State, q_vals: dict) -> str:

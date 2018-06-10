@@ -1,6 +1,7 @@
 import abc
 
 import numpy as np
+
 from reflrn.Interface.State import State
 
 
@@ -45,6 +46,25 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
+    # Convert the allowable actions into a boolean mask.
+    #
+    @abc.abstractmethod
+    def disallowed_actions(self, allowable_actions) -> [int]:
+        pass
+
+    @classmethod
+    @abc.abstractmethod
+    def coords_after_action(cls, x: int, y: int, action: int) -> [int]:
+        pass
+
+    #
+    # What is the reward for the given grid location.
+    #
+    @abc.abstractmethod
+    def reward(self, x: int, y: int) -> np.float:
+        pass
+
+    #
     # Reset the grid to its state as at construction.
     #
     @abc.abstractmethod
@@ -52,10 +72,11 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Is the episode complete, are we at the terminal finish state ?
+    # Is the episode complete, are we at the terminal finish state ? If the coords are supplied
+    # then test those coords rather than the current grid location.
     #
     @abc.abstractmethod
-    def episode_complete(self) -> bool:
+    def episode_complete(self, coords: tuple = None) -> bool:
         pass
 
     #

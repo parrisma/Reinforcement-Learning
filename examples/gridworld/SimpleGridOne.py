@@ -45,6 +45,7 @@ class SimpleGridOne(Grid):
                  respawn_type=RESPAWN_RANDOM
                  ):
         self.__grid_id = grid_id
+        self.__num_actions = 4  # N,S,E,W
         self.__grid = grid_map[:]  # Deep Copy
         self.__grid_rows = len(self.__grid)
         self.__grid_cols = len(self.__grid[0])
@@ -155,6 +156,12 @@ class SimpleGridOne(Grid):
         return self.__grid_reward(self.__curr)
 
     #
+    # What is the reward for the given grid location.
+    #
+    def reward(self, x: int, y: int) -> np.float:
+        return self.__grid_reward([x, y])
+
+    #
     # What is the list of all possible actions.
     #
     def actions(self) -> [int]:
@@ -180,8 +187,11 @@ class SimpleGridOne(Grid):
     # Is the episode complete.
     #
     def episode_complete(self,
-                         coords: () = None) -> bool:
-        return self.__episode_over(coords)
+                         coords: tuple = None) -> bool:
+        if coords is not None:
+            return self.__episode_over(coords)
+        else:
+            return self.__episode_over(self.__curr)
 
     #
     # Is the current location at a defined terminal (finish) location.
@@ -208,6 +218,10 @@ class SimpleGridOne(Grid):
             nw = coords
         return tuple((nw[0] + mv[0], nw[1] + mv[1]))
 
+    #
+    # What *would* the coordinates be if the given action were to be executed
+    # from the given grid location.
+    #
     @classmethod
     def coords_after_action(cls, x: int, y: int, action: int) -> [int]:
         mv = cls.__actions[action]
@@ -224,6 +238,16 @@ class SimpleGridOne(Grid):
     #
     def __blocked(self, coords: ()) -> bool:
         return self.__grid[coords[0]][coords[1]] == self.BLCK
+
+    #
+    # Convert the allowable actions into a boolean mask.
+    #
+    def disallowed_actions(self, allowable_actions) -> [int]:
+        da = []
+        for i in range(0, self.__num_actions):
+            if i not in allowable_actions:
+                da.append(i)
+        return np.array(da)
 
     #
     # List of allowable actions from the current position
@@ -247,6 +271,8 @@ class SimpleGridOne(Grid):
         if new_coords[1] < self.__grid_cols and not self.__blocked(
                 new_coords) and not self.__location_already_visited(new_coords):
             ams.append(self.EAST)
+        if len(ams) == 0:
+            print("?")
         return ams
 
     #
