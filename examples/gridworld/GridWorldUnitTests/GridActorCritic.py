@@ -1,14 +1,12 @@
-import logging
 import random
 import unittest
-from typing import Tuple
+from typing import Tuple, List
 
 import numpy as np
 
 from examples.gridworld.Grid import Grid
 from examples.gridworld.SimpleGridOne import SimpleGridOne
 from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
-from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.RareEventBiasReplayMemory import RareEventBiasReplayMemory
 
 
@@ -22,25 +20,26 @@ class GridActorCritic:
                  lg,
                  rows: int,
                  cols: int):
-        self.env_grid = grid
+
+        self.env_grid: Grid = grid
         self.lg = lg
 
-        self.episode = 1
+        self.episode: int = 1
 
-        self.batch_size = 32
-        self.input_dim = 2
-        self.num_actions = 4
-        self.output_dim = self.num_actions
-        self.num_rows = rows
-        self.num_cols = cols
+        self.batch_size: int = 32
+        self.input_dim: int = 2
+        self.num_actions: int = 4
+        self.output_dim: int = self.num_actions
+        self.num_rows: int = rows
+        self.num_cols: int = cols
 
-        self.learning_rate_0 = float(1.0)
-        self.learning_rate_decay = float(0.05)
-        self.epsilon = 0.8  # exploration factor.
-        self.epsilon_decay = .9995
-        self.gamma = .8  # Discount Factor Applied to reward
+        self.learning_rate_0: float = float(1.0)
+        self.learning_rate_decay: float = float(0.05)
+        self.epsilon: float = 0.8  # exploration factor.
+        self.epsilon_decay: float = .9995
+        self.gamma: float = .8  # Discount Factor Applied to reward
 
-        self.exploration = dict()
+        self.last_state: List[int] = None
 
         self.steps_to_goal = 0
         self.train_on_new_episode = False
@@ -102,6 +101,10 @@ class GridActorCritic:
         self.lg.debug("Update Actor From Critic")
         return
 
+    #
+    # Extract a random sample from the replay memory, calculate the QVals and train
+    # the critical deep NN model.
+    #
     def _train_critic(self) -> bool:
         trained = False
         x, y = self._get_sample_batch()
@@ -112,11 +115,20 @@ class GridActorCritic:
         return trained
 
     #
-    # Distance in state space
+    # Return the list of allowable actions minus the action that would return the agent
+    # to the state it has just come from.
     #
-    @classmethod
-    def _distance(cls, s1, s2) -> np.float:
-        return np.sqrt(np.power(s1[0] - s2[0], 2) + np.power(s1[1] - s2[1], 2))
+    def allowed_actions_no_return(self, state: List[int]):
+        aanr = list()
+        allowable_actions = self.env_grid.allowable_actions(state)
+        if self.last_state is None:
+            return allowable_actions
+        else:
+            for action in allowable_actions:
+                x, y = self.env_grid.coords_after_action(state[0], state[1], action)
+                if x != self.last_state[0] and y != self.last_state[1]:
+                    aanr.append(action)
+        return aanr
 
     #
     # What is the prediction vector for the given state. This is adjusted to discount
@@ -126,7 +138,7 @@ class GridActorCritic:
     #
     def _state_qval_prediction(self,
                                state) -> [np.float]:
-        aa = self.env_grid.allowable_actions(state)
+        aa = self.allowed_actions_no_return(state)
         da = self.env_grid.disallowed_actions(aa)
         qvp = self._actor_prediction(state)[0]  # Actor estimate of QVals for next state. (after action)
         if len(aa) < self.num_actions:
@@ -134,53 +146,6 @@ class GridActorCritic:
             lv = lv - (0.01 * np.sign(lv) * lv)
             qvp[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
         return qvp
-
-    #
-    # Calculate the normalization factor
-    #
-    def _dist_norm_fact(self,
-                        d: np.float,
-                        mx: np.float,
-                        mn: np.float) -> np.float:
-        if mx == mn:
-            if d == 0:
-                return np.float(0)
-            else:
-                return np.float(1)
-        else:
-            return (d - mn) / (mx - mn)
-
-    #
-    # Search forward n steps for optimal next action. The predicted reward is
-    # weighted by the distance in state space from current state with a view to
-    # encourage exploration and penalise loops
-    #
-    def simulated_qval(self,
-                       origin_state,
-                       state,
-                       gamma: np.float,
-                       steps: int,
-                       dmax: np.float = -np.finfo('d').max,
-                       dmin: np.float = np.finfo('d').max,
-                       ):
-
-        qvp = self._state_qval_prediction(state)
-        actn = np.argmax(qvp)
-        reward = qvp[actn]
-        next_state = self.env_grid.coords_after_action(state[0], state[1], actn)
-        stp = steps - 1
-        d = self._distance(origin_state, next_state)
-        ndmax = max(dmax, d)
-        ndmin = min(dmin, d)
-        qv = 0
-        if stp != 0:
-            if self.env_grid.episode_complete(next_state):
-                qv = reward
-            else:
-                qv, ndmax, ndmin = self.simulated_qval(origin_state, next_state, gamma * gamma, stp, ndmax, ndmin)
-
-        qv = qv + reward - ((1.0 - self._dist_norm_fact(d, ndmax, ndmin)) * reward * np.sign(reward)) * gamma
-        return qv, ndmax, ndmin
 
     #
     # Get a random set of samples from the given QValues to select_action as a training
@@ -198,30 +163,19 @@ class GridActorCritic:
         i = 0
         for sample in samples:
             cur_state, new_state, action, reward, done = sample
-            aact = self.env_grid.allowable_actions(new_state)
-            da = self.env_grid.disallowed_actions(aact)
+            allowable_actions = self.allowed_actions_no_return(cur_state)
+            disallowed_actions = self.env_grid.disallowed_actions(allowable_actions)
             lr = self.learning_rate()
 
-            qvns = self._state_qval_prediction(new_state)  # Actor estimate of QVals for
-            qvnsa = np.argmax(qvns)
-            if self.env_grid.coords_after_action(new_state[0], new_state[1], qvnsa):
-                print('?')
-                aact.remove(qvnsa)
-                da.append(qvnsa)
-                lv = np.min(qvns[aact])
-                lv = lv - (0.01 * np.sign(lv) * lv)
-                qv[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
+            qvn = self._actor_prediction(new_state)[0]  # Actor estimate of QVals for next state. (after action)
+            qvp = np.max(qvn[allowable_actions])  # optimal return, can only be taken from allowable actions.
+            qvp = self.gamma * qvp * lr  # Discounted max return from next state
 
-            # current state.
-            qvp = 0
-
-            aact = self.env_grid.allowable_actions(cur_state)
-            da = self.env_grid.disallowed_actions(aact)
             qvs = self._actor_prediction(cur_state)[0]  # Actor estimate of QVals for current state.
-            if len(aact) < self.num_actions:
-                lv = np.min(qvs[aact])
-                lv = lv - (0.01 * np.sign(lv) * lv)
-                qvs[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
+            if len(allowable_actions) < self.num_actions:
+                lv = np.min(qvs[allowable_actions])
+                lv = np.absolute(lv) * 1.01 * np.sign(lv)
+                qvs[disallowed_actions] = lv  # suppress disallowed actions.
             qv = qvs[action]
             qv = (qv * (1 - lr)) + (lr * reward) + qvp  # updated expectation of current state/action
             qvs[action] = qv
@@ -247,7 +201,7 @@ class GridActorCritic:
         return
 
     #
-    # Set override actor predictor function.
+    # Set override actor predictor function (unit testing)
     #
     def set_actor_predictor_function(self, predictor_func) -> None:
         self.aux_actor_predictor = predictor_func
@@ -273,25 +227,16 @@ class GridActorCritic:
     def actor_predict_action(self, cur_state, allowable_actions) -> int:
         cur_state = np.array(cur_state).reshape((1, 2))  # Shape needed for NN
         qvs = self.actor_model.predict(cur_state)[0]
-        da = self.env_grid.disallowed_actions(allowable_actions)
-        if len(allowable_actions) < self.num_actions:
-            lv = np.min(qvs[allowable_actions])
-            if lv == 0:
-                lv = -0.0001
-            lv = lv - (0.01 * np.sign(lv) * lv)
-            qvs[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
-        actn = np.argmax(qvs)
+        actn = np.argmax(qvs[allowable_actions])
         return actn
 
     #
-    # Select a random action, but bias to taking the action that has been least
+    # remember actions such that we can bias agent to prefer actions not yet seen or
+    # lease visited.
     # explored from this state.
     #
-    def remember_action(self, cur_state, action):
-        ky = str(cur_state)
-        if ky not in self.exploration:
-            self.exploration[ky] = np.zeros(self.num_actions)
-        self.exploration[ky][action] += 1
+    def remember_last_state(self, state: List[int]):
+        self.last_state = state
         return
 
     #
@@ -299,13 +244,8 @@ class GridActorCritic:
     # the current state (this should be replaced with another NN that learns
     # familiarity)
     #
-    def random_action(self, cur_state, allowable_actions):
-        ky = str(cur_state)
-        if ky in self.exploration:
-            act_cnt = self.exploration[ky]
-            actn = allowable_actions[np.argmin(act_cnt[allowable_actions])]
-        else:
-            actn = random.choice(allowable_actions)
+    def random_action(self, allowable_actions: List[int]):
+        actn = random.choice(allowable_actions)
         return actn
 
     #
@@ -317,20 +257,20 @@ class GridActorCritic:
                       greedy: bool = False):
         self.epsilon = max(0.05, self.epsilon * self.epsilon_decay)
         self.lg.debug("epsilon :" + str(self.epsilon))
-        allowable_actions = self.env_grid.allowable_actions(cur_state)
+        allowable_actions = self.allowed_actions_no_return(cur_state)
 
         if np.random.random() < self.epsilon and not greedy:
             self.lg.debug("R")
-            actn = self.random_action(cur_state, allowable_actions)
+            actn = self.random_action(allowable_actions)
         else:
             actn = self.actor_predict_action(cur_state, allowable_actions)
             if actn is None:
                 self.lg.debug("R")
-                actn = self.random_action(cur_state, allowable_actions)
+                actn = self.random_action(allowable_actions)
             else:
                 self.lg.debug("P")
 
-        self.remember_action(cur_state, actn)
+        self.remember_last_state(cur_state)
         self.steps_to_goal += 1
         return actn
 
@@ -360,175 +300,25 @@ blck = SimpleGridOne.BLCK
 goal = SimpleGridOne.GOAL
 
 
-def create_grid() -> Tuple[int, int, SimpleGridOne]:
-    r = 5
-    c = 5
-    grid = np.full((r, c), step)
-    grid[2, 2] = goal
-    sg1 = SimpleGridOne(grid_id=1,
-                        grid_map=grid,
-                        respawn_type=SimpleGridOne.RESPAWN_RANDOM)
-    return r, c, sg1
-
-
-lg = EnvironmentLogging("UnitTestGridActorCritic",
-                        "UnitTestGridActorCritic.log",
-                        logging.DEBUG).get_logger()
-
-
-#
-# The numbers in the test cases are just simulations of what the deep NN will predict
-# for the q-vals of the given state. They are all uniform to keep the tests predictable
-# but in practice they will be varied approximations.
-#
-@unittest.skip("This is a support class only.")
-class TestPredictorFactory:
-    def __init__(self):
-        self.i = 0
-        self.cases = None
-
-    #
-    # Dummy predictor
-    #
-    def predict(self, _) -> [np.float]:
-        c = self.cases[self.i]
-        self.i += 1
-        return np.reshape(c, (1, 4))
-
-    #
-    # North - South loop
-    #
-    def north_south_one_step_loop(self):
-        self.cases = [[-0.25, -0.2, -0.25, -0.25]  # S
-                      ]
-        self.i = 0
-
-    #
-    # North - North, one step away
-    #
-    def north_north_one_step_loop(self):
-        self.cases = [[-0.2, -0.25, -0.25, -0.25]  # N
-                      ]
-        self.i = 0
-
-    #
-    # Three Step Loop assume S' = N (E,S,W)
-    #
-    def three_step_loop(self):
-        self.cases = [[-0.25, -0.25, -0.2, -0.25],  # E
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.25, -0.25, -0.25, -0.2]  # W
-                      ]
-        self.i = 0
-
-    #
-    # Three Step Loop assume S' = N (N,W,S)
-    #
-    def three_step_away(self):
-        self.cases = [[-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.25, -0.25, -0.2],  # W
-                      [-0.25, -0.2, -0.25, -0.25]  # S
-                      ]
-        self.i = 0
-
-    #
-    # Num steps to test case
-    #
-    def steps(self) -> int:
-        return len(self.cases)
-
-    #
-    # Deep North - South loop
-    #
-    def deep_north_south_step_loop(self):
-        self.cases = [[-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.2, -0.25, -0.25, -0.25]  # N
-                      ]
-        self.i = 0
-
-    #
-    # Deep North - South loop
-    #
-    def six_steps(self):
-        self.cases = [[-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.25, -0.2, -0.25],  # E
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.25, -0.2, -0.25, -0.25],  # S
-                      [-0.25, -0.25, -0.25, -0.2]  # W
-                      ]
-        self.i = 0
-
-    #
-    # Three Steps via goal state at 2,2 : should stop on 2nd move
-    #
-    def towards_goal_state(self):
-        self.cases = [[-0.2, -0.25, -0.25, -0.25],  # N
-                      [-0.25, -0.25, -0.25, 1.0],  # W (Goal State)
-                      [-0.25, -0.22, -0.25, -0.2]  # W (should never get here)
-                      ]
-        self.i = 0
-
-
 #
 # Test Cases.
 #
 class TestGridActorCritic(unittest.TestCase):
 
-    def __run_cases(self, pf, cases):
-        res = [0, 0]
-        i = 0
-        for t in cases:
-            t()
-            r, c, env = create_grid()
-            actor_critic = GridActorCritic(env, lg, r, c)
-            actor_critic.set_actor_predictor_function(pf.predict)
-            res[i], _, _ = actor_critic.simulated_qval(origin_state=[4, 3],
-                                                       state=[3, 3],
-                                                       gamma=0.8,
-                                                       steps=pf.steps())
-            i == 1
-        self.assertTrue(res[0] < res[1])
-        return
-
     def test_0(self):
-        pf = TestPredictorFactory()
-        tst = [pf.north_south_one_step_loop, pf.north_north_one_step_loop]
-        self.__run_cases(pf, tst)
+        self.assertTrue(True == True)
         return
 
-    def test_1(self):
-        pf = TestPredictorFactory()
-        tst = [pf.three_step_loop, pf.three_step_away]
-        self.__run_cases(pf, tst)
-        return
-
-    def test_2(self):
-        pf = TestPredictorFactory()
-        tst = [pf.deep_north_south_step_loop, pf.six_steps]
-        self.__run_cases(pf, tst)
-        return
-
-    def test_goal_state(self):
-        pf = TestPredictorFactory()
-        pf.towards_goal_state()
-        r, c, env = create_grid()
-        actor_critic = GridActorCritic(env, lg, r, c)
-        actor_critic.set_actor_predictor_function(pf.predict)
-        vs, _, _ = actor_critic.simulated_qval(origin_state=[4, 3],
-                                               state=[3, 3],
-                                               gamma=0.8,
-                                               steps=pf.steps())
-        self.assertAlmostEqual(vs, 1.64, 5)
-        return
+    @classmethod
+    def create_test_grid(cls) -> Tuple[int, int, SimpleGridOne]:
+        r = 10
+        c = 10
+        grid = np.full((r, c), step)
+        grid[2, 2] = goal
+        sg1 = SimpleGridOne(grid_id=1,
+                            grid_map=grid,
+                            respawn_type=SimpleGridOne.RESPAWN_RANDOM)
+        return r, c, sg1
 
 
 #

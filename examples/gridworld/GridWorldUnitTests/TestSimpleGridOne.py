@@ -12,6 +12,31 @@ class TestSimpleGridOne(unittest.TestCase):
     goal = SimpleGridOne.GOAL
 
     #
+    # Test predicted and actual navigation.
+    #
+    def test_nav(self):
+        grid = [
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step],
+            [self.step, self.step, self.step]
+        ]
+        sg0 = SimpleGridOne(0,
+                            grid,
+                            [1, 1])
+
+        test_cases = [[(1, 1), SimpleGridOne.NORTH, (1, 0)],
+                      [(1, 1), SimpleGridOne.SOUTH, (1, 2)],
+                      [(1, 1), SimpleGridOne.EAST, (2, 1)],
+                      [(1, 1), SimpleGridOne.WEST, (0, 1)]
+                      ]
+
+        for start_coords, action, end_coords in test_cases:
+            x, y = sg0.coords_after_action(start_coords[0], start_coords[1], action)
+            self.assertTrue(x == end_coords[0] and y == end_coords[1])
+
+        return
+
+    #
     # Test, all possible moves on 3 by 3 grid
     #
     def test_0(self):
@@ -20,23 +45,23 @@ class TestSimpleGridOne(unittest.TestCase):
             [self.step, self.step, self.step],
             [self.step, self.step, self.step]
         ]
-        sg4 = SimpleGridOne(0,
+        sg0 = SimpleGridOne(0,
                             grid,
                             [1, 1])
 
         test_cases = [[(0, 0), 2, [SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(0, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(0, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
-                      [(1, 0), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
+                      [(1, 0), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(2, 0), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
+                      [(0, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
                       [(1, 1), 4, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(1, 2), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
-                      [(2, 0), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
-                      [(2, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
+                      [(2, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
+                      [(0, 2), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
+                      [(1, 2), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
                       [(2, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.NORTH]]
                       ]
 
         for coords, ln, moves in test_cases:
-            aac = sg4.allowable_actions(coords)
+            aac = sg0.allowable_actions(coords)
             self.assertEqual(len(aac), ln)
             for mv in moves:
                 self.assertTrue(mv in aac)
@@ -74,13 +99,13 @@ class TestSimpleGridOne(unittest.TestCase):
         # At start, can go North & West
         alm = sg1.allowable_actions()
         self.assertEqual(len(alm), 2)
-        self.assertEqual(SimpleGridOne.NORTH in alm, True)
-        self.assertEqual(SimpleGridOne.EAST in alm, True)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
+        self.assertEqual(SimpleGridOne.SOUTH in alm, True)
+        self.assertEqual(SimpleGridOne.WEST in alm, True)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
 
-        # Go East
-        rw = sg1.execute_action(SimpleGridOne.EAST)
+        # Go South
+        rw = sg1.execute_action(SimpleGridOne.SOUTH)
         self.assertEqual(rw, self.fire)
         alm = sg1.allowable_actions()
         self.assertEqual(len(alm), 2)
@@ -89,18 +114,18 @@ class TestSimpleGridOne(unittest.TestCase):
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
 
-        # Go North
-        rw = sg1.execute_action(SimpleGridOne.NORTH)
+        # Go West
+        rw = sg1.execute_action(SimpleGridOne.WEST)
         self.assertEqual(rw, self.step)
         alm = sg1.allowable_actions()
         self.assertEqual(len(alm), 2)
-        self.assertEqual(SimpleGridOne.SOUTH in alm, True)
-        self.assertEqual(SimpleGridOne.WEST in alm, True)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
+        self.assertEqual(SimpleGridOne.NORTH in alm, True)
+        self.assertEqual(SimpleGridOne.EAST in alm, True)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
 
-        # Go West (Done)
-        rw = sg1.execute_action(SimpleGridOne.WEST)
+        # Go North (Done)
+        rw = sg1.execute_action(SimpleGridOne.NORTH)
         self.assertEqual(rw, self.goal)
         alm = sg1.allowable_actions()
         self.assertEqual(alm, [])
@@ -120,10 +145,20 @@ class TestSimpleGridOne(unittest.TestCase):
                             grid,
                             [3, 0])
 
+        self.assertEqual(sg1.execute_action(SimpleGridOne.SOUTH), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
+
         self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.SOUTH), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.SOUTH), self.step)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.step)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
         self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
         self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
         self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
@@ -250,7 +285,7 @@ class TestSimpleGridOne(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    if True:
+    if False:
         tests = TestSimpleGridOne()
         suite = unittest.TestLoader().loadTestsFromModule(tests)
         unittest.TextTestRunner().run(suite)

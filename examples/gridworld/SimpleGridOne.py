@@ -27,7 +27,7 @@ class SimpleGridOne(Grid):
     SOUTH = np.int(1)
     EAST = np.int(2)
     WEST = np.int(3)
-    __actions = {NORTH: (-1, 0), SOUTH: (1, 0), EAST: (0, 1), WEST: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
+    __actions = {NORTH: (0, -1), SOUTH: (0, 1), EAST: (1, 0), WEST: (-1, 0)}  # N, S ,E, W (row-offset, col-offset)
     RESPAWN_RANDOM = 0
     RESPAWN_CORNER = 1
     RESPAWN_EDGE = 2
@@ -42,7 +42,7 @@ class SimpleGridOne(Grid):
     def __init__(self,
                  grid_id: int,
                  grid_map: [],
-                 st_coords: List[int, int] = None,
+                 st_coords: List[int] = None,
                  respawn_type=RESPAWN_RANDOM
                  ):
         self.__grid_id = grid_id
@@ -70,20 +70,20 @@ class SimpleGridOne(Grid):
             self.__start = list([0, 0])
             self.__curr = deepcopy(self.__start)
 
-    def start_coords(self) -> List[int, int]:
+    def start_coords(self) -> List[int]:
         return (self.__respawn_operator[self.__respawn_type])()
 
     #
     # Re Spawn on the single start point given to constructor or [0, 0] if
     # no start coords were given.
     #
-    def __respawn_default(self) -> List[int, int]:
+    def __respawn_default(self) -> List[int]:
         return deepcopy(self.__start)
 
     #
     # Re-Spawn anywhere on the grid.
     #
-    def __respawn_random(self) -> List[int, int]:
+    def __respawn_random(self) -> List[int]:
         x = randint(0, self.__grid_cols - 1)
         y = randint(0, self.__grid_rows - 1)
         xy = (x, y)
@@ -92,7 +92,7 @@ class SimpleGridOne(Grid):
     #
     # Re-Spawn on any corner.
     #
-    def __respawn_on_a_corner(self) -> List[int, int]:
+    def __respawn_on_a_corner(self) -> List[int]:
         if self.__corners is None:
             self.__corners = []
             self.__corners.append((0, 0))
@@ -104,7 +104,7 @@ class SimpleGridOne(Grid):
     #
     # Re-Spawn any where on an edge.
     #
-    def __respawn_on_an_edge(self) -> List[int, int]:
+    def __respawn_on_an_edge(self) -> List[int]:
         if self.__edges is None:
             self.__edges = []
             for x in range(0, self.__grid_cols):
@@ -119,7 +119,7 @@ class SimpleGridOne(Grid):
     #
     # What is the shape of the grid
     #
-    def shape(self) -> [int, ...]:
+    def shape(self) -> List[int]:
         return [self.__grid_rows, self.__grid_cols]
 
     #
@@ -127,14 +127,14 @@ class SimpleGridOne(Grid):
     # for these simple grids the grid itself is immutable so the defined state is simply the
     # current "location" of the grid, i.e. the active cell location where the agent is.
     #
-    def state(self) -> List[int, int]:
+    def state(self) -> List[int]:
         return [int(self.__curr[0]), int(self.__curr[1])]
 
     #
     # Reset the grid state after episode end.
     #
     def reset(self,
-              coords: List[int, int] = None) -> None:
+              coords: List[int] = None) -> None:
         if coords is None:
             self.__curr = self.start_coords()
         else:
@@ -165,7 +165,7 @@ class SimpleGridOne(Grid):
     #
     # What is the list of all possible actions.
     #
-    def actions(self) -> List[int, ...]:
+    def actions(self) -> List[int]:
         return [self.NORTH, self.SOUTH, self.EAST, self.WEST]
 
     #
@@ -188,7 +188,7 @@ class SimpleGridOne(Grid):
     # Is the episode complete.
     #
     def episode_complete(self,
-                         coords: List[int, int] = None) -> bool:
+                         coords: List[int] = None) -> bool:
         if coords is not None:
             return self.__episode_over(coords)
         else:
@@ -198,7 +198,7 @@ class SimpleGridOne(Grid):
     # Is the current location at a defined terminal (finish) location.
     #
     def __episode_over(self,
-                       coords: List[int, int] = None) -> bool:
+                       coords: List[int] = None) -> bool:
         if coords is None:
             nw = deepcopy(self.__curr)
         else:
@@ -211,7 +211,7 @@ class SimpleGridOne(Grid):
     #
     def __new_coords_after_action(self,
                                   action: int,
-                                  coords: List[int, int] = None) -> List[int, int]:
+                                  coords: List[int] = None) -> List[int]:
         mv = self.__actions[action]
         if coords is None:
             nw = deepcopy(self.__curr)
@@ -223,27 +223,25 @@ class SimpleGridOne(Grid):
     # What *would* the coordinates be if the given action were to be executed
     # from the given grid location.
     #
-    @classmethod
-    def coords_after_action(cls, x: int, y: int, action: int) -> List[int, int]:
-        mv = cls.__actions[action]
-        return list((x + mv[0], y + mv[1]))
+    def coords_after_action(self, x: int, y: int, action: int) -> List[int]:
+        return self.__new_coords_after_action(action, [x, y])
 
     #
     # What is the defined reward for the given grid location.
     #
-    def __grid_reward(self, coords: List[int, int]) -> np.float:
+    def __grid_reward(self, coords: List[int]) -> np.float:
         return self.__grid[coords[0]][coords[1]]
 
     #
     # Is the given grid location defined as blocked ?
     #
-    def __blocked(self, coords: List[int, int]) -> bool:
+    def __blocked(self, coords: List[int]) -> bool:
         return self.__grid[coords[0]][coords[1]] == self.BLCK
 
     #
     # Convert the allowable actions into a boolean mask.
     #
-    def disallowed_actions(self, allowable_actions: List[int, ...]) -> List[int, ...]:
+    def disallowed_actions(self, allowable_actions: List[int]) -> List[int]:
         da = []
         for i in range(0, self.__num_actions):
             if i not in allowable_actions:
@@ -254,23 +252,25 @@ class SimpleGridOne(Grid):
     # List of allowable actions from the current position
     #
     def allowable_actions(self,
-                          coords: List[int, int] = None) -> List[int, ...]:
+                          origin: List[int] = None) -> List[int]:
         ams = list()
+        if origin is None:
+            coords = deepcopy(self.__curr)
+        else:
+            coords = deepcopy(origin)
         if self.__episode_over(coords):
             return []
         new_coords = self.__new_coords_after_action(self.NORTH, coords)
-        if new_coords[0] >= 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
+        if new_coords[1] >= 0 and not self.__blocked(new_coords):
             ams.append(self.NORTH)
         new_coords = self.__new_coords_after_action(self.SOUTH, coords)
-        if new_coords[0] < self.__grid_rows and not self.__blocked(
-                new_coords) and not self.__location_already_visited(new_coords):
+        if new_coords[1] < self.__grid_rows and not self.__blocked(new_coords):
             ams.append(self.SOUTH)
         new_coords = self.__new_coords_after_action(self.WEST, coords)
-        if new_coords[1] >= 0 and not self.__blocked(new_coords) and not self.__location_already_visited(new_coords):
+        if new_coords[0] >= 0 and not self.__blocked(new_coords):
             ams.append(self.WEST)
         new_coords = self.__new_coords_after_action(self.EAST, coords)
-        if new_coords[1] < self.__grid_cols and not self.__blocked(
-                new_coords) and not self.__location_already_visited(new_coords):
+        if new_coords[0] < self.__grid_cols and not self.__blocked(new_coords):
             ams.append(self.EAST)
         if len(ams) == 0:
             print("?")  # ToDo Throw exception
@@ -284,16 +284,8 @@ class SimpleGridOne(Grid):
         return
 
     #
-    # Has this location been already visited in the current episode
-    #
-    def __location_already_visited(self, coords: List[int, int]) -> bool:
-        if self.__trace is not None:
-            return coords[0] == self.__curr[0] and coords[1] == self.__curr[1]
-        return False
-
-    #
     # Track the fact this location has been visited in current episode.
     #
-    def __track_location(self, coords: List[int, int]) -> None:
+    def __track_location(self, coords: List[int]) -> None:
         self.__trace = coords
         return

@@ -1,8 +1,6 @@
 import logging
 
-import keras.backend as K
 import numpy as np
-import tensorflow as tf
 
 from examples.gridworld.GridWorldUnitTests.GridActorCritic import GridActorCritic
 from examples.gridworld.RenderSimpleGridOneQValues import RenderSimpleGridOneQValues
@@ -25,10 +23,10 @@ goal = SimpleGridOne.GOAL
 
 
 def create_grid() -> SimpleGridOne:
-    r = 5
-    c = 5
+    r = 10
+    c = 10
     grid = np.full((r, c), step)
-    grid[2, 2] = goal
+    grid[4, 4] = goal
     sg1 = SimpleGridOne(grid_id=1,
                         grid_map=grid,
                         respawn_type=SimpleGridOne.RESPAWN_RANDOM)

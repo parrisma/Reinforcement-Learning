@@ -22,7 +22,7 @@ class Grid(metaclass=abc.ABCMeta):
     # Return the list of possible actions
     #
     @abc.abstractmethod
-    def actions(self) -> List[int, ...]:
+    def actions(self) -> List[int]:
         pass
 
     #
@@ -43,19 +43,20 @@ class Grid(metaclass=abc.ABCMeta):
     # What actions are allowable with agent at current location.
     #
     @abc.abstractmethod
-    def allowable_actions(self) -> List[int, ...]:
+    def allowable_actions(self,
+                          coords: List[int] = None) -> List[int]:
         pass
 
     #
     # Convert the allowable actions into a boolean mask.
     #
     @abc.abstractmethod
-    def disallowed_actions(self, allowable_actions: List[int, ...]) -> List[int, ...]:
+    def disallowed_actions(self, allowable_actions: List[int]) -> List[int]:
         pass
 
     @classmethod
     @abc.abstractmethod
-    def coords_after_action(cls, x: int, y: int, action: int) -> List[int, int]:
+    def coords_after_action(cls, x: int, y: int, action: int) -> List[int]:
         pass
 
     #
@@ -77,7 +78,7 @@ class Grid(metaclass=abc.ABCMeta):
     # then test those coords rather than the current grid location.
     #
     @abc.abstractmethod
-    def episode_complete(self, coords: List[int, int] = None) -> bool:
+    def episode_complete(self, coords: List[int] = None) -> bool:
         pass
 
     #
@@ -91,5 +92,5 @@ class Grid(metaclass=abc.ABCMeta):
     # Return grid dimensions
     #
     @abc.abstractmethod
-    def shape(self) -> list[int, ...]:
+    def shape(self) -> List[int]:
         pass
