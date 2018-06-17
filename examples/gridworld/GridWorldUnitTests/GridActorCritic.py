@@ -144,24 +144,6 @@ class GridActorCritic:
 
         st = np.array(curr_state).reshape((1, 2))  # Shape needed for NN
         p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
-        if p is None:
-            p = 0.5 * np.random.random_sample(self.num_actions) - 0.5
-
-        if allowable_actions is None:
-            allowable_actions = self.allowed_actions_no_return(state=curr_state, last_state=last_state)
-        if len(allowable_actions) < self.num_actions:
-            disallowed_actions = self.env_grid.disallowed_actions(allowable_actions)
-            lv = np.min(p)
-            cm = np.min(p[disallowed_actions])
-            if cm > lv:
-                lv -= 1e-9
-            else:
-                lv = cm
-            p[disallowed_actions] = lv  # suppress disallowed actions.
-
-        if np.argmax(p) not in allowable_actions:
-            print("?")
-
         return p
 
     #
@@ -296,7 +278,11 @@ class GridActorCritic:
             actn = self.random_action(allowable_actions)
         else:
             actn = self.actor_predict_action(cur_state, allowable_actions)
-            self.lg.debug("P")
+            if actn not in allowable_actions:
+                self.lg.debug("R'")
+                actn = self.random_action(allowable_actions)
+            else:
+                self.lg.debug("P")
 
         self.steps_to_goal += 1
         return actn

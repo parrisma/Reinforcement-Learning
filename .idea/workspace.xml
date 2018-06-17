@@ -7,54 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Small change to readme">
-      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/SampleCodeFromOtherSources/pendulum.py" afterPath="$PROJECT_DIR$/SampleCodeFromOtherSources/pendulum.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/Grid.py" afterPath="$PROJECT_DIR$/examples/gridworld/Grid.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldState.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldState.py" />
       <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" afterPath="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
-      <change beforePath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" afterPath="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/PlayTicTacToe.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/QValModel.py" afterPath="$PROJECT_DIR$/examples/tictactoe/QValModel.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/AgentExplorationMemory.py" afterPath="$PROJECT_DIR$/reflrn/AgentExplorationMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/DeepReplayQNetWorkPolicy.py" afterPath="$PROJECT_DIR$/reflrn/DeepReplayQNetWorkPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/HumanPolicy.py" afterPath="$PROJECT_DIR$/reflrn/HumanPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Agent.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Agent.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Environment.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Environment.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ExplorationPlay.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationPlay.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Model.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Model.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Policy.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Policy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/State.py" afterPath="$PROJECT_DIR$/reflrn/Interface/State.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/TemporalDifferencePolicyPersistance.py" afterPath="$PROJECT_DIR$/reflrn/Interface/TemporalDifferencePolicyPersistance.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Persistance.py" afterPath="$PROJECT_DIR$/reflrn/Persistance.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" afterPath="$PROJECT_DIR$/reflrn/PureRandomExploration.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/RandomPolicy.py" afterPath="$PROJECT_DIR$/reflrn/RandomPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferencePolicy.py" afterPath="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestTemporalDifferencePolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicyPersistance.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceDeepNNPolicyPersistance.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" afterPath="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicyPersistance.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -68,8 +21,8 @@
       <file leaf-file-name="TestGridActorCritic2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="25" />
+            <state relative-caret-position="165">
+              <caret line="88" column="47" lean-forward="false" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="47" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -80,8 +33,8 @@
       <file leaf-file-name="SimpleGridOne.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+            <state relative-caret-position="253">
+              <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -92,8 +45,8 @@
       <file leaf-file-name="GridActorCritic.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-435">
-              <caret line="156" column="26" lean-forward="false" selection-start-line="156" selection-start-column="26" selection-end-line="156" selection-end-column="26" />
+            <state relative-caret-position="495">
+              <caret line="276" column="30" lean-forward="false" selection-start-line="276" selection-start-column="30" selection-end-line="276" selection-end-column="30" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -274,8 +227,8 @@
         <option value="$PROJECT_DIR$/reflrn/RareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py" />
+        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py" />
       </list>
     </option>
   </component>
@@ -725,7 +678,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py</url>
-          <line>374</line>
+          <line>360</line>
           <option name="timeStamp" value="803" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -735,23 +688,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py</url>
-          <line>266</line>
+          <line>248</line>
           <option name="timeStamp" value="809" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py</url>
-          <line>162</line>
-          <option name="timeStamp" value="823" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py</url>
           <line>167</line>
           <option name="timeStamp" value="825" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py</url>
-          <line>152</line>
-          <option name="timeStamp" value="833" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -1155,30 +1098,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+        <state relative-caret-position="253">
+          <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="88" column="47" lean-forward="false" selection-start-line="88" selection-start-column="34" selection-end-line="88" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-435">
-          <caret line="156" column="26" lean-forward="false" selection-start-line="156" selection-start-column="26" selection-end-line="156" selection-end-column="26" />
+        <state relative-caret-position="495">
+          <caret line="276" column="30" lean-forward="false" selection-start-line="276" selection-start-column="30" selection-end-line="276" selection-end-column="30" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
