@@ -49,10 +49,10 @@ class QValModel:
         print("\n%s: %.2f%%" % (self.__model.metrics_names[1], scores[1] * 100))
 
     #
-    # Make an Informed Action given a board state by predicting the QValues
+    # Make an Informed Action given a board curr_coords by predicting the QValues
     # from the trained model.
     #
-    # The board state must start with the encoded player reference. [1,-1]
+    # The board curr_coords must start with the encoded player reference. [1,-1]
     #
     def predicted_q_vals(self, board_state_as_string):
         x = np.zeros((1, 10))

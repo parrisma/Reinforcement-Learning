@@ -3,13 +3,13 @@ from typing import List
 
 import numpy as np
 
-from reflrn.Interface.State import State
-
 
 #
 # This is the interface that all Grid World Grids need to implement.
 #
 class Grid(metaclass=abc.ABCMeta):
+    ROW = 0
+    COL = 1
 
     #
     # Immutable Id for the Grid
@@ -26,7 +26,7 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Execute the given (allowable) action and return the reward and the state
+    # Execute the given (allowable) action and return the reward and the curr_coords
     #
     @abc.abstractmethod
     def execute_action(self, action: int) -> np.float:
@@ -67,14 +67,14 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Reset the grid to its state as at construction.
+    # Reset the grid to its curr_coords as at construction.
     #
     @abc.abstractmethod
     def reset(self):
         pass
 
     #
-    # Is the episode complete, are we at the terminal finish state ? If the coords are supplied
+    # Is the episode complete, are we at the terminal finish curr_coords ? If the coords are supplied
     # then test those coords rather than the current grid location.
     #
     @abc.abstractmethod
@@ -82,10 +82,17 @@ class Grid(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Return a State representation of Grid World.
+    # Return a current coordinates of Grid World.
     #
     @abc.abstractmethod
-    def state(self) -> State:
+    def curr_coords(self) -> List[int]:
+        pass
+
+    #
+    # Return a last curr_coords of Grid World.
+    #
+    @abc.abstractmethod
+    def last_coords(self) -> List[int]:
         pass
 
     #

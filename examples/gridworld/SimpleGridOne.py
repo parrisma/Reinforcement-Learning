@@ -18,16 +18,17 @@ from .GridEpisodeOverException import GridEpisodeOverException
 
 class SimpleGridOne(Grid):
     STEP = np.float(-0.2)
-    FIRE = np.float(-1)
-    GOAL = np.float(+1)
-    BLCK = np.float(-1.1)
+    FIRE = np.float(-0.99)
+    GOAL = np.float(+0.99)
+    BLCK = np.float(-0.999)
+    DISA = np.float(-1.0)
     FIN = GOAL
     FREE = np.float(0)
     NORTH = np.int(0)
     SOUTH = np.int(1)
     EAST = np.int(2)
     WEST = np.int(3)
-    __actions = {NORTH: (0, -1), SOUTH: (0, 1), EAST: (1, 0), WEST: (-1, 0)}  # N, S ,E, W (row-offset, col-offset)
+    __actions = {NORTH: (-1, 0), SOUTH: (1, 0), EAST: (0, 1), WEST: (0, -1)}  # N, S ,E, W (row-offset, col-offset)
     RESPAWN_RANDOM = 0
     RESPAWN_CORNER = 1
     RESPAWN_EDGE = 2
@@ -51,7 +52,7 @@ class SimpleGridOne(Grid):
         self.__grid_rows = len(self.__grid)
         self.__grid_cols = len(self.__grid[0])
         self.__st_coords = st_coords
-        self.__trace = None
+        self.__last_coords = None
         self.__respawn_type = respawn_type
         self.__corners = None
         self.__edges = None
@@ -84,10 +85,10 @@ class SimpleGridOne(Grid):
     # Re-Spawn anywhere on the grid.
     #
     def __respawn_random(self) -> List[int]:
-        x = randint(0, self.__grid_cols - 1)
-        y = randint(0, self.__grid_rows - 1)
-        xy = (x, y)
-        return xy
+        cl = randint(0, self.__grid_cols - 1)
+        rw = randint(0, self.__grid_rows - 1)
+        rc = (rw, cl)
+        return rc
 
     #
     # Re-Spawn on any corner.
@@ -107,12 +108,12 @@ class SimpleGridOne(Grid):
     def __respawn_on_an_edge(self) -> List[int]:
         if self.__edges is None:
             self.__edges = []
-            for x in range(0, self.__grid_cols):
-                self.__edges.append((x, 0))
-                self.__edges.append((x, self.__grid_rows - 1))
-            for y in range(1, self.__grid_rows - 1):
-                self.__edges.append((0, y))
-                self.__edges.append((self.__grid_cols - 1, y))
+            for cl in range(0, self.__grid_cols):
+                self.__edges.append((0, cl))
+                self.__edges.append((self.__grid_rows - 1, cl))
+            for rw in range(1, self.__grid_rows - 1):
+                self.__edges.append((rw, 0))
+                self.__edges.append((rw, self.__grid_cols - 1))
 
         return deepcopy(choice(self.__edges))
 
@@ -123,22 +124,28 @@ class SimpleGridOne(Grid):
         return [self.__grid_rows, self.__grid_cols]
 
     #
-    # What is the "state" of the grid. Where state is in the context of State-Action-Reward.
-    # for these simple grids the grid itself is immutable so the defined state is simply the
+    # What is the "curr_coords" of the grid. Where curr_coords is in the context of State-Action-Reward.
+    # for these simple grids the grid itself is immutable so the defined curr_coords is simply the
     # current "location" of the grid, i.e. the active cell location where the agent is.
     #
-    def state(self) -> List[int]:
-        return [int(self.__curr[0]), int(self.__curr[1])]
+    def curr_coords(self) -> List[int]:
+        return deepcopy(self.__curr)
 
     #
-    # Reset the grid state after episode end.
+    # Return the last coords before current curr_coords
+    #
+    def last_coords(self) -> List[int]:
+        return deepcopy(self.__last_coords)
+
+    #
+    # Reset the grid curr_coords after episode end.
     #
     def reset(self,
               coords: List[int] = None) -> None:
         if coords is None:
             self.__curr = self.start_coords()
         else:
-            self.__curr = [coords[0], coords[1]]
+            self.__curr = [coords[self.ROW], coords[self.COL]]
         return
 
     #
@@ -150,17 +157,17 @@ class SimpleGridOne(Grid):
         if action not in self.allowable_actions():
             raise GridBlockedActionException("Illegal Grid Move, cell blocked or action would move out of grid")
 
+        self.__track_last_coords(self.__curr)
         self.__curr = self.__new_coords_after_action(action)
         if self.__episode_over():
             self.__episode_reset()
-        self.__track_location(self.__curr)
         return self.__grid_reward(self.__curr)
 
     #
     # What is the reward for the given grid location.
     #
-    def reward(self, x: int, y: int) -> np.float:
-        return self.__grid_reward([x, y])
+    def reward(self, rw: int, cl: int) -> np.float:
+        return self.__grid_reward([rw, cl])
 
     #
     # What is the list of all possible actions.
@@ -217,26 +224,28 @@ class SimpleGridOne(Grid):
             nw = deepcopy(self.__curr)
         else:
             nw = coords
-        return list((nw[0] + mv[0], nw[1] + mv[1]))
+        return list((nw[self.ROW] + mv[self.ROW], nw[self.COL] + mv[self.COL]))
 
     #
     # What *would* the coordinates be if the given action were to be executed
     # from the given grid location.
     #
-    def coords_after_action(self, x: int, y: int, action: int) -> List[int]:
-        return self.__new_coords_after_action(action, [x, y])
+    @classmethod
+    def coords_after_action(cls, rw: int, cl: int, action: int) -> List[int]:
+        mv = cls.__actions[action]
+        return list((rw + mv[cls.ROW], cl + mv[cls.COL]))
 
     #
     # What is the defined reward for the given grid location.
     #
     def __grid_reward(self, coords: List[int]) -> np.float:
-        return self.__grid[coords[0]][coords[1]]
+        return self.__grid[coords[self.ROW]][coords[self.COL]]
 
     #
     # Is the given grid location defined as blocked ?
     #
     def __blocked(self, coords: List[int]) -> bool:
-        return self.__grid[coords[0]][coords[1]] == self.BLCK
+        return self.__grid[coords[self.ROW]][coords[self.COL]] == self.BLCK
 
     #
     # Convert the allowable actions into a boolean mask.
@@ -261,31 +270,29 @@ class SimpleGridOne(Grid):
         if self.__episode_over(coords):
             return []
         new_coords = self.__new_coords_after_action(self.NORTH, coords)
-        if new_coords[1] >= 0 and not self.__blocked(new_coords):
+        if new_coords[self.ROW] >= 0 and not self.__blocked(new_coords):
             ams.append(self.NORTH)
         new_coords = self.__new_coords_after_action(self.SOUTH, coords)
-        if new_coords[1] < self.__grid_rows and not self.__blocked(new_coords):
+        if new_coords[self.ROW] < self.__grid_rows and not self.__blocked(new_coords):
             ams.append(self.SOUTH)
         new_coords = self.__new_coords_after_action(self.WEST, coords)
-        if new_coords[0] >= 0 and not self.__blocked(new_coords):
+        if new_coords[self.COL] >= 0 and not self.__blocked(new_coords):
             ams.append(self.WEST)
         new_coords = self.__new_coords_after_action(self.EAST, coords)
-        if new_coords[0] < self.__grid_cols and not self.__blocked(new_coords):
+        if new_coords[self.COL] < self.__grid_cols and not self.__blocked(new_coords):
             ams.append(self.EAST)
-        if len(ams) == 0:
-            print("?")  # ToDo Throw exception
         return ams
 
     #
     # Reset at end of episode.
     #
     def __episode_reset(self) -> None:
-        self.__trace = dict()
+        self.__last_coords = None
         return
 
     #
     # Track the fact this location has been visited in current episode.
     #
-    def __track_location(self, coords: List[int]) -> None:
-        self.__trace = coords
+    def __track_last_coords(self, coords: List[int]) -> None:
+        self.__last_coords = coords
         return

@@ -22,7 +22,7 @@ class GridWorld(Environment):
         return
 
     #
-    # Return game to initial state.
+    # Return game to initial curr_coords.
     #
     def reset(self):
         self.__grid.reset()
@@ -127,7 +127,7 @@ class GridWorld(Environment):
         return self.__grid.episode_complete()
 
     #
-    # The current state of the environment as string
+    # The current curr_coords of the environment as string
     #
     def state_as_str(self) -> str:
         return GridWorldState(self.__grid, self.__x_agent).state_as_string()
@@ -145,13 +145,13 @@ class GridWorld(Environment):
         raise NotImplementedError("save() not implemented for GridWorld")
 
     #
-    # Expose current environment state as string
+    # Expose current environment curr_coords as string
     #
     def export_state(self):
         raise NotImplementedError("export_state() not implemented for GridWorld")
 
     #
-    # Set environment state from string
+    # Set environment curr_coords from string
     #
     def import_state(self, state_as_string):
         raise NotImplementedError("import_state() not implemented for GridWorld")

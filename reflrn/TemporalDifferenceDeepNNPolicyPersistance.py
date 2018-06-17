@@ -37,7 +37,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
         return True
 
     #
-    # Load the given file into a TD Policy state/action/q value dictionary
+    # Load the given file into a TD Policy curr_coords/action/q value dictionary
     #
     def load(self, filename: str) -> keras.models.Sequential:
         try:
@@ -54,7 +54,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
         return model
 
     #
-    # Convert a state string to numpy vector
+    # Convert a curr_coords string to numpy vector
     #
     @classmethod
     def state_as_str_to_numpy_array(cls, xs: str) -> np.array:
@@ -94,7 +94,7 @@ class TemporalDifferenceDeepNNPolicyPersistance:
         (qv, n, lr0, df, lrd) = self.__temporal_difference_policy_persistance.load(filename)
 
         x = np.zeros((len(qv), 9))  # 9 Board Cells
-        y = np.zeros((len(qv), 9))  # 9 Q Vals, 1 for each action for a given board state.
+        y = np.zeros((len(qv), 9))  # 9 Q Vals, 1 for each action for a given board curr_coords.
         i = 0
         mn = np.finfo('d').max
         mx = -mn

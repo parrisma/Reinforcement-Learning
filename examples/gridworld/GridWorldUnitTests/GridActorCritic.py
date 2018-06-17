@@ -1,12 +1,14 @@
+import logging
 import random
 import unittest
-from typing import Tuple, List
+from typing import List
 
 import numpy as np
 
 from examples.gridworld.Grid import Grid
 from examples.gridworld.SimpleGridOne import SimpleGridOne
 from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
+from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.RareEventBiasReplayMemory import RareEventBiasReplayMemory
 
 
@@ -21,25 +23,23 @@ class GridActorCritic:
                  rows: int,
                  cols: int):
 
-        self.env_grid: Grid = grid
+        self.env_grid = grid
         self.lg = lg
 
-        self.episode: int = 1
+        self.episode = 1
 
-        self.batch_size: int = 32
-        self.input_dim: int = 2
-        self.num_actions: int = 4
-        self.output_dim: int = self.num_actions
-        self.num_rows: int = rows
-        self.num_cols: int = cols
+        self.batch_size = 32
+        self.input_dim = 2
+        self.num_actions = 4
+        self.output_dim = self.num_actions
+        self.num_rows = rows
+        self.num_cols = cols
 
-        self.learning_rate_0: float = float(1.0)
-        self.learning_rate_decay: float = float(0.05)
-        self.epsilon: float = 0.8  # exploration factor.
-        self.epsilon_decay: float = .9995
-        self.gamma: float = .8  # Discount Factor Applied to reward
-
-        self.last_state: List[int] = None
+        self.learning_rate_0 = float(1.0)
+        self.learning_rate_decay = float(0.05)
+        self.epsilon = 0.8  # exploration factor.
+        self.epsilon_decay = .9995
+        self.gamma = .8  # Discount Factor Applied to reward
 
         self.steps_to_goal = 0
         self.train_on_new_episode = False
@@ -107,45 +107,98 @@ class GridActorCritic:
     #
     def _train_critic(self) -> bool:
         trained = False
-        x, y = self._get_sample_batch()
-        if x is not None:
-            self.critic_model.train(x, y)
+        rw, cl = self._get_sample_batch()
+        if rw is not None:
+            self.critic_model.train(rw, cl)
             trained = True
             self.lg.debug("Critic Trained")
         return trained
 
     #
     # Return the list of allowable actions minus the action that would return the agent
-    # to the state it has just come from.
+    # to the curr_coords it has just come from.
     #
-    def allowed_actions_no_return(self, state: List[int]):
+    def allowed_actions_no_return(self,
+                                  state: List[int],
+                                  last_state: List[int] = None):
         aanr = list()
         allowable_actions = self.env_grid.allowable_actions(state)
-        if self.last_state is None:
+        if last_state is None:
             return allowable_actions
         else:
             for action in allowable_actions:
-                x, y = self.env_grid.coords_after_action(state[0], state[1], action)
-                if x != self.last_state[0] and y != self.last_state[1]:
+                rw, cl = self.env_grid.coords_after_action(state[Grid.ROW], state[Grid.COL], action)
+                if not (rw == last_state[Grid.ROW] and cl == last_state[Grid.COL]):
                     aanr.append(action)
         return aanr
 
     #
-    # What is the prediction vector for the given state. This is adjusted to discount
-    # dis-allowed actions.
+    # Get actor prediction, if actor is not able to predict, predict random
     #
-    # Will fail if the given state is the goal state as there are no allowable actions.
+    def _actor_prediction(self,
+                          curr_state: List[int],
+                          last_state: List[int] = None,
+                          allowable_actions: List[int] = None):
+        if self.aux_actor_predictor is not None:
+            return self.aux_actor_predictor(curr_state)
+
+        st = np.array(curr_state).reshape((1, 2))  # Shape needed for NN
+        p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
+        if p is None:
+            p = 0.5 * np.random.random_sample(self.num_actions) - 0.5
+
+        if allowable_actions is None:
+            allowable_actions = self.allowed_actions_no_return(state=curr_state, last_state=last_state)
+        if len(allowable_actions) < self.num_actions:
+            disallowed_actions = self.env_grid.disallowed_actions(allowable_actions)
+            lv = np.min(p)
+            cm = np.min(p[disallowed_actions])
+            if cm > lv:
+                lv -= 1e-9
+            else:
+                lv = cm
+            p[disallowed_actions] = lv  # suppress disallowed actions.
+
+        if np.argmax(p) not in allowable_actions:
+            print("?")
+
+        return p
+
     #
-    def _state_qval_prediction(self,
-                               state) -> [np.float]:
-        aa = self.allowed_actions_no_return(state)
-        da = self.env_grid.disallowed_actions(aa)
-        qvp = self._actor_prediction(state)[0]  # Actor estimate of QVals for next state. (after action)
-        if len(aa) < self.num_actions:
-            lv = np.min(qvp[aa])
-            lv = lv - (0.01 * np.sign(lv) * lv)
-            qvp[da] = lv  # suppress disallowed action by making qval less then smallest allowable qval / actn.
-        return qvp
+    # Get the last state from memory with respect to the given state
+    #
+    def _get_last_state(self, curr_state: List[int]) -> List[int]:
+        lst_state = None
+        if not self.env_grid.episode_complete(curr_state):
+            lst_state = (self.replay_memory.get_last_memory(curr_state))
+            if lst_state is not None:
+                lst_state = lst_state[0]
+        return lst_state
+
+    #
+    # What is the optimal QVal prediction for next curr_coords S'. Return zero if next curr_coords
+    # is the end of the episode.
+    #
+    def _next_state_qval_prediction(self,
+                                    new_state: List[int],
+                                    last_state: List[int]) -> float:
+        qvp = 0
+        if not self.env_grid.episode_complete(new_state):
+            qvn = self._actor_prediction(curr_state=new_state, last_state=last_state)
+            allowable_actions = self.allowed_actions_no_return(state=new_state, last_state=last_state)
+            qvp = self.gamma * np.max(qvn[allowable_actions])  # Discounted max return from next curr_coords
+        return np.float(qvp)
+
+    #
+    # What is the qvalue (optimal) prediction given current curr_coords S
+    #
+    def _curr_state_qval_prediction(self, curr_state: List[int]) -> List[np.float]:
+        qvs = np.zeros(self.num_actions)
+        if not self.env_grid.episode_complete(curr_state):
+            qvs = self._actor_prediction(curr_state,
+                                         self._get_last_state(curr_state)
+                                         )  # ToDo Actor estimate of QVals for current curr_coords.
+        return qvs
 
     #
     # Get a random set of samples from the given QValues to select_action as a training
@@ -163,21 +216,12 @@ class GridActorCritic:
         i = 0
         for sample in samples:
             cur_state, new_state, action, reward, done = sample
-            allowable_actions = self.allowed_actions_no_return(cur_state)
-            disallowed_actions = self.env_grid.disallowed_actions(allowable_actions)
             lr = self.learning_rate()
+            qvp = self._next_state_qval_prediction(new_state, cur_state)
+            qvs = self._curr_state_qval_prediction(cur_state)
 
-            qvn = self._actor_prediction(new_state)[0]  # Actor estimate of QVals for next state. (after action)
-            qvp = np.max(qvn[allowable_actions])  # optimal return, can only be taken from allowable actions.
-            qvp = self.gamma * qvp * lr  # Discounted max return from next state
-
-            qvs = self._actor_prediction(cur_state)[0]  # Actor estimate of QVals for current state.
-            if len(allowable_actions) < self.num_actions:
-                lv = np.min(qvs[allowable_actions])
-                lv = np.absolute(lv) * 1.01 * np.sign(lv)
-                qvs[disallowed_actions] = lv  # suppress disallowed actions.
             qv = qvs[action]
-            qv = (qv * (1 - lr)) + (lr * reward) + qvp  # updated expectation of current state/action
+            qv = (qv * (1 - lr)) + (lr * reward + qvp)  # updated expectation of current curr_coords/action
             qvs[action] = qv
 
             x[i] = cur_state
@@ -208,43 +252,28 @@ class GridActorCritic:
         return
 
     #
-    # Get actor prediction, if actor is not able to predict, predict random
-    #
-    def _actor_prediction(self, cur_state):
-        if self.aux_actor_predictor is not None:
-            return self.aux_actor_predictor(cur_state)
-
-        z = np.zeros((1, 2))
-        z[0] = cur_state
-        p = self.actor_model.predict(z)
-        if p is None:
-            p = 0.5 * np.random.random_sample(self.num_actions) - 0.5
-        return p
-
-    #
     # Predict an allowable action.
     #
     def actor_predict_action(self, cur_state, allowable_actions) -> int:
-        cur_state = np.array(cur_state).reshape((1, 2))  # Shape needed for NN
-        qvs = self.actor_model.predict(cur_state)[0]
-        actn = np.argmax(qvs[allowable_actions])
+        qvs = self._actor_prediction(cur_state,
+                                     self._get_last_state(cur_state),
+                                     allowable_actions)
+        actn = np.argmax(qvs)
+
+        print(cur_state)
+        print(allowable_actions)
+        print(actn)
+        if actn not in allowable_actions:
+            print("?")
         return actn
 
     #
-    # remember actions such that we can bias agent to prefer actions not yet seen or
-    # lease visited.
-    # explored from this state.
-    #
-    def remember_last_state(self, state: List[int]):
-        self.last_state = state
-        return
-
-    #
     # Select a random action, but prefer an action not or least taken from
-    # the current state (this should be replaced with another NN that learns
+    # the current curr_coords (this should be replaced with another NN that learns
     # familiarity)
     #
-    def random_action(self, allowable_actions: List[int]):
+    @classmethod
+    def random_action(cls, allowable_actions: List[int]):
         actn = random.choice(allowable_actions)
         return actn
 
@@ -257,20 +286,18 @@ class GridActorCritic:
                       greedy: bool = False):
         self.epsilon = max(0.05, self.epsilon * self.epsilon_decay)
         self.lg.debug("epsilon :" + str(self.epsilon))
-        allowable_actions = self.allowed_actions_no_return(cur_state)
+        lst_state = (self.replay_memory.get_last_memory(cur_state))
+        if lst_state is not None:
+            lst_state = lst_state[0]
+        allowable_actions = self.allowed_actions_no_return(cur_state, lst_state)
 
         if np.random.random() < self.epsilon and not greedy:
             self.lg.debug("R")
             actn = self.random_action(allowable_actions)
         else:
             actn = self.actor_predict_action(cur_state, allowable_actions)
-            if actn is None:
-                self.lg.debug("R")
-                actn = self.random_action(allowable_actions)
-            else:
-                self.lg.debug("P")
+            self.lg.debug("P")
 
-        self.remember_last_state(cur_state)
         self.steps_to_goal += 1
         return actn
 
@@ -299,26 +326,58 @@ fire = SimpleGridOne.FIRE
 blck = SimpleGridOne.BLCK
 goal = SimpleGridOne.GOAL
 
+lg = EnvironmentLogging("GridActorCriticUnitTest",
+                        "GridActorCriticUnitTest.log",
+                        logging.DEBUG).get_logger()
+
 
 #
 # Test Cases.
 #
 class TestGridActorCritic(unittest.TestCase):
 
+    #
+    # Test, all possible moves on 3 by 3 grid
+    #
     def test_0(self):
-        self.assertTrue(True == True)
-        return
+        grid = [
+            [step, step, step],
+            [step, step, step],
+            [step, step, step]
+        ]
+        sg0 = SimpleGridOne(0,
+                            grid,
+                            [1, 1])
 
-    @classmethod
-    def create_test_grid(cls) -> Tuple[int, int, SimpleGridOne]:
-        r = 10
-        c = 10
-        grid = np.full((r, c), step)
-        grid[2, 2] = goal
-        sg1 = SimpleGridOne(grid_id=1,
-                            grid_map=grid,
-                            respawn_type=SimpleGridOne.RESPAWN_RANDOM)
-        return r, c, sg1
+        actor_critic = GridActorCritic(sg0, lg, 3, 3)
+
+        test_cases = [[(0, 0), 2, [SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(0, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(0, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
+                      [(1, 0), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
+                      [(1, 1), 4, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(1, 2), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
+                      [(2, 0), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
+                      [(2, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
+                      [(2, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.NORTH]]
+                      ]
+
+        # Test before first action is taken.
+        for coords, ln, moves in test_cases:
+            aac = actor_critic.allowed_actions_no_return(state=coords, last_state=None)
+            self.assertEqual(len(aac), ln)
+            for mv in moves:
+                self.assertTrue(mv in aac)
+
+        # Move south, this should reject a move North even though it is a technically
+        # possible move.
+        last_state = sg0.curr_coords()
+        sg0.execute_action(SimpleGridOne.SOUTH)
+        aac = actor_critic.allowed_actions_no_return(state=sg0.curr_coords(), last_state=last_state)
+        self.assertEqual(SimpleGridOne.WEST in aac, True)
+        self.assertEqual(SimpleGridOne.EAST in aac, True)
+
+        return
 
 
 #

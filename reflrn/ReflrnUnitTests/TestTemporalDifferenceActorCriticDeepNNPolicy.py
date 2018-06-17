@@ -31,7 +31,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
     #
     # Test the NN model behaviour.
     #
-    # Is the defined model able to learn and predict a single state action pair.
+    # Is the defined model able to learn and predict a single curr_coords action pair.
     #
     def test_model_behaviour_1(self):
 
@@ -64,7 +64,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
     #
     # Test the NN model behaviour.
     #
-    # Is the defined model able to learn and predict 1000 state action pairs in a replay memory
+    # Is the defined model able to learn and predict 1000 curr_coords action pairs in a replay memory
     # of 10K samples with each pair repeated 10 times
     #
     def test_model_behaviour_1000(self):
@@ -139,7 +139,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
         return
 
     #
-    # return a random x "state" vector
+    # return a random x "curr_coords" vector
     #
     def __rand_x(self) -> np.array:
         x = np.random.randint(low=-1, high=1, size=(1, 9))
@@ -147,7 +147,7 @@ class TestTemporalDifferenceActorCriticDeepNNPolicy(unittest.TestCase):
         return x
 
     #
-    # return a random y "state" vector
+    # return a random y "curr_coords" vector
     #
     def __rand_y(self) -> np.array:
         y = np.random.rand(1, 9) * 100

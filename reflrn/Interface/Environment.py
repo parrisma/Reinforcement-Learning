@@ -36,9 +36,9 @@ class Environment(metaclass=abc.ABCMeta):
         pass
 
     #
-    # True if the current episode in the environment has reached a terminal state.
+    # True if the current episode in the environment has reached a terminal curr_coords.
     #
-    # Environment specific summary of the terminal state of the environment.
+    # Environment specific summary of the terminal curr_coords of the environment.
     #
     @abc.abstractmethod
     def episode_complete(self) -> dict:

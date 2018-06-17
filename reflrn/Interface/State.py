@@ -2,7 +2,7 @@ import abc
 
 
 #
-# This abstract class provides an immutable state representation of the environment
+# This abstract class provides an immutable curr_coords representation of the environment
 # it was constructed with.
 #
 
@@ -17,7 +17,7 @@ class State(metaclass=abc.ABCMeta):
         pass
 
     #
-    # An string representation of the environment state
+    # An string representation of the environment curr_coords
     #
     @abc.abstractmethod
     def state_as_string(self) -> str:

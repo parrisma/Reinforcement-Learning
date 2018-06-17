@@ -68,7 +68,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
 
     #
     # Define the model that will approximate the Q Value function.
-    # X & Y dimensions must match the num actions (= num q values per state)
+    # X & Y dimensions must match the num actions (= num q values per curr_coords)
     #
     def create_new_model_instance(self) -> keras.models.Sequential:
         return self.__model.new_model()
@@ -181,7 +181,7 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
         return
 
     #
-    # Convert a state string to numpy vector
+    # Convert a curr_coords string to numpy vector
     #
     @classmethod
     def state_as_str_to_numpy_array(cls, xs: str) -> np.array:

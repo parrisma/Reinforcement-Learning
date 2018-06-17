@@ -105,7 +105,7 @@ class TemporalDifferenceQValPolicyPersistance(TemporalDifferencePolicyPersistanc
         return True
 
     #
-    # Load the given file into a TD Policy state/action/q value dictionary. This loads the sparse
+    # Load the given file into a TD Policy curr_coords/action/q value dictionary. This loads the sparse
     # form of the save.
     #
     @classmethod

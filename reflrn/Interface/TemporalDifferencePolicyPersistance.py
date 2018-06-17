@@ -24,7 +24,7 @@ class TemporalDifferencePolicyPersistance(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Load the given file into a TD Policy state/action/q value dictionary
+    # Load the given file into a TD Policy curr_coords/action/q value dictionary
     #
     @classmethod
     def load(cls,

@@ -17,14 +17,14 @@ class GridWorldState(State):
     # An environment specific representation for Env. State
     #
     def state(self) -> object:
-        return self.__grid.state()
+        return self.__grid.curr_coords()
 
     #
-    # An string representation of the environment state
+    # An string representation of the environment curr_coords
     #
     def state_as_string(self) -> str:
         st = ""
-        nst = self.__grid.state()
+        nst = self.__grid.curr_coords()
         for cell in np.reshape(nst, len(nst)):
             if len(st) > 0:
                 st = st + ","
@@ -44,4 +44,4 @@ class GridWorldState(State):
     # Return the array encoded form of the grid to be used as the X input to a NN.
     #
     def state_as_array(self):
-        return self.state()  # Grid-world state is an array of float
+        return self.state()  # Grid-world curr_coords is an array of float

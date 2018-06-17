@@ -5,7 +5,7 @@ from reflrn.Interface.State import State
 
 
 #
-# Exploration Strategy given the iteration number, the state and the possible actions
+# Exploration Strategy given the iteration number, the curr_coords and the possible actions
 # returns an action according to the exploration strategy it encodes.
 #
 
@@ -13,7 +13,7 @@ from reflrn.Interface.State import State
 class ExplorationStrategy(metaclass=abc.ABCMeta):
 
     #
-    # Given the iteration number, the state and the possible actions
+    # Given the iteration number, the curr_coords and the possible actions
     # returns an action according to the exploration strategy.
     #
     @abc.abstractmethod

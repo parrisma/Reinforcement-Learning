@@ -10,7 +10,7 @@ from reflrn.Interface.State import State
 class PureRandomExploration(ExplorationPlay):
 
     def __init__(self,
-                 prefer_new: bool = False  # Try to explore new state/action before re-playing
+                 prefer_new: bool = False  # Try to explore new curr_coords/action before re-playing
                  ):
         self.__prefer_new = prefer_new
         self.__trace = dict()

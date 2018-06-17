@@ -191,7 +191,7 @@ class AgentExplorationMemory(ExplorationMemory):
                     episode_deque.append(self.__memory[idx])
 
         cols = [[None for i in range(8)] for j in
-                range(len(episode_deque))]  # episode_id, policy, agent, state, next_state,
+                range(len(episode_deque))]  # episode_id, policy, agent, curr_coords, next_state,
         # action,
         # reward
         i = 0

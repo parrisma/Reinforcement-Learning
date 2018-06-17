@@ -24,10 +24,10 @@ class TestSimpleGridOne(unittest.TestCase):
                             grid,
                             [1, 1])
 
-        test_cases = [[(1, 1), SimpleGridOne.NORTH, (1, 0)],
-                      [(1, 1), SimpleGridOne.SOUTH, (1, 2)],
-                      [(1, 1), SimpleGridOne.EAST, (2, 1)],
-                      [(1, 1), SimpleGridOne.WEST, (0, 1)]
+        test_cases = [[(1, 1), SimpleGridOne.NORTH, (0, 1)],
+                      [(1, 1), SimpleGridOne.SOUTH, (2, 1)],
+                      [(1, 1), SimpleGridOne.EAST, (1, 2)],
+                      [(1, 1), SimpleGridOne.WEST, (1, 0)]
                       ]
 
         for start_coords, action, end_coords in test_cases:
@@ -50,13 +50,13 @@ class TestSimpleGridOne(unittest.TestCase):
                             [1, 1])
 
         test_cases = [[(0, 0), 2, [SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(1, 0), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(2, 0), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
-                      [(0, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
+                      [(0, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
+                      [(0, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.SOUTH]],
+                      [(1, 0), 3, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH]],
                       [(1, 1), 4, [SimpleGridOne.NORTH, SimpleGridOne.EAST, SimpleGridOne.SOUTH, SimpleGridOne.EAST]],
-                      [(2, 1), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
-                      [(0, 2), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
-                      [(1, 2), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
+                      [(1, 2), 3, [SimpleGridOne.WEST, SimpleGridOne.NORTH, SimpleGridOne.SOUTH]],
+                      [(2, 0), 2, [SimpleGridOne.NORTH, SimpleGridOne.EAST]],
+                      [(2, 1), 3, [SimpleGridOne.NORTH, SimpleGridOne.WEST, SimpleGridOne.EAST]],
                       [(2, 2), 2, [SimpleGridOne.WEST, SimpleGridOne.NORTH]]
                       ]
 
@@ -94,7 +94,7 @@ class TestSimpleGridOne(unittest.TestCase):
         ]
         sg1 = SimpleGridOne(2,
                             grid,
-                            [1, 0])
+                            [0, 1])
 
         # At start, can go North & West
         alm = sg1.allowable_actions()
@@ -141,11 +141,13 @@ class TestSimpleGridOne(unittest.TestCase):
             [self.step, self.blck, self.blck, self.blck, self.step],
             [self.step, self.step, self.step, self.step, self.step]
         ]
+        st_rw = 0
+        st_cl = 3
         sg1 = SimpleGridOne(3,
                             grid,
-                            [3, 0])
+                            [st_rw, st_cl])
 
-        self.assertEqual(sg1.execute_action(SimpleGridOne.SOUTH), self.step)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.SOUTH), self.fire)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.SOUTH)
 
@@ -158,22 +160,29 @@ class TestSimpleGridOne(unittest.TestCase):
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
 
         self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.step)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.step)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
-        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.WEST)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.fire)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
         self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
-        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.goal)
-        self.assertRaises(GridEpisodeOverException, sg1.execute_action, SimpleGridOne.WEST)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.NORTH)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.WEST), self.step)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
+        self.assertRaises(GridBlockedActionException, sg1.execute_action, SimpleGridOne.EAST)
+
+        self.assertEqual(sg1.execute_action(SimpleGridOne.NORTH), self.step)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.fire)
+        self.assertEqual(sg1.execute_action(SimpleGridOne.EAST), self.goal)
+
+        for actn in sg1.actions():
+            self.assertRaises(GridEpisodeOverException, sg1.execute_action, actn)
 
         return
 
     #
-    # Test, where current coords are passed rather than taken from the internal state of the grid.
+    # Test, where current coords are passed rather than taken from the internal curr_coords of the grid.
     #
     def test_4(self):
         grid = [
@@ -217,7 +226,7 @@ class TestSimpleGridOne(unittest.TestCase):
                             grid_map=grid,
                             respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
         sg5.reset()
-        c = sg5.state()
+        c = sg5.curr_coords()
         self.assertTrue(c[0] == 0 and c[1] == 0)
 
         sg5 = SimpleGridOne(grid_id=5,
@@ -225,7 +234,7 @@ class TestSimpleGridOne(unittest.TestCase):
                             st_coords=[0, 0],
                             respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
         sg5.reset()
-        c = sg5.state()
+        c = sg5.curr_coords()
         self.assertTrue(c[0] == 0 and c[1] == 0)
 
         return
@@ -241,7 +250,7 @@ class TestSimpleGridOne(unittest.TestCase):
                             st_coords=[1, 1],
                             respawn_type=SimpleGridOne.RESPAWN_DEFAULT)
         sg6.reset()
-        c = sg6.state()
+        c = sg6.curr_coords()
         self.assertTrue(c[0] == 1 and c[1] == 1)
 
         sg6 = SimpleGridOne(grid_id=6,
@@ -255,7 +264,7 @@ class TestSimpleGridOne(unittest.TestCase):
                    }
         for i in range(1, 50):
             sg6.reset()
-            c = sg6.state()
+            c = sg6.curr_coords()
             self.assertTrue(str((c[0], c[1])) in corners)
 
         sg6 = SimpleGridOne(grid_id=6,
@@ -273,7 +282,7 @@ class TestSimpleGridOne(unittest.TestCase):
                  }
         for i in range(1, 50):
             sg6.reset()
-            c = sg6.state()
+            c = sg6.curr_coords()
             self.assertTrue(str((c[0], c[1])) in edges)
 
         return

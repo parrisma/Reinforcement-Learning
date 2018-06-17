@@ -34,7 +34,7 @@ class Model(metaclass=abc.ABCMeta):
 
     #
     # Predict the Q Values for the action space given the vector encoding of the
-    # grid state.
+    # grid curr_coords.
     # ToDo - Throw a custom error if model not present, compiled and trained ?
     #
     @abc.abstractmethod
@@ -42,7 +42,7 @@ class Model(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Save the current state of the model to a file.
+    # Save the current curr_coords of the model to a file.
     #
     @abc.abstractmethod
     def save(self, filename: str) -> None:
@@ -63,7 +63,7 @@ class Model(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Load the current state of the model from a file that was saved
+    # Load the current curr_coords of the model from a file that was saved
     # from the same Keras model architecture as the new_model method
     # creates.
     #
@@ -72,7 +72,7 @@ class Model(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Reset the state of the model
+    # Reset the curr_coords of the model
     #
     @abc.abstractmethod
     def reset(self) -> None:

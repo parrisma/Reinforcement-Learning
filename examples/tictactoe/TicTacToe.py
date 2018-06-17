@@ -19,9 +19,9 @@ class TicTacToe(Environment):
     __actions = {0: (0, 0), 1: (0, 1), 2: (0, 2), 3: (1, 0), 4: (1, 1), 5: (1, 2), 6: (2, 0), 7: (2, 1), 8: (2, 2)}
     empty_cell = np.nan  # value of a free action space on board
     asStr = True
-    attribute_draw = ("Draw", "True if episode ended in a drawn state", bool)
-    attribute_won = ("Won", "True if episode ended in a win state", bool)
-    attribute_complete = ("Complete", "True if the environment is in a complete state for any reason", bool)
+    attribute_draw = ("Draw", "True if episode ended in a drawn curr_coords", bool)
+    attribute_won = ("Won", "True if episode ended in a win curr_coords", bool)
+    attribute_complete = ("Complete", "True if the environment is in a complete curr_coords for any reason", bool)
     attribute_agent = ("agent", "The last agent to make a move", Agent)
     attribute_board = (
         "board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
@@ -46,7 +46,7 @@ class TicTacToe(Environment):
         return
 
     #
-    # Return game to initial state, where no one has played
+    # Return game to initial curr_coords, where no one has played
     # and the board contains no moves.
     #
     def reset(self):
@@ -246,7 +246,7 @@ class TicTacToe(Environment):
 
     #
     # Convert an environment (board) from a string form to the
-    # internal board state.
+    # internal board curr_coords.
     #
     def __string_to_internal_state(self, moves_as_str):
         mvs = moves_as_str.split('~')
@@ -258,7 +258,7 @@ class TicTacToe(Environment):
         return
 
     #
-    # Convert internal (board) state to string
+    # Convert internal (board) curr_coords to string
     #
     def __internal_state_to_string(self, board) -> str:
         mvs = ""
@@ -273,7 +273,7 @@ class TicTacToe(Environment):
         return mvs
 
     #
-    # The current state of the environment as string
+    # The current curr_coords of the environment as string
     #
     def state_as_str(self) -> str:
         return self.__internal_state_to_string(self.__board)
@@ -291,13 +291,13 @@ class TicTacToe(Environment):
         raise NotImplementedError("save() not implemented for TicTacTo")
 
     #
-    # Expose current environment state as string
+    # Expose current environment curr_coords as string
     #
     def export_state(self):
         return self.__internal_state_to_string(self.__board)
 
     #
-    # Set environment state from string
+    # Set environment curr_coords from string
     #
     def import_state(self, state_as_string):
         self.__string_to_internal_state(state_as_string)

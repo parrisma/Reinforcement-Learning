@@ -11,13 +11,13 @@ from reflrn.Interface.State import State
 class Policy(metaclass=abc.ABCMeta):
 
     #
-    # Update Policy with the give state, action, reward details.
+    # Update Policy with the give curr_coords, action, reward details.
     #
-    # prev_state : the previous state for this Agent; None if no previous state
+    # prev_state : the previous curr_coords for this Agent; None if no previous curr_coords
     # prev_action : the previous action of this agent; has no meaning is prev_state = None
-    # state : current state of the environment *after* the given action was played
-    # action : the action played by this agent that moved the state to the state passed
-    # reward : the reward associated with the given state/action pair.
+    # curr_coords : current curr_coords of the environment *after* the given action was played
+    # action : the action played by this agent that moved the curr_coords to the curr_coords passed
+    # reward : the reward associated with the given curr_coords/action pair.
     #
     @abc.abstractmethod
     def update_policy(self,
@@ -30,7 +30,7 @@ class Policy(metaclass=abc.ABCMeta):
         pass
 
     #
-    # return the action that has the highest (current) pay-off given the current state.
+    # return the action that has the highest (current) pay-off given the current curr_coords.
     # State : The Current State Of The Environment
     # possible_actions : Set of possible actions; where len() is always >= 1
     #

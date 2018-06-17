@@ -56,8 +56,8 @@ class GridWorldAgent(Agent):
     #
     # Environment call back to ask the agent to chose an action
     #
-    # State : The current state of the environment
-    # possible_actions : The set of possible actions the agent can play from this state
+    # State : The current curr_coords of the environment
+    # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
     def chose_action(self, state: State, possible_actions: [int]) -> int:
         self.__policy = self.__exploration_strategy.chose_action_policy(self.__name,
@@ -68,7 +68,7 @@ class GridWorldAgent(Agent):
 
     #
     # Environment call back to reward agent for a play chosen for the given
-    # state passed.
+    # curr_coords passed.
     #
     def reward(self, state: State, next_state: State, action: int, reward_for_play: float, episode_complete: bool):
         self.__exploration_strategy.update_strategy(self.name(),

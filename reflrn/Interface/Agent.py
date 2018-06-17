@@ -56,8 +56,8 @@ class Agent(metaclass=abc.ABCMeta):
     #
     # Environment call back to ask the agent to chose an action
     #
-    # State : The current state of the environment
-    # possible_actions : The set of possible actions the agent can play from this state
+    # State : The current curr_coords of the environment
+    # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
     @abc.abstractmethod
     def chose_action(self, state: State, possible_actions: [int]) -> int:
@@ -65,10 +65,10 @@ class Agent(metaclass=abc.ABCMeta):
 
     #
     # The callback via which the environment informs the agent of a reward as a result of an action.
-    # state     : The state *before* the action is taken : S
+    # curr_coords     : The curr_coords *before* the action is taken : S
     # next_state: The State after the action is taken : S'
     # action    : The action that transitioned S to S'
-    # reward    : The reward for playing action in state S
+    # reward    : The reward for playing action in curr_coords S
     # episode_complete : If environment is episodic, then true if the reward relates to the last reward in an episode.
     #
     @abc.abstractmethod

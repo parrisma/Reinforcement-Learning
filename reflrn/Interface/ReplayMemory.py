@@ -36,3 +36,11 @@ class ReplayMemory(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def get_random_memories(self, sample_size: int) -> [[], [], [], [], [], []]:
         pass
+
+    #
+    # Get just the last memory with respect to the given state. If given state is
+    # None return the last memory overall.
+    #
+    @abc.abstractmethod
+    def get_last_memory(self, state: State = None) -> [[], [], [], [], [], []]:
+        pass

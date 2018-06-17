@@ -20,13 +20,13 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
         return
 
     #
-    # Policy is always totally random, so no internal policy state is needed
+    # Policy is always totally random, so no internal policy curr_coords is needed
     #
-    # prev_state : the previous state for this Agent; None if no previous state
+    # prev_state : the previous curr_coords for this Agent; None if no previous curr_coords
     # prev_action : the previous action of this agent; has no meaning is prev_state = None
-    # state : current state of the environment *after* the given action was played
-    # action : the action played by this agent that moved the state to the state passed
-    # reward : the reward associated with the given state/action pair.
+    # curr_coords : current curr_coords of the environment *after* the given action was played
+    # action : the action played by this agent that moved the curr_coords to the curr_coords passed
+    # reward : the reward associated with the given curr_coords/action pair.
     #
     # We don't learn from the reply memory but we must record the memories so the other Actor/Critic
     # agents have the whole set of memories to train from.

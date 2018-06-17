@@ -19,7 +19,7 @@ from reflrn.TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceD
 #
 # This depends on the saved Q-Values from TemporalDifferencePolicy. It trains itself on those Q Values
 # and then implements greedy action based on the output of the Deep NN. Where the Deep NN is trained as a
-# to approximate the function of the Q Values given a state for a given agent.
+# to approximate the function of the Q Values given a curr_coords for a given agent.
 #
 
 

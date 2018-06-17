@@ -80,15 +80,15 @@ class TestGridWorldQValNNModel(unittest.TestCase):
 
     #
     # Load the set of Q Values as saved out in a test run from TemporalDifferenceQValPolicyPersistance
-    # this is a sparse by state and action, so we need to convert to dense by action as we are going
-    # to teach the NN to learn QVal by state and we need the Qval as dense Y input to match a given
-    # X input state.
+    # this is a sparse by curr_coords and action, so we need to convert to dense by action as we are going
+    # to teach the NN to learn QVal by curr_coords and we need the Qval as dense Y input to match a given
+    # X input curr_coords.
     #
     def __load_saved_qvals(self,
                            filename: str,
                            num_actions: int
                            ) -> dict:
-        # Load Q Value Dictionary. This is stored sparse by state an action.
+        # Load Q Value Dictionary. This is stored sparse by curr_coords an action.
         (qv,
          n,
          learning_rate_0,

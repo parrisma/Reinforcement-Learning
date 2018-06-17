@@ -2,6 +2,7 @@ import logging
 import random
 import unittest
 from random import shuffle
+from typing import List
 
 import numpy as np
 
@@ -138,6 +139,41 @@ class TestRareEventBiasReplayMemory(unittest.TestCase):
         self.assertTrue(r4 or r5 or r6)
         return
 
+    # Return the last memory of there is one.
+    def test_get_last(self):
+        rebrm = RareEventBiasReplayMemory(self.__lg)
+        # empty case
+        self.assertTrue(rebrm.get_last_memory() is None)
+
+        case = [self.rnd_coords(), self.rnd_coords(), random.randint(1, 10), random.random(),
+                bool(random.randint(0, 1))]
+        self.assertTrue(rebrm.get_last_memory(case[0]) is None)
+
+        # last of rolling list
+        lst_case = None
+        case = None
+        for i in range(1, 20):
+            lst_case = case
+            case = [self.rnd_coords(), self.rnd_coords(), random.randint(1, 10), random.random(),
+                    bool(random.randint(0, 1))]
+            rebrm.append_memory(case[0], case[1], case[2], case[3], case[4])
+            mem = rebrm.get_last_memory()
+            self.assertTrue(case[0] == mem[0] and
+                            case[1] == mem[1] and
+                            case[2] == mem[2] and
+                            case[3] == mem[3] and
+                            case[4] == mem[4])
+
+            mem = rebrm.get_last_memory(case[0])
+            if i == 1:
+                self.assertTrue(mem is None)
+            else:
+                self.assertTrue(lst_case[0] == mem[0] and
+                                lst_case[1] == mem[1] and
+                                lst_case[2] == mem[2] and
+                                lst_case[3] == mem[3] and
+                                lst_case[4] == mem[4])
+                
     #
     # Convert list to dictionary
     #
@@ -147,6 +183,12 @@ class TestRareEventBiasReplayMemory(unittest.TestCase):
         for e in lst:
             d[e[0]] = e
         return d
+
+    #
+    # Random Coords as State ToDo: Needs to be full State Object
+    #
+    def rnd_coords(self) -> List[int]:
+        return [random.randint(1, 100), random.randint(100, 200)]
 
 
 #

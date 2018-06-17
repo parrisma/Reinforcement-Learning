@@ -13,7 +13,7 @@ from examples.gridworld.SimpleGridOne import SimpleGridOne
 
 
 #
-# Learn values for each state given state and action.
+# Learn values for each curr_coords given curr_coords and action.
 #
 
 class TestGridActorCritic:
@@ -74,8 +74,8 @@ class TestGridActorCritic:
     # ========================================================================= #
 
     #
-    # Actor : Given state, predict action.
-    # Critic: Given state & action
+    # Actor : Given curr_coords, predict action.
+    # Critic: Given curr_coords & action
     #
     # Must have same architecture as critic gradients used to train actor.
     #
@@ -196,9 +196,9 @@ class TestGridActorCritic:
     # else make an action based on prediction the NN inside the actor.
     #
     def select_action(self, cur_state):
-        if self.env_grid.episode_complete():  # At goal state, so re spawn to start point.
+        if self.env_grid.episode_complete():  # At goal curr_coords, so re spawn to start point.
             self.env_grid.reset()
-            cur_state = self.env_grid.state()
+            cur_state = self.env_grid.curr_coords()
         self.epsilon *= self.epsilon_decay
         if np.random.random() < self.epsilon:
             actns = self.env_grid.allowable_actions(cur_state)
@@ -220,7 +220,7 @@ class TestGridActorCritic:
 # the push for shortest path in terms of minimising the cost function.
 #
 # The action space is N,S,E,W shape (1,4)
-# The state is the grid coordinates (x,y) shape (1,2)
+# The curr_coords is the grid coordinates (x,y) shape (1,2)
 #
 step = SimpleGridOne.STEP
 fire = SimpleGridOne.FIRE
@@ -253,13 +253,13 @@ def main():
     actor_critic = TestGridActorCritic(env, sess)
 
     env.reset()
-    cur_state = env.state()
+    cur_state = env.curr_coords()
 
     episode = 0
     while True:
         action = actor_critic.select_action(cur_state)
         reward = env.execute_action(action)
-        new_state = env.state()
+        new_state = env.curr_coords()
         done = env.episode_complete()
 
         cur_state = np.array(cur_state).reshape((1, env_observation_space_shape[0]))
@@ -269,7 +269,7 @@ def main():
 
         actor_critic.train()
 
-        cur_state = env.state()  # new_state
+        cur_state = env.curr_coords()  # new_state
 
         episode += 1
         print(episode)

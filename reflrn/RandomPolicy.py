@@ -9,14 +9,14 @@ from reflrn.Interface.State import State
 class RandomPolicy(Policy):
 
     def __init__(self,
-                 prefer_new: bool = False  # Try to explore new state/action before re-playing
+                 prefer_new: bool = False  # Try to explore new curr_coords/action before re-playing
                  ):
         self.__prefer_new = prefer_new
         self.__trace = dict()
 
     #
     # This is a pure random policy, just pick any of the possible actions. If prefer_new is true an action is
-    # chosen that has been least visited from the current state.
+    # chosen that has been least visited from the current curr_coords.
     #
     def select_action(self,
                       agent_name: str,

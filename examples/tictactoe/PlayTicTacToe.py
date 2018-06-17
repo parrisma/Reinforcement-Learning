@@ -25,14 +25,14 @@ class PlayTicTacToe:
         return self.__game
 
     #
-    # Set learned state to given QValues.
+    # Set learned curr_coords to given QValues.
     #
     def transfer_learning(self, qv):
         self.__q_values = qv
         print("Learned Games:" + str(len(self.__q_values)))
 
     #
-    # The learned Q Values for a given state if they exist
+    # The learned Q Values for a given curr_coords if they exist
     #
     def q_vals_for_state(self, state):
         if state in self.__q_values:
@@ -47,7 +47,7 @@ class PlayTicTacToe:
         return self.__q_values
 
     #
-    # Load Q Val state
+    # Load Q Val curr_coords
     #
     def load_q_vals(self, filename):
         if self.__persist is not None:
@@ -55,7 +55,7 @@ class PlayTicTacToe:
         return
 
     #
-    # Save Q Val state
+    # Save Q Val curr_coords
     #
     def save_q_vals(self, filename):
         if self.__persist is not None:
@@ -135,7 +135,7 @@ class PlayTicTacToe:
             return n
 
     #
-    # Run simulation to estimate Q values for state, action pairs. Random exploration policy
+    # Run simulation to estimate Q values for curr_coords, action pairs. Random exploration policy
     # which should be tractable with approx 6K valid board states. This function takes "canned"
     # moves which were full game sequences created else where.
     #
@@ -186,7 +186,7 @@ class PlayTicTacToe:
         return self.__q_values
 
     #
-    # Run simulation to estimate Q values for state, action pairs. Random exploration policy
+    # Run simulation to estimate Q values for curr_coords, action pairs. Random exploration policy
     # which should be tractable with approx 6K valid board states.
     #
     def train_q_values_r(self, num_simulations):
@@ -238,7 +238,7 @@ class PlayTicTacToe:
         return self.__q_values
 
     #
-    # Given current state and learned Q Values (if any) suggest
+    # Given current curr_coords and learned Q Values (if any) suggest
     # the play_action that is expected to yield the highest reward.
     #
     def informed_action(self, st, rnd=False, model=None):

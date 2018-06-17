@@ -19,7 +19,7 @@ class HumanPolicy(Policy):
         return
 
     #
-    # No policy update, just show the resulting state/reward.
+    # No policy update, just show the resulting curr_coords/reward.
     #
     def update_policy(self,
                       agent_name: str,

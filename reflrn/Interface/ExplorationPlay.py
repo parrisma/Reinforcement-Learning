@@ -6,9 +6,9 @@ from reflrn.Interface.State import State
 
 #
 # This abstract makes a play based just on possible moves given. This is called
-# when the e-greedy asks for a random play to explore the state space. This can
+# when the e-greedy asks for a random play to explore the curr_coords space. This can
 # be pure random or informed random to try an expose more significant areas of
-# state space. e.g. with some manually coded strategy for the given environment.
+# curr_coords space. e.g. with some manually coded strategy for the given environment.
 #
 
 

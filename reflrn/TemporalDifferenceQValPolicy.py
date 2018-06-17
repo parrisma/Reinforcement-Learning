@@ -87,7 +87,7 @@ class TemporalDifferenceQValPolicy(Policy):
         return
 
     #
-    # Get the given q value for the given agent, state and action
+    # Get the given q value for the given agent, curr_coords and action
     #
     @classmethod
     def __get_q_value(cls, state: State, action: int) -> float:
@@ -96,7 +96,7 @@ class TemporalDifferenceQValPolicy(Policy):
         return cls.__q_values[state_name][action]
 
     #
-    # Set the q value for the given agent, state and action
+    # Set the q value for the given agent, curr_coords and action
     #
     @classmethod
     def __set_q_value(cls, state: State, action: int, q_value: float) -> None:
@@ -105,13 +105,13 @@ class TemporalDifferenceQValPolicy(Policy):
         cls.__q_values[state_name][action] = q_value
 
     #
-    # Use temporal difference methods to keep q values for the given state/action plays.
+    # Use temporal difference methods to keep q values for the given curr_coords/action plays.
     #
-    # prev_state : the previous state for this Agent; None if no previous state
+    # prev_state : the previous curr_coords for this Agent; None if no previous curr_coords
     # prev_action : the previous action of this agent; has no meaning is prev_state = None
-    # state : current state of the environment *after* the given action was played
-    # action : the action played by this agent that moved the state to the state passed
-    # reward : the reward associated with the given state/action pair.
+    # curr_coords : current curr_coords of the environment *after* the given action was played
+    # action : the action played by this agent that moved the curr_coords to the curr_coords passed
+    # reward : the reward associated with the given curr_coords/action pair.
     # ToDo
     def update_policy(self,
                       agent_name: str,
@@ -138,13 +138,13 @@ class TemporalDifferenceQValPolicy(Policy):
 
         lr = TemporalDifferenceQValPolicy.__q_learning_rate(self.__frame_id)
 
-        # Establish the max (optimal) outcome taken from the target state.
+        # Establish the max (optimal) outcome taken from the target curr_coords.
         #
         qvs, actn = TemporalDifferenceQValPolicy.__get_q_vals_as_np_array(next_state)
         ou = TemporalDifferenceQValPolicy.__greedy_outcome(qvs)
         qvp = self.__discount_factor * ou * lr
 
-        # Update current state to reflect the reward
+        # Update current curr_coords to reflect the reward
         qv = TemporalDifferenceQValPolicy.__get_q_value(state, action)
         qv = (qv * (1 - lr)) + (lr * reward) + qvp
         TemporalDifferenceQValPolicy.__set_q_value(state, action, qv)
@@ -276,7 +276,7 @@ class TemporalDifferenceQValPolicy(Policy):
         return self.__q_val_render.render(state, self.__q_values)
 
     #
-    # Log state
+    # Log curr_coords
     #
     def __log_state(self):
         pass

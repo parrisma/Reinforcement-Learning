@@ -14,7 +14,7 @@ from reflrn.EnvironmentLogging import EnvironmentLogging
 # the push for shortest path in terms of minimising the cost function.
 #
 # The action space is N,S,E,W=(0,1,2,3) shape (1,4)
-# The state is the grid coordinates (x,y) shape (1,2)
+# The curr_coords is the grid coordinates (x,y) shape (1,2)
 #
 step = SimpleGridOne.STEP
 fire = SimpleGridOne.FIRE
@@ -34,7 +34,7 @@ def create_grid() -> SimpleGridOne:
 
 
 #
-# What is the cost of finding a goal state from each corner. Actions are predicted by the actor
+# What is the cost of finding a goal curr_coords from each corner. Actions are predicted by the actor
 # only, so no random actions. As such this can be taken as a measure of the agents improvment in
 # heading directly to a goal.
 #
@@ -53,7 +53,8 @@ def optimal_path_check(grid_env: SimpleGridOne,
         i = 0
         grid_env.reset(coords=corner)
         while not grid_env.episode_complete() and i < 5000:
-            path_cost += grid_env.execute_action(actor_critic.select_action(cur_state=grid_env.state(), greedy=True))
+            path_cost += grid_env.execute_action(
+                actor_critic.select_action(cur_state=grid_env.curr_coords(), greedy=True))
             i += 1
     return path_cost
 
@@ -75,46 +76,59 @@ def main():
                                      do_plot=True)
 
     env.reset()
-    cur_state = env.state()
+    cur_state = env.curr_coords()
 
     while True:
         if env.episode_complete():
             # lg.debug("Optimal path cost : " + str(optimal_path_check(env, actor_critic)))
             env.reset()
             actor_critic.new_episode()
-            cur_state = env.state()  # new_state
+            cur_state = env.curr_coords()  # new_state
         else:
+            lg.debug("------------ Select Action")
             action = actor_critic.select_action(cur_state)
+            lg.debug("------------ Action: " + str(action))
             actor_critic.steps_to_goal += 1
+            lg.debug("------------ Execute Action")
             reward = env.execute_action(action)
-            new_state = env.state()
+            if reward > 0:
+                print("?")
+            new_state = env.curr_coords()
             done = env.episode_complete()
+            lg.debug("------------ Update Replay Memory")
             actor_critic.remember(cur_state, action, reward, new_state, done)
-            lg.debug(":: " + str(cur_state) + " -> " + str(action) + " = " + str(reward))
+            lg.debug("-S-A-R-S'-D- " + str(cur_state) +
+                     " -> " + str(action) +
+                     " = " + str(reward) +
+                     " -> " + str(new_state) +
+                     " : " + str(done)
+                     )
+            lg.debug("------------ Train")
             actor_critic.train()
-            cur_state = env.state()  # new_state
+            lg.debug("------------ Next Iteration")
+            cur_state = env.curr_coords()  # new_state
 
             # Visualize.
             n += 1
             print("Iteration Number: " + str(n) + " of episode: " + str(actor_critic.get_num_episodes()))
             qgrid = np.zeros((actor_critic.num_rows, actor_critic.num_cols))
             if n % 10 == 0:
-                for i in range(0, actor_critic.num_rows):
+                for rw in range(0, actor_critic.num_rows):
                     s = ""
-                    for j in range(0, actor_critic.num_cols):
-                        st = np.array([i, j]).reshape((1, actor_critic.input_dim))
+                    for cl in range(0, actor_critic.num_cols):
+                        st = np.array([rw, cl]).reshape((1, actor_critic.input_dim))
                         q_vals = actor_critic.critic_model.predict(st)[0]
                         s += str(['N', 'S', 'E', 'W'][np.argmax(q_vals)])
                         s += ' , '
 
                         for actn in range(0, actor_critic.num_actions):
-                            x, y = SimpleGridOne.coords_after_action(i, j, actn)
-                            if x >= 0 and y >= 0 and x < actor_critic.num_rows and y < actor_critic.num_cols:
-                                if qgrid[x][y] == np.float(0):
-                                    qgrid[x][y] = q_vals[actn]
+                            r, c = SimpleGridOne.coords_after_action(rw, cl, actn)
+                            if r >= 0 and c >= 0 and r < actor_critic.num_rows and c < actor_critic.num_cols:
+                                if qgrid[r][c] == np.float(0):
+                                    qgrid[r][c] = q_vals[actn]
                                 else:
-                                    qgrid[x][y] += q_vals[actn]
-                                    qgrid[x][y] /= np.float(2)
+                                    qgrid[r][c] += q_vals[actn]
+                                    qgrid[r][c] /= np.float(2)
                     lg.debug(s)
                 rdr.plot(qgrid)
                 lg.debug('--------------------')

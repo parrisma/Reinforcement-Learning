@@ -57,7 +57,7 @@ class DequeReplayMemory(ReplayMemory):
     def get_random_memories(self, sample_size: int) -> [[], [], [], [], [], []]:
         ln = self.len()
         indices = np.random.choice(ln, min(ln, sample_size), replace=False)
-        cols = [[], [], [], [], [], []]  # episode, state, next_state, action, reward, complete
+        cols = [[], [], [], [], [], []]  # episode, curr_coords, next_state, action, reward, complete
         for idx in indices:
             memory = self.__replay_memory[idx]
             # get_memories_by_type the whole episode. Look forward and back until episode id changes

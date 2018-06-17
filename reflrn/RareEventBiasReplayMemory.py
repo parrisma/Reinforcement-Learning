@@ -13,6 +13,9 @@ from reflrn.Interface.State import State
 # Establish which rewards are rare and bias the returned sample memories to include
 # those rewards to allow the network to learn about these rare events.
 #
+# ToDo: For non-stationary problem space add capability to overwrite / delete rare bias_memories
+# that lose their rare status
+#
 
 class RareEventBiasReplayMemory(ReplayMemory):
     mem_state = 0
@@ -100,7 +103,7 @@ class RareEventBiasReplayMemory(ReplayMemory):
         return len(self.core_memory)
 
     #
-    #
+    # Select a set of random memories equal in number to teh given sample_size
     #
     def get_random_memories(self,
                             sample_size: int) -> [[], [], [], [], [], []]:
@@ -161,6 +164,23 @@ class RareEventBiasReplayMemory(ReplayMemory):
     #
     def get_num_memories(self):
         return len(self.core_memory)
+
+    #
+    # Get just the last memory with respect to the given state. If given state is
+    # None return the last memory overall.
+    #
+    def get_last_memory(self, state: State = None) -> [[], [], [], [], [], []]:
+        lst = None
+        if self.core_memory is not None and len(self.core_memory) > 0:
+            if state is None:
+                lst = self.core_memory[len(self.core_memory) - 1]
+            else:
+                for i in range(len(self.core_memory) - 1, 0, -1):
+                    if self.core_memory[i][0] == state:
+                        if i > 0:
+                            lst = self.core_memory[i - 1]
+                        break
+        return lst
 
     class SampleSizeSmallerThanNumberOfBiases(Exception):
         def __init__(self, *args, **kwargs):

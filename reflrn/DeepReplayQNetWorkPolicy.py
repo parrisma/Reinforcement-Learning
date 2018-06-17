@@ -4,12 +4,8 @@ from random import randint
 import numpy as np
 
 from reflrn.EvaluationException import EvaluationException
-from reflrn.FixedGames import FixedGames
 from reflrn.Interface.Policy import Policy
-from reflrn.Interface.RenderQVals import RenderQVals
 from reflrn.Interface.State import State
-from reflrn.RandomPolicy import RandomPolicy
-from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 
 
 #
@@ -68,7 +64,7 @@ class DeepReplayQNetworkPolicy(Policy):
         return
 
     #
-    # Get the given q value for the given agent, state and action
+    # Get the given q value for the given agent, curr_coords and action
     #
     @classmethod
     def __get_q_value(cls, state: State, action: int) -> float:
@@ -77,7 +73,7 @@ class DeepReplayQNetworkPolicy(Policy):
         return cls.__q_values[state_name][action]
 
     #
-    # Set the q value for the given agent, state and action
+    # Set the q value for the given agent, curr_coords and action
     #
     @classmethod
     def __set_q_value(cls, state: State, action: int, q_value: float) -> None:
@@ -86,13 +82,13 @@ class DeepReplayQNetworkPolicy(Policy):
         cls.__q_values[state_name][action] = q_value
 
     #
-    # Use temporal difference methods to keep q values for the given state/action plays.
+    # Use temporal difference methods to keep q values for the given curr_coords/action plays.
     #
-    # prev_state : the previous state for this Agent; None if no previous state
+    # prev_state : the previous curr_coords for this Agent; None if no previous curr_coords
     # prev_action : the previous action of this agent; has no meaning is prev_state = None
-    # state : current state of the environment *after* the given action was played
-    # action : the action played by this agent that moved the state to the state passed
-    # reward : the reward associated with the given state/action pair.
+    # curr_coords : current curr_coords of the environment *after* the given action was played
+    # action : the action played by this agent that moved the curr_coords to the curr_coords passed
+    # reward : the reward associated with the given curr_coords/action pair.
     # ToDo
     def update_policy(self,
                       agent_name: str,
@@ -119,13 +115,13 @@ class DeepReplayQNetworkPolicy(Policy):
 
         lr = DeepReplayQNetworkPolicy.__q_learning_rate(self.__frame_id)
 
-        # Establish the max (optimal) outcome taken from the target state.
+        # Establish the max (optimal) outcome taken from the target curr_coords.
         #
         qvs, actn = DeepReplayQNetworkPolicy.__get_q_vals_as_np_array(next_state)
         ou = DeepReplayQNetworkPolicy.__greedy_outcome(qvs)
         qvp = self.__discount_factor * ou * lr
 
-        # Update current state to reflect the reward
+        # Update current curr_coords to reflect the reward
         qv = DeepReplayQNetworkPolicy.__get_q_value(state, action)
         qv = (qv * (1 - lr)) + (lr * reward) + qvp
         DeepReplayQNetworkPolicy.__set_q_value(state, action, qv)
@@ -186,9 +182,8 @@ class DeepReplayQNetworkPolicy(Policy):
         ou = DeepReplayQNetworkPolicy.__greedy_outcome(qvs)
         greedy_actions = list()
         for v, a in np.vstack([qvs, actions]).T:
-            if v == ou:
-                if a in possible_actions:
-                    greedy_actions.append(int(a))
+            if v == ou and a in possible_actions:
+                greedy_actions.append(int(a))
         if len(greedy_actions) == 0:
             raise EvaluationException("No Q Values mapping to possible actions, cannot select greedy action")
 
@@ -257,7 +252,7 @@ class DeepReplayQNetworkPolicy(Policy):
         return self.__q_val_render.render(state, self.__q_values)
 
     #
-    # Log state
+    # Log curr_coords
     #
     def __log_state(self):
         pass

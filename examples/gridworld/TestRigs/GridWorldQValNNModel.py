@@ -85,7 +85,7 @@ class GridWorldQValNNModel(Model):
 
     #
     # Predict the Q Values for the action space given the vector encoding of the
-    # grid state.
+    # grid curr_coords.
     #
     def predict(self, x) -> [np.float]:
         self.__bootstrap_model()
@@ -116,7 +116,7 @@ class GridWorldQValNNModel(Model):
         return
 
     #
-    # Reset the learning state of the model.
+    # Reset the learning curr_coords of the model.
     #
     def reset(self) -> None:
         self.__lr = self.__lr_0
@@ -175,7 +175,7 @@ class GridWorldQValNNModel(Model):
         return
 
     #
-    # Load the current state of the model from a file that was saved
+    # Load the current curr_coords of the model from a file that was saved
     # from the same Keras model architecture as the new_model method
     # creates.
     #

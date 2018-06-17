@@ -25,7 +25,7 @@ class TicTacToeState(State):
         return None
 
     #
-    # An string representation of the environment state
+    # An string representation of the environment curr_coords
     #
     def state_as_string(self) -> str:
         st = ""

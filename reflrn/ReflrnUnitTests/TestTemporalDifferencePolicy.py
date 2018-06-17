@@ -16,7 +16,7 @@ class TestState(State):
         self.__state_name = state_name
 
     def state(self) -> object:
-        raise NotImplementedError("No object state of [" + self.__class__.__name__ + "] implemented")
+        raise NotImplementedError("No object curr_coords of [" + self.__class__.__name__ + "] implemented")
         return None
 
     def state_as_string(self) -> str:
@@ -49,7 +49,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
     def lr(cls, n: int, lr0: float, lrd: float):
         return lr0 / (1 + (n * lrd))
 
-    # Test of a single update to a single state.
+    # Test of a single update to a single curr_coords.
     # V{k+1}(S) <- (1 - lr)*V{k}(S) + lr*reward + lr*df*V{k}(S')
     #
     def test_single_action_state_update(self):
@@ -83,7 +83,7 @@ class TestTemporalDifferencePolicy(unittest.TestCase):
         self.assertAlmostEqual(qv_dict[test_state_1.state_as_string()][expected_action], qv, 9)
         return
 
-    # Test of a 100 update to a single state, should approach the reward value to within
+    # Test of a 100 update to a single curr_coords, should approach the reward value to within
     # a small margin ~ 0.01 diff.
     # V{k+1}(S) <- (1 - lr)*V{k}(S) + lr*reward + lr*df*V{k}(S')
     #
