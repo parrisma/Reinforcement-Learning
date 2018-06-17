@@ -203,7 +203,7 @@ class GridActorCritic:
             qvs = self._curr_state_qval_prediction(cur_state)
 
             qv = qvs[action]
-            qv = (qv * (1 - lr)) + (lr * reward + qvp)  # updated expectation of current curr_coords/action
+            qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current curr_coords/action
             qvs[action] = qv
 
             x[i] = cur_state
