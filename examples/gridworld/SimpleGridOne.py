@@ -71,6 +71,8 @@ class SimpleGridOne(Grid):
             self.__start = list([0, 0])
             self.__curr = deepcopy(self.__start)
 
+        self.__activity = np.zeros((self.__grid_rows, self.__grid_cols))
+
     def start_coords(self) -> List[int]:
         return (self.__respawn_operator[self.__respawn_type])()
 
@@ -149,6 +151,14 @@ class SimpleGridOne(Grid):
         return
 
     #
+    # Track what % of activity has happened by grid location.
+    #
+    def __track_activity(self,
+                         coords: List[int]) -> None:
+        self.__activity[coords[0]][coords[1]] += 1e-6
+        return
+
+    #
     # Execute the given action and return the reward earned for moving to the new grid location.
     #
     def execute_action(self, action: int) -> np.float:
@@ -161,6 +171,8 @@ class SimpleGridOne(Grid):
         self.__curr = self.__new_coords_after_action(action)
         if self.__episode_over():
             self.__episode_reset()
+
+        self.__track_activity(self.__curr)
         return self.__grid_reward(self.__curr)
 
     #
@@ -296,3 +308,8 @@ class SimpleGridOne(Grid):
     def __track_last_coords(self, coords: List[int]) -> None:
         self.__last_coords = coords
         return
+
+    def activity_matrix(self) -> List[float]:
+        act = deepcopy(self.__activity)
+        act /= np.sum(act)
+        return act

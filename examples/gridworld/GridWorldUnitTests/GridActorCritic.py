@@ -36,7 +36,7 @@ class GridActorCritic:
         self.num_cols = cols
 
         self.learning_rate_0 = float(1.0)
-        self.learning_rate_decay = float(0.05)
+        self.learning_rate_decay = float(0.02)
         self.epsilon = 0.8  # exploration factor.
         self.epsilon_decay = .9995
         self.gamma = .8  # Discount Factor Applied to reward
@@ -45,6 +45,8 @@ class GridActorCritic:
         self.train_on_new_episode = False
 
         self.aux_actor_predictor = None
+
+        self.__training = True  # by default we train actor/critic as we take actions
 
         #
         # This is the replay-memory, this is needed so the target is "stationary" and the
@@ -136,9 +138,7 @@ class GridActorCritic:
     # Get actor prediction, if actor is not able to predict, predict random
     #
     def _actor_prediction(self,
-                          curr_state: List[int],
-                          last_state: List[int] = None,
-                          allowable_actions: List[int] = None):
+                          curr_state: List[int]):
         if self.aux_actor_predictor is not None:
             return self.aux_actor_predictor(curr_state)
 
@@ -166,20 +166,18 @@ class GridActorCritic:
                                     last_state: List[int]) -> float:
         qvp = 0
         if not self.env_grid.episode_complete(new_state):
-            qvn = self._actor_prediction(curr_state=new_state, last_state=last_state)
+            qvn = self._actor_prediction(curr_state=new_state)
             allowable_actions = self.allowed_actions_no_return(state=new_state, last_state=last_state)
             qvp = self.gamma * np.max(qvn[allowable_actions])  # Discounted max return from next curr_coords
         return np.float(qvp)
 
     #
-    # What is the qvalue (optimal) prediction given current curr_coords S
+    # What is the qvalue (optimal) prediction given current curr_coords (state S)
     #
     def _curr_state_qval_prediction(self, curr_state: List[int]) -> List[np.float]:
         qvs = np.zeros(self.num_actions)
         if not self.env_grid.episode_complete(curr_state):
-            qvs = self._actor_prediction(curr_state,
-                                         self._get_last_state(curr_state)
-                                         )  # ToDo Actor estimate of QVals for current curr_coords.
+            qvs = self._actor_prediction(curr_state)
         return qvs
 
     #
@@ -216,6 +214,9 @@ class GridActorCritic:
     # Update actor every 5 episodes (goal states reached)
     #
     def train(self):
+        if not self.__training:
+            return
+
         if self.replay_memory.get_num_memories() > 100:  # don't start learning until we have reasonable # mems
             if self._train_critic():
                 if self.train_on_new_episode:
@@ -234,19 +235,11 @@ class GridActorCritic:
         return
 
     #
-    # Predict an allowable action.
+    # Predict an action, this may not be an allowed action at the given location.
     #
-    def actor_predict_action(self, cur_state, allowable_actions) -> int:
-        qvs = self._actor_prediction(cur_state,
-                                     self._get_last_state(cur_state),
-                                     allowable_actions)
+    def actor_predict_action(self, cur_state) -> int:
+        qvs = self._actor_prediction(cur_state)
         actn = np.argmax(qvs)
-
-        print(cur_state)
-        print(allowable_actions)
-        print(actn)
-        if actn not in allowable_actions:
-            print("?")
         return actn
 
     #
@@ -260,47 +253,87 @@ class GridActorCritic:
         return actn
 
     #
+    # Update and Return the exploration factor epsilon
+    #
+    def __update_epsilon(self) -> float:
+        if self.__training:
+            self.epsilon = max(0.05, self.epsilon * self.epsilon_decay)
+        return self.epsilon
+
+    #
     # Make a greedy (random) action based on current value (decaying) of epsilon
     # else make an action based on prediction the NN inside the actor.
     #
     def select_action(self,
                       cur_state,
                       greedy: bool = False):
-        self.epsilon = max(0.05, self.epsilon * self.epsilon_decay)
-        self.lg.debug("epsilon :" + str(self.epsilon))
+        self.__update_epsilon()
         lst_state = (self.replay_memory.get_last_memory(cur_state))
         if lst_state is not None:
             lst_state = lst_state[0]
         allowable_actions = self.allowed_actions_no_return(cur_state, lst_state)
 
-        if np.random.random() < self.epsilon and not greedy:
+        if True:  # np.random.random() < self.epsilon and not greedy:
             self.lg.debug("R")
             actn = self.random_action(allowable_actions)
         else:
-            actn = self.actor_predict_action(cur_state, allowable_actions)
+            actn = self.actor_predict_action(cur_state)
             if actn not in allowable_actions:
                 self.lg.debug("R'")
                 actn = self.random_action(allowable_actions)
             else:
                 self.lg.debug("P")
-
-        self.steps_to_goal += 1
         return actn
+
+    #
+    # Return the Q Value Grid as predicted by the current state of the actor.
+    #
+    def qvalue_grid(self,
+                    average: bool = True) -> List[np.float]:
+        qgrid = np.zeros((self.num_rows, self.num_cols))
+        for rw in range(0, self.num_rows):
+            for cl in range(0, self.num_cols):
+                st = np.array([rw, cl]).reshape((1, self.input_dim))
+                q_vals = self.critic_model.predict(st)[0]
+                for actn in self.allowed_actions_no_return(state=st[0]):
+                    if average:
+                        r, c = SimpleGridOne.coords_after_action(rw, cl, actn)
+                        if r >= 0 and c >= 0 and r < self.num_rows and c < self.num_cols:
+                            if qgrid[r][c] == np.float(0):
+                                qgrid[r][c] = q_vals[actn]
+                            else:
+                                qgrid[r][c] += q_vals[actn]
+                                qgrid[r][c] /= np.float(2)
+                    else:
+                        qgrid[rw][cl] = np.max(q_vals)
+        return qgrid
 
     #
     # Track change of episode.
     #
     def new_episode(self):
-        self.episode += 1
+        if self.__training:
+            self.episode += 1
         self.train_on_new_episode = True
         self.lg.debug("************** Steps to Goal :" + str(self.steps_to_goal))
         self.steps_to_goal = 0
 
     #
-    #
+    # How many episodes have passed = number of goal states reached.
     #
     def get_num_episodes(self):
         return self.episode
+
+    #
+    # Set training mode on/off
+    #
+    def training_mode_on(self) -> None:
+        self.__training = True
+        return
+
+    def training_mode_off(self) -> None:
+        self.__training = False
+        return
 
 
 #
@@ -371,7 +404,6 @@ class TestGridActorCritic(unittest.TestCase):
 #
 
 if __name__ == "__main__":
-    if True:
-        tests = TestGridActorCritic()
-        suite = unittest.TestLoader().loadTestsFromModule(tests)
-        unittest.TextTestRunner().run(suite)
+    tests = TestGridActorCritic()
+    suite = unittest.TestLoader().loadTestsFromModule(tests)
+    unittest.TextTestRunner().run(suite)

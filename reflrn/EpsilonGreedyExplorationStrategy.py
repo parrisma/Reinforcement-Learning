@@ -55,7 +55,7 @@ class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
                             possible_actions: [int]) -> Policy:
 
         if random.random() < self.__epsilon_decay(episode_number):
-            # if random.random() > self.__epsilon:
+            # if random.random() > self.__update_epsilon:
             self.__lg.debug(agent_name + " exploration policy selected")
             return self.__exploration_policy
         else:

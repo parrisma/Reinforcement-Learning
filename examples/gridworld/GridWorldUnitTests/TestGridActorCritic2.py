@@ -1,4 +1,5 @@
 import logging
+from typing import Tuple
 
 import numpy as np
 
@@ -22,24 +23,31 @@ blck = SimpleGridOne.BLCK
 goal = SimpleGridOne.GOAL
 
 
-def create_grid() -> SimpleGridOne:
-    r = 10
-    c = 10
+def create_grid() -> Tuple[int, int, SimpleGridOne]:
+    r = 20
+    c = 20
     grid = np.full((r, c), step)
-    grid[4, 4] = goal
+    grid[10, 10] = goal
+    # grid[40, 40] = goal
+    # grid[25, 25] = fire
+    # grid[10, 40] = fire
+    # grid[40, 10] = fire
     sg1 = SimpleGridOne(grid_id=1,
                         grid_map=grid,
-                        respawn_type=SimpleGridOne.RESPAWN_RANDOM)
+                        respawn_type=SimpleGridOne.RESPAWN_CORNER)
     return r, c, sg1
 
 
 #
 # What is the cost of finding a goal curr_coords from each corner. Actions are predicted by the actor
-# only, so no random actions. As such this can be taken as a measure of the agents improvment in
+# only, so no random actions. As such this can be taken as a measure of the agents improvement in
 # heading directly to a goal.
 #
 def optimal_path_check(grid_env: SimpleGridOne,
-                       actor_critic: GridActorCritic):
+                       actor_critic: GridActorCritic,
+                       lg):
+    actor_critic.training_mode_off()
+
     r, c = grid_env.shape()
 
     corners = [(0, 0),
@@ -52,10 +60,16 @@ def optimal_path_check(grid_env: SimpleGridOne,
     for corner in corners:
         i = 0
         grid_env.reset(coords=corner)
+        lg.debug("Corner: " + str(corner))
+        s = ""
         while not grid_env.episode_complete() and i < 5000:
             path_cost += grid_env.execute_action(
                 actor_critic.select_action(cur_state=grid_env.curr_coords(), greedy=True))
+            s += "{" + str(grid_env.curr_coords()) + "} - "
             i += 1
+        lg.debug(s)
+
+    actor_critic.training_mode_on()
     return path_cost
 
 
@@ -75,24 +89,26 @@ def main():
                                      plot_style=RenderSimpleGridOneQValues.PLOT_SURFACE,
                                      do_plot=True)
 
+    rdra = RenderSimpleGridOneQValues(num_cols=actor_critic.num_cols,
+                                      num_rows=actor_critic.num_rows,
+                                      plot_style=RenderSimpleGridOneQValues.PLOT_SURFACE,
+                                      do_plot=True)
+
     env.reset()
     cur_state = env.curr_coords()
 
     while True:
         if env.episode_complete():
-            # lg.debug("Optimal path cost : " + str(optimal_path_check(env, actor_critic)))
+            if actor_critic.get_num_episodes() > 10:
+                lg.debug("Optimal path cost : " + str(optimal_path_check(env, actor_critic, lg)))
             env.reset()
             actor_critic.new_episode()
             cur_state = env.curr_coords()  # new_state
         else:
             lg.debug("------------ Select Action")
             action = actor_critic.select_action(cur_state)
-            lg.debug("------------ Action: " + str(action))
-            actor_critic.steps_to_goal += 1
             lg.debug("------------ Execute Action")
             reward = env.execute_action(action)
-            if reward > 0:
-                print("?")
             new_state = env.curr_coords()
             done = env.episode_complete()
             lg.debug("------------ Update Replay Memory")
@@ -106,32 +122,23 @@ def main():
             lg.debug("------------ Train")
             actor_critic.train()
             lg.debug("------------ Next Iteration")
+
+            if actor_critic.steps_to_goal % 50 == 0:
+                lg.debug("*********** Re-spawn :" + str(env.curr_coords()))
+                env.reset()
+                actor_critic.steps_to_goal = 1
+            else:
+                actor_critic.steps_to_goal += 1
             cur_state = env.curr_coords()  # new_state
 
             # Visualize.
             n += 1
             print("Iteration Number: " + str(n) + " of episode: " + str(actor_critic.get_num_episodes()))
-            qgrid = np.zeros((actor_critic.num_rows, actor_critic.num_cols))
             if n % 10 == 0:
-                for rw in range(0, actor_critic.num_rows):
-                    s = ""
-                    for cl in range(0, actor_critic.num_cols):
-                        st = np.array([rw, cl]).reshape((1, actor_critic.input_dim))
-                        q_vals = actor_critic.critic_model.predict(st)[0]
-                        s += str(['N', 'S', 'E', 'W'][np.argmax(q_vals)])
-                        s += ' , '
-
-                        for actn in range(0, actor_critic.num_actions):
-                            r, c = SimpleGridOne.coords_after_action(rw, cl, actn)
-                            if r >= 0 and c >= 0 and r < actor_critic.num_rows and c < actor_critic.num_cols:
-                                if qgrid[r][c] == np.float(0):
-                                    qgrid[r][c] = q_vals[actn]
-                                else:
-                                    qgrid[r][c] += q_vals[actn]
-                                    qgrid[r][c] /= np.float(2)
-                    lg.debug(s)
-                rdr.plot(qgrid)
-                lg.debug('--------------------')
+                rdr.plot(actor_critic.qvalue_grid(average=False))
+            if n % 11 == 0:
+                rdra.plot(env.activity_matrix())
+            lg.debug('--------------------')
 
 
 if __name__ == "__main__":
