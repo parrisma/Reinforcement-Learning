@@ -35,7 +35,7 @@ class TestMNISTViewer(unittest.TestCase):
     def test_0(self):
         ml = MNistLoader()
         img, lbl = ml.read_mnist(training=True,
-                                 path="D:\Google Drive\DataSets")
+                                 path="C:\\Users\\Admin_2\\Google Drive\\DataSets")
         s = np.shape(img)
         simg = img[randint(0,s[0])]
         MNistViewer.view_img(simg)

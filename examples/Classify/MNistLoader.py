@@ -50,7 +50,7 @@ class TestMNISTLoader(unittest.TestCase):
     def test_0(self):
         ml = MNistLoader()
         img, lbl = ml.read_mnist(training=True,
-                                 path="D:\Google Drive\DataSets")
+                                 path="C:\\Users\\Admin_2\\Google Drive\\DataSets")
         s = np.shape(img)
         self.assertEqual(len(s), 3)
         self.assertEqual(s[0], 60000)
