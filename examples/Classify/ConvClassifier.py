@@ -1,11 +1,10 @@
-from keras.utils import to_categorical
+from keras import backend as K
 from keras.datasets import mnist
 from keras.layers import Dense, Conv2D, Flatten, MaxPooling2D
+from keras.losses import categorical_crossentropy
 from keras.models import Sequential
 from keras.optimizers import SGD
-from keras.losses import categorical_crossentropy
-from keras import backend as K
-import numpy as np
+from keras.utils import to_categorical
 
 
 def main():
