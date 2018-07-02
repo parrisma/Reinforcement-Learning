@@ -2,6 +2,7 @@
   <dictionary name="Necromancer">
     <words>
       <w>actn</w>
+      <w>autoencoder</w>
       <w>blck</w>
       <w>cmap</w>
       <w>coords</w>
@@ -18,6 +19,7 @@
       <w>qval</w>
       <w>respawn</w>
       <w>returnign</w>
+      <w>softmax</w>
       <w>tddp</w>
       <w>tdpp</w>
       <w>vals</w>

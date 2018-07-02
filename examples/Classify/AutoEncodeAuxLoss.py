@@ -1,13 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.datasets import mnist
-from keras.layers import Input, Dense
-from keras.losses import binary_crossentropy
+from keras.layers import Dense
+from keras.layers import Input
 from keras.models import Model
-
-
-def ai_loss(encoded_img, img):
-    return binary_crossentropy(encoded_img, img)
+from keras.utils import to_categorical
 
 
 def main():
@@ -27,18 +24,31 @@ def main():
     decoded = Dense(128, activation='relu')(decoded)
     decoded = Dense(784, activation='sigmoid')(decoded)
 
-    # Map input image to latent form as feed to encoder (the bottleneck)
+    # decode the latent form to the class.
+    num_classes = 10
+    decode_cls = Dense(64, activation='relu')(encoded_img)
+    decode_cls = Dense(128, activation='relu')(decode_cls)
+    decode_cls = Dense(256, activation='relu')(decode_cls)
+    decode_cls = Dense(num_classes, activation='softmax')(decode_cls)
+
+    # Map the raw input image to "bottleneck" latent representation
     encoder = Model(input_img, encoded)
 
-    # create the image decoder model feed by the latent representation output of encoder.
+    # Map the latent representation back to the raw image
     decoder = Model(input=encoded_img, output=decoded)
+
+    # Map the latent form to the class.
+    decoder_cls = Model(input=encoded_img, output=decode_cls)
 
     # this model maps an input to its reconstruction
     autoencoder = Model(input=input_img,
-                        output=decoder(encoder.output))
+                        output=[decoder(encoder.output), decoder_cls(encoder.output)])
 
-    autoencoder.compile(optimizer='adadelta',
-                        loss=ai_loss)  # 'binary_crossentropy')
+    autoencoder.compile(optimizer='adadelta', loss=['binary_crossentropy', 'categorical_crossentropy'])
+
+    print(autoencoder.summary())
+    print(decoder.summary())
+    print(decoder_cls.summary())
 
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
@@ -48,14 +58,19 @@ def main():
     x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
     x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 
+    # Convert labels to binary class matrices
+    y_train = to_categorical(y_train, num_classes)
+    y_test = to_categorical(y_test, num_classes)
+
     print(x_train.shape)
     print(x_test.shape)
 
-    autoencoder.fit(x_train, x_train,
+    autoencoder.fit(x=x_train,
+                    y=[x_train, y_train],
                     epochs=100,
                     batch_size=256,
                     shuffle=True,
-                    validation_data=(x_test, x_test))
+                    validation_data=(x_test, [x_test, y_test]))
 
     # encode and decode some digits
     # note that we take them from the *test* set
