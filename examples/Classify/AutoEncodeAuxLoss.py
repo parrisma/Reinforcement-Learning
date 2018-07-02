@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from keras.callbacks import TensorBoard
 from keras.datasets import mnist
 from keras.layers import Dense
 from keras.layers import Input
@@ -12,33 +13,33 @@ def main():
     encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
 
     # this is our input placeholder
-    input_img = Input(shape=(784,))
+    input_img = Input(shape=(784,), name='encode-img-input')
     # "encoded" is the encoded representation of the input
-    encoded = Dense(128, activation='relu')(input_img)
-    encoded = Dense(64, activation='relu')(encoded)
-    encoded = Dense(32, activation='relu')(encoded)
+    encoded = Dense(128, activation='relu', name='encode-128')(input_img)
+    encoded = Dense(64, activation='relu', name='encode-64')(encoded)
+    encoded = Dense(32, activation='relu', name='encode-32')(encoded)
 
     # "decoded" is the lossy reconstruction of the input
     encoded_img = Input(shape=(32,))
-    decoded = Dense(64, activation='relu')(encoded_img)
-    decoded = Dense(128, activation='relu')(decoded)
-    decoded = Dense(784, activation='sigmoid')(decoded)
+    decoded = Dense(64, activation='relu', name='decode-img-64')(encoded_img)
+    decoded = Dense(128, activation='relu', name='decode-img-128')(decoded)
+    decoded = Dense(784, activation='sigmoid', name='decode-img-784')(decoded)
 
     # decode the latent form to the class.
     num_classes = 10
-    decode_cls = Dense(64, activation='relu')(encoded_img)
-    decode_cls = Dense(128, activation='relu')(decode_cls)
-    decode_cls = Dense(256, activation='relu')(decode_cls)
-    decode_cls = Dense(num_classes, activation='softmax')(decode_cls)
+    decode_cls = Dense(64, activation='relu', name='decode-cls-64')(encoded_img)
+    decode_cls = Dense(128, activation='relu', name='decode-cls-128')(decode_cls)
+    decode_cls = Dense(256, activation='relu', name='decode-cls-256')(decode_cls)
+    decode_cls = Dense(num_classes, activation='softmax', name='decode-cls-10')(decode_cls)
 
     # Map the raw input image to "bottleneck" latent representation
-    encoder = Model(input_img, encoded)
+    encoder = Model(input_img, encoded, name='Encoder')
 
     # Map the latent representation back to the raw image
-    decoder = Model(input=encoded_img, output=decoded)
+    decoder = Model(input=encoded_img, output=decoded, name='Decoder-Image')
 
     # Map the latent form to the class.
-    decoder_cls = Model(input=encoded_img, output=decode_cls)
+    decoder_cls = Model(input=encoded_img, output=decode_cls, name='Decoder-Class')
 
     # this model maps an input to its reconstruction
     autoencoder = Model(input=input_img,
@@ -70,7 +71,8 @@ def main():
                     epochs=100,
                     batch_size=256,
                     shuffle=True,
-                    validation_data=(x_test, [x_test, y_test]))
+                    validation_data=(x_test, [x_test, y_test]),
+                    callbacks=[TensorBoard(log_dir='./tb')])
 
     # encode and decode some digits
     # note that we take them from the *test* set
