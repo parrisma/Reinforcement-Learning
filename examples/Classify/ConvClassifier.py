@@ -1,4 +1,5 @@
 from keras import backend as K
+from keras.callbacks import TensorBoard
 from keras.datasets import mnist
 from keras.layers import Dense, Conv2D, Flatten, MaxPooling2D
 from keras.losses import categorical_crossentropy
@@ -61,7 +62,9 @@ def main():
               epochs=50,
               batch_size=batch_size,
               shuffle=True,
-              validation_data=(x_test, y_test))
+              validation_data=(x_test, y_test),
+              callbacks=[TensorBoard(log_dir='./tb')]
+              )
     return
 
 

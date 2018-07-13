@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from keras.callbacks import TensorBoard
 from keras.datasets import mnist
-from keras.layers import Dense
+from keras.layers import Dense, Dropout
 from keras.layers import Input
 from keras.models import Model
 from keras.utils import to_categorical
@@ -28,7 +28,7 @@ def main():
     # decode the latent form to the class.
     num_classes = 10
     decode_cls = Dense(64, activation='relu', name='decode-cls-64')(encoded_img)
-    decode_cls = Dense(128, activation='relu', name='decode-cls-128')(decode_cls)
+    decoded = Dropout(.3)(decoded)
     decode_cls = Dense(256, activation='relu', name='decode-cls-256')(decode_cls)
     decode_cls = Dense(num_classes, activation='softmax', name='decode-cls-10')(decode_cls)
 

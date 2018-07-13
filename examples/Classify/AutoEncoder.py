@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.datasets import mnist
-from keras.layers import Input, Dense
+from keras.layers import Input, Dense, Dropout
 from keras.losses import binary_crossentropy
 from keras.models import Model
 
