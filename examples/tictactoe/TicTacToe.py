@@ -176,7 +176,7 @@ class TicTacToe(Environment):
         action = agent.chose_action(state, self.__actions_ids_left_to_take())
         if action not in self.__actions_ids_left_to_take():
             print("Opps")
-        self.__take_action(self.__actions[action], agent)
+        self.__take_action(action, agent)
         next_state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
 
         if self.episode_complete():
@@ -236,7 +236,7 @@ class TicTacToe(Environment):
     #
     def __actions_ids_left_to_take(self):
         alt = np.reshape(self.__board, self.__board.size)
-        alt = np.asarray(self.actions())[np.isnan(alt) == True]
+        alt = np.fromiter(self.actions().keys(), int)[np.isnan(alt)]
         return alt
 
     #

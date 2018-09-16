@@ -2,7 +2,10 @@ import logging
 import random
 
 from reflrn import EvaluationException
-from reflrn.Interface import Agent, Policy, State, ExplorationPlay
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.ExplorationPlay import ExplorationPlay
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 
 
 class TicTacToeAgent(Agent):
@@ -79,12 +82,12 @@ class TicTacToeAgent(Agent):
     # curr_coords passed.
     #
     def reward(self, state: State, next_state: State, action: int, reward_for_play: float, episode_complete: bool):
-        self.__policy.update_strategy(self.name(),
-                                      state,
-                                      next_state,
-                                      action,
-                                      reward_for_play,
-                                      episode_complete)
+        self.__policy.update_policy(self.name(),
+                                    state,
+                                    next_state,
+                                    action,
+                                    reward_for_play,
+                                    episode_complete)
         return
 
     #

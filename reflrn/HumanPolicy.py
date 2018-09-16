@@ -1,7 +1,4 @@
 import logging
-from typing import Tuple
-
-import numpy as np
 
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
@@ -54,6 +51,6 @@ class HumanPolicy(Policy):
     #
     # Import the current policy to the given file name
     #
-    def load(self, filename: str) -> Tuple[dict, int, np.float, np.float, np.float]:
+    def load(self, filename: str = None):
         self.__lg.warning("Load not supported for Human Policy")
         return
