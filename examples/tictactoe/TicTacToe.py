@@ -3,8 +3,10 @@ from random import randint
 
 import numpy as np
 
-from reflrn.Interface import Agent, Environment, State
-from .TicTacToeState import TicTacToeState
+from examples.tictactoe.TicTacToeState import TicTacToeState
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.Environment import Environment
+from reflrn.Interface.State import State
 
 
 class TicTacToe(Environment):
@@ -42,6 +44,9 @@ class TicTacToe(Environment):
         self.__next_agent = {x.name(): o, o.name(): x}
         self.__x_agent.session_init(self.actions())
         self.__o_agent.session_init(self.actions())
+        self.__agents = dict()
+        self.__agents[self.__o_agent.id()] = self.__o_agent
+        self.__agents[self.__x_agent.id()] = self.__x_agent
         self.__stats = None
         return
 
@@ -142,8 +147,8 @@ class TicTacToe(Environment):
     # Return the actions as a list of integers.
     #
     @classmethod
-    def actions(cls) -> [int]:
-        return list(map(lambda a: int(a), list(TicTacToe.__actions.keys())))
+    def actions(cls) -> dict:
+        return TicTacToe.__actions
 
     #
     # Assume the play_action has been validated by play_action method
@@ -153,7 +158,7 @@ class TicTacToe(Environment):
         self.__last_board = np.copy(self.__board)
         self.__last_agent = self.__agent
         self.__agent = agent
-        self.__board[action] = self.__agent.id()
+        self.__board[self.__actions[action]] = self.__agent.id()
         return
 
     #
@@ -254,7 +259,7 @@ class TicTacToe(Environment):
             for mv in mvs:
                 if len(mv) > 0:
                     pl, ps = mv.split(":")
-                    self.__take_action(int(ps), int(pl))
+                    self.__take_action(int(ps), self.__agents[int(pl)])
         return
 
     #
@@ -266,7 +271,7 @@ class TicTacToe(Environment):
         cell_num = 0
         for actor in bd:
             if not np.isnan(actor):
-                mvs += str(int(actor)) + ":" + str(int(cell_num + 1)) + "~"
+                mvs += str(int(actor)) + ":" + str(int(cell_num)) + "~"
             cell_num += 1
         if len(mvs) > 0:
             mvs = mvs[:-1]
