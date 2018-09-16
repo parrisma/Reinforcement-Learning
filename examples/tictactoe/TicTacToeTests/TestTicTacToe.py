@@ -1,7 +1,7 @@
 import unittest
 
 import numpy as np
-from TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToe import TicTacToe
 
 
 #

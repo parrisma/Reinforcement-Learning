@@ -1,6 +1,7 @@
 import numpy as np
 
-from reflrn.Interface import Agent, State
+from reflrn.Interface.Agent import Agent
+from reflrn.Interface.State import State
 
 
 class TicTacToeState(State):
@@ -53,3 +54,12 @@ class TicTacToeState(State):
             s += rbd + "\n"
         s += "\n"
         return s
+
+    #
+    # State encoded as a numpy array that can be passed as the X (input) into
+    # a Neural Net. The dimensionality can vary depending on the implementation
+    # from a linear vector for a simple Sequential model to an 3D array for a
+    # multi layer convolutional model.
+    #
+    def state_as_array(self):
+        pass
