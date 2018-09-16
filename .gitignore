@@ -10,3 +10,6 @@ dumps/*
 **/*.log
 *HelloWorld*.*
 *house*.*
+.idea/sonarlint/issuestore/*
+**/*.png
+examples/Classify/tb/*
