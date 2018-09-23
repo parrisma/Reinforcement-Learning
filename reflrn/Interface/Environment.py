@@ -25,23 +25,24 @@ class Environment(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Return a dictionary of all the actions supported by this Environment.
+    # Return an array of all the actions supported by this Environment.
     #
     # Key : action_id
     # Value : action info
     #
     @classmethod
     @abc.abstractmethod
-    def actions(cls) -> [int]:
+    def actions(cls,
+                state: State = None) -> [int]:
         pass
 
     #
-    # True if the current episode in the environment has reached a terminal curr_coords.
-    #
-    # Environment specific summary of the terminal curr_coords of the environment.
+    # True if the current episode in the environment has reached a terminal point. If a state is supplied
+    # the function returns True if the given state represents a terminal state.
     #
     @abc.abstractmethod
-    def episode_complete(self) -> dict:
+    def episode_complete(self,
+                         state: State = None) -> bool:
         pass
 
     #

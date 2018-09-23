@@ -26,6 +26,9 @@ class TestTicTacToe(unittest.TestCase):
             ttt = TicTacToe(agent_x, agent_o, None)
             ttt.import_state(test_case)
             self.assertEqual(ttt.episode_complete(), expected1)
+            # verify same but where state is supplied.
+            tts = ttt.state()
+            self.assertEqual(ttt.episode_complete(tts), expected1)
 
             episode_summary = ttt.attributes()
             self.assertEqual(episode_summary[TicTacToe.attribute_won[0]], expected2)
@@ -34,6 +37,7 @@ class TestTicTacToe(unittest.TestCase):
                 self.assertEqual(episode_summary[TicTacToe.attribute_agent[0]].id(), expected4)
             else:
                 self.assertEqual(episode_summary[TicTacToe.attribute_agent[0]], expected4)
+
         return
 
     def test_2(self):

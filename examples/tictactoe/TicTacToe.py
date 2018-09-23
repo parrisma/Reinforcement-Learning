@@ -147,8 +147,14 @@ class TicTacToe(Environment):
     # Return the actions as a list of integers.
     #
     @classmethod
-    def actions(cls) -> dict:
-        return TicTacToe.__actions
+    def actions(cls,
+                state: State = None) -> dict:
+
+        if state is None:
+            return TicTacToe.__actions
+        else:
+            board = state.state()
+            return board[np.isnan(board)].size > 0
 
     #
     # Assume the play_action has been validated by play_action method
@@ -207,11 +213,14 @@ class TicTacToe(Environment):
     #
     # Is there a winning move on the board.
     #
-    def __episode_won(self):
-        rows = np.abs(np.sum(self.__board, axis=1))
-        cols = np.abs(np.sum(self.__board, axis=0))
-        diag_lr = np.abs(np.sum(self.__board.diagonal()))
-        diag_rl = np.abs(np.sum(np.rot90(self.__board).diagonal()))
+    def __episode_won(self,
+                      board=None):
+        if board is None:
+            board = self.__board
+        rows = np.abs(np.sum(board, axis=1))
+        cols = np.abs(np.sum(board, axis=0))
+        diag_lr = np.abs(np.sum(board.diagonal()))
+        diag_rl = np.abs(np.sum(np.rot90(board).diagonal()))
 
         if np.sum(rows == 3) > 0:
             return True
@@ -228,14 +237,20 @@ class TicTacToe(Environment):
     #
     # Are there any remaining actions to be taken >
     #
-    def __actions_left_to_take(self):
-        return self.__board[np.isnan(self.__board)].size > 0
+    def __actions_left_to_take(self,
+                               board=None):
+        if board is None:
+            board = self.__board
+        return board[np.isnan(board)].size > 0
 
     #
     # Are there any remaining actions to be taken >
     #
-    def __actions_ids_left_to_take(self):
-        alt = np.reshape(self.__board, self.__board.size)
+    def __actions_ids_left_to_take(self,
+                                   board=None):
+        if board is None:
+            board = self.__board
+        alt = np.reshape(board, board.size)
         alt = np.fromiter(self.actions().keys(), int)[np.isnan(alt)]
         return alt
 
@@ -244,8 +259,14 @@ class TicTacToe(Environment):
     # any horizontal, vertical or diagonal or if there are no actions
     # left to take and neither agent has won.
     #
-    def episode_complete(self):
-        if self.__episode_won() or not self.__actions_left_to_take():
+    def episode_complete(self,
+                         state: State = None):
+
+        board = None
+        if state is not None:
+            board = state.state()
+
+        if self.__episode_won(board) or not self.__actions_left_to_take(board):
             return True
         return False
 
@@ -311,4 +332,6 @@ class TicTacToe(Environment):
     # Return the State of the environment
     #
     def state(self) -> State:
-        return TicTacToeState(self.__board)
+        return TicTacToeState(self.__board,
+                              self.__x_agent,
+                              self.__o_agent)
