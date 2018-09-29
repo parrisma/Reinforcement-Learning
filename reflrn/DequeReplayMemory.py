@@ -79,3 +79,6 @@ class DequeReplayMemory(ReplayMemory):
                 for col, value in zip(cols, mem):
                     col.append(value)
         return cols
+
+    def get_last_memory(self, state: State = None) -> [[], [], [], [], [], []]:
+        raise RuntimeError("get_last_memory, method not implemented")

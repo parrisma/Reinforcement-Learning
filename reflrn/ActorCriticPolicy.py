@@ -43,11 +43,6 @@ class ActorCriticPolicy(Policy):
         self.epsilon_decay = .9995
         self.gamma = .8  # Discount Factor Applied to reward
 
-        self.steps_to_goal = 0
-        self.train_on_new_episode = False
-
-        self.aux_actor_predictor = None
-
         self.__training = True  # by default we train actor/critic as we take actions
 
         #
@@ -108,14 +103,10 @@ class ActorCriticPolicy(Policy):
         if not self.__training:
             return
 
-        if self.__replay_memory.len() > 100:  # don't start learning until we have reasonable # mems
+        if self.__replay_memory.len() > 100:  # don't start learning until we have reasonable nom of memories
             if self._train_critic():
-                if self.train_on_new_episode:
+                if self.episode % 10 == 0:
                     self._update_actor_from_critic()
-                    self.train_on_new_episode = False
-                else:
-                    if self.steps_to_goal % 100 == 0:
-                        self._update_actor_from_critic()
         return
 
     #
@@ -129,9 +120,6 @@ class ActorCriticPolicy(Policy):
     #
     def _actor_prediction(self,
                           curr_state: State):
-        if self.aux_actor_predictor is not None:
-            return self.aux_actor_predictor(curr_state)
-
         st = np.array(curr_state.state()).reshape((1, self.__num_actions))  # Shape needed for NN
         p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
         return p
@@ -194,19 +182,6 @@ class ActorCriticPolicy(Policy):
         self.actor_model.clone_weights(self.critic_model)
         self.lg.debug("Update Actor From Critic")
         return
-
-    #
-    # Extract a random sample from the replay memory, calculate the QVals and train
-    # the critical deep NN model.
-    #
-    def _train_critic(self) -> bool:
-        trained = False
-        rw, cl = self._get_sample_batch()
-        if rw is not None:
-            self.critic_model.train(rw, cl)
-            trained = True
-            self.lg.debug("Critic Trained")
-        return trained
 
     #
     # Extract a random sample from the replay memory, calculate the QVals and train

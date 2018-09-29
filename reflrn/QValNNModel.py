@@ -46,7 +46,7 @@ class QValNNModel(Model):
 
     #
     # Return an un-compiled Keras model that has an architecture capable of learning
-    # q-values of number and complexity for a grid-world problem given the number of
+    # q-values of number and complexity for a "simple" problem given the number of
     # actions and specified input dimension.
     #
     def new_model(self):
