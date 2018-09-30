@@ -75,7 +75,9 @@ class QValNNModel(Model):
     # Compile the model with an appropriate loss function and optimizer.
     #
     def compile(self):
-        self.__model.compile(loss='mean_squared_error', optimizer='adam')
+        self.__model.compile(loss='mean_squared_error',
+                             optimizer='adam',
+                             metrics=['accuracy'])
         self.__model_compiled = True
         return
 
@@ -100,6 +102,15 @@ class QValNNModel(Model):
                          callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
         self.__inc_lr_epoch()  # count a global fitting call.
         return
+
+    #
+    # Evaluate the performance of the model
+    #
+    def evaluate(self, x, y):
+        scores = self.__model.evaluate(x,
+                                       y,
+                                       verbose=0)
+        return scores
 
     #
     # If the model has not been created or complied, do so.

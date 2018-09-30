@@ -1,5 +1,4 @@
 import logging
-import random
 import unittest
 
 import numpy as np
@@ -49,7 +48,7 @@ class TestQValNNModel(unittest.TestCase):
             self.assertTrue(False, "Un Expected Exception Thrown in test_3()")
         return
 
-    # Can we teach the model a 4th order polynomial ?
+    # Execute a single training cycle.
     def test_4(self):
         mdl = QValNNModel("TestModel",
                           input_dimension=TestQValNNModel._num_inputs,
@@ -58,29 +57,56 @@ class TestQValNNModel(unittest.TestCase):
         try:
             mdl.new_model()
             mdl.compile()
-            x = np.random.rand(1, self._num_actions)
-            mdl.predict(x)
+            x, y = self.test_data()
+            xr, yr = self.random_test_data_batch(x, y, 200)
+            mdl.train(xr, yr)
+            mdl.predict((xr[0]).reshape(1, TestQValNNModel._num_inputs))
         except:
-            self.assertTrue(False, "Un Expected Exception Thrown in test_3()")
+            self.assertTrue(False, "Un Expected Exception Thrown in test_4()")
+            raise
         return
 
-    # return a NN X,Y training set where X is a 4th order polynomial mapped to state space Y
+    # Train an ensure loss reduces cycle on cycle.
+    def test_5(self):
+        mdl = QValNNModel("TestModel",
+                          input_dimension=TestQValNNModel._num_inputs,
+                          num_actions=TestQValNNModel._num_actions,
+                          lg=lg)
+        mdl.new_model()
+        mdl.compile()
+        x, y = self.test_data()
+        num_tests = 10
+        losses = np.zeros(num_tests)
+        for i in range(0, num_tests):
+            xr, yr = self.random_test_data_batch(x, y, 200)
+            mdl.train(xr, yr)
+            xe, ye = self.random_test_data_batch(x, y, 50)
+            scores = mdl.evaluate(xe, ye)
+            if type(scores) == list:
+                loss = scores[0]
+            else:
+                loss = scores
+            print("Loss: {}".format(loss))
+            losses[i] = loss
+        self.assertTrue(losses[0] > losses[num_tests - 1])
+        return
+
+    # return a NN X,Y training set where X is a random in range 0.0 to 1.0 (simulate a probability)
     def test_data(self):
-        yset = dict()
-        rg = np.fromiter(range(1, 10), dtype=np.float)
-        num_samples = 2000
-        X = np.zeros((num_samples, 1, self._num_actions))
-        Y = np.zeros((num_samples, 1, self._num_inputs))
+        num_samples = (2 ** 9)
+        x = np.zeros((num_samples, self._num_inputs))
+        y = np.zeros((num_samples, self._num_actions))
         for n in range(0, num_samples):
-            while True:
-                y = np.fromiter(map(lambda x: random.getrandbits(1), [None] * 9), dtype=np.float)
-                ys = np.array_split(y)
-                if ys not in yset:
-                    yset[ys] = True
-                    break
-            Y[n] = y
-            X[n] = np.random.rand(1, self._num_actions)
-            pass
+            x[n] = np.asarray([int(d) for d in format(n, "0" + str(self._num_inputs) + "b")])
+            y[n] = np.random.rand(9)
+        return x, y
+
+    # Select a random set of test data
+    def random_test_data_batch(self, x, y, n: int):
+        indices = np.random.choice(np.shape(x)[0], min(np.shape(x)[0], n), replace=False)
+        xr = x[indices]
+        yr = y[indices]
+        return xr, yr
 
 
 #
