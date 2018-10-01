@@ -1,5 +1,7 @@
 import abc
 
+import numpy as np
+
 
 #
 # This abstract class provides an immutable curr_coords representation of the environment
@@ -30,5 +32,5 @@ class State(metaclass=abc.ABCMeta):
     # multi layer convolutional model.
     #
     @abc.abstractmethod
-    def state_as_array(self):
+    def state_as_array(self) -> np.ndarray:
         pass

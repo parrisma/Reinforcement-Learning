@@ -2,20 +2,18 @@ import logging
 
 from examples.tictactoe.TicTacToe import TicTacToe
 from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
+from reflrn.ActorCriticPolicy import ActorCriticPolicy
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.PureRandomExploration import PureRandomExploration
 from reflrn.RandomPolicy import RandomPolicy
-from reflrn.TemporalDifferenceDeepNNPolicy import TemporalDifferenceDeepNNPolicy
 
 itr = 5000
 lg = EnvironmentLogging("TestRig4", "TestRigFour.log", logging.INFO).get_logger()
 
-tddnnp = TemporalDifferenceDeepNNPolicy(lg=lg)
-tddnnp.load('model.keras')
-
+acp = ActorCriticPolicy(lg)
 agent_x = TicTacToeAgent(1,
                          "X",
-                         RandomPolicy(),
+                         acp,
                          epsilon_greedy=0,
                          exploration_play=PureRandomExploration(),
                          lg=lg)
@@ -28,4 +26,5 @@ agent_o = TicTacToeAgent(-1,
                          lg=lg)
 
 game = TicTacToe(agent_x, agent_o, lg)
+acp.link_to_env(game)
 game.run(itr)

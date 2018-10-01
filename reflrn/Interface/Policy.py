@@ -1,5 +1,6 @@
 import abc
 
+from reflrn.Interface.Environment import Environment
 from reflrn.Interface.State import State
 
 
@@ -27,6 +28,14 @@ class Policy(metaclass=abc.ABCMeta):
                       action: int,
                       reward: float,
                       episode_complete: bool) -> None:
+        pass
+
+    #
+    # Give environment handle to poilcy for the environment in which it is
+    # operating
+    #
+    @abc.abstractmethod
+    def link_to_env(self, env: Environment) -> None:
         pass
 
     #

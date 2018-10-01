@@ -23,10 +23,10 @@ class ActorCriticPolicy(Policy):
     __replay_mem_size = 1000
 
     def __init__(self,
-                 env: Environment,
-                 lg):
+                 lg,
+                 env: Environment = None):
 
-        self.env = env
+        self.env = env  # If Env not passed, then must be bound via link_to_env() method.
 
         self.lg = lg
 
@@ -68,9 +68,32 @@ class ActorCriticPolicy(Policy):
                                         lr_min=0.001
                                         )
 
+    #
+    # Make a note of which environment policy is linked to.
+    #
+    def link_to_env(self, env: Environment) -> None:
+        if self.env is not None:
+            raise ActorCriticPolicy.PolicyAlreadyLinkedToEnvironment("Policy already linked to an environment !")
+        self.env = env
+        return
+
+    #
+    # Indirection for getting policy so exception can be raised if policy was not linked.
+    #
+    def _env(self) -> Environment:
+        if self.env is None:
+            raise ActorCriticPolicy.NoEnvironmentHasBeenLinkedToPolicy("Policy must be linked to an Environment !")
+        return self.env
+
+    #
+    # Train (model) on incoming events.
+    #
     def set_training_on(self):
         self.__training = True
 
+    #
+    # Ignore incoming events from (model) training perspective.
+    #
     def set_training_off(self):
         self.__training = False
 
@@ -87,8 +110,38 @@ class ActorCriticPolicy(Policy):
                                            episode_complete)
         self._train()
 
+    #
+    # Based on exploration policy and current critic model, either take a random action
+    # based on setting of epsilon or use the current critical model to predict a greedy
+    # action based on highest expected return.
+    #
     def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
-        pass
+        actions_allowed_in_current_state = self._env().actions(state)
+        actions_not_allowed_in_current_state = self.actions_taken(actions_allowed_in_current_state)
+        actn = None
+        exp = np.random.rand()
+        if exp > self.epsilon:
+            # Random Exploration
+            actn = (np.random.choice(actions_allowed_in_current_state, 1))[0]
+            if actn not in self._env().actions(state):
+                print("Bad Actn")
+        else:
+            # Greedy exploration
+            qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+            if len(actions_not_allowed_in_current_state) > 0:
+                qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
+            actn = np.argmax(qvals)
+            if actn not in self._env().actions(state):
+                print("Bad Actn")
+        return actn
+
+    def actions_taken(self,
+                      actions_remaining: np.ndarray) -> np.ndarray:
+        l = list()
+        for a in self._env().actions():
+            if a not in actions_remaining:
+                l.append(a)
+        return np.asarray(l)
 
     def save(self, filename: str = None) -> None:
         pass
@@ -131,9 +184,9 @@ class ActorCriticPolicy(Policy):
     def _next_state_qval_prediction(self,
                                     new_state: State) -> float:
         qvp = 0
-        if not self.env.episode_complete(new_state):
+        if not self._env().episode_complete(new_state):
             qvn = self._actor_prediction(curr_state=new_state)
-            allowable_actions = self.env.actions(new_state)
+            allowable_actions = self._env().actions(new_state)
             qvp = self.gamma * np.max(qvn[allowable_actions])  # Discounted max return from next curr_coords
         return np.float(qvp)
 
@@ -195,3 +248,15 @@ class ActorCriticPolicy(Policy):
             trained = True
             self.lg.debug("Critic Trained")
         return trained
+
+    # Can only link to one environment in lifetime of policy.
+    #
+    class PolicyAlreadyLinkedToEnvironment(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)
+
+    # Policy was not linked to an environment before it was used..
+    #
+    class NoEnvironmentHasBeenLinkedToPolicy(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)

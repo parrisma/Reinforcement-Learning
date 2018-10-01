@@ -2,6 +2,7 @@ import sys
 from random import randint
 from random import shuffle
 
+from reflrn.Interface.Environment import Environment
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 
@@ -62,4 +63,10 @@ class RandomPolicy(Policy):
         pass
 
     def load(self, filename: str = None):
+        pass
+
+    #
+    # Random Policy does not need env details.
+    #
+    def link_to_env(self, env: Environment) -> None:
         pass

@@ -55,10 +55,6 @@ class QValNNModel(Model):
         # Three Hidden Layers
         # Output layer has no activation as this a a QVal regression net.
         #
-        # Used on QVals from a test grid 10 by 10 no regularization is needed and testing
-        # with L2.Reg - kernel and dropout decreased the final accuracy even allowing significant training
-        # past the point where the cost function had stabilised.
-        #
         model.add(Dense(25, input_dim=self.__input_dimension, kernel_initializer='he_uniform'))
         model.add(Activation('relu'))
         model.add(Dense(50, kernel_initializer='he_uniform'))

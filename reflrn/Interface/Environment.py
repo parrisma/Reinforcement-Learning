@@ -49,7 +49,7 @@ class Environment(metaclass=abc.ABCMeta):
     # Save the current Environment State
     #
     @abc.abstractmethod
-    def save(self, file_name: str):
+    def save(self, file_name: str) -> None:
         pass
 
     #

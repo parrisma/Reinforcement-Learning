@@ -21,6 +21,7 @@ class TicTacToeState(State):
         self.__agents = dict()
         self.__agents[self.__x_id] = self.__x_name
         self.__agents[self.__o_id] = self.__o_name
+        self.__unused = self.__o_id + self.__x_id
 
     #
     # An environment specific representation for Env. State
@@ -64,5 +65,7 @@ class TicTacToeState(State):
     # from a linear vector for a simple Sequential model to an 3D array for a
     # multi layer convolutional model.
     #
-    def state_as_array(self):
-        pass
+    def state_as_array(self) -> np.ndarray:
+        bc = np.copy(self.__board)
+        bc[np.isnan(bc)] = self.__unused
+        return bc

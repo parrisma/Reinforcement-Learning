@@ -144,7 +144,8 @@ class TicTacToe(Environment):
         return cls.__no_agent
 
     #
-    # Return the actions as a list of integers.
+    # Return the actions as a list of integers. If not state is given return the list of all
+    # action else return the list of actions valid in this state.
     #
     @classmethod
     def actions(cls,
@@ -153,8 +154,7 @@ class TicTacToe(Environment):
         if state is None:
             return TicTacToe.__actions
         else:
-            board = state.state()
-            return board[np.isnan(board)].size > 0
+            return np.array(list(TicTacToe.__actions.keys()))[np.isnan(state.state()).reshape(9)]
 
     #
     # Assume the play_action has been validated by play_action method
@@ -235,7 +235,7 @@ class TicTacToe(Environment):
         return False
 
     #
-    # Are there any remaining actions to be taken >
+    # Are there any remaining actions to be taken
     #
     def __actions_left_to_take(self,
                                board=None):
