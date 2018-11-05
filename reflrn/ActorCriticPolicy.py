@@ -144,10 +144,10 @@ class ActorCriticPolicy(Policy):
         return np.asarray(l)
 
     def save(self, filename: str = None) -> None:
-        pass
+        raise NotImplementedError
 
     def load(self, filename: str = None):
-        pass
+        raise NotImplementedError
 
     #
     # Update actor every 5 episodes (goal states reached)
