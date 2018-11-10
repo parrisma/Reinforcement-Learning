@@ -51,7 +51,7 @@ class DequeReplayMemory(ReplayMemory):
         return len(self.__replay_memory)
 
     #
-    # Get a random set of memories bu taking sample_size random samples and then
+    # Get a random set of memories buy taking sample_size random samples and then
     # returning the whole episode for each random sample.
     #
     def get_random_memories(self, sample_size: int) -> [[], [], [], [], [], []]:

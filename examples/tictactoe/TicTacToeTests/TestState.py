@@ -9,7 +9,7 @@ class TestState(State):
     # Constructor has no arguments as it just sets the game
     #
     def __init__(self, st: np.ndarray):
-        self.__st = np.array_str(st, copy=True)  # State must be immutable
+        self.__st = np.array(st, copy=True)  # State must be immutable
 
     #
     # An environment specific representation for Env. State
