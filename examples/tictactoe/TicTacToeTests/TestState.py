@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import numpy as np
 
 from reflrn.Interface.State import State
@@ -6,10 +8,16 @@ from reflrn.Interface.State import State
 class TestState(State):
 
     #
-    # Constructor has no arguments as it just sets the game
+    # Constructor takes a numpy array which is the state of the environment.
     #
-    def __init__(self, st: np.ndarray):
+    def __init__(self,
+                 st: np.ndarray,
+                 shp: Tuple = None):
         self.__st = np.array(st, copy=True)  # State must be immutable
+        if shp is not None:
+            self.__st = np.reshape(self.__st, (1, np.size(self.__st)))
+            self.__st = np.reshape(self.__st, shp)
+        return
 
     #
     # An environment specific representation for Env. State
@@ -32,5 +40,7 @@ class TestState(State):
     #
     # Return the array encoded form of the grid to be used as the X input to a NN.
     #
+    # This is always (1, n)
+    #
     def state_as_array(self):
-        return self.state()
+        return np.reshape(self.__st, (1, np.size(self.__st)))

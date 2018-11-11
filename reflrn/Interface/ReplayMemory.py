@@ -34,7 +34,7 @@ class ReplayMemory(metaclass=abc.ABCMeta):
     # Get a random set of memories
     #
     @abc.abstractmethod
-    def get_random_memories(self, sample_size: int) -> [[], [], [], [], [], []]:
+    def get_random_memories(self, sample_size: int) -> [[[], [], [], [], [], []]]:
         pass
 
     #

@@ -8,6 +8,7 @@ from keras.layers import Dense, Activation
 from keras.models import Sequential
 
 from reflrn.Interface.Model import Model
+from reflrn.Interface.ModelParams import ModelParams
 from reflrn.exceptions.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
 
 
@@ -25,21 +26,19 @@ class QValNNModel(Model):
                  input_dimension: int,
                  num_actions: int,
                  lg: logging,
-                 batch_size: int = 32,
-                 lr_0: float = 0.001,
-                 lr_min: float = 0.001):
+                 model_params: ModelParams):
         self.__lg = lg
         self.__agent_name = model_name
         self.__input_dimension = input_dimension
         self.__num_actions = num_actions
         self.__model = None
-        self.__batch_size = batch_size
+        self.__batch_size = model_params.get_parameter(ModelParams.batch_size)
         self.__model_compiled = False
         self.__epochs = 10
 
-        self.__lr_0 = lr_0
-        self.__lr_min = lr_min
-        self.__lr = lr_0
+        self.__lr_0 = model_params.get_parameter(ModelParams.learning_rate_0)
+        self.__lr_min = model_params.get_parameter(ModelParams.learning_rate_min)
+        self.__lr = model_params.get_parameter(ModelParams.learning_rate_0)
         self.__lr_epoch = 1
 
         return

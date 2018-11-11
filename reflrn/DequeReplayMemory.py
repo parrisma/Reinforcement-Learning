@@ -1,4 +1,5 @@
 import logging
+import random
 from collections import deque
 
 import numpy as np
@@ -54,31 +55,39 @@ class DequeReplayMemory(ReplayMemory):
     # Get a random set of memories buy taking sample_size random samples and then
     # returning the whole episode for each random sample.
     #
-    def get_random_memories(self, sample_size: int) -> [[], [], [], [], [], []]:
+    # return list of elements [episode, curr_state, next_state, action, reward, complete]
+    #
+    def get_random_memories(self,
+                            sample_size: int,
+                            whole_episodes: bool = False) -> [[int, State, State, int, float, bool]]:
         ln = self.len()
+        samples = list()
         indices = np.random.choice(ln, min(ln, sample_size), replace=False)
-        cols = [[], [], [], [], [], []]  # episode, curr_coords, next_state, action, reward, complete
         for idx in indices:
             memory = self.__replay_memory[idx]
-            # get_memories_by_type the whole episode. Look forward and back until episode id changes
-            episode_id = memory[DequeReplayMemory.mem_episode_id]
-            episode_deque = deque([])
-            episode_deque.append(memory)
-            i = idx - 1
-            while i >= 0 and self.__replay_memory[i][DequeReplayMemory.mem_episode_id] == episode_id:
-                episode_deque.appendleft(self.__replay_memory[i])
-                i -= 1
+            if whole_episodes:
+                # get_memories_by_type the whole episode. Look forward and back until episode id changes
+                episode_id = memory[DequeReplayMemory.mem_episode_id]
+                episode_deque = deque([])
+                episode_deque.append(memory)
 
-            i = idx + 1
-            while i < ln and self.__replay_memory[i][DequeReplayMemory.mem_episode_id] == episode_id:
-                episode_deque.append(self.__replay_memory[i])
-                i += 1
+                i = idx - 1
+                while i >= 0 and self.__replay_memory[i][DequeReplayMemory.mem_episode_id] == episode_id:
+                    episode_deque.appendleft(self.__replay_memory[i])
+                    i -= 1
 
-            # Add Whole Episode
-            for mem in episode_deque:
-                for col, value in zip(cols, mem):
-                    col.append(value)
-        return cols
+                i = idx + 1
+                while i < ln and self.__replay_memory[i][DequeReplayMemory.mem_episode_id] == episode_id:
+                    episode_deque.append(self.__replay_memory[i])
+                    i += 1
 
-    def get_last_memory(self, state: State = None) -> [[], [], [], [], [], []]:
+                for mem in episode_deque:
+                    samples.append(list(mem))
+            else:
+                samples.append(memory)
+
+        # Ensure results are random order
+        return random.sample(samples, len(samples))
+
+    def get_last_memory(self, state: State = None) -> [int, State, State, int, float, bool]:
         raise RuntimeError("get_last_memory, method not implemented")

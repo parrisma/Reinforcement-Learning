@@ -3,7 +3,9 @@ from typing import List
 import numpy as np
 
 from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.Environment import Environment
+from reflrn.Interface.ModelParams import ModelParams
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.QValNNModel import QValNNModel
@@ -24,6 +26,7 @@ class ActorCriticPolicy(Policy):
 
     def __init__(self,
                  lg,
+                 policy_params: GeneralModelParams = None,
                  env: Environment = None):
 
         self.env = env  # If Env not passed, then must be bound via link_to_env() method.
@@ -32,18 +35,22 @@ class ActorCriticPolicy(Policy):
 
         self.episode = 1
 
-        self.batch_size = 32
         self.input_dim = ActorCriticPolicy.__rows * ActorCriticPolicy.__cols
         self.num_actions = ActorCriticPolicy.__num_actions
         self.output_dim = self.num_actions
 
-        self.learning_rate_0 = float(1.0)
-        self.learning_rate_decay = float(0.02)
-        self.epsilon = 0.8  # exploration factor.
-        self.epsilon_decay = .9995
-        self.gamma = .8  # Discount Factor Applied to reward
+        pp = self._policy_params()
+        if policy_params is not None:
+            pp.override_parameters(policy_params)
+        self.learning_rate_0 = pp.get_parameter(ModelParams.learning_rate_0)
+        self.learning_rate_decay = pp.get_parameter(ModelParams.learning_rate_decay)
+        self.epsilon = pp.get_parameter(ModelParams.epsilon)  # exploration factor.
+        self.epsilon_decay = pp.get_parameter(ModelParams.epsilon_decay)
+        self.gamma = pp.get_parameter(ModelParams.gamma)  # Discount Factor Applied to reward
 
         self.__training = True  # by default we train actor/critic as we take actions
+        self.__train_invocations = 0
+        self.__trained = False
 
         #
         # Replay memory needed to model a stationary target.
@@ -54,18 +61,14 @@ class ActorCriticPolicy(Policy):
                                        input_dimension=self.input_dim,
                                        num_actions=self.num_actions,
                                        lg=self.lg,
-                                       batch_size=self.batch_size,
-                                       lr_0=0.005,
-                                       lr_min=0.001
+                                       model_params=self._model_params()
                                        )
 
         self.critic_model = QValNNModel(model_name="Critic",
                                         input_dimension=self.input_dim,
                                         num_actions=self.num_actions,
                                         lg=self.lg,
-                                        batch_size=self.batch_size,
-                                        lr_0=0.005,
-                                        lr_min=0.001
+                                        model_params=self._model_params()
                                         )
 
     #
@@ -150,16 +153,29 @@ class ActorCriticPolicy(Policy):
         raise NotImplementedError
 
     #
-    # Update actor every 5 episodes (goal states reached)
+    # Train the critic and then update the actor
     #
-    def _train(self):
+    # Only train the critic every train_every invocations
+    # Only update the actor every update_every episodes
+    #
+    def _train(self,
+               train_every: int = 50,
+               update_every: int = 5):
+
         if not self.__training:
             return
 
-        if self.__replay_memory.len() > 100:  # don't start learning until we have reasonable nom of memories
-            if self._train_critic():
-                if self.episode % 10 == 0:
-                    self._update_actor_from_critic()
+        self.__train_invocations += 1
+
+        if self.__replay_memory.len() > 100:  # don't start learning until we have reasonable num of memories
+            if self.__train_invocations % train_every == 0:
+                self._train_critic()
+                self.__train_invocations = 0
+                self.__trained = True
+
+            if self.episode % update_every == 0 and self.__trained:
+                self._update_actor_from_critic()
+                self.__trained = False  # No need to update unless model has trained since last update
         return
 
     #
@@ -206,13 +222,14 @@ class ActorCriticPolicy(Policy):
     #
     def _get_sample_batch(self):
 
-        samples = self.__replay_memory.get_random_memories(self.batch_size)
+        batch_size = self._model_params().get_parameter(ModelParams.batch_size)
+        samples = self.__replay_memory.get_random_memories(batch_size)
 
-        x = np.zeros((self.batch_size, self.input_dim))
-        y = np.zeros((self.batch_size, self.num_actions))
+        x = np.zeros((batch_size, self.input_dim))
+        y = np.zeros((batch_size, self.num_actions))
         i = 0
         for sample in samples:
-            cur_state, new_state, action, reward, done = sample
+            _, cur_state, new_state, action, reward, done = sample
             lr = self.learning_rate()
             qvp = self._next_state_qval_prediction(new_state)
             qvs = self._curr_state_qval_prediction(cur_state, done)
@@ -221,7 +238,7 @@ class ActorCriticPolicy(Policy):
             qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current curr_coords/action
             qvs[action] = qv
 
-            x[i] = cur_state
+            x[i] = cur_state.state_as_array()
             y[i] = qvs
             i += 1
 
@@ -248,6 +265,31 @@ class ActorCriticPolicy(Policy):
             trained = True
             self.lg.debug("Critic Trained")
         return trained
+
+    #
+    # The parameters needed by the Keras Model
+    #
+    @classmethod
+    def _model_params(cls) -> ModelParams:
+        mp = GeneralModelParams([[ModelParams.learning_rate_0, 0.001],
+                                 [ModelParams.learning_rate_min, 0.001],
+                                 [ModelParams.batch_size, 32]],
+                                )
+        return mp
+
+    #
+    # The parameters needed by the Keras Model
+    #
+    @classmethod
+    def _policy_params(cls) -> ModelParams:
+        pp = GeneralModelParams([[ModelParams.learning_rate_0, float(1)],
+                                 [ModelParams.learning_rate_decay, float(0.02)],
+                                 [ModelParams.epsilon, float(0.8)],
+                                 [ModelParams.epsilon_decay, float(0.9995)],
+                                 [ModelParams.gamma, float(0.8)]
+                                 ],
+                                )
+        return pp
 
     # Can only link to one environment in lifetime of policy.
     #

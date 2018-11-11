@@ -214,7 +214,7 @@ class TicTacToe(Environment):
     # Is there a winning move on the board.
     #
     def __episode_won(self,
-                      board=None):
+                      board=None) -> bool:
         if board is None:
             board = self.__board
         rows = np.abs(np.sum(board, axis=1))

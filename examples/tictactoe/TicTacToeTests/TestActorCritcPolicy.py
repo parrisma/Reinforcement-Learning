@@ -18,22 +18,23 @@ class TestActorCriticPolicy(unittest.TestCase):
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
         ttt = TicTacToe(agent_x, agent_o, None)
-        acp = ActorCriticPolicy(ttt, lg)
+        acp = ActorCriticPolicy(env=ttt, lg=lg)
         self.assertIsNotNone(acp)
 
     def test_2(self):
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
         ttt = TicTacToe(agent_x, agent_o, None)
-        acp = ActorCriticPolicy(ttt, lg)
+        acp = ActorCriticPolicy(env=ttt, lg=lg)
 
         ns = None
         dt = self.get_data()
         ag = agent_o
         i = 0
-        el = np.random.randint(5, 9)
+        el = np.random.randint(5, 9) # select a random episode length between 5 and 9 plays
         for k in dt.keys():
-            st = TestState((dt[k])[0])
+            st = TestState(st=(dt[k])[0],
+                           shp=(3, 3))
             a = (dt[k])[1]
             if ns is None:
                 ns = st
@@ -43,7 +44,7 @@ class TestActorCriticPolicy(unittest.TestCase):
                                   state=st,
                                   next_state=ns,
                                   action=a,
-                                  reward=float(0),
+                                  reward=float(1),
                                   episode_complete=(i == el))
                 if ag == agent_o:
                     ag = agent_x
@@ -57,11 +58,13 @@ class TestActorCriticPolicy(unittest.TestCase):
                 else:
                     i += 1
 
+        acp.select_action()
         return
 
     #
     # Create 20 random state to action mappings and then create a training set of 2000
     # by extracting samples at random (with repeats) from the 20 state action mappings.
+    # Each state will only map to only one action.
     #
     def get_data(self) -> dict:
         num_samples = 20
