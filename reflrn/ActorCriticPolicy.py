@@ -39,9 +39,9 @@ class ActorCriticPolicy(Policy):
         self.num_actions = ActorCriticPolicy.__num_actions
         self.output_dim = self.num_actions
 
-        pp = self._policy_params()
+        pp = self._default_policy_params()
         if policy_params is not None:
-            pp.override_parameters(policy_params)
+            pp.override_parameters(list(policy_params))
         self.learning_rate_0 = pp.get_parameter(ModelParams.learning_rate_0)
         self.learning_rate_decay = pp.get_parameter(ModelParams.learning_rate_decay)
         self.epsilon = pp.get_parameter(ModelParams.epsilon)  # exploration factor.
@@ -127,7 +127,7 @@ class ActorCriticPolicy(Policy):
             # Random Exploration
             actn = (np.random.choice(actions_allowed_in_current_state, 1))[0]
             if actn not in self._env().actions(state):
-                print("Bad Actn")
+                raise self.IllegalActionPrediction("Action prediction has given an action not legal for given state")
         else:
             # Greedy exploration
             qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
@@ -135,7 +135,16 @@ class ActorCriticPolicy(Policy):
                 qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
             actn = np.argmax(qvals)
             if actn not in self._env().actions(state):
-                print("Bad Actn")
+                raise self.IllegalActionPrediction("Action prediction has given an action not legal for given state")
+        return actn
+
+    #
+    # Make a prediction based only on QValues of given state
+    #
+    def greedy_action(self,
+                      state: State) -> int:
+        qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+        actn = np.argmax(qvals)
         return actn
 
     def actions_taken(self,
@@ -281,7 +290,7 @@ class ActorCriticPolicy(Policy):
     # The parameters needed by the Keras Model
     #
     @classmethod
-    def _policy_params(cls) -> ModelParams:
+    def _default_policy_params(cls) -> ModelParams:
         pp = GeneralModelParams([[ModelParams.learning_rate_0, float(1)],
                                  [ModelParams.learning_rate_decay, float(0.02)],
                                  [ModelParams.epsilon, float(0.8)],
@@ -300,5 +309,11 @@ class ActorCriticPolicy(Policy):
     # Policy was not linked to an environment before it was used..
     #
     class NoEnvironmentHasBeenLinkedToPolicy(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)
+
+    # Illegal action Prediction
+    #
+    class IllegalActionPrediction(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)

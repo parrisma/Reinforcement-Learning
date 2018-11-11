@@ -7,6 +7,8 @@ from examples.tictactoe.TicTacToe import TicTacToe
 from examples.tictactoe.TicTacToeTests.TestState import TestState
 from reflrn.ActorCriticPolicy import ActorCriticPolicy
 from reflrn.EnvironmentLogging import EnvironmentLogging
+from reflrn.GeneralModelParams import GeneralModelParams
+from reflrn.Interface.ModelParams import ModelParams
 from .TestAgent import TestAgent
 
 lg = EnvironmentLogging("TestActorCriticPolicy", "TestActorCriticPolicy.log", logging.INFO).get_logger()
@@ -21,17 +23,24 @@ class TestActorCriticPolicy(unittest.TestCase):
         acp = ActorCriticPolicy(env=ttt, lg=lg)
         self.assertIsNotNone(acp)
 
-    def test_2(self):
+    def test_actor_critic_policy(self):
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
         ttt = TicTacToe(agent_x, agent_o, None)
-        acp = ActorCriticPolicy(env=ttt, lg=lg)
+
+        pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
+                                 [ModelParams.epsilon_decay, float(0)]
+                                 ])
+
+        acp = ActorCriticPolicy(env=ttt,
+                                policy_params=pp,
+                                lg=lg)
 
         ns = None
         dt = self.get_data()
         ag = agent_o
         i = 0
-        el = np.random.randint(5, 9) # select a random episode length between 5 and 9 plays
+        el = np.random.randint(5, 9)  # select a random episode length between 5 and 9 plays
         for k in dt.keys():
             st = TestState(st=(dt[k])[0],
                            shp=(3, 3))
@@ -58,7 +67,14 @@ class TestActorCriticPolicy(unittest.TestCase):
                 else:
                     i += 1
 
-        acp.select_action()
+        # Now check prediction accuracy
+        #
+        ok = 0
+        for k in dt.keys():
+            pred_actn = acp.greedy_action(state=TestState(st=(dt[k])[0], shp=(1, 9)))
+            if (dt[k])[1] == pred_actn:
+                ok += 1
+        self.assertGreater((ok / len(dt)), 0.98)
         return
 
     #
@@ -67,17 +83,19 @@ class TestActorCriticPolicy(unittest.TestCase):
     # Each state will only map to only one action.
     #
     def get_data(self) -> dict:
-        num_samples = 20
+        num_samples = 50
         samples = dict()
         np.random.seed(42)  # Thanks Douglas.
         while len(samples) < num_samples:
             n = np.random.randint(0, (2 ** 9) - 1)
             if n not in samples:
-                samples[n] = [self.binary_as_one_hot(np.binary_repr(n, width=9)), np.random.randint(0, 9)]
+                st = self.binary_as_one_hot(np.binary_repr(n, width=9))
+                a = np.random.randint(0, 9)
+                samples[n] = [st, a]
 
         dt = dict()
         skeys = list(samples.keys())
-        for i in range(0, 2000):
+        for i in range(0, 3000):
             ky = skeys[np.random.randint(0, 19)]
             dt[i] = samples[ky]
 
