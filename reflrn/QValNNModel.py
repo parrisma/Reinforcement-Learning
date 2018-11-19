@@ -93,7 +93,7 @@ class QValNNModel(Model):
                          y=y,
                          batch_size=self.__batch_size,
                          epochs=self.__epochs,
-                         verbose=2,
+                         verbose=0,  # ToDo - Pass As Model Param
                          callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
         self.__inc_lr_epoch()  # count a global fitting call.
         return

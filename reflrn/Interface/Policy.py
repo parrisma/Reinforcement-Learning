@@ -31,8 +31,8 @@ class Policy(metaclass=abc.ABCMeta):
         pass
 
     #
-    # Give environment handle to poilcy for the environment in which it is
-    # operating
+    # Like the policy to a given environment or throw NoEnvironmentHasBeenLinkedToPolicy exception
+    # if it is already linked.
     #
     @abc.abstractmethod
     def link_to_env(self, env: Environment) -> None:
@@ -60,3 +60,9 @@ class Policy(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def load(self, filename: str = None):
         pass
+
+    # Can only link to one environment in lifetime of policy.
+    #
+    class PolicyAlreadyLinkedToEnvironment(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)

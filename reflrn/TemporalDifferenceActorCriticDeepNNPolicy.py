@@ -4,14 +4,13 @@ from random import randint
 
 import keras
 import numpy as np
-from keras.layers import Dense, Dropout
-from keras.models import Sequential
 
-from reflrn.Interface.Policy import Policy
-from reflrn.Interface.State import State
-from reflrn.Interface.Model import Model
 from reflrn.DequeReplayMemory import DequeReplayMemory
 from reflrn.EvaluationException import EvaluationException
+from reflrn.Interface.Environment import Environment
+from reflrn.Interface.Model import Model
+from reflrn.Interface.Policy import Policy
+from reflrn.Interface.State import State
 from reflrn.ModelParameters import ModelParameters
 
 
@@ -33,36 +32,36 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 replay_memory: DequeReplayMemory,
-                 model_file_name: str,
-                 num_actions: int,
                  model: Model,
+                 env: Environment = None,
                  model_parameters: ModelParameters = None,
                  load_model: bool = False):
 
         self.__lg = lg
-        if load_model:
-            self.load(model_file_name)
-        else:
-            self.__actor = self.create_new_model_instance()
-            self.__critic = self.create_new_model_instance()
         self.__episodes_played = 0
-        self.__model_file_name = model_file_name
         self.__critic_updates = 0
-        self.__replay_memory = replay_memory
         self.__model = model
         if model_parameters is None:
             mp = ModelParameters()  # Defaults
         else:
             mp = model_parameters
 
-        self.__num_actions = num_actions
+        self.__num_actions = mp.num_actions
         self.__epochs = mp.epochs
         self.__update_every_n_episodes = mp.update_every_n_episodes
         self.__sample_size = mp.sample_size
         self.__batch_size = mp.batch_size
         self.__replay_mem_size = mp.replay_mem_size
+        self.__replay_memory = DequeReplayMemory(lg, self.__replay_mem_size)
         self.__save_every_n_critic_updates = mp.save_every_n_critic_updates
+        self.__model_file_name = mp.model_file_name
+        self.__env = env
+
+        if load_model:
+            self.load(self.__model_file_name)
+        else:
+            self.__actor = self.create_new_model_instance()
+            self.__critic = self.create_new_model_instance()
 
         return
 
@@ -238,4 +237,13 @@ class TemporalDifferenceActorCriticDeepNNPolicy(Policy):
             self.__actor = self.create_new_model_instance()
             self.__critic = self.create_new_model_instance()
             self.__lg.info("Critic & Actor not loaded as file not found: " + filename)
+        return
+
+    #
+    # Make a note of which environment policy is linked to.
+    #
+    def link_to_env(self, env: Environment) -> None:
+        if self.__env is not None:
+            raise Policy.PolicyAlreadyLinkedToEnvironment("Policy already linked to an environment !")
+        self.__env = env
         return

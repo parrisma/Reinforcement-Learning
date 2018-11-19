@@ -16,6 +16,9 @@ lg = EnvironmentLogging("TestActorCriticPolicy", "TestActorCriticPolicy.log", lo
 
 class TestActorCriticPolicy(unittest.TestCase):
 
+    #
+    # Just construct a policy and ensure no exceptions are thrown
+    #
     def test_simple_bootstrap(self):
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
@@ -23,6 +26,11 @@ class TestActorCriticPolicy(unittest.TestCase):
         acp = ActorCriticPolicy(env=ttt, lg=lg)
         self.assertIsNotNone(acp)
 
+    #
+    # Train a policy on generated state/action data and see if policy can predict correct
+    # action. The test data has same reward for every action; so this should drive the policy
+    # to predict the generated action associated with the given state.
+    #
     def test_actor_critic_policy(self):
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
@@ -78,9 +86,11 @@ class TestActorCriticPolicy(unittest.TestCase):
         return
 
     #
-    # Create 20 random state to action mappings and then create a training set of 2000
-    # by extracting samples at random (with repeats) from the 20 state action mappings.
+    # Create 50 random state to action mappings and then create a training set of 3000
+    # by extracting samples at random (with repeats) from the 50 state action mappings.
     # Each state will only map to only one action.
+    #
+    # This means model will see many repeats of the same state/action combo.
     #
     def get_data(self) -> dict:
         num_samples = 50

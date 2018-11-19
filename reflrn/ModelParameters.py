@@ -5,6 +5,8 @@ class ModelParameters:
     batch_size = 10
     replay_mem_size = 1000
     save_every_n_critic_updates = 100
+    model_file_name = None
+    num_actions = None
 
     def __init__(self,
                  epochs: int = 100,

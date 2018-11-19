@@ -16,6 +16,8 @@ class ModelParams(metaclass=abc.ABCMeta):
     epsilon_decay = 'epsilon_decay'
     gamma = 'gamma'
     gamma_decay = 'gamma_decay'
+    num_actions = 'num_actions'
+    model_file_name = 'model_file_name'
 
     #
     # Getter Methods For model parameters

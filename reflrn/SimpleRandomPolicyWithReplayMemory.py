@@ -2,6 +2,7 @@ import logging
 from random import randint
 
 from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.Interface.Environment import Environment
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 
@@ -14,9 +15,20 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
     #
     def __init__(self,
                  lg: logging,
-                 replay_memory: DequeReplayMemory):
+                 replay_memory: DequeReplayMemory,
+                 env: Environment = None):
         self.__lg = lg
         self.__replay_memory = replay_memory
+        self.__env = env
+        return
+
+    #
+    # Make a note of which environment policy is linked to.
+    #
+    def link_to_env(self, env: Environment) -> None:
+        if self.__env is not None:
+            raise Policy.PolicyAlreadyLinkedToEnvironment("Policy already linked to an environment !")
+        self.__env = env
         return
 
     #

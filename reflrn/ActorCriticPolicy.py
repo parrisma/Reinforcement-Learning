@@ -76,7 +76,7 @@ class ActorCriticPolicy(Policy):
     #
     def link_to_env(self, env: Environment) -> None:
         if self.env is not None:
-            raise ActorCriticPolicy.PolicyAlreadyLinkedToEnvironment("Policy already linked to an environment !")
+            raise Policy.PolicyAlreadyLinkedToEnvironment("Policy already linked to an environment !")
         self.env = env
         return
 
@@ -156,10 +156,10 @@ class ActorCriticPolicy(Policy):
         return np.asarray(l)
 
     def save(self, filename: str = None) -> None:
-        raise NotImplementedError
+        raise NotImplementedError("Save not implemented for :" + self.__class__.__name__)
 
     def load(self, filename: str = None):
-        raise NotImplementedError
+        raise NotImplementedError("Load not implemented for :" + self.__class__.__name__)
 
     #
     # Train the critic and then update the actor
@@ -198,7 +198,7 @@ class ActorCriticPolicy(Policy):
     #
     def _actor_prediction(self,
                           curr_state: State):
-        st = np.array(curr_state.state()).reshape((1, self.__num_actions))  # Shape needed for NN
+        st = np.array(curr_state.state_as_array()).reshape((1, self.__num_actions))  # Shape needed for NN
         p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
         return p
 
@@ -247,7 +247,7 @@ class ActorCriticPolicy(Policy):
             qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current curr_coords/action
             qvs[action] = qv
 
-            x[i] = cur_state.state_as_array()
+            x[i] = (cur_state.state_as_array()).reshape(1, self.num_actions)
             y[i] = qvs
             i += 1
 
@@ -287,7 +287,7 @@ class ActorCriticPolicy(Policy):
         return mp
 
     #
-    # The parameters needed by the Keras Model
+    # The parameters needed by the iterative training process.
     #
     @classmethod
     def _default_policy_params(cls) -> ModelParams:
@@ -300,20 +300,14 @@ class ActorCriticPolicy(Policy):
                                 )
         return pp
 
-    # Can only link to one environment in lifetime of policy.
+    # Illegal action Prediction
     #
-    class PolicyAlreadyLinkedToEnvironment(Exception):
+    class IllegalActionPrediction(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
 
     # Policy was not linked to an environment before it was used..
     #
     class NoEnvironmentHasBeenLinkedToPolicy(Exception):
-        def __init__(self, *args, **kwargs):
-            Exception.__init__(self, *args, **kwargs)
-
-    # Illegal action Prediction
-    #
-    class IllegalActionPrediction(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
