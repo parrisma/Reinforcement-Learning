@@ -33,7 +33,10 @@ class TicTacToe(Environment):
     # Constructor has no arguments as it just sets the game
     # to an initial up-played set-up
     #
-    def __init__(self, x: Agent, o: Agent, lg: logging):
+    def __init__(self, x: Agent,
+                 o: Agent,
+                 lg: logging,
+                 save_on_exit: bool = False):
         self.__lg = lg
         self.__board = TicTacToe.__empty_board()
         self.__last_board = None
@@ -48,6 +51,7 @@ class TicTacToe(Environment):
         self.__agents[self.__o_agent.id()] = self.__o_agent
         self.__agents[self.__x_agent.id()] = self.__x_agent
         self.__stats = None
+        self.__save_on_exit = save_on_exit
         return
 
     #
@@ -179,9 +183,10 @@ class TicTacToe(Environment):
         state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
 
         # Make the play on the board.
+        self.__lg.debug(state.state_as_array())
         action = agent.chose_action(state, self.__actions_ids_left_to_take())
         if action not in self.__actions_ids_left_to_take():
-            print("Opps")
+            raise TicTacToe.IllegalActorAction("Actor Proposed Illegal action in current state :" + str(action))
         self.__take_action(action, agent)
         next_state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
 
@@ -335,3 +340,9 @@ class TicTacToe(Environment):
         return TicTacToeState(self.__board,
                               self.__x_agent,
                               self.__o_agent)
+
+    # Policy was not linked to an environment before it was used..
+    #
+    class IllegalActorAction(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)

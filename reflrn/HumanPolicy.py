@@ -2,9 +2,13 @@ import logging
 
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
+from reflrn.Interface.Environment import Environment
 
 
 class HumanPolicy(Policy):
+
+    def link_to_env(self, env: Environment) -> None:
+        return
 
     #
     # At inti time the only thing needed is the universal set of possible
@@ -31,6 +35,9 @@ class HumanPolicy(Policy):
     # Greedy action; request human user to input action.
     #
     def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+        print("-")
+        print(state.state_as_array())
+        print("-")
         input_request = "Make you move selection as agent: " + self.__agent_name + " from possible actions ("
         for mv in possible_actions:
             input_request += str(mv + 1) + ", "

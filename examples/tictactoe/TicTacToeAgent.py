@@ -37,8 +37,10 @@ class TicTacToeAgent(Agent):
     #
     # Environment call back when environment shuts down
     #
-    def terminate(self):
-        self.__policy.save()
+    def terminate(self,
+                  save_on_terminate: bool = False):
+        if save_on_terminate:
+            self.__policy.save()
         return
 
     #

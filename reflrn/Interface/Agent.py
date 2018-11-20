@@ -36,7 +36,8 @@ class Agent(metaclass=abc.ABCMeta):
     # Environment call back when environment shuts down
     #
     @abc.abstractmethod
-    def terminate(self):
+    def terminate(self,
+                  save_on_terminate: bool = False):
         pass
 
     #
