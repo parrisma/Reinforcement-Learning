@@ -57,8 +57,6 @@ K
 reflrn/DequeReplayMemory.py,2\a\2a363cc2f29a0bd30e88d02161340f395b7b80c1
 L
 reflrn/EnvironmentLogging.py,0\f\0f1f1a705ba78e12fced9bd4bb1cf877ce639c2a
-M
-examples/tests/TestRigFive.py,b\5\b51355a585dd3d0610a00367e25957e12babc469
 N
 examples/tictactoe/__init__.py,5\2\52618a669761fa65590e09878c8bc6ba988f6521
 I

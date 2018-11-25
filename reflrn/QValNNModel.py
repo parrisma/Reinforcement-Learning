@@ -40,6 +40,7 @@ class QValNNModel(Model):
         self.__lr_min = model_params.get_parameter(ModelParams.learning_rate_min)
         self.__lr = model_params.get_parameter(ModelParams.learning_rate_0)
         self.__lr_epoch = 1
+        self.__verbose = model_params.get_parameter(ModelParams.verbose)
 
         return
 
@@ -93,7 +94,7 @@ class QValNNModel(Model):
                          y=y,
                          batch_size=self.__batch_size,
                          epochs=self.__epochs,
-                         verbose=0,  # ToDo - Pass As Model Param
+                         verbose=self.__verbose,
                          callbacks=[LearningRateScheduler(self.__lr_step_down_decay)])
         self.__inc_lr_epoch()  # count a global fitting call.
         return

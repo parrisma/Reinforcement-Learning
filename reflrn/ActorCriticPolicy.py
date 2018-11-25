@@ -51,6 +51,7 @@ class ActorCriticPolicy(Policy):
         self.__training = True  # by default we train actor/critic as we take actions
         self.__train_invocations = 0
         self.__trained = False
+        self.__explain = False
 
         #
         # Replay memory needed to model a stationary target.
@@ -100,6 +101,15 @@ class ActorCriticPolicy(Policy):
     def set_training_off(self):
         self.__training = False
 
+    #
+    # Set explain on, which means emmit logs about internal process
+    #
+    def set_explain_on(self):
+        self.__explain = True
+
+    def set_explain_off(self):
+        self.__explain = False
+
     def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float,
                       episode_complete: bool) -> None:
 
@@ -114,28 +124,44 @@ class ActorCriticPolicy(Policy):
         self._train()
 
     #
+    # Select a random allowable action in the current state
+    #
+    def __random_action(self,
+                        state: State) -> int:
+        actions_allowed_in_current_state = self._env().actions(state)
+        actn = (np.random.choice(actions_allowed_in_current_state, 1))[0]
+        return actn
+
+    #
+    # Predict an action based on current policy.
+    #
+    def __predict_action(self,
+                         state: State) -> int:
+        actions_allowed_in_current_state = self._env().actions(state)
+        actions_not_allowed_in_current_state = self.actions_taken(actions_allowed_in_current_state)
+        qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+        if len(actions_not_allowed_in_current_state) > 0:
+            qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
+        actn = np.argmax(qvals)
+        return actn
+
+    #
     # Based on exploration policy and current critic model, either take a random action
     # based on setting of epsilon or use the current critical model to predict a greedy
     # action based on highest expected return.
     #
     def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
-        actions_allowed_in_current_state = self._env().actions(state)
-        actions_not_allowed_in_current_state = self.actions_taken(actions_allowed_in_current_state)
-        actn = None
         exp = np.random.rand()
         if exp > self.epsilon:
             # Random Exploration
-            actn = (np.random.choice(actions_allowed_in_current_state, 1))[0]
+            actn = self.__random_action(state)
             if actn not in self._env().actions(state):
-                raise self.IllegalActionPrediction("Action prediction has given an action not legal for given state")
+                raise self.IllegalActionPrediction("R: Action prediction has given an action not legal for given state")
         else:
             # Greedy exploration
-            qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
-            if len(actions_not_allowed_in_current_state) > 0:
-                qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
-            actn = np.argmax(qvals)
+            actn = self.__predict_action(state)
             if actn not in self._env().actions(state):
-                raise self.IllegalActionPrediction("Action prediction has given an action not legal for given state")
+                raise self.IllegalActionPrediction("P: Action prediction has given an action not legal for given state")
         return actn
 
     #
@@ -282,7 +308,9 @@ class ActorCriticPolicy(Policy):
     def _model_params(cls) -> ModelParams:
         mp = GeneralModelParams([[ModelParams.learning_rate_0, 0.001],
                                  [ModelParams.learning_rate_min, 0.001],
-                                 [ModelParams.batch_size, 32]],
+                                 [ModelParams.batch_size, 32],
+                                 [ModelParams.verbose, 0]
+                                 ]
                                 )
         return mp
 

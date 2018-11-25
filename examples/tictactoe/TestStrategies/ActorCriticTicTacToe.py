@@ -9,21 +9,22 @@ from reflrn.ActorCriticPolicy import ActorCriticPolicy
 from reflrn.DequeReplayMemory import DequeReplayMemory
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.GeneralModelParams import GeneralModelParams
+from reflrn.HumanPolicy import HumanPolicy
 from reflrn.Interface.ModelParams import ModelParams
 from reflrn.PureRandomExploration import PureRandomExploration
 from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithReplayMemory
-from reflrn.HumanPolicy import HumanPolicy
 
 random.seed(42)
 np.random.seed(42)
 
-itr = 300000
+itr = 150000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
                          [ModelParams.epsilon_decay, float(0)],
                          [ModelParams.num_actions, int(9)],
-                         [ModelParams.model_file_name, 'TicTacToe-ActorCritic']
+                         [ModelParams.model_file_name, 'TicTacToe-ActorCritic'],
+                         [ModelParams.verbose, int(0)]
                          ])
 
 acp = ActorCriticPolicy(policy_params=pp,
@@ -50,7 +51,7 @@ srp.link_to_env(game)
 game.run(itr)
 
 lg.level = logging.DEBUG
-itr = 10
+itr = 100
 hum = HumanPolicy("o", lg)
 agent_h = TicTacToeAgent(-1,
                          "O",
