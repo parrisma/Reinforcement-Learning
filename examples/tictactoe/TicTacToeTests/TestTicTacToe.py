@@ -51,3 +51,4 @@ class TestTicTacToe(unittest.TestCase):
             ttt = TicTacToe(agent_x, agent_o, None)
             ttt.import_state(test_case)
             self.assertEqual(ttt.export_state(), test_case)
+

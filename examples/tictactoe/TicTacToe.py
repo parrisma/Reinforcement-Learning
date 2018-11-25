@@ -13,12 +13,15 @@ class TicTacToe(Environment):
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
-    __play = float(0)  # reward for playing an action
-    __draw = float(0)  # reward for playing to end but no one wins
+    __play = float(-0.1)  # reward for playing an action
+    __draw = float(-10.0)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
     __no_agent = None
     __win_mask = np.full((1, 3), 3, np.int8)
     __actions = {0: (0, 0), 1: (0, 1), 2: (0, 2), 3: (1, 0), 4: (1, 1), 5: (1, 2), 6: (2, 0), 7: (2, 1), 8: (2, 2)}
+    __drawn = "draw"
+    __games = "games"
+    __states = "states"
     empty_cell = np.nan  # value of a free action space on board
     asStr = True
     attribute_draw = ("Draw", "True if episode ended in a drawn curr_coords", bool)
@@ -78,19 +81,53 @@ class TicTacToe(Environment):
         return None
 
     #
-    # Keep stats of wins by agent.
+    # Reset the statistics.
     #
-    def __keep_stats(self, reset: bool = False):
-        if reset is True or self.__stats is None:
-            self.__stats = dict()
-            self.__stats[self.__episode] = 1
-            self.__stats[self.__o_agent.name()] = 0
-            self.__stats[self.__x_agent.name()] = 0
+    def __reset_stats(self) -> None:
+        self.__stats = dict()
+        self.__stats[self.__episode] = 1
+        self.__stats[self.__o_agent.name()] = 0
+        self.__stats[self.__x_agent.name()] = 0
+        self.__stats[self.__drawn] = 0
+        self.__stats[self.__games] = dict()
+        self.__stats[self.__states] = dict()
+        return
 
-        if self.__episode_won():
-            self.__stats[self.__agent.name()] = self.__stats[self.__agent.name()] + 1
+    #
+    # Keep count for given dict attr
+    #
+    def __keep_count(self,
+                     attr: str,
+                     key_as_str: str) -> None:
+        if key_as_str not in self.__stats[attr]:
+            (self.__stats[attr])[key_as_str] = 0
+        (self.__stats[attr])[key_as_str] += 1
+
+    #
+    # Keep stats for each step
+    #
+    def __keep_step_stats(self,
+                          state: State) -> None:
+        self.__keep_count(attr=self.__states, key_as_str=state.state_as_string())
+        return
+
+    #
+    # Keep stats at end of episode
+    #
+    def __keep_episode_stats(self,
+                             state: State) -> None:
+        episode_summary = self.attributes()
+        self.__keep_count(attr=self.__games, key_as_str=state.state_as_string())
+        if episode_summary[TicTacToe.attribute_won[0]]:
+            agnt = episode_summary[TicTacToe.attribute_agent[0]].name()
+            self.__stats[agnt] += 1
             self.__stats[self.__episode] = self.__stats[self.__episode] + 1
-            self.__lg.debug(self.__agent.name() + " Wins")
+            self.__lg.debug(agnt + "Wins")
+
+        if episode_summary[TicTacToe.attribute_draw[0]]:
+            self.__stats[self.__drawn] += 1
+            self.__stats[self.__episode] = self.__stats[self.__episode] + 1
+            self.__lg.debug("Episode Drawn")
 
         if self.__stats[self.__episode] % 100 == 0:
             self.__lg.info("Stats: Agent : " + self.__x_agent.name() + " [" +
@@ -98,7 +135,10 @@ class TicTacToe(Environment):
                                (self.__stats[self.__x_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
                            "Agent : " + self.__o_agent.name() + " [" +
                            str(round(
-                               (self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] "
+                               (self.__stats[self.__o_agent.name()] / self.__stats[self.__episode]) * 100)) + "%] " +
+                           "Draw : [" +
+                           str(round(
+                               (self.__stats[self.__drawn] / self.__stats[self.__episode]) * 100)) + "%] "
                            )
         return
 
@@ -107,7 +147,7 @@ class TicTacToe(Environment):
     #
     def run(self, iterations: int):
         i = 0
-        self.__keep_stats(reset=True)
+        self.__reset_stats()
         while i <= iterations:
             self.__lg.debug("Start Episode")
             self.reset()
@@ -122,11 +162,12 @@ class TicTacToe(Environment):
                 self.__lg.debug(state.state_as_string())
                 self.__lg.debug(state.state_as_visualisation())
                 agent = self.__play_action(agent)
+                self.__keep_step_stats(state)
                 i += 1
                 if i % 500 == 0:
                     self.__lg.info("Iteration: " + str(i))
 
-            self.__keep_stats()
+            self.__keep_episode_stats(state)
             self.__lg.debug("Episode Complete")
             state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
             self.__lg.debug(state.state_as_visualisation())
@@ -207,8 +248,10 @@ class TicTacToe(Environment):
     #
     def attributes(self):
         attr_dict = dict()
-        attr_dict[TicTacToe.attribute_draw[0]] = not self.__actions_left_to_take()
         attr_dict[TicTacToe.attribute_won[0]] = self.__episode_won()
+        attr_dict[TicTacToe.attribute_draw[0]] = False
+        if not attr_dict[TicTacToe.attribute_won[0]]:
+            attr_dict[TicTacToe.attribute_draw[0]] = not self.__actions_left_to_take()
         attr_dict[TicTacToe.attribute_complete[0]] = \
             attr_dict[TicTacToe.attribute_draw[0]] or attr_dict[TicTacToe.attribute_won[0]]
         attr_dict[TicTacToe.attribute_agent[0]] = self.__agent
