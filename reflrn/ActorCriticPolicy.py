@@ -2,6 +2,7 @@ from typing import List
 
 import numpy as np
 
+from examples.tictactoe.RenderQValuesAsStr import RenderQValues
 from reflrn.DequeReplayMemory import DequeReplayMemory
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.Environment import Environment
@@ -51,7 +52,6 @@ class ActorCriticPolicy(Policy):
         self.__training = True  # by default we train actor/critic as we take actions
         self.__train_invocations = 0
         self.__trained = False
-        self.__explain = False
 
         #
         # Replay memory needed to model a stationary target.
@@ -71,6 +71,10 @@ class ActorCriticPolicy(Policy):
                                         lg=self.lg,
                                         model_params=self._model_params()
                                         )
+        self.__explain = None
+        self.explain = False
+
+        return
 
     #
     # Make a note of which environment policy is linked to.
@@ -100,15 +104,6 @@ class ActorCriticPolicy(Policy):
     #
     def set_training_off(self):
         self.__training = False
-
-    #
-    # Set explain on, which means emmit logs about internal process
-    #
-    def set_explain_on(self):
-        self.__explain = True
-
-    def set_explain_off(self):
-        self.__explain = False
 
     def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float,
                       episode_complete: bool) -> None:
@@ -142,6 +137,8 @@ class ActorCriticPolicy(Policy):
         qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
         if len(actions_not_allowed_in_current_state) > 0:
             qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
+        if self.explain:
+            print(RenderQValues.render_qval_array(qvals))
         actn = np.argmax(qvals)
         return actn
 
@@ -242,7 +239,7 @@ class ActorCriticPolicy(Policy):
         return np.float(qvp)
 
     #
-    # What is the qvalue (optimal) prediction given current curr_coords (state S)
+    # What is the q_value (optimal) prediction given current curr_coords (state S)
     #
     def _curr_state_qval_prediction(self,
                                     curr_state: State,
@@ -270,7 +267,7 @@ class ActorCriticPolicy(Policy):
             qvs = self._curr_state_qval_prediction(cur_state, done)
 
             qv = qvs[action]
-            qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current curr_coords/action
+            qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
             qvs[action] = qv
 
             x[i] = (cur_state.state_as_array()).reshape(1, self.num_actions)
@@ -299,7 +296,23 @@ class ActorCriticPolicy(Policy):
             self.critic_model.train(rw, cl)
             trained = True
             self.lg.debug("Critic Trained")
+            self._model_loss(self.critic_model)
         return trained
+
+    #
+    # Establish the model loss
+    #
+    def _model_loss(self,
+                    mdl) -> float:
+        rw, cl = self._get_sample_batch()
+        if rw is not None:
+            scores = mdl.evaluate(rw, cl)
+            if type(scores) == list:
+                loss = scores[0]
+            else:
+                loss = scores
+            print("Loss: {}".format(loss))
+        return loss
 
     #
     # The parameters needed by the Keras Model
@@ -339,3 +352,18 @@ class ActorCriticPolicy(Policy):
     class NoEnvironmentHasBeenLinkedToPolicy(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
+
+    #
+    # Generate debug details when predicting actions.
+    #
+    @property
+    def explain(self) -> bool:
+        return self.__explain
+
+    @explain.setter
+    def explain(self, value: bool):
+        if type(value) != bool:
+            raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
+        self.__explain = value
+        self.actor_model.explain = self.__explain
+        self.critic_model.explain = self.__explain

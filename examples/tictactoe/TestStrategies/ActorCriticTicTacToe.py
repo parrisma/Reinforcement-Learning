@@ -17,7 +17,7 @@ from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithRepl
 random.seed(42)
 np.random.seed(42)
 
-itr = 150000
+itr = 500000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
@@ -48,6 +48,7 @@ agent_o = TicTacToeAgent(-1,
 game = TicTacToe(agent_x, agent_o, lg)
 acp.link_to_env(game)
 srp.link_to_env(game)
+acp.explain = False
 game.run(itr)
 
 lg.level = logging.DEBUG
@@ -62,4 +63,5 @@ agent_h = TicTacToeAgent(-1,
 
 game2 = TicTacToe(agent_x, agent_h, lg)
 hum.link_to_env(game2)
+acp.explain = True
 game2.run(itr)

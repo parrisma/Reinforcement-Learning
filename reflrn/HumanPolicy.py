@@ -1,14 +1,11 @@
 import logging
 
+from reflrn.Interface.Environment import Environment
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
-from reflrn.Interface.Environment import Environment
 
 
 class HumanPolicy(Policy):
-
-    def link_to_env(self, env: Environment) -> None:
-        return
 
     #
     # At inti time the only thing needed is the universal set of possible
@@ -17,6 +14,13 @@ class HumanPolicy(Policy):
     def __init__(self, agent_name: str, lg: logging):
         self.__lg = lg
         self.__agent_name = agent_name
+        self.__explain = False
+        return
+
+    #
+    # Associate this policy with a given environment.
+    #
+    def link_to_env(self, env: Environment) -> None:
         return
 
     #
@@ -60,4 +64,18 @@ class HumanPolicy(Policy):
     #
     def load(self, filename: str = None):
         self.__lg.warning("Load not supported for Human Policy")
+        return
+
+    #
+    # Generate debug details when predicting actions.
+    #
+    @property
+    def explain(self) -> bool:
+        return self.__explain
+
+    @explain.setter
+    def explain(self, value: bool):
+        if type(value) != bool:
+            raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
+        self.__explain = value
         return

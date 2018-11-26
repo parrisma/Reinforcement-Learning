@@ -6,7 +6,48 @@ from reflrn.Interface.State import State
 
 class RenderQValues(RenderQVals):
 
-    def render(self, curr_state: State, q_vals: dict) -> str:
+    #
+    # Normalise
+    #
+    @classmethod
+    def __normalise(cls,
+                    a: np.array
+                    ) -> np.array:
+        qn = np.copy(a)
+        qn = np.where(np.isnan(qn), 0, qn)
+        qn[~np.isinf(qn)] -= np.min(qn[~np.isinf(qn)], axis=0)
+        qn[~np.isinf(qn)] /= np.ptp(qn[~np.isinf(qn)], axis=0)
+        qn[~np.isinf(qn)] *= float(100)
+        return qn
+
+    #
+    # render qval array as string
+    #
+    @classmethod
+    def render_qval_array(cls,
+                          q_vals: np.array
+                          ) -> str:
+        at = 0
+        s = str()
+        q = np.reshape(np.copy(q_vals), 9)
+        qn = RenderQValues.__normalise(q)
+        for i in range(0, 3):
+            for j in range(0, 3):
+                v = qn[at]
+                if np.isinf(v):
+                    s += "[(" + "---" + "%) " + '{:+.8}'.format(q[at]) + "] "
+                else:
+                    s += "[(" + '{:+3d}'.format(int(v)) + "%) " + '{:+.8}'.format(q[at]) + "] "
+                at += 1
+            s += "\n"
+        return s
+
+    #
+    # Render the given Q Values for the given state as a string.
+    #
+    def render(self,
+               curr_state: State,
+               q_vals: dict) -> str:
         s = ""
         at = 0
 

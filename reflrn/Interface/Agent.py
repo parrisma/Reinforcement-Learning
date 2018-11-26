@@ -80,3 +80,16 @@ class Agent(metaclass=abc.ABCMeta):
                reward_for_play: float,
                episode_complete: bool):
         pass
+
+    #
+    # Produce debug details when performing operations such as action prediction.
+    #
+    @property
+    @abc.abstractmethod
+    def explain(self) -> bool:
+        raise NotImplementedError()
+
+    @explain.setter
+    @abc.abstractmethod
+    def explain(self, value: bool):
+        raise NotImplementedError()

@@ -66,3 +66,16 @@ class Policy(metaclass=abc.ABCMeta):
     class PolicyAlreadyLinkedToEnvironment(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
+
+    #
+    # Produce debug details when performing operations such as action prediction.
+    #
+    @property
+    @abc.abstractmethod
+    def explain(self) -> bool:
+        raise NotImplementedError()
+
+    @explain.setter
+    @abc.abstractmethod
+    def explain(self, value: bool):
+        raise NotImplementedError()

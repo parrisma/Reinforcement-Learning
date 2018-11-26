@@ -42,6 +42,9 @@ class QValNNModel(Model):
         self.__lr_epoch = 1
         self.__verbose = model_params.get_parameter(ModelParams.verbose)
 
+        self.__explain = None
+        self.explain = False
+
         return
 
     #
@@ -105,7 +108,7 @@ class QValNNModel(Model):
     def evaluate(self, x, y):
         scores = self.__model.evaluate(x,
                                        y,
-                                       verbose=0)
+                                       verbose=self.__verbose)
         return scores
 
     #
@@ -196,3 +199,16 @@ class QValNNModel(Model):
             pass
         self.__model = model
         return
+
+    #
+    # Generate debug details when predicting actions.
+    #
+    @property
+    def explain(self) -> bool:
+        return self.__explain
+
+    @explain.setter
+    def explain(self, value: bool):
+        if type(value) != bool:
+            raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
+        self.__explain = value

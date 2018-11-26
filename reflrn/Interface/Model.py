@@ -77,3 +77,16 @@ class Model(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def reset(self) -> None:
         pass
+
+    #
+    # Produce debug details when performing operations such as action prediction.
+    #
+    @property
+    @abc.abstractmethod
+    def explain(self) -> bool:
+        raise NotImplementedError()
+
+    @explain.setter
+    @abc.abstractmethod
+    def explain(self, value: bool):
+        raise NotImplementedError()

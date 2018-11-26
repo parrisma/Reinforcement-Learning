@@ -7,15 +7,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Small change to readme">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/5/b51355a585dd3d0610a00367e25957e12babc469" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" afterPath="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" />
       <change beforePath="$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py" />
-      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
       <change beforePath="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" afterPath="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" />
-      <change beforePath="$PROJECT_DIR$/reflrn/Interface/ModelParams.py" afterPath="$PROJECT_DIR$/reflrn/Interface/ModelParams.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/HumanPolicy.py" afterPath="$PROJECT_DIR$/reflrn/HumanPolicy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Agent.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Agent.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Model.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Model.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Policy.py" afterPath="$PROJECT_DIR$/reflrn/Interface/Policy.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Interface/RenderQVals.py" afterPath="$PROJECT_DIR$/reflrn/Interface/RenderQVals.py" />
       <change beforePath="$PROJECT_DIR$/reflrn/QValNNModel.py" afterPath="$PROJECT_DIR$/reflrn/QValNNModel.py" />
+      <change beforePath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" afterPath="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,10 +32,22 @@
       <file leaf-file-name="ActorCriticPolicy.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/ActorCriticPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="584">
-              <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+            <state relative-caret-position="274">
+              <caret line="272" column="0" lean-forward="false" selection-start-line="272" selection-start-column="0" selection-end-line="272" selection-end-column="0" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DequeReplayMemory.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="63" column="56" lean-forward="false" selection-start-line="63" selection-start-column="56" selection-end-line="63" selection-end-column="56" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -41,22 +56,10 @@
       <file leaf-file-name="QValNNModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflrn/QValNNModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="639">
+              <caret line="101" column="61" lean-forward="true" selection-start-line="101" selection-start-column="61" selection-end-line="101" selection-end-column="61" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TicTacToeState.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="836">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -65,8 +68,8 @@
       <file leaf-file-name="ActorCriticTicTacToe.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" column="7" lean-forward="false" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+            <state relative-caret-position="153">
+              <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -74,42 +77,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GeneralModelParams.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/GeneralModelParams.py">
+      <file leaf-file-name="HumanPolicy.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/HumanPolicy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="52" lean-forward="false" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="52" />
-              <folding />
+            <state relative-caret-position="352">
+              <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModelParams.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/Interface/ModelParams.py">
+      <file leaf-file-name="RenderQVals.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderQVals.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="264">
+              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="codecs.py" pinned="false" current-in-tab="false">
-        <entry file="file://D:/Conda/envs/tf/Lib/codecs.py">
+      <file leaf-file-name="RenderQValuesAsStr.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6776">
-              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TicTacToeAgent.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="340">
+              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,8 +116,8 @@
       <file leaf-file-name="TicTacToe.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="237" column="62" lean-forward="false" selection-start-line="237" selection-start-column="62" selection-end-line="237" selection-end-column="62" />
+            <state relative-caret-position="245">
+              <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -126,12 +125,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestTicTacToe.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py">
+      <file leaf-file-name="TicTacToeAgent.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="19" column="73" lean-forward="false" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
-              <folding />
+            <state relative-caret-position="245">
+              <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -148,8 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>last_s</find>
-      <find>__last_coords</find>
       <find>__track_location</find>
       <find>last</find>
       <find>x,</find>
@@ -178,6 +177,8 @@
       <find>oop</find>
       <find>draw</find>
       <find>39</find>
+      <find>__exploration</find>
+      <find>__expl</find>
     </findStrings>
     <replaceStrings>
       <replace>__grid</replace>
@@ -192,9 +193,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/GridWorldQValNNModel.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic.py" />
         <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/RareEventBiasReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/RenderSimpleGridOneQValues.py" />
         <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/GridActorCritic.py" />
@@ -225,23 +223,26 @@
         <option value="$PROJECT_DIR$/examples/gridworld/GridWorldState.py" />
         <option value="$PROJECT_DIR$/reflrn/Interface/ReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestState.py" />
-        <option value="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" />
         <option value="$PROJECT_DIR$/reflrn/GeneralModelParams.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/Policy.py" />
         <option value="$PROJECT_DIR$/reflrn/ModelParameters.py" />
         <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TestStrategies/TestRigFive.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestActorCritcPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/Agent.py" />
-        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
-        <option value="$PROJECT_DIR$/reflrn/HumanPolicy.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py" />
         <option value="$PROJECT_DIR$/reflrn/Interface/ModelParams.py" />
-        <option value="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/QValNNModel.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
+        <option value="$PROJECT_DIR$/reflrn/Interface/RenderQVals.py" />
+        <option value="$PROJECT_DIR$/reflrn/Interface/Policy.py" />
+        <option value="$PROJECT_DIR$/reflrn/Interface/Agent.py" />
+        <option value="$PROJECT_DIR$/reflrn/Interface/Model.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" />
+        <option value="$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py" />
+        <option value="$PROJECT_DIR$/reflrn/HumanPolicy.py" />
+        <option value="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" />
+        <option value="$PROJECT_DIR$/reflrn/QValNNModel.py" />
+        <option value="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" />
+        <option value="$PROJECT_DIR$/reflrn/DequeReplayMemory.py" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py" />
       </list>
     </option>
@@ -314,6 +315,12 @@
             <path>
               <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="reflrn" type="462c0819:PsiDirectoryNode" />
+              <item name="Interface" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
               <item name="SampleCodeFromOtherSources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -364,24 +371,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.ActorCriticTicTacToe">
-    <configuration name="ActorCriticPolicy" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reflrn" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="ActorCriticTicTacToe" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -395,6 +384,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="TicTacToe" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="RenderQValuesAsStr" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tictactoe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TicTacToe" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -466,18 +473,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.TestRigFive" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ActorCriticPolicy" />
-      <item index="2" class="java.lang.String" itemvalue="Python.ActorCriticTicTacToe" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_1" />
+      <item index="1" class="java.lang.String" itemvalue="Python.ActorCriticTicTacToe" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_1" />
+      <item index="4" class="java.lang.String" itemvalue="Python.RenderQValuesAsStr" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.ActorCriticTicTacToe" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_1" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe" />
-        <item index="3" class="java.lang.String" itemvalue="Python.TestRigFive" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ActorCriticPolicy" />
+        <item index="1" class="java.lang.String" itemvalue="Python.RenderQValuesAsStr" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_1" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.py.test for TicTacToeTests.TestTicTacToe.TestTicTacToe" />
+        <item index="4" class="java.lang.String" itemvalue="Python.TestRigFive" />
       </list>
     </recent_temporary>
   </component>
@@ -562,11 +569,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="0" width="1965" height="1407" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09185262" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18941359" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884312" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.251981" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25177026" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20298977" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33518225" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31471282" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
@@ -581,31 +590,8 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.203645" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884312" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33518225" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.203645" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884312" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09205948" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.251981" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.203645" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38272583" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -819,13 +805,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py</url>
-          <line>64</line>
+          <line>66</line>
           <option name="timeStamp" value="999" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py</url>
           <line>22</line>
           <option name="timeStamp" value="1001" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py</url>
+          <line>42</line>
+          <option name="timeStamp" value="1031" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -835,12 +826,13 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1022" />
+      <option name="time" value="1034" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="qvals[0]" language="Python" />
         <watch expression="actns" language="Python" />
+        <watch expression="qn" language="Python" />
       </configuration>
     </watches-manager>
   </component>
@@ -854,6 +846,11 @@
       </expression>
     </expressions>
     <expressions id="watch">
+      <expression>
+        <expression-string>qn</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>qvals</expression-string>
         <language-id>Python</language-id>
@@ -887,68 +884,53 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>qvals</expression-string>
+        <expression-string>scores</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>actions_not_allowed_in_current_state</expression-string>
+        <expression-string>np.min(qn[~np.isinf(qn)],axis=0)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>d</expression-string>
+        <expression-string>qn[~np.isinf(qn)]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>d[1]=0</expression-string>
+        <expression-string>qn[!np.isinf(qn)]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>state.state_as_string()</expression-string>
+        <expression-string>qn[np.isinf(qn)]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self</expression-string>
+        <expression-string>np.isinf(qn)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>(self.__stats[self.__states])</expression-string>
+        <expression-string>qn</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>state</expression-string>
+        <expression-string>q</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>samples</expression-string>
+        <expression-string>s</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/ExplorationStrategy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="43" column="8" lean-forward="false" selection-start-line="43" selection-start-column="8" selection-end-line="43" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1694">
-          <caret line="85" column="27" lean-forward="false" selection-start-line="85" selection-start-column="27" selection-end-line="85" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestQValNNModel.log" />
     <entry file="file://D:/Conda/envs/tf/Lib/site-packages/numpy/lib/function_base.py" />
     <entry file="file://$PROJECT_DIR$/reflrn/RandomPolicy.py">
@@ -972,16 +954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="116" column="51" lean-forward="false" selection-start-line="116" selection-start-column="51" selection-end-line="116" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestQValNNModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="94" column="8" lean-forward="false" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1029,20 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="93" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestAgent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1061,16 +1019,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TestActorCriticPolicy.log" />
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Policy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/PureRandomExploration.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="990">
@@ -1082,13 +1030,6 @@
       </provider>
     </entry>
     <entry file="file://D:/Conda/envs/tf/Lib/site-packages/tensorflow/python/client/session.py" />
-    <entry file="file://$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="25" column="59" lean-forward="true" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1157,52 +1098,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderQVals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Agent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="39" column="49" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/ProgramData/Anaconda3/envs/ML/Lib/codecs.py" />
-    <entry file="file://$PROJECT_DIR$/reflrn/HumanPolicy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="39" column="18" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="19" column="73" lean-forward="false" selection-start-line="19" selection-start-column="73" selection-end-line="19" selection-end-column="73" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6776">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1216,16 +1117,82 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/Interface/ModelParams.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="22" lean-forward="false" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        <state relative-caret-position="440">
+          <caret line="20" column="23" lean-forward="true" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/QValNNModel.py">
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="68" column="0" lean-forward="true" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+        <state relative-caret-position="902">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Agent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="91" column="35" lean-forward="false" selection-start-line="91" selection-start-column="35" selection-end-line="91" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#10#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Policy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="77" column="0" lean-forward="false" selection-start-line="77" selection-start-column="0" selection-end-line="80" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/SimpleRandomPolicyWithReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" column="30" lean-forward="false" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/Interface/RenderQVals.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -1234,36 +1201,86 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="237" column="62" lean-forward="false" selection-start-line="237" selection-start-column="62" selection-end-line="237" selection-end-column="62" />
+        <state relative-caret-position="245">
+          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py">
+    <entry file="file://D:/Conda/envs/tf/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="91" column="0" lean-forward="false" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/HumanPolicy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="20" column="53" lean-forward="false" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestQValNNModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="86" column="17" lean-forward="true" selection-start-line="83" selection-start-column="0" selection-end-line="88" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/QValNNModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="639">
+          <caret line="101" column="61" lean-forward="true" selection-start-line="101" selection-start-column="61" selection-end-line="101" selection-end-column="61" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/ActorCriticPolicy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+        <state relative-caret-position="274">
+          <caret line="272" column="0" lean-forward="false" selection-start-line="272" selection-start-column="0" selection-end-line="272" selection-end-column="0" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="63" column="56" lean-forward="false" selection-start-line="63" selection-start-column="56" selection-end-line="63" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="7" lean-forward="false" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+        <state relative-caret-position="153">
+          <caret line="17" column="18" lean-forward="true" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>

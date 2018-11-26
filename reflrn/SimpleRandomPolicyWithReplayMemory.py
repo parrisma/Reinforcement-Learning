@@ -20,6 +20,7 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
         self.__lg = lg
         self.__replay_memory = replay_memory
         self.__env = env
+        self.__explain = False
         return
 
     #
@@ -65,3 +66,16 @@ class SimpleRandomPolicyWithReplayMemory(Policy):
 
     def load(self, filename: str = None):
         return
+
+    #
+    # Generate debug details when predicting actions.
+    #
+    @property
+    def explain(self) -> bool:
+        return self.__explain
+
+    @explain.setter
+    def explain(self, value: bool):
+        if type(value) != bool:
+            raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
+        self.__explain = value

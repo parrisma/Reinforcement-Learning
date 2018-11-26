@@ -24,6 +24,11 @@ class TicTacToeAgent(Agent):
         self.__epsilon_greedy = epsilon_greedy
         self.__exploration = exploration_play
 
+        self.__explain = None
+        self.explain = False
+
+        return
+
     # Return immutable id
     #
     def id(self):
@@ -58,7 +63,7 @@ class TicTacToeAgent(Agent):
     #
     # Environment call back to ask the agent to chose an action
     #
-    # State : The current curr_coords of the environment
+    # State : The current representation of the environment
     # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
     def chose_action(self, state: State, possible_actions: [int]) -> int:
@@ -66,13 +71,10 @@ class TicTacToeAgent(Agent):
         # if random() > epsilon greedy then take greedy action else a random action
         if random.random() > self.__epsilon_greedy:
             try:
-                # If there are q values for given curr_coords we can predict a greedy action
                 action = self.__policy.select_action(self.__name, state, possible_actions)
                 self.__lg.debug(self.__name + " chose greedy action : " + str(action + 1))
             except EvaluationException:
-                # cannot predict a greedy action so random
-                action = self.__exploration.select_action(possible_actions)
-                self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
+                raise TicTacToeAgent.FailedToPredictActionFromPolicy()
         else:
             action = self.__exploration.select_action(possible_actions)
             self.__lg.debug(self.__name + " chose exploration action : " + str(action + 1))
@@ -96,5 +98,24 @@ class TicTacToeAgent(Agent):
     # Called by the environment *once* at the start of the session
     # and the action set is given as dictionary
     #
-    def session_init(self, actions: dict):
+    def session_init(self,
+                     actions: dict) -> None:
+        return
+
+    # Failed to predict action from model
+    #
+    class FailedToPredictActionFromPolicy(Exception):
+        def __init__(self, *args, **kwargs):
+            Exception.__init__(self, *args, **kwargs)
+
+    @property
+    def explain(self) -> bool:
+        return self.__explain
+
+    @explain.setter
+    def explain(self, value: bool):
+        if type(value) != bool:
+            raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
+        self.__explain = value
+        self.__policy.explain = True
         return

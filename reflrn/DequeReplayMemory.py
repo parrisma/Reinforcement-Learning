@@ -57,6 +57,8 @@ class DequeReplayMemory(ReplayMemory):
     #
     # return list of elements [episode, curr_state, next_state, action, reward, complete]
     #
+    # ToDo: Whole Episodes = False
+    #
     def get_random_memories(self,
                             sample_size: int,
                             whole_episodes: bool = False) -> [[int, State, State, int, float, bool]]:
@@ -81,8 +83,8 @@ class DequeReplayMemory(ReplayMemory):
                     episode_deque.append(self.__replay_memory[i])
                     i += 1
 
-                for mem in episode_deque:
-                    samples.append(list(mem))
+                while len(samples) < sample_size:
+                    samples.append(list(episode_deque.pop()))
             else:
                 samples.append(memory)
 
