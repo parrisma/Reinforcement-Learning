@@ -4,7 +4,7 @@ import numpy as np
 
 
 #
-# This abstract class provides an immutable curr_coords representation of the environment
+# This abstract class provides an immutable State representation of the environment
 # it was constructed with.
 #
 

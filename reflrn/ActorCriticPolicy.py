@@ -1,4 +1,5 @@
 from typing import List
+from typing import Tuple
 
 import numpy as np
 
@@ -10,6 +11,7 @@ from reflrn.Interface.ModelParams import ModelParams
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.QValNNModel import QValNNModel
+from reflrn.ActorCriticPolicyTelemetry import ActorCriticPolicyTelemetry
 
 
 #
@@ -31,9 +33,7 @@ class ActorCriticPolicy(Policy):
                  env: Environment = None):
 
         self.env = env  # If Env not passed, then must be bound via link_to_env() method.
-
         self.lg = lg
-
         self.episode = 1
 
         self.input_dim = ActorCriticPolicy.__rows * ActorCriticPolicy.__cols
@@ -74,6 +74,8 @@ class ActorCriticPolicy(Policy):
         self.__explain = None
         self.explain = False
 
+        self.__telemetry = ActorCriticPolicyTelemetry()
+
         return
 
     #
@@ -96,16 +98,25 @@ class ActorCriticPolicy(Policy):
     #
     # Train (model) on incoming events.
     #
-    def set_training_on(self):
+    def set_training_on(self) -> None:
         self.__training = True
 
     #
     # Ignore incoming events from (model) training perspective.
     #
-    def set_training_off(self):
+    def set_training_off(self) -> None:
         self.__training = False
 
-    def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float,
+    #
+    # Update the policy with respect to the state / action transition that has occurred in the environment to which
+    # this policy is linked and
+    #
+    def update_policy(self,
+                      agent_name: str,
+                      state: State,
+                      next_state: State,
+                      action: int,
+                      reward: float,
                       episode_complete: bool) -> None:
 
         if episode_complete:
@@ -140,7 +151,7 @@ class ActorCriticPolicy(Policy):
         if self.explain:
             print(RenderQValues.render_qval_array(qvals))
         actn = np.argmax(qvals)
-        return actn
+        return actn[0]
 
     #
     # Based on exploration policy and current critic model, either take a random action
@@ -168,20 +179,26 @@ class ActorCriticPolicy(Policy):
                       state: State) -> int:
         qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
         actn = np.argmax(qvals)
-        return actn
+        return actn[0]
 
     def actions_taken(self,
                       actions_remaining: np.ndarray) -> np.ndarray:
-        l = list()
+        actns = list()
         for a in self._env().actions():
             if a not in actions_remaining:
-                l.append(a)
-        return np.asarray(l)
+                actns.append(a)
+        return np.asarray(actns)
 
+    #
+    # Persist the current Policy
+    #
     def save(self, filename: str = None) -> None:
         raise NotImplementedError("Save not implemented for :" + self.__class__.__name__)
 
-    def load(self, filename: str = None):
+    #
+    # Load the Policy from a persisted copy
+    #
+    def load(self, filename: str = None) -> None:
         raise NotImplementedError("Load not implemented for :" + self.__class__.__name__)
 
     #
@@ -192,7 +209,7 @@ class ActorCriticPolicy(Policy):
     #
     def _train(self,
                train_every: int = 50,
-               update_every: int = 5):
+               update_every: int = 5) -> None:
 
         if not self.__training:
             return
@@ -213,14 +230,14 @@ class ActorCriticPolicy(Policy):
     #
     # Return the learning rate based on number of learning's to date
     #
-    def learning_rate(self):
+    def learning_rate(self) -> float:
         return self.learning_rate_0 / (1 + (self.episode * self.learning_rate_decay))
 
     #
     # Get actor prediction, if actor is not able to predict, predict random
     #
     def _actor_prediction(self,
-                          curr_state: State):
+                          curr_state: State) -> np.ndarray:
         st = np.array(curr_state.state_as_array()).reshape((1, self.__num_actions))  # Shape needed for NN
         p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
         return p
@@ -243,16 +260,16 @@ class ActorCriticPolicy(Policy):
     #
     def _curr_state_qval_prediction(self,
                                     curr_state: State,
-                                    done: bool) -> List[np.float]:
+                                    done: bool) -> np.ndarray:
         qvs = np.zeros(self.num_actions)
         if not done:
             qvs = self._actor_prediction(curr_state=curr_state)
         return qvs
 
-    # Get a random set of samples from the given QValues to select_action as a training
+    # Get a random set of samples from the given QValues to select_action as a test or training
     # batch for the model.
     #
-    def _get_sample_batch(self):
+    def _get_sample_batch(self) -> Tuple[np.ndarray, np.ndarray]:
 
         batch_size = self._model_params().get_parameter(ModelParams.batch_size)
         samples = self.__replay_memory.get_random_memories(batch_size)
@@ -280,7 +297,7 @@ class ActorCriticPolicy(Policy):
     # Actor is not trained, but instead clones the trainable parameters from the critic
     # after every n times the critic is trained on a replay memory batch.
     #
-    def _update_actor_from_critic(self):
+    def _update_actor_from_critic(self) -> None:
         self.actor_model.clone_weights(self.critic_model)
         self.lg.debug("Update Actor From Critic")
         return
@@ -305,6 +322,7 @@ class ActorCriticPolicy(Policy):
     def _model_loss(self,
                     mdl) -> float:
         rw, cl = self._get_sample_batch()
+        loss = None
         if rw is not None:
             scores = mdl.evaluate(rw, cl)
             if type(scores) == list:
@@ -352,6 +370,15 @@ class ActorCriticPolicy(Policy):
     class NoEnvironmentHasBeenLinkedToPolicy(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
+
+    #
+    # Update policy telemetry for training batch
+    #
+    def update_telemetry_for_training_batch(self,
+                                            x: np.ndarray):
+        for i in x:
+            self.__telemetry.update_state_telemetry(np.array2string(i, separator=''))
+        return
 
     #
     # Generate debug details when predicting actions.
