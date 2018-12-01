@@ -21,26 +21,17 @@ class Telemetry(metaclass=abc.ABCMeta):
     #
     class StateTelemetry(metaclass=abc.ABCMeta):
 
-        def __init__(self,
-                     state_as_str: str):
-            self.__state_as_str = state_as_str
-            self.__frequency = 0
-            return
-
-        def __str__(self) -> str:
-            return self.__state.state_as_string() + " observed [" + str(self.__frequency) + "] times during training"
-
         @property
         @abc.abstractmethod
         def state(self) -> str:
-            return self.__state
+            raise NotImplementedError
 
         @property
         @abc.abstractmethod
         def frequency(self) -> int:
-            return self.__frequency
+            raise NotImplementedError
 
         @frequency.setter
         @abc.abstractmethod
         def frequency(self, value: int):
-            self.__frequency = value
+            raise NotImplementedError

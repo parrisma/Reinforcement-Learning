@@ -1,4 +1,6 @@
+import numpy as np
 from reflrn.Interface.Telemetry import Telemetry
+from reflrn.SimpleStateTelemetry import SimpleStateTelemetry
 
 
 #
@@ -13,10 +15,11 @@ class ActorCriticPolicyTelemetry(Telemetry):
     # Update State Telemetry
     #
     def update_state_telemetry(self,
-                               state_as_str: str) -> None:
+                               state_as_array: np.ndarray) -> None:
+        state_as_str = self.__a2s(state_as_array)
         if state_as_str not in self.__telemetry:
-            self.__telemetry[state_as_str] = Telemetry.StateTelemetry(state_as_str)
-        Telemetry.StateTelemetry(self.__telemetry[state_as_str]).frequency += 1
+            self.__telemetry[state_as_str] = SimpleStateTelemetry(state_as_str)
+        self.__telemetry[state_as_str].frequency = self.__telemetry[state_as_str].frequency + 1
         return
 
     #
@@ -24,7 +27,15 @@ class ActorCriticPolicyTelemetry(Telemetry):
     # given state
     #
     def state_observation_telemetry(self,
-                                    state_as_str: str) -> 'Telemetry.StateTelemetry':
+                                    state_as_arr: np.ndarray) -> 'Telemetry.StateTelemetry':
+        state_as_str = self.__a2s(state_as_arr)
         if state_as_str in self.__telemetry:
             return self.__telemetry[state_as_str]
-        return None
+        return 0
+
+    #
+    # Array To Str
+    #
+    @classmethod
+    def __a2s(cls, arr: np.ndarray) -> str:
+        return np.array2string(np.reshape(arr, np.size(arr)), separator='')

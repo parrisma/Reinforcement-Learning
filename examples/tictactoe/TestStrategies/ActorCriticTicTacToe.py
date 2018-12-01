@@ -17,7 +17,7 @@ from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithRepl
 random.seed(42)
 np.random.seed(42)
 
-itr = 500000
+itr = 100000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],

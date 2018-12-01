@@ -150,8 +150,9 @@ class ActorCriticPolicy(Policy):
             qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
         if self.explain:
             print(RenderQValues.render_qval_array(qvals))
-        actn = np.argmax(qvals)
-        return actn[0]
+            print(self.__telemetry.state_observation_telemetry(state.state_as_array()))
+        actn = int(np.argmax(qvals))
+        return actn
 
     #
     # Based on exploration policy and current critic model, either take a random action
@@ -314,6 +315,7 @@ class ActorCriticPolicy(Policy):
             trained = True
             self.lg.debug("Critic Trained")
             self._model_loss(self.critic_model)
+            self.update_telemetry_for_training_batch(rw)
         return trained
 
     #
@@ -377,7 +379,7 @@ class ActorCriticPolicy(Policy):
     def update_telemetry_for_training_batch(self,
                                             x: np.ndarray):
         for i in x:
-            self.__telemetry.update_state_telemetry(np.array2string(i, separator=''))
+            self.__telemetry.update_state_telemetry(i)
         return
 
     #
