@@ -4,7 +4,7 @@ from typing import Tuple
 import numpy as np
 
 from examples.tictactoe.RenderQValuesAsStr import RenderQValues
-from reflrn.DequeReplayMemory import DequeReplayMemory
+from reflrn.DictReplayMemory import DictReplayMemory
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.Environment import Environment
 from reflrn.Interface.ModelParams import ModelParams
@@ -56,7 +56,7 @@ class ActorCriticPolicy(Policy):
         #
         # Replay memory needed to model a stationary target.
         #
-        self.__replay_memory = DequeReplayMemory(lg, self.__replay_mem_size)
+        self.__replay_memory = DictReplayMemory(lg, self.__replay_mem_size)
 
         self.actor_model = QValNNModel(model_name="Actor",
                                        input_dimension=self.input_dim,
@@ -193,8 +193,11 @@ class ActorCriticPolicy(Policy):
     #
     # Persist the current Policy
     #
-    def save(self, filename: str = None) -> None:
-        raise NotImplementedError("Save not implemented for :" + self.__class__.__name__)
+    def save(self,
+             filename: str = None
+             ) -> None:
+        # Save the telemetry data
+        self.__telemetry.save(filename)
 
     #
     # Load the Policy from a persisted copy

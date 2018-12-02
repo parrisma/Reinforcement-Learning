@@ -17,6 +17,14 @@ class Telemetry(metaclass=abc.ABCMeta):
         pass
 
     #
+    # Export the Telemetry data to the give file.
+    #
+    @abc.abstractmethod
+    def save(self,
+             filename: str) -> None:
+        raise NotImplementedError
+
+    #
     # Telemetry for a specific State
     #
     class StateTelemetry(metaclass=abc.ABCMeta):

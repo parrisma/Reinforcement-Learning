@@ -17,7 +17,7 @@ from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithRepl
 random.seed(42)
 np.random.seed(42)
 
-itr = 100000
+itr = 500000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
@@ -50,6 +50,8 @@ acp.link_to_env(game)
 srp.link_to_env(game)
 acp.explain = False
 game.run(itr)
+
+acp.save("./acp.csv")
 
 lg.level = logging.DEBUG
 itr = 100

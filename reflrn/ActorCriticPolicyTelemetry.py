@@ -39,3 +39,22 @@ class ActorCriticPolicyTelemetry(Telemetry):
     @classmethod
     def __a2s(cls, arr: np.ndarray) -> str:
         return np.array2string(np.reshape(arr, np.size(arr)), separator='')
+
+    #
+    # Save the telemetry details to a csv file of the given name
+    #
+    def save(self, filename: str) -> None:
+        out_f = None
+        try:
+            out_f = open(filename, "w")
+            kys = self.__telemetry.keys()
+            for k in kys:
+                out_f.write(str(k))
+                out_f.write(",")
+                out_f.write(str(self.__telemetry[k].frequency))
+                out_f.write("\n")
+        except Exception as exc:
+            print("Failed to save telemetry to file : " + str(exc))
+        finally:
+            out_f.close()
+        return

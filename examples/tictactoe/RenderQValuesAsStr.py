@@ -35,9 +35,10 @@ class RenderQValues(RenderQVals):
             for j in range(0, 3):
                 v = qn[at]
                 if np.isinf(v):
-                    s += "[(" + "---" + "%) " + '{:+.8}'.format(q[at]) + "] "
+                    s += "[(" + "---" + "%) " + '{:+.8}'.format(qn[at]) + "] "
                 else:
-                    s += "[(" + '{:+3d}'.format(int(v)) + "%) " + '{:+.8}'.format(q[at]) + "] "
+                    s += "[(" + '{:+3d}'.format(int(cls.__nan_2_n(v, float(0)))) + "%) " + \
+                         '{:+.8}'.format(cls.__nan_2_n(q[at], float(0))) + "] "
                 at += 1
             s += "\n"
         return s
@@ -91,3 +92,14 @@ class RenderQValues(RenderQVals):
                     i += 1
 
         return q_values, q_actions
+
+    #
+    # replace NaN with a valid number
+    #
+    @classmethod
+    def __nan_2_n(cls,
+                  v,
+                  n):
+        if np.isnan(v):
+            return n
+        return v
