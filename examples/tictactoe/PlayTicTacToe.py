@@ -3,6 +3,8 @@ from random import randint
 
 import numpy as np
 
+from examples.tictactoe.TicTacToe import TicTacToe
+
 
 class PlayTicTacToe:
     __learning_rate_0 = 0.05

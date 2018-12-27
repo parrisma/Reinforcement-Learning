@@ -65,3 +65,17 @@ T
 $examples/tictactoe/TicTacToeState.py,4\e\4e7cd36a1422d69088ae68f5b334d7328a84157c
 b
 2examples/tictactoe/TicTacToeTests/TestTicTacToe.py,3\8\38346237165e279f8bfbcc7ee9cfedf322f6f624
+O
+reflrn/Interface/RenderQVals.py,5\7\57fe1ee15a461d5e058ba943be1115ac7fe4ba67
+O
+examples/tictactoe/TicTacToe.py,e\e\ee7a02b74c307f87d6a287c64a72e6e77280096e
+K
+reflrn/ActorCriticPolicy.py,e\2\e25ae0ebc40e6eb46d2324565c91c9622faa1a38
+E
+reflrn/QValNNModel.py,1\4\14b74268eef47275f5088d28cfc4adbf7ba17c48
+E
+reflrn/HumanPolicy.py,1\a\1a2ae9cad630497c1a49e3c4eed3ca13b0a74301
+X
+(examples/tictactoe/RenderQValuesAsStr.py,9\6\96034982af5d43e93390ebc1056dd595eae9c3ed
+i
+9examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py,8\5\85d2fb3a9c550a01eefb955e9012ce6cfedb6df3

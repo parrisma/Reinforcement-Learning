@@ -17,14 +17,15 @@ from reflrn.SimpleRandomPolicyWithReplayMemory import SimpleRandomPolicyWithRepl
 random.seed(42)
 np.random.seed(42)
 
-itr = 2000000
+itr = 200000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
                          [ModelParams.epsilon_decay, float(0)],
                          [ModelParams.num_actions, int(9)],
                          [ModelParams.model_file_name, 'TicTacToe-ActorCritic'],
-                         [ModelParams.verbose, int(0)]
+                         [ModelParams.verbose, int(0)],
+                         [ModelParams.num_states, int(5500)]
                          ])
 
 acp = ActorCriticPolicy(policy_params=pp,

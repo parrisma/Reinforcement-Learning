@@ -1,9 +1,10 @@
-from typing import List
+from copy import deepcopy
 from typing import Tuple
 
 import numpy as np
 
 from examples.tictactoe.RenderQValuesAsStr import RenderQValues
+from reflrn.ActorCriticPolicyTelemetry import ActorCriticPolicyTelemetry
 from reflrn.DictReplayMemory import DictReplayMemory
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.Environment import Environment
@@ -11,7 +12,6 @@ from reflrn.Interface.ModelParams import ModelParams
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.QValNNModel import QValNNModel
-from reflrn.ActorCriticPolicyTelemetry import ActorCriticPolicyTelemetry
 
 
 #
@@ -26,6 +26,9 @@ class ActorCriticPolicy(Policy):
     __cols = 3
     __num_actions = 9
     __replay_mem_size = 1000
+
+    __static_test_action_list = None  # Static list of actions for Policy testing
+    __next_test_action = 0
 
     def __init__(self,
                  lg,
@@ -48,6 +51,9 @@ class ActorCriticPolicy(Policy):
         self.epsilon = pp.get_parameter(ModelParams.epsilon)  # exploration factor.
         self.epsilon_decay = pp.get_parameter(ModelParams.epsilon_decay)
         self.gamma = pp.get_parameter(ModelParams.gamma)  # Discount Factor Applied to reward
+        self.verbose = pp.get_parameter(ModelParams.verbose)  # Verbose output from model while training.
+        self.train_every = pp.get_parameter(ModelParams.train_every)
+        self.num_states = pp.get_parameter(ModelParams.num_states)
 
         self.__training = True  # by default we train actor/critic as we take actions
         self.__train_invocations = 0
@@ -58,6 +64,9 @@ class ActorCriticPolicy(Policy):
         #
         self.__replay_memory = DictReplayMemory(lg, self.__replay_mem_size)
 
+        #
+        # Create the actor / critic NN models that will work as the function approximations for Q Vals.
+        #
         self.actor_model = QValNNModel(model_name="Actor",
                                        input_dimension=self.input_dim,
                                        num_actions=self.num_actions,
@@ -108,6 +117,18 @@ class ActorCriticPolicy(Policy):
         self.__training = False
 
     #
+    # Reset policy to be ready for start of new episode
+    #
+    def __episode_complete_reset(self) -> None:
+
+        self.episode += 1
+
+        if self.__static_test_action_list is not None:
+            self.__next_test_action = 0
+
+        return
+
+    #
     # Update the policy with respect to the state / action transition that has occurred in the environment to which
     # this policy is linked and
     #
@@ -120,14 +141,14 @@ class ActorCriticPolicy(Policy):
                       episode_complete: bool) -> None:
 
         if episode_complete:
-            self.episode += 1
+            self.__episode_complete_reset()
 
         self.__replay_memory.append_memory(state,
                                            next_state,
                                            action,
                                            reward,
                                            episode_complete)
-        self._train()
+        self._train(self.train_every)
 
     #
     # Select a random allowable action in the current state
@@ -139,13 +160,20 @@ class ActorCriticPolicy(Policy):
         return actn
 
     #
+    # Q-Value prediction of critic
+    #
+    def __critic_prediction(self,
+                            state: State):
+        return (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+
+    #
     # Predict an action based on current policy.
     #
     def __predict_action(self,
                          state: State) -> int:
         actions_allowed_in_current_state = self._env().actions(state)
         actions_not_allowed_in_current_state = self.actions_taken(actions_allowed_in_current_state)
-        qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+        qvals = self.__critic_prediction(state)
         if len(actions_not_allowed_in_current_state) > 0:
             qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
         if self.explain:
@@ -155,11 +183,28 @@ class ActorCriticPolicy(Policy):
         return actn
 
     #
+    # Select a static test action
+    #
+    def __select_static_test_action(self):
+        if self.__static_test_action_list is None:
+            raise NotImplementedError("No static test action list was defined")
+        if self.__next_test_action >= len(self.__static_test_action_list):
+            self.__next_test_action = 0
+        self.__next_test_action += 1
+        return self.__static_test_action_list[self.__next_test_action - 1]  # yes -1
+
+    #
     # Based on exploration policy and current critic model, either take a random action
     # based on setting of epsilon or use the current critical model to predict a greedy
     # action based on highest expected return.
     #
-    def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
+    def select_action(self, agent_name: str,
+                      state: State,
+                      possible_actions: [int]) -> int:
+
+        if self.__static_test_action_list is not None:
+            return self.__select_static_test_action()
+
         exp = np.random.rand()
         if exp > self.epsilon:
             # Random Exploration
@@ -178,9 +223,13 @@ class ActorCriticPolicy(Policy):
     #
     def greedy_action(self,
                       state: State) -> int:
+
+        if self.__static_test_action_list is not None:
+            return self.__select_static_test_action()
+
         qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
         actn = np.argmax(qvals)
-        return actn[0]
+        return actn
 
     def actions_taken(self,
                       actions_remaining: np.ndarray) -> np.ndarray:
@@ -206,6 +255,12 @@ class ActorCriticPolicy(Policy):
         raise NotImplementedError("Load not implemented for :" + self.__class__.__name__)
 
     #
+    # Sufficient experience to start training ?
+    #
+    def _sufficient_experience_to_start_training(self) -> bool:
+        return self.__replay_memory.len() > min(100, max(1, int(self.num_states * 0.1)))
+
+    #
     # Train the critic and then update the actor
     #
     # Only train the critic every train_every invocations
@@ -220,7 +275,7 @@ class ActorCriticPolicy(Policy):
 
         self.__train_invocations += 1
 
-        if self.__replay_memory.len() > 100:  # don't start learning until we have reasonable num of memories
+        if self._sufficient_experience_to_start_training():
             if self.__train_invocations % train_every == 0:
                 self._train_critic()
                 self.__train_invocations = 0
@@ -251,23 +306,21 @@ class ActorCriticPolicy(Policy):
     # is the end of the episode.
     #
     def _next_state_qval_prediction(self,
-                                    new_state: State) -> float:
+                                    new_state: State,
+                                    done: bool) -> float:
         qvp = 0
-        if not self._env().episode_complete(new_state):
+        if not (self._env().episode_complete(new_state) or done):
             qvn = self._actor_prediction(curr_state=new_state)
             allowable_actions = self._env().actions(new_state)
             qvp = self.gamma * np.max(qvn[allowable_actions])  # Discounted max return from next curr_coords
         return np.float(qvp)
 
     #
-    # What is the q_value (optimal) prediction given current curr_coords (state S)
+    # What is the q_value model prediction given current state S
     #
     def _curr_state_qval_prediction(self,
-                                    curr_state: State,
-                                    done: bool) -> np.ndarray:
-        qvs = np.zeros(self.num_actions)
-        if not done:
-            qvs = self._actor_prediction(curr_state=curr_state)
+                                    curr_state: State) -> np.ndarray:
+        qvs = self._actor_prediction(curr_state=curr_state)
         return qvs
 
     # Get a random set of samples from the given QValues to select_action as a test or training
@@ -284,8 +337,8 @@ class ActorCriticPolicy(Policy):
         for sample in samples:
             _, cur_state, new_state, action, reward, done = sample
             lr = self.learning_rate()
-            qvp = self._next_state_qval_prediction(new_state)
-            qvs = self._curr_state_qval_prediction(cur_state, done)
+            qvp = self._next_state_qval_prediction(new_state, done)
+            qvs = self._curr_state_qval_prediction(cur_state)
 
             qv = qvs[action]
             qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
@@ -340,12 +393,11 @@ class ActorCriticPolicy(Policy):
     #
     # The parameters needed by the Keras Model
     #
-    @classmethod
-    def _model_params(cls) -> ModelParams:
+    def _model_params(self) -> ModelParams:
         mp = GeneralModelParams([[ModelParams.learning_rate_0, 0.001],
                                  [ModelParams.learning_rate_min, 0.001],
                                  [ModelParams.batch_size, 32],
-                                 [ModelParams.verbose, 0]
+                                 [ModelParams.verbose, self.verbose]
                                  ]
                                 )
         return mp
@@ -359,7 +411,10 @@ class ActorCriticPolicy(Policy):
                                  [ModelParams.learning_rate_decay, float(0.02)],
                                  [ModelParams.epsilon, float(0.8)],
                                  [ModelParams.epsilon_decay, float(0.9995)],
-                                 [ModelParams.gamma, float(0.8)]
+                                 [ModelParams.gamma, float(0.8)],
+                                 [ModelParams.verbose, int(0)],
+                                 [ModelParams.train_every, int(100)],
+                                 [ModelParams.num_states, int(1)]  # Env Specific - should be overridden
                                  ],
                                 )
         return pp
@@ -393,9 +448,33 @@ class ActorCriticPolicy(Policy):
         return self.__explain
 
     @explain.setter
-    def explain(self, value: bool):
+    def explain(self,
+                value: bool) -> None:
+        if value is None:
+            raise ValueError()
         if type(value) != bool:
             raise TypeError("explain property is type bool cannot not [" + type(value).__name__ + "]")
         self.__explain = value
         self.actor_model.explain = self.__explain
         self.critic_model.explain = self.__explain
+
+    #
+    # Define static list of (rolling) test actions
+    #
+    @property
+    def static_test_action_list(self) -> list:
+        return self.__static_test_action_list
+
+    @static_test_action_list.setter
+    def static_test_action_list(self,
+                                value: list) -> None:
+        if value is None:
+            raise ValueError()
+        if len(value) == 0:
+            raise ValueError("Test action list must be list of one or more actions")
+        if not (type(value) == list or type(value) == tuple):
+            raise TypeError("test action list property must be of type list/tuple not [" + type(
+                value).__name__ + "]")
+
+        self.__static_test_action_list = deepcopy(value)
+        self.__next_test_action = 0

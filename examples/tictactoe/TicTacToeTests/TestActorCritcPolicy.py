@@ -1,20 +1,32 @@
 import logging
+import random
 import unittest
 
 import numpy as np
 
 from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
+from examples.tictactoe.TicTacToeState import TicTacToeState
 from examples.tictactoe.TicTacToeTests.TestState import TestState
 from reflrn.ActorCriticPolicy import ActorCriticPolicy
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.ModelParams import ModelParams
+from reflrn.PureRandomExploration import PureRandomExploration
 from .TestAgent import TestAgent
 
 lg = EnvironmentLogging("TestActorCriticPolicy", "TestActorCriticPolicy.log", logging.INFO).get_logger()
 
 
 class TestActorCriticPolicy(unittest.TestCase):
+
+    #
+    # Try to ensure tests are repeatable
+    #
+    @classmethod
+    def setUpClass(cls):
+        np.random.seed(42)
+        random.seed(42)
 
     #
     # Just construct a policy and ensure no exceptions are thrown
@@ -37,7 +49,10 @@ class TestActorCriticPolicy(unittest.TestCase):
         ttt = TicTacToe(agent_x, agent_o, None)
 
         pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
-                                 [ModelParams.epsilon_decay, float(0)]
+                                 [ModelParams.epsilon_decay, float(0)],
+                                 [ModelParams.verbose, int(2)],
+                                 [ModelParams.train_every, int(100)],
+                                 [ModelParams.num_states, int(50)]
                                  ])
 
         acp = ActorCriticPolicy(env=ttt,
@@ -82,7 +97,66 @@ class TestActorCriticPolicy(unittest.TestCase):
             pred_actn = acp.greedy_action(state=TestState(st=(dt[k])[0], shp=(1, 9)))
             if (dt[k])[1] == pred_actn:
                 ok += 1
-        self.assertGreater((ok / len(dt)), 0.98)
+        self.assertGreater((ok / len(dt)), 0.95)
+        return
+
+    #
+    # Test the discounting (reward attribution) by playing many runs of the same game
+    #
+    def test_discounting(self):
+
+        iterations = 1000
+
+        acp_x = ActorCriticPolicy(policy_params=self.default_model_params(num_states=8),
+                                  lg=lg)
+        acp_x.static_test_action_list = (0, 2, 6, 5)
+
+        agent_x = TicTacToeAgent(1,
+                                 "X",
+                                 acp_x,
+                                 epsilon_greedy=0,  # has no impact as static actions defined
+                                 exploration_play=PureRandomExploration(),  # has no impact as static actions defined
+                                 lg=lg)
+
+        acp_o = ActorCriticPolicy(policy_params=self.default_model_params(num_states=8),
+                                  lg=lg)
+        acp_o.static_test_action_list = (8, 1, 7, 4)
+
+        agent_o = TicTacToeAgent(-1,
+                                 "O",
+                                 acp_o,
+                                 epsilon_greedy=0,  # has no impact as static actions defined
+                                 exploration_play=PureRandomExploration(),  # has no impact as static actions defined
+                                 lg=lg)
+
+        game = TicTacToe(agent_x, agent_o, lg)
+        acp_o.link_to_env(game)
+        acp_x.link_to_env(game)
+        acp_o.explain = False
+        acp_x.explain = False
+
+        lqv = 0
+        for j in range(0, iterations):
+            game.run(100)
+
+            s2 = TicTacToeState(np.array((1,
+                                          -1,
+                                          1,
+                                          np.nan,
+                                          np.nan,
+                                          1,
+                                          1,
+                                          -1,
+                                          -1)),
+                                agent_x, agent_o)
+
+            qv = acp_x._ActorCriticPolicy__critic_prediction(s2)
+            # lg.info(qv)
+            qvm = max(qv)
+            if qvm != lqv:
+                lg.info(qvm)
+            lqv = qvm
+
         return
 
     #
@@ -119,6 +193,20 @@ class TestActorCriticPolicy(unittest.TestCase):
                           bstr: str) -> np.array:
         npa = np.array(list(map(float, bstr)))
         return npa
+
+    #
+    # Model parameter defaults for testing
+    #
+    @classmethod
+    def default_model_params(cls,
+                             num_states: int = 5500) -> GeneralModelParams:
+        return GeneralModelParams([[ModelParams.epsilon, float(1)],
+                                   [ModelParams.epsilon_decay, float(0)],
+                                   [ModelParams.num_actions, int(9)],
+                                   [ModelParams.model_file_name, 'TicTacToe-ActorCritic'],
+                                   [ModelParams.verbose, int(0)],
+                                   [ModelParams.num_states, num_states]
+                                   ])
 
 
 #

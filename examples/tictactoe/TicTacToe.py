@@ -13,8 +13,8 @@ class TicTacToe(Environment):
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
-    __play = float(-0.1)  # reward for playing an action
-    __draw = float(-10.0)  # reward for playing to end but no one wins
+    __play = float(0)  # reward for playing an action
+    __draw = float(0)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
     __no_agent = None
     __win_mask = np.full((1, 3), 3, np.int8)
@@ -31,6 +31,7 @@ class TicTacToe(Environment):
     attribute_board = (
         "board", "The game board as a numpy array (3,3), np.nan => no move else the id of the agent", np.array)
     __episode = 'episode number'
+    __random_turns = True
 
     #
     # Constructor has no arguments as it just sets the game
@@ -154,7 +155,11 @@ class TicTacToe(Environment):
             state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
             self.__x_agent.episode_init(state)
             self.__o_agent.episode_init(state)
-            agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
+
+            if self.__random_turns:
+                agent = (self.__x_agent, self.__o_agent)[randint(0, 1)]
+            else:
+                agent = self.__x_agent
 
             while not self.episode_complete():
                 state = TicTacToeState(self.__board, self.__x_agent, self.__o_agent)
@@ -391,3 +396,18 @@ class TicTacToe(Environment):
     class IllegalActorAction(Exception):
         def __init__(self, *args, **kwargs):
             Exception.__init__(self, *args, **kwargs)
+
+    #
+    # Randomise Player Turns, if not Random then player X always goes first
+    #
+    @property
+    def random_player_turns(self) -> bool:
+        return self.__random_turns
+
+    @random_player_turns.setter
+    def random_player_turns(self,
+                            value: bool) -> None:
+        if type(value) != bool:
+            raise TypeError("Player turns is boolean cannot not be type [" + type(value).__name__ + "]")
+        self.__random_turns = value
+        return

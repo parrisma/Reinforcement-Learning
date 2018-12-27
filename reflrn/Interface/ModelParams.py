@@ -19,6 +19,8 @@ class ModelParams(metaclass=abc.ABCMeta):
     num_actions = 'num_actions'
     model_file_name = 'model_file_name'
     verbose = 'verbose'
+    num_states = 'num_states'
+    train_every = ' train_every'
 
     #
     # Getter Methods For model parameters
