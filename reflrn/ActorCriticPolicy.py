@@ -53,6 +53,7 @@ class ActorCriticPolicy(Policy):
         self.gamma = pp.get_parameter(ModelParams.gamma)  # Discount Factor Applied to reward
         self.verbose = pp.get_parameter(ModelParams.verbose)  # Verbose output from model while training.
         self.train_every = pp.get_parameter(ModelParams.train_every)
+        self.save_every = 1000
         self.num_states = pp.get_parameter(ModelParams.num_states)
 
         self.__training = True  # by default we train actor/critic as we take actions
@@ -248,7 +249,9 @@ class ActorCriticPolicy(Policy):
              filename: str = None
              ) -> None:
         # Save the telemetry data
-        self.__telemetry.save(filename)
+        self.__telemetry.save(filename + '.tlm')
+        self.actor_model.save(filename + '_actor.pb')
+        self.critic_model.save(filename + '_critic.pb')
 
     #
     # Load the Policy from a persisted copy
@@ -286,6 +289,9 @@ class ActorCriticPolicy(Policy):
             if self.episode % update_every == 0 and self.__trained:
                 self._update_actor_from_critic()
                 self.__trained = False  # No need to update unless model has trained since last update
+
+            if self.episode % self.save_every == 0:
+                self.save("ActorCriticPolicy")
         return
 
     #

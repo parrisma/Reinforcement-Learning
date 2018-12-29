@@ -13,8 +13,8 @@ class TicTacToe(Environment):
     # There are 5812 legal board states that can be reached before there is a winner
     # http://brianshourd.com/posts/2012-11-06-tilt-number-of-tic-tac-toe-boards.html
 
-    __play = float(0)  # reward for playing an action
-    __draw = float(0)  # reward for playing to end but no one wins
+    __play = float(-1)  # reward for playing an action
+    __draw = float(-10)  # reward for playing to end but no one wins
     __win = float(100)  # reward for winning a game
     __no_agent = None
     __win_mask = np.full((1, 3), 3, np.int8)

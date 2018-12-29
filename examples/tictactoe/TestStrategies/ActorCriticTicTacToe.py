@@ -17,8 +17,8 @@ from reflrn.PureRandomExploration import PureRandomExploration
 
 random.seed(42)
 np.random.seed(42)
-
-itr = 1000000
+5
+itr = 20000000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(.80)],
@@ -55,8 +55,6 @@ srp.link_to_env(game)
 acp.explain = False
 srp.explain = False
 game.run(itr)
-
-acp.save("./acp.csv")
 
 lg.level = logging.DEBUG
 itr = 100
