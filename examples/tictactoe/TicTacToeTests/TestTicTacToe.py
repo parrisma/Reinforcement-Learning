@@ -1,6 +1,9 @@
 import unittest
 
+import numpy as np
+
 from examples.tictactoe.TicTacToe import TicTacToe
+from examples.tictactoe.TicTacToeState import TicTacToeState
 from .TestAgent import TestAgent
 
 
@@ -52,3 +55,53 @@ class TestTicTacToe(unittest.TestCase):
             ttt.import_state(test_case)
             self.assertEqual(ttt.export_state(), test_case)
 
+    def test_tic_tac_toe_state(self):
+        ao = TestAgent(1, "O")
+        ax = TestAgent(-1, "X")
+        id_o = ao.id()
+        id_x = ax.id()
+        test_cases = [(np.array([np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan])),
+                      (np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])),
+                      (np.array([id_o, id_o, id_o, id_o, id_o, id_o, id_o, id_o, id_o])),
+                      (np.array([id_x, id_x, id_x, id_x, id_x, id_x, id_x, id_x, id_x])),
+                      (np.array([id_x, id_o, id_x, id_o, id_x, id_o, id_x, id_o, id_x])),
+                      (np.array([id_o, id_x, id_o, id_x, id_o, id_x, id_o, id_x, id_o])),
+                      (np.array([id_x, 0, id_o, id_x, 0, id_x, np.inf, np.nan, id_o])),
+                      (np.array([[id_x, 0, id_o], [id_x, 0, id_x], [np.inf, np.nan, id_o]]))
+                      ]
+        expected_inv = [(np.array([np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan])),
+                        (np.array([0, 0, 0, 0, 0, 0, 0, 0, 0])),
+                        (np.array([id_x, id_x, id_x, id_x, id_x, id_x, id_x, id_x, id_x])),
+                        (np.array([id_o, id_o, id_o, id_o, id_o, id_o, id_o, id_o, id_o])),
+                        (np.array([id_o, id_x, id_o, id_x, id_o, id_x, id_o, id_x, id_o])),
+                        (np.array([id_x, id_o, id_x, id_o, id_x, id_o, id_x, id_o, id_x])),
+                        (np.array([id_o, 0, id_x, id_o, 0, id_o, np.inf, np.nan, id_x])),
+                        (np.array([[id_o, 0, id_x], [id_o, 0, id_o], [np.inf, np.nan, id_x]]))
+                        ]
+        for case, expected1 in zip(test_cases, expected_inv):
+            tts = TicTacToeState(board=case, agent_o=ao, agent_x=ax)
+            self.assertTrue(tts.state() is not case)  # we expect State to deep-copy the input
+            self.assertTrue(self.__np_eq(tts.state(), case))
+            self.assertTrue(self.__np_eq(tts.invert_player_perspective().state(), expected1))
+        return
+
+    #
+    # Are the given arrays equal shape and element by element content. We allows nan = nan as equal.
+    #
+    @classmethod
+    def __np_eq(cls,
+                npa1: np.array,
+                npa2: np.array) -> bool:
+        if np.shape(npa1) != np.shape(npa2):
+            return False
+        v1 = np.reshape(npa1, np.size(npa1))
+        v2 = np.reshape(npa2, np.size(npa2))
+
+        for vl, vr in np.stack((v1, v2), axis=-1):
+            if np.isnan(vl):
+                if np.isnan(vl) != np.isnan(vr):
+                    return False
+            else:
+                if vl != vr:
+                    return False
+        return True

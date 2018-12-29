@@ -59,6 +59,8 @@ class ActorCriticPolicy(Policy):
         self.__train_invocations = 0
         self.__trained = False
 
+        self.__explore = True
+
         #
         # Replay memory needed to model a stationary target.
         #
@@ -206,7 +208,7 @@ class ActorCriticPolicy(Policy):
             return self.__select_static_test_action()
 
         exp = np.random.rand()
-        if exp > self.epsilon:
+        if exp > self.__epsilon():
             # Random Exploration
             actn = self.__random_action(state)
             if actn not in self._env().actions(state):
@@ -302,8 +304,8 @@ class ActorCriticPolicy(Policy):
         return p
 
     #
-    # What is the optimal QVal prediction for next curr_coords S'. Return zero if next curr_coords
-    # is the end of the episode.
+    # The projected reward if for taking greedy actions until the end of the episode.
+    # However, if this is a terminal state by definition the best possible reward is always zero.
     #
     def _next_state_qval_prediction(self,
                                     new_state: State,
@@ -312,15 +314,19 @@ class ActorCriticPolicy(Policy):
         if not (self._env().episode_complete(new_state) or done):
             qvn = self._actor_prediction(curr_state=new_state)
             allowable_actions = self._env().actions(new_state)
-            qvp = self.gamma * np.max(qvn[allowable_actions])  # Discounted max return from next curr_coords
+            qvp = np.max(qvn[allowable_actions])  # Greedy reward from current state
         return np.float(qvp)
 
     #
-    # What is the q_value model prediction given current state S
+    # What is the q_value model prediction given current state S, by definition of this is a
+    # terminal state all rewards are zero.
     #
     def _curr_state_qval_prediction(self,
-                                    curr_state: State) -> np.ndarray:
-        qvs = self._actor_prediction(curr_state=curr_state)
+                                    curr_state: State,
+                                    done: bool) -> np.ndarray:
+        qvs = np.zeros(self.num_actions)
+        if not done:
+            qvs = self._actor_prediction(curr_state=curr_state)
         return qvs
 
     # Get a random set of samples from the given QValues to select_action as a test or training
@@ -338,10 +344,11 @@ class ActorCriticPolicy(Policy):
             _, cur_state, new_state, action, reward, done = sample
             lr = self.learning_rate()
             qvp = self._next_state_qval_prediction(new_state, done)
-            qvs = self._curr_state_qval_prediction(cur_state)
+            qvs = self._curr_state_qval_prediction(cur_state, done)
 
-            qv = qvs[action]
-            qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
+            # qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
+            qv = reward + (self.gamma * qvp)  # updated expectation of current state/action
+
             qvs[action] = qv
 
             x[i] = (cur_state.state_as_array()).reshape(1, self.num_actions)
@@ -389,6 +396,21 @@ class ActorCriticPolicy(Policy):
                 loss = scores
             print("Loss: {}".format(loss))
         return loss
+
+    #
+    # Indirection to exploration factor so we can turn exploration on/off so when we play
+    # we only play greedy actions.
+    #
+    def __epsilon(self) -> float:
+        if not self.__explore:
+            return float(1)
+        return self.epsilon
+
+    def exploration_on(self) -> None:
+        self.__explore = True
+
+    def exploration_off(self) -> None:
+        self.__explore = False
 
     #
     # The parameters needed by the Keras Model

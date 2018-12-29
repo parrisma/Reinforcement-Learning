@@ -22,12 +22,38 @@ class TicTacToeState(State):
         self.__agents[self.__x_id] = self.__x_name
         self.__agents[self.__o_id] = self.__o_name
         self.__unused = self.__o_id + self.__x_id
+        self.__agent_x = agent_x
+        self.__agent_o = agent_o
 
     #
     # An environment specific representation for Env. State
     #
     def state(self) -> object:
         return np.copy(self.__board)
+
+    #
+    # Return the id of the other agent
+    #
+    def __other(self,
+                agent_id: int) -> int:
+        if agent_id == self.__x_id:
+            return self.__o_id
+        elif agent_id == self.__o_id:
+            return self.__x_id
+        return agent_id
+
+    #
+    # Return a new state with an invert the player perspective of the board.
+    #
+    def invert_player_perspective(self) -> State:
+        brd = np.copy(self.__board)
+        shp = brd.shape
+        brd = np.reshape(brd, np.size(brd))
+        brd = np.array([self.__other(x) for x in brd])
+        brd = np.reshape(brd, shp)
+        return TicTacToeState(board=brd,
+                              agent_x=self.__agent_x,
+                              agent_o=self.__agent_o)
 
     #
     # An string representation of the environment curr_coords

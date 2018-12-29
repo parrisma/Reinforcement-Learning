@@ -240,7 +240,11 @@ class TicTacToe(Environment):
             attributes = self.attributes()
             if attributes[self.attribute_won[0]]:
                 agent.reward(state, next_state, action, self.__win, True)
-                other_agent.reward(state, next_state, action, self.__win, True)
+                other_agent.reward(state, next_state, action, self.__win, False)  # block not win
+                si = state.invert_player_perspective()
+                nsi = next_state.invert_player_perspective()
+                agent.reward(si, nsi, action, self.__win, False)  # block not win
+                other_agent.reward(si, nsi, action, self.__win, True)
                 return None  # episode complete - no next agent to go
             if attributes[self.attribute_draw[0]]:
                 agent.reward(state, next_state, action, self.__draw, True)
