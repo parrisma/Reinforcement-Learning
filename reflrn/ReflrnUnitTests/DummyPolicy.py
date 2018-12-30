@@ -1,8 +1,10 @@
+from reflrn.Interface.Environment import Environment
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 
 
 class DummyPolicy(Policy):
+
     def update_policy(self, agent_name: str, state: State, next_state: State, action: int, reward: float,
                       episode_complete: bool) -> None:
         pass
@@ -15,3 +17,10 @@ class DummyPolicy(Policy):
 
     def load(self, filename: str = None):
         pass
+
+    def link_to_env(self, env: Environment) -> None:
+        pass
+
+    @property
+    def explain(self) -> bool:
+        return False

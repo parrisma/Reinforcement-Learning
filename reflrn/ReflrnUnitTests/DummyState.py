@@ -1,3 +1,5 @@
+import numpy as np
+
 from reflrn.Interface.State import State
 
 
@@ -11,3 +13,6 @@ class DummyState(State):
 
     def state_as_string(self) -> str:
         return self.__state_as_str
+
+    def state_as_array(self) -> np.ndarray:
+        raise NotImplementedError("state_as_array not implemented for this test DummyState class")
