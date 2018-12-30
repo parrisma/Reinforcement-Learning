@@ -1,10 +1,10 @@
 import logging
 
+from examples.gridworld.RenderGridWorldAgentExplorationMemory import RenderGridWorldAgentExplorationMemory
 from reflrn.AgentExplorationMemory import AgentExplorationMemory
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.ExplorationStrategy import ExplorationStrategy
 from reflrn.Interface.State import State
-from examples.gridworld.RenderGridWorldAgentExplorationMemory import RenderGridWorldAgentExplorationMemory
 
 
 class GridWorldAgent(Agent):
@@ -115,3 +115,7 @@ class GridWorldAgent(Agent):
                                       reward=reward,
                                       episode_complete=episode_complete)
         return
+
+    @property
+    def explain(self) -> bool:
+        False

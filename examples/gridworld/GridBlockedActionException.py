@@ -1,4 +1,4 @@
-from .IllegalGridMoveException import IllegalGridMoveException
+from examples.gridworld.exceptions.IllegalGridMoveException import IllegalGridMoveException
 
 
 class GridBlockedActionException(IllegalGridMoveException):

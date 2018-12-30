@@ -7,7 +7,7 @@ from keras.callbacks import LearningRateScheduler
 from keras.layers import Dense, Activation
 from keras.models import Sequential
 
-from examples.gridworld.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
+from examples.gridworld.exceptions.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
 from reflrn.Interface.Model import Model
 
 

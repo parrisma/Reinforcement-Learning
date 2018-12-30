@@ -7,7 +7,7 @@ from reflrn.Interface.Environment import Environment
 from reflrn.Interface.State import State
 from .Grid import Grid
 from .GridWorldState import GridWorldState
-from .IllegalGridMoveException import IllegalGridMoveException
+from examples.gridworld.exceptions.IllegalGridMoveException import IllegalGridMoveException
 
 
 class GridWorld(Environment):

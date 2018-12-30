@@ -9,6 +9,10 @@ from reflrn.Interface.ExplorationMemory import ExplorationMemory
 from reflrn.Interface.RenderExplorationMemories import RenderExplorationMemory
 
 
+#
+# Render GridWorld Agent memory as plot (graphical) or string .. for visualisation and debugging.
+#
+
 class RenderGridWorldAgentExplorationMemory(RenderExplorationMemory):
     __plot_pause = 0.0001
 
@@ -35,7 +39,7 @@ class RenderGridWorldAgentExplorationMemory(RenderExplorationMemory):
             self.__episode_memory.append([s, ep_cost])
 
         if self.__do_plot:
-            #self.plot()
+            # self.plot()
             pass
 
         return s

@@ -8,6 +8,8 @@ dumps/*
 **/temp/*
 **/*.keras
 **/*.log
+**/*.tlm
+**/*.pb
 *HelloWorld*.*
 *house*.*
 .idea/sonarlint/issuestore/*
