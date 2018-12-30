@@ -17,9 +17,11 @@ from reflrn.PureRandomExploration import PureRandomExploration
 
 random.seed(42)
 np.random.seed(42)
-5
+
 itr = 20000000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
+
+load = True
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(.80)],
                          [ModelParams.epsilon_decay, float(0)],
@@ -31,6 +33,8 @@ pp = GeneralModelParams([[ModelParams.epsilon, float(.80)],
 
 acp = ActorCriticPolicy(policy_params=pp,
                         lg=lg)
+if load:
+    acp.load('ActorCriticPolicy')
 
 agent_x = TicTacToeAgent(1,
                          "X",
@@ -49,12 +53,13 @@ agent_o = TicTacToeAgent(-1,
                          exploration_play=PureRandomExploration(),
                          lg=lg)
 
-game = TicTacToe(agent_x, agent_o, lg)
-acp.link_to_env(game)
-srp.link_to_env(game)
-acp.explain = False
-srp.explain = False
-game.run(itr)
+if not load:
+    game = TicTacToe(agent_x, agent_o, lg)
+    acp.link_to_env(game)
+    srp.link_to_env(game)
+    acp.explain = False
+    srp.explain = False
+    game.run(itr)
 
 lg.level = logging.DEBUG
 itr = 100
@@ -67,6 +72,7 @@ agent_h = TicTacToeAgent(-1,
                          lg=lg)
 
 game2 = TicTacToe(agent_x, agent_h, lg)
+acp.link_to_env(game2)
 hum.link_to_env(game2)
 acp.explain = True
 acp.exploration_off()

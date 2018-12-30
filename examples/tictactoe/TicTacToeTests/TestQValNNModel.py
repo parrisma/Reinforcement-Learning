@@ -102,7 +102,8 @@ class TestQValNNModel(unittest.TestCase):
         return x, y
 
     # Select a random set of test data
-    def random_test_data_batch(self, x, y, n: int):
+    @classmethod
+    def random_test_data_batch(cls, x, y, n: int):
         indices = np.random.choice(np.shape(x)[0], min(np.shape(x)[0], n), replace=False)
         xr = x[indices]
         yr = y[indices]

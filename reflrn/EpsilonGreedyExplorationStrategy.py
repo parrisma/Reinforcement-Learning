@@ -11,7 +11,7 @@ from reflrn.Interface.State import State
 class EpsilonGreedyExplorationStrategy(ExplorationStrategy):
 
     #
-    # This is teh simple epsilon greedy strategy the flips between a greedy action
+    # This is the simple epsilon greedy strategy the flips between a greedy action
     # and a random action when a random variable is above a given threshold (epsilon)
     #
     def __init__(self,

@@ -42,7 +42,7 @@ class HumanPolicy(Policy):
         print("-")
         print(state.state_as_array())
         print("-")
-        input_request = "Make you move selection as agent: " + self.__agent_name + " from possible actions ("
+        input_request = "Make your move selection as agent: " + self.__agent_name + " from possible actions ("
         for mv in possible_actions:
             input_request += str(mv + 1) + ", "
         input_request += "): "

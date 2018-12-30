@@ -1,3 +1,4 @@
+import os
 from copy import deepcopy
 from typing import Tuple
 
@@ -248,16 +249,27 @@ class ActorCriticPolicy(Policy):
     def save(self,
              filename: str = None
              ) -> None:
-        # Save the telemetry data
-        self.__telemetry.save(filename + '.tlm')
-        self.actor_model.save(filename + '_actor.pb')
-        self.critic_model.save(filename + '_critic.pb')
+        try:
+            # Save the telemetry data & Model Data
+            self.__telemetry.save(filename + '.tlm')
+            self.actor_model.save(filename + '_actor.pb')
+            self.critic_model.save(filename + '_critic.pb')
+        except Exception as exc:  # report but ignore error
+            err = "Failed to save ActorCriticPolicy to file [" + filename + ": " + str(exc)
+            self.lg.error(err)
+        return
 
     #
     # Load the Policy from a persisted copy
     #
     def load(self, filename: str = None) -> None:
-        raise NotImplementedError("Load not implemented for :" + self.__class__.__name__)
+        if filename is not None and len(filename) > 0:
+            if os.path.isfile(filename + '_actor.pb') and os.path.isfile(filename + '_critic.pb'):
+                self.actor_model.load(filename + '_actor.pb')
+                self.critic_model.load(filename + '_critic.pb')
+            else:
+                raise ValueError("Cannot load model files given filename root :" + filename)
+        return
 
     #
     # Sufficient experience to start training ?
@@ -291,7 +303,7 @@ class ActorCriticPolicy(Policy):
                 self.__trained = False  # No need to update unless model has trained since last update
 
             if self.episode % self.save_every == 0:
-                self.save("ActorCriticPolicy")
+                self.save("ActorCriticPolicy1")
         return
 
     #
