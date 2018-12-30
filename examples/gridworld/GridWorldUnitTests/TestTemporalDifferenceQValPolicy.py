@@ -3,7 +3,7 @@ import unittest
 
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 from reflrn.TemporalDifferenceQValPolicy import TemporalDifferenceQValPolicy
-from examples.gridworld.TestRigs.GridFactory import GridFactory
+from examples.gridworld.GridWorldUnitTests.GridFactory import GridFactory
 from examples.gridworld.GridWorldState import GridWorldState
 from examples.gridworld.GridWorldAgent import GridWorldAgent
 

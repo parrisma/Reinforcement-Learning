@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 import tensorflow as tf
 
-from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
+from examples.gridworld.GridWorldQValNNModel import GridWorldQValNNModel
 from reflrn.TemporalDifferenceQValPolicyPersistance import TemporalDifferenceQValPolicyPersistance
 from reflrn.EnvironmentLogging import EnvironmentLogging
 

@@ -278,7 +278,7 @@ def main():
                 s = ""
                 for j in range(0, 4):
                     st = np.array([i, j]).reshape((1, env_observation_space_shape[0]))
-                    s += str(actor_critic.critic_model.predict(st)[0])
+                    s += str(actor_critic.critic_model.predict(st[0]))
                     s += ' , '
                 print(s)
 

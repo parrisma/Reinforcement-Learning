@@ -7,7 +7,8 @@ from keras.callbacks import LearningRateScheduler
 from keras.layers import Dense, Activation
 from keras.models import Sequential
 
-from examples.gridworld.exceptions.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
+from examples.gridworld.exceptions.CannotCloneWeightsOfDifferentModelException import \
+    CannotCloneWeightsOfDifferentModelException
 from reflrn.Interface.Model import Model
 
 
@@ -193,3 +194,7 @@ class GridWorldQValNNModel(Model):
             pass
         self.__model = model
         return
+
+    @property
+    def explain(self) -> bool:
+        False

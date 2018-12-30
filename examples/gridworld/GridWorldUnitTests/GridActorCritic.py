@@ -7,7 +7,7 @@ import numpy as np
 
 from examples.gridworld.Grid import Grid
 from examples.gridworld.SimpleGridOne import SimpleGridOne
-from examples.gridworld.TestRigs.GridWorldQValNNModel import GridWorldQValNNModel
+from examples.gridworld.GridWorldQValNNModel import GridWorldQValNNModel
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.RareEventBiasReplayMemory import RareEventBiasReplayMemory
 

@@ -5,8 +5,8 @@ from typing import List
 import numpy as np
 
 from .Grid import Grid
-from .GridBlockedActionException import GridBlockedActionException
-from .GridEpisodeOverException import GridEpisodeOverException
+from examples.gridworld.exceptions.GridBlockedActionException import GridBlockedActionException
+from examples.gridworld.exceptions.GridEpisodeOverException import GridEpisodeOverException
 
 
 #

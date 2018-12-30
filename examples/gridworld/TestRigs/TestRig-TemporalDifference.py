@@ -6,7 +6,7 @@ import numpy as np
 from examples.gridworld.GridWorld import GridWorld
 from examples.gridworld.GridWorldAgent import GridWorldAgent
 from examples.gridworld.RenderSimpleGridOneQValues import RenderSimpleGridOneQValues
-from examples.gridworld.TestRigs.GridFactory import GridFactory
+from examples.gridworld.GridWorldUnitTests.GridFactory import GridFactory
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.EpsilonGreedyExplorationStrategy import EpsilonGreedyExplorationStrategy
 from reflrn.RandomPolicy import RandomPolicy

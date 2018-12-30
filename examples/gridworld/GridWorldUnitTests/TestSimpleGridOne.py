@@ -1,7 +1,7 @@
 import unittest
 
-from examples.gridworld.GridBlockedActionException import GridBlockedActionException
-from examples.gridworld.GridEpisodeOverException import GridEpisodeOverException
+from examples.gridworld.exceptions.GridBlockedActionException import GridBlockedActionException
+from examples.gridworld.exceptions.GridEpisodeOverException import GridEpisodeOverException
 from examples.gridworld.SimpleGridOne import SimpleGridOne
 
 
