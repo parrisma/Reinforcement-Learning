@@ -3,8 +3,7 @@ from random import randint
 
 import numpy as np
 
-from reflrn.EvaluationException import EvaluationException
-from reflrn.FixedGames import FixedGames
+from reflrn.exceptions.EvaluationException import EvaluationException
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.RenderQVals import RenderQVals
 from reflrn.Interface.State import State
@@ -24,7 +23,6 @@ class TemporalDifferenceQValPolicy(Policy):
     __learning_rate_0 = float(1.0)
     __discount_factor = float(0.8)
     __learning_rate_decay = float(0.05)
-    __fixed_games = None  # a class that allows canned games to be played
     __rand_qval_init = True
 
     #
@@ -34,7 +32,6 @@ class TemporalDifferenceQValPolicy(Policy):
     def __init__(self,
                  lg: logging,
                  filename: str = None,
-                 fixed_games: FixedGames = None,
                  load_qval_file: bool = False,
                  manage_qval_file: bool = False,
                  save_every: int = 5000,
@@ -43,7 +40,6 @@ class TemporalDifferenceQValPolicy(Policy):
         self.__filename = filename
         self.__persistance = TemporalDifferenceQValPolicyPersistance()
         self.__persistance.enable_csv_file_save()
-        self.__fixed_games = fixed_games
         self.__manage_qval_file = manage_qval_file
         self.__save_every = save_every  # how often do we dump down the q value file if save is enabled.
         self.__q_val_render = q_val_render
@@ -191,9 +187,6 @@ class TemporalDifferenceQValPolicy(Policy):
     # equal strength.
     #
     def select_action(self, agent_name: str, state: State, possible_actions: [int]) -> int:
-
-        if self.__fixed_games is not None:
-            return self.__fixed_games.next_action()
 
         qvs, actions = self.__get_q_vals_as_np_array(state)
 

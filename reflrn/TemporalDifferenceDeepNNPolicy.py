@@ -10,7 +10,7 @@ from keras.layers import Dense
 from keras.models import Sequential
 
 from reflrn.EnvironmentLogging import EnvironmentLogging
-from reflrn.EvaluationException import EvaluationException
+from reflrn.exceptions.EvaluationException import EvaluationException
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.TemporalDifferenceDeepNNPolicyPersistance import TemporalDifferenceDeepNNPolicyPersistance

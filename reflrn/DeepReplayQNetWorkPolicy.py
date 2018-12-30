@@ -3,7 +3,7 @@ from random import randint
 
 import numpy as np
 
-from reflrn.EvaluationException import EvaluationException
+from reflrn.exceptions.EvaluationException import EvaluationException
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 

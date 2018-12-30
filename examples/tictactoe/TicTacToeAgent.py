@@ -1,7 +1,7 @@
 import logging
 import random
 
-from reflrn import EvaluationException
+from reflrn.exceptions import EvaluationException
 from reflrn.Interface.Agent import Agent
 from reflrn.Interface.ExplorationPlay import ExplorationPlay
 from reflrn.Interface.Policy import Policy

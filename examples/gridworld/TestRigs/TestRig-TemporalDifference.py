@@ -29,7 +29,6 @@ sh = test_grid.shape()
 epsilon_greedy_strategy = EpsilonGreedyExplorationStrategy(
     greedy_policy=TemporalDifferenceQValPolicy(lg=lg,
                                                filename="./gridworld-tmpr-diff.pb",
-                                               fixed_games=None,
                                                manage_qval_file=True,
                                                load_qval_file=False,
                                                save_every=100,
