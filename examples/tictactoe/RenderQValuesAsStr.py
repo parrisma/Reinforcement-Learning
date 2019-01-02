@@ -21,6 +21,24 @@ class RenderQValues(RenderQVals):
         return qn
 
     #
+    # Render QVals as flat array
+    #
+    @classmethod
+    def render_simple(cls,
+                      q_vals: np.array
+                      ) -> str:
+        q = np.reshape(np.copy(q_vals), (np.size(q_vals)))
+        s = str()
+        for i in range(0, np.size(q)):
+            v = q[i]
+            if np.isinf(v):
+                s += "[(" + "---" + "%) " + '{:+.8}'.format(v) + "] "
+            else:
+                s += "[(" + '{:+.8}'.format(cls.__nan_2_n(v, float(0))) + ") "
+        s += "\n"
+        return s
+
+    #
     # render qval array as string
     #
     @classmethod

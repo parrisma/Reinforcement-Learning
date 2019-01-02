@@ -8,7 +8,7 @@ from examples.tictactoe.TicTacToe import TicTacToe
 from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
 from examples.tictactoe.TicTacToeState import TicTacToeState
 from examples.tictactoe.TicTacToeTests.TestState import TestState
-from reflrn.ActorCriticPolicy import ActorCriticPolicy
+from reflrn.ActorCriticPolicyTDQVal import ActorCriticPolicy
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.ModelParams import ModelParams

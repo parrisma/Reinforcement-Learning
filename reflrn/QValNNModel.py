@@ -4,11 +4,10 @@ from pathlib import Path
 import keras
 import numpy as np
 from keras.callbacks import LearningRateScheduler
-from keras.layers import Dense, Activation
-from keras.models import Sequential
 
 from reflrn.Interface.Model import Model
 from reflrn.Interface.ModelParams import ModelParams
+from reflrn.Interface.NeuralNetwork import NeuralNetwork
 from reflrn.exceptions.CannotCloneWeightsOfDifferentModelException import CannotCloneWeightsOfDifferentModelException
 
 
@@ -25,6 +24,7 @@ class QValNNModel(Model):
                  model_name: str,
                  input_dimension: int,
                  num_actions: int,
+                 network: NeuralNetwork,
                  lg: logging,
                  model_params: ModelParams):
         self.__lg = lg
@@ -45,6 +45,8 @@ class QValNNModel(Model):
         self.__explain = None
         self.explain = False
 
+        self.__nn = network
+
         return
 
     #
@@ -53,21 +55,7 @@ class QValNNModel(Model):
     # actions and specified input dimension.
     #
     def new_model(self):
-        model = Sequential()
-        # One Input Layer
-        # Three Hidden Layers
-        # Output layer has no activation as this a a QVal regression net.
-        #
-        model.add(Dense(25, input_dim=self.__input_dimension, kernel_initializer='he_uniform'))
-        model.add(Activation('relu'))
-        model.add(Dense(50, kernel_initializer='he_uniform'))
-        model.add(Activation('relu'))
-        model.add(Dense(100, kernel_initializer='he_uniform'))
-        model.add(Activation('relu'))
-        model.add(Dense(200, kernel_initializer='he_uniform'))
-        model.add(Activation('relu'))
-        model.add(Dense(units=self.__num_actions, kernel_initializer='normal'))
-        self.__model = model
+        self.__model = self.__nn.new()
         return self.__model
 
     #

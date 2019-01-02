@@ -10,6 +10,7 @@ from reflrn.DictReplayMemory import DictReplayMemory
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.Environment import Environment
 from reflrn.Interface.ModelParams import ModelParams
+from reflrn.Interface.NeuralNetwork import NeuralNetwork
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.QValNNModel import QValNNModel
@@ -22,10 +23,7 @@ from reflrn.QValNNModel import QValNNModel
 #
 
 
-class ActorCriticPolicy(Policy):
-    __rows = 3
-    __cols = 3
-    __num_actions = 9
+class ActorCriticPolicyTDQVal(Policy):
     __replay_mem_size = 1000
 
     __static_test_action_list = None  # Static list of actions for Policy testing
@@ -33,6 +31,7 @@ class ActorCriticPolicy(Policy):
 
     def __init__(self,
                  lg,
+                 network: NeuralNetwork,
                  policy_params: GeneralModelParams = None,
                  env: Environment = None):
 
@@ -40,8 +39,8 @@ class ActorCriticPolicy(Policy):
         self.lg = lg
         self.episode = 1
 
-        self.input_dim = ActorCriticPolicy.__rows * ActorCriticPolicy.__cols
-        self.num_actions = ActorCriticPolicy.__num_actions
+        self.input_dim = network.input_dimension()
+        self.num_actions = network.output_dimension()
         self.output_dim = self.num_actions
 
         pp = self._default_policy_params()
@@ -74,6 +73,7 @@ class ActorCriticPolicy(Policy):
         self.actor_model = QValNNModel(model_name="Actor",
                                        input_dimension=self.input_dim,
                                        num_actions=self.num_actions,
+                                       network=network,
                                        lg=self.lg,
                                        model_params=self._model_params()
                                        )
@@ -81,6 +81,7 @@ class ActorCriticPolicy(Policy):
         self.critic_model = QValNNModel(model_name="Critic",
                                         input_dimension=self.input_dim,
                                         num_actions=self.num_actions,
+                                        network=network,
                                         lg=self.lg,
                                         model_params=self._model_params()
                                         )
@@ -105,7 +106,8 @@ class ActorCriticPolicy(Policy):
     #
     def _env(self) -> Environment:
         if self.env is None:
-            raise ActorCriticPolicy.NoEnvironmentHasBeenLinkedToPolicy("Policy must be linked to an Environment !")
+            raise ActorCriticPolicyTDQVal.NoEnvironmentHasBeenLinkedToPolicy(
+                "Policy must be linked to an Environment !")
         return self.env
 
     #
@@ -168,7 +170,7 @@ class ActorCriticPolicy(Policy):
     #
     def __critic_prediction(self,
                             state: State):
-        return (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+        return (self.critic_model.predict(state.state_as_array().reshape(1, self.input_dim)))[0]
 
     #
     # Predict an action based on current policy.
@@ -181,9 +183,9 @@ class ActorCriticPolicy(Policy):
         if len(actions_not_allowed_in_current_state) > 0:
             qvals[actions_not_allowed_in_current_state] = np.finfo(np.float).min
         if self.explain:
-            print(RenderQValues.render_qval_array(qvals))
+            print(RenderQValues.render_simple(qvals))
             print(self.__telemetry.state_observation_telemetry(state.state_as_array()))
-        actn = int(np.argmax(qvals))
+        actn = self._env().actions()[int(np.argmax(qvals))]
         return actn
 
     #
@@ -231,7 +233,7 @@ class ActorCriticPolicy(Policy):
         if self.__static_test_action_list is not None:
             return self.__select_static_test_action()
 
-        qvals = (self.critic_model.predict(state.state_as_array().reshape(1, 9)))[0]
+        qvals = (self.critic_model.predict(state.state_as_array().reshape(1, self.input_dim)))[0]
         actn = np.argmax(qvals)
         return actn
 
@@ -317,7 +319,7 @@ class ActorCriticPolicy(Policy):
     #
     def _actor_prediction(self,
                           curr_state: State) -> np.ndarray:
-        st = np.array(curr_state.state_as_array()).reshape((1, self.__num_actions))  # Shape needed for NN
+        st = np.array(curr_state.state_as_array()).reshape((1, self.input_dim))  # Shape needed for NN
         p = self.actor_model.predict(st)[0]  # Can predict even if model is not trained, just predicts random.
         return p
 
@@ -369,7 +371,7 @@ class ActorCriticPolicy(Policy):
 
             qvs[action] = qv
 
-            x[i] = (cur_state.state_as_array()).reshape(1, self.num_actions)
+            x[i] = (cur_state.state_as_array()).reshape(1, self.input_dim)
             y[i] = qvs
             i += 1
 

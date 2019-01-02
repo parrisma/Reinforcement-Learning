@@ -1,8 +1,6 @@
 
 R
 "reflrn/DeepReplayQNetWorkPolicy.py,c\9\c9afce3eeec7a459ca3215dd7ce4404d93b1ab59
-O
-examples/tictactoe/QValModel.py,9\4\946ee9a6fae16ce4241891c0ac2e56481ff3c355
 J
 examples/gridworld/Grid.py,d\c\dc74f2ed997a75466ab92570ea479c4e33670d68
 j
@@ -17,12 +15,8 @@ g
 7reflrn/ReflrnUnitTests/TestRareEventBiasReplayMemory.py,6\8\68baf969282a4717c8506ed325495a0d0a29106d
 S
 #reflrn/RareEventBiasReplayMemory.py,0\3\038905f3264ed950135f0ede09a61604d7d8cd6d
-m
-=examples/gridworld/GridWorldUnitTests/TestGridActorCritic2.py,9\b\9b7de7260ff148a7a90b5961b00a9c6d9168f40e
 I
 reflrn/Interface/Model.py,1\9\1933409779b3329f81ca419054ab085434adcac1
-c
-3examples/gridworld/TestRigs/GridWorldQValNNModel.py,b\1\b1ba290f0be0ccb734a2ca67cbf2a6463e98f59a
 h
 8examples/gridworld/GridWorldUnitTests/GridActorCritic.py,a\a\aaeaaff746a50b9eb789f0cff56cd4a9028724bc
 c
@@ -45,22 +39,14 @@ q
 Aexamples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py,5\8\58fbc90da9bf2e3c7ba0692bca72b302a1d5a9ac
 [
 +examples/Classify/VariationalAutoEncoder.py,8\8\887b9f898ca47969f19ff252136ef3ed5fed6093
-N
-examples/tests/TestRigModel.py,c\b\cb279827233cff35bbf8b60c8197c3d0990629e2
-M
-examples/tests/TestRigFour.py,3\2\32842435432eef73bd1b477c7134e49eb58aae5a
 T
 $examples/tictactoe/TicTacToeAgent.py,f\0\f07818a14dcb3d3f6d2d2075e43f772abacb09b3
-c
-3reflrn/TemporalDifferenceActorCriticDeepNNPolicy.py,e\0\e0bdb12e1bed31b69d41d67672cdf5c1e35cd52a
 K
 reflrn/DequeReplayMemory.py,2\a\2a363cc2f29a0bd30e88d02161340f395b7b80c1
 L
 reflrn/EnvironmentLogging.py,0\f\0f1f1a705ba78e12fced9bd4bb1cf877ce639c2a
 N
 examples/tictactoe/__init__.py,5\2\52618a669761fa65590e09878c8bc6ba988f6521
-I
-examples/tests/TestRig.py,b\6\b65e81b1db4ce7adfc15c399de40a9adf47bac83
 T
 $examples/tictactoe/TicTacToeState.py,4\e\4e7cd36a1422d69088ae68f5b334d7328a84157c
 b
@@ -69,8 +55,6 @@ O
 reflrn/Interface/RenderQVals.py,5\7\57fe1ee15a461d5e058ba943be1115ac7fe4ba67
 O
 examples/tictactoe/TicTacToe.py,e\e\ee7a02b74c307f87d6a287c64a72e6e77280096e
-K
-reflrn/ActorCriticPolicy.py,e\2\e25ae0ebc40e6eb46d2324565c91c9622faa1a38
 E
 reflrn/QValNNModel.py,1\4\14b74268eef47275f5088d28cfc4adbf7ba17c48
 E
@@ -79,3 +63,27 @@ X
 (examples/tictactoe/RenderQValuesAsStr.py,9\6\96034982af5d43e93390ebc1056dd595eae9c3ed
 i
 9examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py,8\5\85d2fb3a9c550a01eefb955e9012ce6cfedb6df3
+i
+9examples/gridworld/TestRigs/TestRig-TemporalDifference.py,d\f\dfa56fb7e96b011c41199d6a359e6e8b5cb3d0d1
+b
+2examples/gridworld/TestRigs/TestGridActorCritic.py,0\a\0a5042dbe66f0b70de93b31c9324e6032f531c6f
+d
+4examples/gridworld/GridWorldUnitTests/GridFactory.py,c\8\c86985be0b5d600e776e7a986836b5d230f58e45
+Z
+*examples/gridworld/GridWorldQValNNModel.py,2\f\2f521deb78c71629ce541b6e560aa5fe139444ff
+c
+3examples/gridworld/TestRigs/TestGridActorCritic2.py,4\0\40d9ee765c688b248326868a14e148b8f7f92388
+O
+reflrn/Interface/ModelParams.py,1\2\128c9b1a67b445d0d638a269992c0bbc09313541
+L
+reflrn/GeneralModelParams.py,c\6\c6e58fc3893a3a9721f243f25ec178ac2bd6011a
+Q
+!examples/tictactoe/TicTacToeNN.py,4\4\44eb1cf0825eada2bddb23abe63d8fa8bc2967ad
+Q
+!reflrn/ActorCriticPolicyTDQVal.py,c\4\c4e6f2af89c1dcb7e42dc25c027c9cc8bda59020
+Q
+!reflrn/Interface/NeuralNetwork.py,d\8\d8531ae220907c2695526148c4f6d304e3b2ed16
+_
+/examples/PolicyGradient/ActorCriticPolicyTDQ.py,5\0\50af46e2f366b3fa47e24086846529275758e847
+]
+-examples/PolicyGradient/OneVarParabolicEnv.py,8\d\8d53e7a90579d4651bbde1810287ca35ef6650d3

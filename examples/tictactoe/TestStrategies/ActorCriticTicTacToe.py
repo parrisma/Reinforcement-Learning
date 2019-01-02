@@ -5,7 +5,8 @@ import numpy as np
 
 from examples.tictactoe.TicTacToe import TicTacToe
 from examples.tictactoe.TicTacToeAgent import TicTacToeAgent
-from reflrn.ActorCriticPolicy import ActorCriticPolicy
+from examples.tictactoe.TicTacToeNN import TicTacToeNN
+from reflrn.ActorCriticPolicyTDQVal import ActorCriticPolicyTDQVal
 # from reflrn.DequeReplayMemory import DequeReplayMemory
 from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.GeneralModelParams import GeneralModelParams
@@ -18,10 +19,10 @@ from reflrn.PureRandomExploration import PureRandomExploration
 random.seed(42)
 np.random.seed(42)
 
-itr = 20000000
+itr = 20000
 lg = EnvironmentLogging("ActorCriticTicTacToe", "ActorCriticTicTacToe.log", logging.INFO).get_logger()
 
-load = True
+load = False
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(.80)],
                          [ModelParams.epsilon_decay, float(0)],
@@ -31,8 +32,12 @@ pp = GeneralModelParams([[ModelParams.epsilon, float(.80)],
                          [ModelParams.num_states, int(5500)]
                          ])
 
-acp = ActorCriticPolicy(policy_params=pp,
-                        lg=lg)
+nn = TicTacToeNN(pp.get_parameter(ModelParams.num_actions),
+                 pp.get_parameter(ModelParams.num_actions))
+
+acp = ActorCriticPolicyTDQVal(policy_params=pp,
+                              network=nn,
+                              lg=lg)
 if load:
     acp.load('ActorCriticPolicy')
 
@@ -44,8 +49,9 @@ agent_x = TicTacToeAgent(1,
                          lg=lg)
 
 # srp = SimpleRandomPolicyWithReplayMemory(lg, DequeReplayMemory(lg, 500))
-srp = ActorCriticPolicy(policy_params=pp,
-                        lg=lg)
+srp = ActorCriticPolicyTDQVal(policy_params=pp,
+                              network=nn,
+                              lg=lg)
 agent_o = TicTacToeAgent(-1,
                          "O",
                          srp,
@@ -72,7 +78,8 @@ agent_h = TicTacToeAgent(-1,
                          lg=lg)
 
 game2 = TicTacToe(agent_x, agent_h, lg)
-acp.link_to_env(game2)
+if load:
+    acp.link_to_env(game2)
 hum.link_to_env(game2)
 acp.explain = True
 acp.exploration_off()
