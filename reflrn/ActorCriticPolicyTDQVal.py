@@ -14,6 +14,7 @@ from reflrn.Interface.NeuralNetwork import NeuralNetwork
 from reflrn.Interface.Policy import Policy
 from reflrn.Interface.State import State
 from reflrn.QValNNModel import QValNNModel
+from reflrn.SimpleLearningRate import SimpleLearningRate
 
 
 #
@@ -46,8 +47,9 @@ class ActorCriticPolicyTDQVal(Policy):
         pp = self._default_policy_params()
         if policy_params is not None:
             pp.override_parameters(list(policy_params))
-        self.learning_rate_0 = pp.get_parameter(ModelParams.learning_rate_0)
-        self.learning_rate_decay = pp.get_parameter(ModelParams.learning_rate_decay)
+        self.learning_rate = SimpleLearningRate(lr0=pp.get_parameter(ModelParams.learning_rate_0),
+                                                lrd=pp.get_parameter(ModelParams.learning_rate_decay),
+                                                lr_min=pp.get_parameter(ModelParams.learning_rate_min))
         self.epsilon = pp.get_parameter(ModelParams.epsilon)  # exploration factor.
         self.epsilon_decay = pp.get_parameter(ModelParams.epsilon_decay)
         self.gamma = pp.get_parameter(ModelParams.gamma)  # Discount Factor Applied to reward

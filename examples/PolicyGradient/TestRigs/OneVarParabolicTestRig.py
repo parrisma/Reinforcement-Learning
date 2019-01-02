@@ -11,21 +11,29 @@ from reflrn.EnvironmentLogging import EnvironmentLogging
 from reflrn.GeneralModelParams import GeneralModelParams
 from reflrn.Interface.ModelParams import ModelParams
 from reflrn.PureRandomExploration import PureRandomExploration
+from reflrn.SimpleLearningRate import SimpleLearningRate
 
 random.seed(42)
 np.random.seed(42)
 
-itr = 20000
+itr = 200
 lg = EnvironmentLogging("OneVarParabolicAgent", "OneVarParabolicAgent.log", logging.DEBUG).get_logger()
 
 load = False
+
+learning_rate_0 = float(1)
 
 pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
                          [ModelParams.epsilon_decay, float(0)],
                          [ModelParams.num_actions, int(2)],
                          [ModelParams.model_file_name, 'OneVarParabolic-ActorCritic'],
                          [ModelParams.verbose, int(0)],
-                         [ModelParams.num_states, int(5500)]
+                         [ModelParams.num_states, int(20)],
+                         [ModelParams.learning_rate_0, learning_rate_0],
+                         [ModelParams.learning_rate_decay, SimpleLearningRate.lr_decay_target(learning_rate_0,
+                                                                                              int(itr / 2),
+                                                                                              float(0.1))]
+                         [ModelParams.learning_rate_min, float(0)]
                          ])
 
 nn = OneVarParabolicNN(1,  # One variable
