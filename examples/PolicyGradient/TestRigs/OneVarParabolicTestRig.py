@@ -32,7 +32,7 @@ pp = GeneralModelParams([[ModelParams.epsilon, float(1)],
                          [ModelParams.learning_rate_0, learning_rate_0],
                          [ModelParams.learning_rate_decay, SimpleLearningRate.lr_decay_target(learning_rate_0,
                                                                                               int(itr / 2),
-                                                                                              float(0.1))]
+                                                                                              float(0.1))],
                          [ModelParams.learning_rate_min, float(0)]
                          ])
 

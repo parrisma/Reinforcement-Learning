@@ -61,6 +61,7 @@ class ActorCriticPolicyTDQVal(Policy):
         self.__training = True  # by default we train actor/critic as we take actions
         self.__train_invocations = 0
         self.__trained = False
+        self.__critic_train_count = 0
 
         self.__explore = True
 
@@ -301,20 +302,15 @@ class ActorCriticPolicyTDQVal(Policy):
                 self._train_critic()
                 self.__train_invocations = 0
                 self.__trained = True
+                self.__critic_train_count += 1
 
-            if self.episode % update_every == 0 and self.__trained:
+            if self.__critic_train_count % update_every == 0 and self.__trained:
                 self._update_actor_from_critic()
                 self.__trained = False  # No need to update unless model has trained since last update
 
-            if self.episode % self.save_every == 0:
+            if self.__critic_train_count % self.save_every == 0:
                 self.save("ActorCriticPolicy1")
         return
-
-    #
-    # Return the learning rate based on number of learning's to date
-    #
-    def learning_rate(self) -> float:
-        return self.learning_rate_0 / (1 + (self.episode * self.learning_rate_decay))
 
     #
     # Get actor prediction, if actor is not able to predict, predict random
@@ -364,12 +360,13 @@ class ActorCriticPolicyTDQVal(Policy):
         i = 0
         for sample in samples:
             _, cur_state, new_state, action, reward, done = sample
-            lr = self.learning_rate()
+            lr = self.learning_rate.learning_rate(self.episode)
             qvp = self._next_state_qval_prediction(new_state, done)
             qvs = self._curr_state_qval_prediction(cur_state, done)
 
-            # qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
-            qv = reward + (self.gamma * qvp)  # updated expectation of current state/action
+            qv = qvs[action]
+            qv = (qv * (1 - lr)) + (lr * (reward + qvp))  # updated expectation of current state/action
+            # qv = reward + (self.gamma * qvp)  # updated expectation of current state/action
 
             qvs[action] = qv
 

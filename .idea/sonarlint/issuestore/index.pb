@@ -85,3 +85,19 @@ Q
 !reflrn/Interface/NeuralNetwork.py,d\8\d8531ae220907c2695526148c4f6d304e3b2ed16
 ]
 -examples/PolicyGradient/OneVarParabolicEnv.py,8\d\8d53e7a90579d4651bbde1810287ca35ef6650d3
+W
+'reflrn/Interface/ExplorationStrategy.py,5\7\571d7697dd4a5d03de6c54775d4e500296a23bc8
+[
++reflrn/ReflrnUnitTests/TestCorrelationId.py,9\d\9d34cdaa80571e363720ea6ab1536162ddfd0e65
+d
+4reflrn/ReflrnUnitTests/TestAgentExplorationMemory.py,0\4\04316647f2669f8cf16c7521a73c867dadf8a1be
+L
+reflrn/SimpleLearningRate.py,1\c\1c211a356613ce4ca98b7864682301631311f66e
+P
+ reflrn/Interface/LearningRate.py,b\f\bf7f7c3b05ef1099415b1874ef5394fb57c1ef96
+`
+0reflrn/ReflrnUnitTests/TestSimpleLearningRate.py,c\d\cdd24cb85f9cb687d613b73d667e901d7a5d74df
+j
+:examples/PolicyGradient/TestRigs/OneVarParabolicTestRig.py,1\1\116502f6981e97b31147db5625c7ee94dc83ded2
+_
+/examples/PolicyGradient/TestRigs/PGAllIneOne.py,d\c\dca69dc0ecfea364794426d0db0604db9bf102c7
