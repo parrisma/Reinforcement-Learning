@@ -5,17 +5,40 @@ from keras.layers import Dense
 from keras.optimizers import Adam
 
 
+#
+# This is the environment that returns rewards. The reward profile is -x2 where the state is
+# x between -1 and 1 on 0.05 step intervals. This means the optimal action to maximise reward
+# is to always move such that x approaches 0. The actions are 0 = move right on x axis and 1
+# move left on x axis. -0.05, 0 & 0.05 all return zero reward such that the agent should tend
+# to move such that it stays in this region.
+#
+# The environment is episodic such that if actor moves below -1 or above 1 the episode restarts.
+#
+
 class PbFunc:
     state_min = -1
     state_max = 1
     state_step = 0.05
 
+    #
+    # reset to start of an episode.
+    #
+    def __init__(self):
+        self.state = None
+        self.reset()
+
+    #
+    # Return float (state) as numpy array to be used a NN X input.
+    #
     @classmethod
     def float_as_x(cls,
                    x: float):
         xs = np.array([x])
         return xs.reshape([1, xs.shape[0]])
 
+    #
+    # The actor has moved pass -1 or +1 and episode ends and agent is randomly placed at -1 or 1
+    #
     def reset(self) -> np.array:
         if np.random.rand() >= 0.5:
             self.state = self.state_max
@@ -23,19 +46,23 @@ class PbFunc:
             self.state = self.state_min
         return np.array([self.state])
 
-    def __init__(self):
-        self.state = None
-
-        self.reset()
-
+    #
+    # state space is dimension 1 as the state is full represented by the x value (single float)
+    #
     @classmethod
     def state_space_size(cls) -> int:
         return 1
 
+    #
+    # Action space is 2 - move left by 0.05 or move right by 0.05
+    #
     @classmethod
     def num_actions(cls) -> int:
         return 2
 
+    #
+    # Reward is simple -x2 where x is the state. Except at 0.05, 0, -0.05 where reward is fixed at 0
+    #
     @classmethod
     def reward(cls,
                st: float) -> float:
@@ -43,6 +70,9 @@ class PbFunc:
             return float(0)
         return -(st * st)
 
+    #
+    # Translate action into step left or right increment of x.
+    #
     def step(self,
              actn: int) -> Tuple[np.array, float, bool]:
         if actn == 0:
@@ -58,6 +88,13 @@ class PbFunc:
         return np.array([self.state]), self.reward(self.state), dn
 
 
+#
+# Simple agent that will learn a stochastic policy as a simple distribution over the two actions for each state. It
+# takes stochastic actions given the learned policy. It is monte carlo in that it trains based on an entire episode
+# and then disposes of the saved action / rewards history from the state.
+#
+# Exploration is inherent as policy is stochastic
+#
 class PGAgent:
     def __init__(self, st_size, a_size):
         self.state_size = st_size
@@ -67,10 +104,12 @@ class PGAgent:
         self.states = []
         self.labels = []
         self.rewards = []
-        self.probs = []
         self.model = self._build_model()
         self.model.summary()
 
+    #
+    # Simple NN model with softmax learning the policy as probability distribution over actions.
+    #
     def _build_model(self):
         model = Sequential()
         model.add(Dense(24, input_dim=self.state_size, activation='relu', kernel_initializer='he_uniform'))
@@ -80,21 +119,29 @@ class PGAgent:
                       optimizer=Adam(lr=self.learning_rate))
         return model
 
-    def remember(self, state, action, r, pb):
+    #
+    # Retain the episode state for training.
+    #
+    def remember(self, state, action, r):
         y = np.zeros([self.action_size])
         y[action] = 1
         self.labels.append(np.array(y).astype('float32'))
         self.states.append(state)
         self.rewards.append(r)
-        self.probs.append(pb)
+        return
 
+    #
+    # Act according to the current stochastic policy
+    #
     def act(self, state):
         state = state.reshape([1, state.shape[0]])
         aprob = self.model.predict(state, batch_size=1).flatten()
-        self.probs.append(aprob)
         action = np.random.choice(self.action_size, 1, p=aprob)[0]
         return action, aprob
 
+    #
+    # Simple discounting over life of episode
+    #
     def discount_rewards(self, rewards):
         discounted_rewards = np.zeros_like(rewards)
         running_add = 0
@@ -105,6 +152,9 @@ class PGAgent:
             discounted_rewards[t] = running_add
         return discounted_rewards
 
+    #
+    # Simple supervised learning based on the saved action/rewards from the episode.
+    #
     def train(self):
         labels = np.vstack(self.labels)
         rewards = np.vstack(self.rewards)
@@ -114,7 +164,7 @@ class PGAgent:
         X = np.squeeze(np.vstack([self.states]))
         Y = np.squeeze(np.vstack([labels]))
         self.model.train_on_batch(X, Y)
-        self.states, self.probs, self.labels, self.rewards = [], [], [], []
+        self.states, self.labels, self.rewards = [], [], []
 
     def load(self, name):
         self.model.load_weights(name)
@@ -122,6 +172,9 @@ class PGAgent:
     def save(self, name):
         self.model.save_weights(name)
 
+    #
+    # Simple debugger output - could be refactored into PBFunc env as it is more env specific ?
+    #
     def print_progress(self,
                        ep: int,
                        elen: int,
@@ -145,6 +198,9 @@ class PGAgent:
         return
 
 
+#
+# Endless loop of agent acting / learning in the given env.
+#
 if __name__ == "__main__":
     env = PbFunc()
     st = env.reset()
