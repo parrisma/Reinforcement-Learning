@@ -101,7 +101,7 @@ class PGAgent:
     def __init__(self, st_size, a_size):
         self.state_size = st_size
         self.action_size = a_size
-        self.gamma = 0.99
+        self.gamma = 0  # 0.99
         self.learning_rate = 0.001
         self.replay = deque(maxlen=1000)
         self.actor_model = self._build_actor_model()
@@ -146,10 +146,10 @@ class PGAgent:
     # Retain the episode state for critic training.
     #
     def remember(self,
-                 state: float,
+                 state: np.array,
                  action,
                  r: float,
-                 next_state: float) -> None:
+                 next_state: np.array) -> None:
         y = np.zeros([self.action_size])
         y[action] = 1  # One hot encode.
         self.replay.append([state,
@@ -175,13 +175,13 @@ class PGAgent:
         return self.qval_learning_rate.learning_rate(episode)
 
     #
-    # Train the critic to learn the action values. Belman
+    # Train the critic to learn the action values. Bellman
     #
-    def train_crtic(self,
-                    episode: int) -> None:
-        batch_size = min(self.replay.len, 100)
-        X = np.zeros((1, batch_size))
-        Y = np.zeros((1, batch_size))
+    def train_critic(self,
+                     episode: int) -> None:
+        batch_size = min(len(self.replay), 100)
+        X = np.zeros(batch_size)
+        Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
         i = 0
         for sample in samples:
@@ -190,11 +190,12 @@ class PGAgent:
             action_value_s = self.critic_model.predict(state, batch_size=1).flatten()
             action_value_ns = self.critic_model.predict(next_state, batch_size=1).flatten()
             qv_s = action_one_hot * action_value_s
-            qv_ns = np.max(action_value_ns)
+            qv_ns = np.max(action_value_ns) * self.gamma
             av = (qv_s * (1 - lr)) + (lr * (reward + qv_ns))  # updated expectation of current state/action
-            qv_u = qv_s + av
-            X[i] = state
-            Y[i] = qv_u
+            qv_u = (action_value_s * (1 - action_one_hot)) + (av * action_one_hot)
+            X[i] = np.squeeze(state)
+            Y[i] = np.squeeze(qv_u)
+            i += 1
         self.critic_model.train_on_batch(X, Y)
         return
 
@@ -203,9 +204,9 @@ class PGAgent:
     # as predicted by the critic.
     #
     def train_actor(self) -> None:
-        batch_size = min(self.replay.len, 100)
-        X = np.zeros((1, batch_size))
-        Y = np.zeros((1, batch_size))
+        batch_size = min(len(self.replay), 100)
+        X = np.zeros((batch_size, self.state_size))
+        Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
         i = 0
         for sample in samples:
@@ -214,6 +215,7 @@ class PGAgent:
             r = action_one_hot * action_value_s
             X[i] = state
             Y[i] = r
+            i += 1
         self.actor_model.train_on_batch(X, Y)
         return
 
@@ -251,12 +253,39 @@ class PGAgent:
         return
 
 
+class Test:
+    @classmethod
+    def run(cls):
+        stp = 0.05
+        env = PbFunc()
+        state_size = env.state_space_size()
+        action_size = env.num_actions()
+        agent = PGAgent(state_size, action_size)
+        PGAgent.gamma = 0
+        for i in range(0, 5):
+            j = float(-1)
+            while j <= 1:
+                agent.remember(np.array([j]), 0, +j, np.array([j + stp]))
+                agent.remember(np.array([j]), 1, -j, np.array([j - stp]))
+                j += stp
+        for i in range(0, 100):
+            agent.train_critic(i)
+            j = float(-1)
+            print("-----")
+            while j <= 1:
+                print(str(j) + ' : ' + str(agent.critic_model.predict(np.array([j]), batch_size=1).flatten()))
+                j += stp
+            print("-----")
+        return
+
+
 #
 # Test Rig Main Function.
 #
 class Main:
 
-    def run(self):
+    @classmethod
+    def run(cls):
         env = PbFunc()
         st = env.reset()
         episode = 0
@@ -272,19 +301,23 @@ class Main:
             st = next_state
             eln += 1
 
-            if done:
-                episode += 1
-
             if done or eln > 10000:
-                if episode > 1 and episode % 50 == 0:
-                    agent.train_crtic(episode)
+                if episode > 3:
+                    agent.train_critic(episode)
+                if episode > 1 and episode % 5 == 0:
+                    agent.train_actor()
                     agent.print_progress(episode, eln, env)
-                    eln = 0
-                    st = env.reset()
+                eln = 0
+                st = env.reset()
+                episode += 1
 
 
 #
 # Endless loop of agent acting / learning in the given env.
 #
+test = True
 if __name__ == "__main__":
-    Main().run()
+    if test:
+        Test.run()
+    else:
+        Main().run()

@@ -215,7 +215,7 @@ if __name__ == "__main__":
         a, pbs = agent.act(st)
         next_state, reward, done = env.step(a)
         score += reward
-        agent.remember(st, a, reward, pbs)
+        agent.remember(st, a, reward)
         st = next_state
         eln += 1
 
