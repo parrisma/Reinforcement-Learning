@@ -1,10 +1,12 @@
-import numpy as np
 import random
-from typing import Tuple
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.optimizers import Adam
 from collections import deque
+from typing import Tuple
+
+import numpy as np
+from keras.layers import Dense
+from keras.models import Sequential
+from keras.optimizers import Adam
+
 from reflrn.SimpleLearningRate import SimpleLearningRate
 
 
@@ -116,6 +118,9 @@ class PGAgent:
                                                                                             target_step=1000,
                                                                                             target_learning_rate=0.01),
                                                      lr_min=0.01)
+
+        self.state_dp = 3
+
         return
 
     #
@@ -135,9 +140,10 @@ class PGAgent:
     #
     def _build_critic_model(self):
         model = Sequential()
-        model.add(Dense(50, input_dim=self.state_size, activation='relu', kernel_initializer='he_uniform'))
+        model.add(Dense(25, input_dim=self.state_size, activation='relu', kernel_initializer='he_uniform'))
+        model.add(Dense(50, activation='relu', kernel_initializer='he_uniform'))
         model.add(Dense(25, activation='relu', kernel_initializer='he_uniform'))
-        model.add(Dense(self.action_size, activation='relu', kernel_initializer='normal'))
+        model.add(Dense(self.action_size, kernel_initializer='normal'))
         model.compile(loss='mean_squared_error',
                       optimizer=Adam(lr=self.learning_rate), metrics=['accuracy'])
         return model
@@ -152,10 +158,10 @@ class PGAgent:
                  next_state: np.array) -> None:
         y = np.zeros([self.action_size])
         y[action] = 1  # One hot encode.
-        self.replay.append([state,
+        self.replay.append([np.round(state, self.state_dp),
                             np.array(y).astype('float32'),
                             r,
-                            next_state])
+                            np.round(next_state, 2)])
         return
 
     #
@@ -268,7 +274,7 @@ class Test:
                 agent.remember(np.array([j]), 0, +j, np.array([j + stp]))
                 agent.remember(np.array([j]), 1, -j, np.array([j - stp]))
                 j += stp
-        for i in range(0, 100):
+        for i in range(0, 1000):
             agent.train_critic(i)
             j = float(-1)
             print("-----")

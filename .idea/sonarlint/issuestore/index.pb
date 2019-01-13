@@ -99,5 +99,3 @@ P
 0reflrn/ReflrnUnitTests/TestSimpleLearningRate.py,c\d\cdd24cb85f9cb687d613b73d667e901d7a5d74df
 j
 :examples/PolicyGradient/TestRigs/OneVarParabolicTestRig.py,1\1\116502f6981e97b31147db5625c7ee94dc83ded2
-_
-/examples/PolicyGradient/TestRigs/PGAllIneOne.py,d\c\dca69dc0ecfea364794426d0db0604db9bf102c7
