@@ -1,96 +1,15 @@
 import random
 from collections import deque
-from typing import Tuple
 
 import numpy as np
 from keras.layers import Dense
 from keras.models import Sequential
 from keras.optimizers import Adam
 
+from examples.PolicyGradient.TestRigs.Interface.RewardFunction1D import RewardFunction1D
+from examples.PolicyGradient.TestRigs.RewardFunctions.LocalMaximaRewardFunction1D import LocalMaximaRewardFunction1D
+from examples.PolicyGradient.TestRigs.RewardFunctions.ParabolicRewardFunction1D import ParabolicRewardFunction1D
 from reflrn.SimpleLearningRate import SimpleLearningRate
-
-
-#
-# This is the environment that returns rewards. The reward profile is -x2 where the state is
-# x between -1 and 1 on 0.05 step intervals. This means the optimal action to maximise reward
-# is to always move such that x approaches 0. The actions are 0 = move right on x axis and 1
-# move left on x axis. -0.05, 0 & 0.05 all return zero reward such that the agent should tend
-# to move such that it stays in this region.
-#
-# The environment is episodic such that if actor moves below -1 or above 1 the episode restarts.
-#
-
-class PbFunc:
-    state_min = -1
-    state_max = 1
-    state_step = 0.05
-
-    #
-    # reset to start of an episode.
-    #
-    def __init__(self):
-        self.state = None
-        self.reset()
-
-    #
-    # Return float (state) as numpy array to be used a NN X input.
-    #
-    @classmethod
-    def float_as_x(cls,
-                   x: float):
-        xs = np.array([x])
-        return xs.reshape([1, xs.shape[0]])
-
-    #
-    # The actor has moved pass -1 or +1 and episode ends and agent is randomly placed at -1 or 1
-    #
-    def reset(self) -> np.array:
-        if np.random.rand() >= 0.5:
-            self.state = self.state_max
-        else:
-            self.state = self.state_min
-        return np.array([self.state])
-
-    #
-    # state space is dimension 1 as the state is full represented by the x value (single float)
-    #
-    @classmethod
-    def state_space_size(cls) -> int:
-        return 1
-
-    #
-    # Action space is 2 - move left by 0.05 or move right by 0.05
-    #
-    @classmethod
-    def num_actions(cls) -> int:
-        return 2
-
-    #
-    # Reward is simple -x2 where x is the state. Except at 0.05, 0, -0.05 where reward is fixed at 0
-    #
-    @classmethod
-    def reward(cls,
-               st: float) -> float:
-        if -0.05 <= st <= 0.05:
-            return float(0)
-        return -(st * st)
-
-    #
-    # Translate action into step left or right increment of x.
-    #
-    def step(self,
-             actn: int) -> Tuple[np.array, float, bool]:
-        if actn == 0:
-            self.state += self.state_step
-        elif actn == 1:
-            self.state -= self.state_step
-        else:
-            raise RuntimeError("Action can only be value 0 or 1 so [" + str(actn) + "] is illegal")
-
-        self.state = np.round(self.state, 3)
-        dn = (self.state < self.state_min or self.state > self.state_max)
-
-        return np.array([self.state]), self.reward(self.state), dn
 
 
 #
@@ -98,12 +17,12 @@ class PbFunc:
 #
 # Exploration is inherent as policy is stochastic
 #
-class PGAgent:
+class PolicyGradientAgent:
 
     def __init__(self, st_size, a_size):
         self.state_size = st_size
         self.action_size = a_size
-        self.gamma = 0  # 0.99
+        self.gamma = 0.99
         self.learning_rate = 0.001
         self.replay = deque(maxlen=1000)
         self.actor_model = self._build_actor_model()
@@ -117,7 +36,7 @@ class PGAgent:
                                                      lrd=SimpleLearningRate.lr_decay_target(learning_rate_zero=qval_lr0,
                                                                                             target_step=1000,
                                                                                             target_learning_rate=0.01),
-                                                     lr_min=0.01)
+                                                     lr_min=0.001)
 
         self.state_dp = 3
 
@@ -239,22 +158,26 @@ class PGAgent:
     def print_progress(self,
                        ep: int,
                        elen: int,
-                       e: PbFunc) -> None:
+                       e: ParabolicRewardFunction1D) -> None:
         res = str()
-        ts = e.state_min
-        while ts <= e.state_max:
-            ss = PbFunc.float_as_x(ts)
+        ts = e.state_min()
+        while ts <= e.state_max():
+            ss = RewardFunction1D.state_as_x(ts)
             aprob = self.actor_model.predict(ss, batch_size=1).flatten()
+            qvals = self.critic_model.predict(ss, batch_size=1).flatten()
             print("S: " + '{:+.2}'.format(float(ts)) + " [ " +
                   str(round(aprob[0] * 100, 2)) + "% , " +
-                  str(round(aprob[1] * 100, 2)) + "%]")
+                  str(round(aprob[1] * 100, 2)) + "%], {" +
+                  str(round(qvals[0], 4)) + "} {" +
+                  str(round(qvals[1], 4)) + "}"
+                  )
             if aprob[0] > aprob[1]:
                 res += '>'
             else:
                 res += "<"
             if ts == 0:
                 res += "|"
-            ts += e.state_step
+            ts += e.state_step()
         print(str(ep) + "::" + str(elen) + "   " + res)
         return
 
@@ -263,11 +186,11 @@ class Test:
     @classmethod
     def run(cls):
         stp = 0.05
-        env = PbFunc()
+        env = ParabolicRewardFunction1D()
         state_size = env.state_space_size()
         action_size = env.num_actions()
-        agent = PGAgent(state_size, action_size)
-        PGAgent.gamma = 0
+        agent = PolicyGradientAgent(state_size, action_size)
+        PolicyGradientAgent.gamma = 0
         for i in range(0, 5):
             j = float(-1)
             while j <= 1:
@@ -291,15 +214,16 @@ class Test:
 class Main:
 
     @classmethod
-    def run(cls):
-        env = PbFunc()
+    def run(cls,
+            reward_function_1d: RewardFunction1D):
+        env = reward_function_1d
         st = env.reset()
         episode = 0
         eln = 0
 
         state_size = env.state_space_size()
         action_size = env.num_actions()
-        agent = PGAgent(state_size, action_size)
+        agent = PolicyGradientAgent(state_size, action_size)
         while True:
             a = agent.act(st)
             next_state, reward, done = env.step(a)
@@ -310,20 +234,23 @@ class Main:
             if done or eln > 10000:
                 if episode > 3:
                     agent.train_critic(episode)
-                if episode > 1 and episode % 5 == 0:
+                if episode > 1 and episode % 3 == 0:
                     agent.train_actor()
                     agent.print_progress(episode, eln, env)
+                print("Episode - Episode-Length: {e}-{el}".format(e=episode, el=eln))
+                episode += 1
                 eln = 0
                 st = env.reset()
-                episode += 1
 
 
 #
 # Endless loop of agent acting / learning in the given env.
 #
-test = True
+test = False
 if __name__ == "__main__":
     if test:
         Test.run()
     else:
-        Main().run()
+        parabolic_reward = ParabolicRewardFunction1D()
+        local_maxima_reward = LocalMaximaRewardFunction1D()
+        Main().run(local_maxima_reward)

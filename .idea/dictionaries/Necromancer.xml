@@ -9,12 +9,14 @@
       <w>bstr</w>
       <w>cmap</w>
       <w>coords</w>
+      <w>crossentropy</w>
       <w>disa</w>
       <w>eidx</w>
       <w>emeg</w>
       <w>excpetion</w>
       <w>getby</w>
       <w>keras</w>
+      <w>maxima</w>
       <w>mnist</w>
       <w>persistance</w>
       <w>qgrid</w>
