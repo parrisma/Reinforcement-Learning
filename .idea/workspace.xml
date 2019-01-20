@@ -7,14 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Small change to readme">
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/__init__.py" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/__init__.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Necromancer.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py" afterPath="$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py" />
+      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" />
       <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,43 +21,61 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="StochasticPolicyGradientActorCritic.py" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="2672">
+                    <caret line="193" column="35" lean-forward="true" selection-start-line="193" selection-start-column="35" selection-end-line="193" selection-end-column="35" />
+                    <folding>
+                      <element signature="e#0#11#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="Reinforcement-Learning" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="StochasticPolicyGradientActorCritic.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-249">
-              <caret line="217" column="32" lean-forward="false" selection-start-line="217" selection-start-column="32" selection-end-line="217" selection-end-column="32" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Agent.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/Interface/Agent.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RewardFunction1D.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1892">
-              <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
+            <state relative-caret-position="670">
+              <caret line="110" column="29" lean-forward="true" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StochasticPolicyGradientMonteCarlo.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientMonteCarlo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3874">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Visualise.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="594">
+              <caret line="120" column="59" lean-forward="true" selection-start-line="120" selection-start-column="59" selection-end-line="120" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,7 +83,7 @@
       <file leaf-file-name="ParabolicRewardFunction1D.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="157">
               <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
@@ -80,22 +95,10 @@
       <file leaf-file-name="LocalMaximaRewardFunction1D.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="850">
+              <caret line="55" column="76" lean-forward="false" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="119" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DequeReplayMemory.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="58" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="58" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,8 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>train</find>
-      <find>update_ev</find>
       <find>state</find>
       <find>TicTacToe</find>
       <find>resh</find>
@@ -143,6 +144,8 @@
       <find>lr</find>
       <find>learning</find>
       <find>update_ac</find>
+      <find>sample</find>
+      <find>Main</find>
     </findStrings>
     <replaceStrings>
       <replace>__grid</replace>
@@ -162,8 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeState.py" />
-        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" />
         <option value="$PROJECT_DIR$/scratch/HelloWorld.py" />
         <option value="$PROJECT_DIR$/scratch/HelloWorld4.csv" />
         <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestQValNNModel.py" />
@@ -207,20 +208,22 @@
         <option value="$PROJECT_DIR$/reflrn/ActorCriticPolicyTDQVal.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PGAllIneOne.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/ParabolicRewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximumaRewardFunction.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximumaRewardFunction1D.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py" />
+        <option value="$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py" />
+        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" />
+        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="y" value="1" />
+    <option name="y" value="3" />
     <option name="width" value="2201" />
-    <option name="height" value="1343" />
+    <option name="height" value="1386" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -249,6 +252,12 @@
               <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
               <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="gridworld" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
@@ -302,6 +311,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
+    <property name="SearchEverywhereHistoryKey" value="matplot&#9;null&#9;null" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -376,6 +386,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="SimpleFunctionApproximationWithNN" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/FunctionApproximation" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TicTacToe" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="StochasticPolicyGradientActorCritic" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -428,35 +456,20 @@
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
     </configuration>
-    <configuration name="py.test in TestSimpleLearningRate.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/reflrn/ReflrnUnitTests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestSimpleLearningRate.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.OneVarParabolicTestRig" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleLearningRate.py" />
-      <item index="2" class="java.lang.String" itemvalue="Python.PGAllIneOne" />
-      <item index="3" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientActorCritic" />
-      <item index="4" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientMonteCarlo" />
+      <item index="1" class="java.lang.String" itemvalue="Python.PGAllIneOne" />
+      <item index="2" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientActorCritic" />
+      <item index="3" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientMonteCarlo" />
+      <item index="4" class="java.lang.String" itemvalue="Python.SimpleFunctionApproximationWithNN" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientActorCritic" />
-        <item index="1" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientMonteCarlo" />
-        <item index="2" class="java.lang.String" itemvalue="Python.PGAllIneOne" />
-        <item index="3" class="java.lang.String" itemvalue="Python.OneVarParabolicTestRig" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.py.test in TestSimpleLearningRate.py" />
+        <item index="1" class="java.lang.String" itemvalue="Python.SimpleFunctionApproximationWithNN" />
+        <item index="2" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientMonteCarlo" />
+        <item index="3" class="java.lang.String" itemvalue="Python.PGAllIneOne" />
+        <item index="4" class="java.lang.String" itemvalue="Python.OneVarParabolicTestRig" />
       </list>
     </recent_temporary>
   </component>
@@ -544,20 +557,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="1" width="2201" height="1343" extended-state="0" />
+    <frame x="-7" y="3" width="2201" height="1386" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22468793" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884312" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25177026" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20047924" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33387098" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34631318" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3456" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24948283" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32856005" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37945318" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3792" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -565,7 +579,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20117188" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -776,11 +789,6 @@
           <option name="timeStamp" value="1165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py</url>
-          <line>166</line>
-          <option name="timeStamp" value="1167" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py</url>
           <line>80</line>
           <option name="timeStamp" value="1168" />
@@ -790,6 +798,11 @@
           <line>88</line>
           <option name="timeStamp" value="1169" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py</url>
+          <line>98</line>
+          <option name="timeStamp" value="1201" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -798,7 +811,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1170" />
+      <option name="time" value="1202" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -905,113 +918,53 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>self.critic_model.predict(state, batch_size=1).flatten()</expression-string>
+        <expression-string>list(range(0, len(critic_loss)))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>state</expression-string>
+        <expression-string>list(range(1, len(critic_loss)))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array([0.25]), batch_size=1).flatten()</expression-string>
+        <expression-string>range(1, len(critic_loss))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array([0.15]), batch_size=1).flatten()</expression-string>
+        <expression-string>len(critic_loss)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array([0.1]), batch_size=1).flatten()</expression-string>
+        <expression-string>critic_loss</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array([0.1]), batch_size=1)</expression-string>
+        <expression-string>actor_loss</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(state, batch_size=1)</expression-string>
+        <expression-string>len(actor_loss)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array(0.1), batch_size=1).flatten()</expression-string>
+        <expression-string>range(1, len(actor_loss))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self.critic_model.predict(np.array(0.1), batch_size=1),flatten()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>self.critic_model.predict(np.array(0.1), batch_size=1)</expression-string>
+        <expression-string>self.fig</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/SimpleGridOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridFactory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="30" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="31" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestSimpleGridOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7576">
-          <caret line="1668" column="0" lean-forward="true" selection-start-line="1668" selection-start-column="0" selection-end-line="1668" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/gridworld/TestRigs/TestGridActorCritic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6094">
@@ -1237,16 +1190,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientMonteCarlo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="165" column="35" lean-forward="false" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1279,12 +1222,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/tensorflow/contrib/timeseries/examples/lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1800">
+          <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="242">
           <caret line="11" column="58" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="58" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#14#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/gridworld/RenderGridWorldAgentExplorationMemory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="15" column="6" lean-forward="false" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#16#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/numpy/core/numeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="543" column="0" lean-forward="false" selection-start-line="543" selection-start-column="0" selection-end-line="543" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/collections.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="926" column="0" lean-forward="false" selection-start-line="926" selection-start-column="0" selection-end-line="926" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/keras/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1121">
+          <caret line="1079" column="8" lean-forward="false" selection-start-line="1079" selection-start-column="8" selection-end-line="1079" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1126">
+          <caret line="74" column="74" lean-forward="true" selection-start-line="74" selection-start-column="74" selection-end-line="74" selection-end-column="74" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1292,36 +1287,24 @@
     <entry file="file://$PROJECT_DIR$/reflrn/Interface/Agent.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py">
+    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientMonteCarlo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1892">
-          <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="86" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-3874">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
+        <state relative-caret-position="157">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
@@ -1329,12 +1312,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="55" column="76" lean-forward="false" selection-start-line="55" selection-start-column="15" selection-end-line="55" selection-end-column="119" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="670">
+          <caret line="110" column="29" lean-forward="true" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="120" column="59" lean-forward="true" selection-start-line="120" selection-start-column="59" selection-end-line="120" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-249">
-          <caret line="217" column="32" lean-forward="false" selection-start-line="217" selection-start-column="32" selection-end-line="217" selection-end-column="32" />
+        <state relative-caret-position="2672">
+          <caret line="193" column="35" lean-forward="true" selection-start-line="193" selection-start-column="35" selection-end-line="193" selection-end-column="35" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

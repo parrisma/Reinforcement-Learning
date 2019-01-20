@@ -1,6 +1,7 @@
 import abc
 from typing import Tuple
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 """
@@ -11,6 +12,9 @@ Interface for all reward functions that exist in 1 dimensional state space with 
 class RewardFunction1D(metaclass=abc.ABCMeta):
     """ Interface Definition for reward functions in 1 Dimension
     """
+
+    __fig = None
+    __plot_pause = 0.0001
 
     @classmethod
     def state_as_x(cls,
@@ -64,23 +68,56 @@ class RewardFunction1D(metaclass=abc.ABCMeta):
         """
         raise NotImplementedError
 
-    def state_min(self):
+    def state_min(self) -> float:
         """
         What is the minimum value of 1D state space
         :return: Minimum value of 1D state space
         """
         raise NotImplementedError
 
-    def state_max(self):
+    def state_max(self) -> float:
         """
         What is the maximum value of 1D state space
         :return: Maximum value of 1D state space
         """
         raise NotImplementedError
 
-    def state_step(self):
+    def state_step(self) -> float:
         """
         What is the discrete step increment used to traverse state space (by actions)
         :return: The discrete step increment used to traverse state space (by actions)
         """
         raise NotImplementedError
+
+    def plot(self) -> None:
+        """
+        Show a plot of the reward function between the max and min states
+        :return: None
+        """
+        if self.__fig is None:
+            self.__fig = plt.figure()
+
+        xv = []
+        yv = []
+        for x in np.arange(self.state_min(), self.state_max(), self.state_step()):
+            xv.append(x)
+            yv.append(self.reward(x))
+        ax = self.__fig.gca()
+        ax.set_xlabel('X (State)')
+        ax.set_ylabel('Y (Reward)')
+        ax.set_title('Reward Function')
+        ax.plot(xv, yv)
+        plt.pause(self.__plot_pause)
+        plt.show(block=False)
+        return
+
+    def func(self) -> Tuple[list, list]:
+        """
+        :return: The X and Y values for the function between the min and max state values at the defined step
+        """
+        xv = []
+        yv = []
+        for x in np.arange(self.state_min(), self.state_max(), self.state_step()):
+            xv.append(x)
+            yv.append(self.reward(x))
+        return xv, yv

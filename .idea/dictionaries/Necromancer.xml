@@ -19,9 +19,11 @@
       <w>maxima</w>
       <w>mnist</w>
       <w>persistance</w>
+      <w>probs</w>
       <w>qgrid</w>
       <w>qpct</w>
       <w>qval</w>
+      <w>qvalues</w>
       <w>respawn</w>
       <w>returnign</w>
       <w>skeys</w>
