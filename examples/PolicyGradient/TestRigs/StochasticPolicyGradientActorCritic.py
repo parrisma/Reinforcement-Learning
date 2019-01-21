@@ -1,4 +1,3 @@
-import math
 import random
 from collections import deque
 
@@ -29,7 +28,7 @@ class PolicyGradientAgent:
                  a_size):
         self.state_size = st_size
         self.action_size = a_size
-        self.gamma = 0  # 0.99
+        self.gamma = 0.99
         self.learning_rate = 0.001
         self.replay = deque(maxlen=1000)
         self.actor_model = self._build_actor_model()
@@ -45,7 +44,7 @@ class PolicyGradientAgent:
                                                                                             target_learning_rate=0.01),
                                                      lr_min=0.001)
 
-        self.state_dp = 10
+        self.state_dp = 5
         self.critic_loss_history = []
         self.actor_loss_history = []
 
@@ -107,9 +106,15 @@ class PolicyGradientAgent:
     #
     # Act according to the current stochastic policy
     #
-    def act(self, state) -> int:
+    def act(self,
+            state,
+            episode: int) -> int:
         state = state.reshape([1, state.shape[0]])
+        lr = self.qval_lr(episode)
         aprob = self.actor_model.predict(state, batch_size=1).flatten()
+        aprob = np.array([aprob[0], aprob[1]])
+        aprob = (np.array([.5, .5]) * lr) + (aprob * (1.0 - lr))
+        aprob /= np.sum(aprob)
         action = np.random.choice(self.action_size, 1, p=aprob)[0]
         return action
 
@@ -137,13 +142,13 @@ class PolicyGradientAgent:
             action_value_ns = self.critic_model.predict(next_state, batch_size=1).flatten()
             qv_s = action_one_hot * action_value_s
             qv_ns = np.max(action_value_ns) * self.gamma
-            av = (qv_s * (1 - lr)) + (lr * (reward + qv_ns))  # updated expectation of current state/action
+            av = reward
+            # av = (qv_s * (1 - lr)) + (lr * (reward + qv_ns))  # updated expectation of current state/action
             qv_u = (action_value_s * (1 - action_one_hot)) + (av * action_one_hot)
             X[i] = np.squeeze(state)
             Y[i] = np.squeeze(qv_u)
             i += 1
         ls, acc = self.critic_model.train_on_batch(X, Y)
-        self.critic_loss_history.append(ls)
         print("Critic Training: episode [{:d}] loss [{:f}] accuracy [{:f}]".format(episode, ls, acc))
         return ls
 
@@ -151,7 +156,7 @@ class PolicyGradientAgent:
     # Train the actor to learn the stochastic policy; the reward is the reward for the action
     # as predicted by the critic.
     #
-    def train_actor(self) -> None:
+    def train_actor(self) -> float:
         """
         ToDo: Leanring Rate Decay by Episode ?
         :return:
@@ -169,7 +174,6 @@ class PolicyGradientAgent:
             Y[i] = r
             i += 1
         ls, acc = self.actor_model.train_on_batch(X, Y)
-        self.actor_loss_history.append(ls)
         print("Actor Training: loss [{:f}] accuracy [{:f}]".format(ls, acc))
         return ls
 
@@ -194,14 +198,12 @@ class PolicyGradientAgent:
         predicted_prob_action2 = []
         predicted_qval_action1 = []
         predicted_qval_action2 = []
-        batch_size = min(len(self.replay), 200)
-        samples = random.sample(list(self.replay), batch_size)
         states = []
         replay_qvals = []
-        for sample in samples:
-            state, action_one_hot, reward, next_state = sample
+        for sv in np.arange(e.state_min(), e.state_max(), e.state_step()):
+            state = e.state_as_x(sv)
             states.append(state[0])
-            replay_qvals.append(reward)
+            replay_qvals.append(e.reward(sv))
             aprob = self.actor_model.predict(state, batch_size=1).flatten()
             qvals = self.critic_model.predict(state, batch_size=1).flatten()
             predicted_prob_action1.append(aprob[0])
@@ -301,8 +303,10 @@ class Main:
         states, rewards = env.func()
         agent.visualise().plot_reward_function(states=states, rewards=rewards)
 
+        als = None
+        rls = None
         while True:
-            a = agent.act(st)
+            a = agent.act(st, episode)
             next_state, reward, done = env.step(a)
             agent.remember(st, a, reward, next_state)
             st = next_state
@@ -310,9 +314,11 @@ class Main:
 
             if done or eln > 500:
                 if episode > 3:
-                    agent.train_critic(episode)
+                    rls = agent.train_critic(episode)
                 if episode > 1 and episode % 3 == 0:
-                    agent.train_actor()
+                    als = agent.train_actor()
+                    agent.critic_loss_history.append(rls)
+                    agent.actor_loss_history.append(als)
                     agent.print_progress(episode, eln, env)
                 print("Episode - Episode-Length: {e}-{el}".format(e=episode, el=eln))
                 episode += 1
@@ -328,6 +334,6 @@ if __name__ == "__main__":
     parabolic_reward = ParabolicRewardFunction1D()
     local_maxima_reward = LocalMaximaRewardFunction1D()
     if test:
-        Test.run(local_maxima_reward)
+        Test.run(parabolic_reward)
     else:
         Main.run(local_maxima_reward)

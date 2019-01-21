@@ -20,28 +20,29 @@ If x is a value in radians and state space is in range (0 to m)then the reward f
 
 
 class LocalMaximaRewardFunction1D(RewardFunction1D):
-    __state_min = float(0)
-    __state_max = float(2.5 * (2 * math.pi))
-    __state_step = float(15.0 * (math.pi / 180.0))  # 15 degree steps as radians
-    __center_state = __state_max / 2.0
+    __state_min = int(0)
+    __state_max = int(60)
+    __state_step = int(1)
+    __center_state = int(__state_max / 2.0)
+    __x_min = float(0)
+    __x_max = float(2.5 * (2 * math.pi))
+    __x_step = float(15.0 * (math.pi / 180.0))  # 15 degree steps as radians
 
     def __init__(self):
         """
         Start in a default reset state.
         """
         self.state = None
+        self.num_steps = int((self.__state_max - self.__state_min) / self.__state_step)
         self.reset()
         return
 
     def reset(self) -> np.array:
         """
-        Reset state to either extreme of state space.
+        Reset state to a random step between state space min and max
         :return: The state after reset was performed.
         """
-        if np.random.rand() >= 0.5:
-            self.state = self.__state_max
-        else:
-            self.state = self.__state_min
+        self.state = self.__state_step * np.random.randint(self.num_steps)
         return np.array([self.state])
 
     def reward(self,
@@ -53,7 +54,8 @@ class LocalMaximaRewardFunction1D(RewardFunction1D):
         :param state:
         :return: Reward for given state
         """
-        return math.sin(state) * math.exp(1 - math.fabs((state - (self.__state_max / 2.0)) / (self.__state_max / 2.0)))
+        x = state * self.__x_step
+        return math.sin(x) * math.exp(1 - math.fabs((x - (self.__x_max / 2.0)) / (self.__x_max / 2.0)))
 
     def step(self,
              actn: int) -> Tuple[np.array, float, bool]:
@@ -69,7 +71,6 @@ class LocalMaximaRewardFunction1D(RewardFunction1D):
         else:
             raise RuntimeError("Action can only be value 0 or 1 so [" + str(actn) + "] is illegal")
 
-        self.state = np.round(self.state, 3)
         dn = (self.state < self.__state_min or self.state > self.__state_max)
 
         return np.array([self.state]), self.reward(self.state), dn
