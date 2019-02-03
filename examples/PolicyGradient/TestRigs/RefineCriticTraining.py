@@ -17,7 +17,7 @@ from reflrn.SimpleLearningRate import SimpleLearningRate
 #
 # Two network actor / critic stochastic policy with the critic learning state q-values on a one step Bellman.
 #
-# Exploration is inherent as policy is stochastic
+# Exploration is inherent as policy is stochastic  
 #
 class PolicyGradientAgent:
     __fig1 = None
