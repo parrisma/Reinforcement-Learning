@@ -2,6 +2,7 @@ import random
 from collections import deque
 
 import numpy as np
+from keras.initializers import RandomUniform
 from keras.layers import Dense
 from keras.models import Sequential
 from keras.optimizers import Adam
@@ -22,6 +23,7 @@ class PolicyGradientAgent:
     __fig1 = None
     __fig2 = None
     __plot_pause = 0.0001
+    __seed = 42
 
     def __init__(self,
                  st_size,
@@ -30,7 +32,7 @@ class PolicyGradientAgent:
         self.action_size = a_size
         self.gamma = 0.99
         self.learning_rate = 0.001
-        self.replay = deque(maxlen=1000)
+        self.replay = deque(maxlen=2500)
         self.actor_model = self._build_actor_model()
         self.critic_model = self._build_critic_model()
 
@@ -40,9 +42,9 @@ class PolicyGradientAgent:
         qval_lr0 = float(1)
         self.qval_learning_rate = SimpleLearningRate(lr0=qval_lr0,
                                                      lrd=SimpleLearningRate.lr_decay_target(learning_rate_zero=qval_lr0,
-                                                                                            target_step=1000,
+                                                                                            target_step=5000,
                                                                                             target_learning_rate=0.01),
-                                                     lr_min=0.001)
+                                                     lr_min=0.01)
 
         self.state_dp = 5
         self.critic_loss_history = []
@@ -60,9 +62,10 @@ class PolicyGradientAgent:
     # Simple NN model with softmax learning the policy as probability distribution over actions.
     #
     def _build_actor_model(self):
+        ru = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
         model = Sequential()
-        model.add(Dense(24, input_dim=self.state_size, activation='relu', kernel_initializer='he_uniform'))
-        model.add(Dense(24, activation='relu', kernel_initializer='he_uniform'))
+        model.add(Dense(100, input_dim=self.state_size, activation='relu', kernel_initializer=ru))
+        model.add(Dense(50, activation='relu', kernel_initializer=ru))
         model.add(Dense(self.action_size, activation='softmax'))
         model.compile(loss='categorical_crossentropy',
                       optimizer=Adam(lr=self.learning_rate),
@@ -74,12 +77,11 @@ class PolicyGradientAgent:
     # Simple NN model learning QValues by state.
     #
     def _build_critic_model(self):
+        ru = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
         model = Sequential()
-        model.add(Dense(2000, input_dim=self.state_size, activation='relu', kernel_initializer='uniform'))
-        model.add(Dense(1000, activation='relu', kernel_initializer='uniform'))
-        model.add(Dense(500, activation='relu', kernel_initializer='uniform'))
-        model.add(Dense(250, activation='relu', kernel_initializer='uniform'))
-        model.add(Dense(100, activation='relu', kernel_initializer='uniform'))
+        model.add(Dense(1000, input_dim=self.state_size, activation='relu', kernel_initializer=ru))
+        model.add(Dense(500, activation='relu', kernel_initializer=ru))
+        model.add(Dense(100, activation='relu', kernel_initializer=ru))
         model.add(Dense(units=self.action_size, activation='linear'))
         model.compile(loss='mean_squared_error',
                       optimizer=Adam(lr=self.learning_rate),
@@ -130,7 +132,7 @@ class PolicyGradientAgent:
     #
     def train_critic(self,
                      episode: int) -> float:
-        batch_size = min(len(self.replay), 100)
+        batch_size = min(len(self.replay), 250)
         X = np.zeros(batch_size)
         Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
@@ -141,9 +143,9 @@ class PolicyGradientAgent:
             action_value_s = self.critic_model.predict(state, batch_size=1).flatten()
             action_value_ns = self.critic_model.predict(next_state, batch_size=1).flatten()
             qv_s = action_one_hot * action_value_s
-            qv_ns = np.max(action_value_ns) * self.gamma
-            av = reward
-            # av = (qv_s * (1 - lr)) + (lr * (reward + qv_ns))  # updated expectation of current state/action
+            qv_ns = np.max(action_value_ns)  # * self.gamma
+            av = (reward + (qv_ns * self.gamma)) - np.max(action_value_s)
+            # av = ((qv_s * (1 - lr)) + (lr * (reward + qv_ns))) - np.max(action_value_s)
             qv_u = (action_value_s * (1 - action_one_hot)) + (av * action_one_hot)
             X[i] = np.squeeze(state)
             Y[i] = np.squeeze(qv_u)

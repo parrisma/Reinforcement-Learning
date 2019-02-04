@@ -156,8 +156,8 @@ class PolicyGradientAgent:
             #      str(round(qvals[0], 4)) + "} {" +
             #      str(round(qvals[1], 4)) + "}"
             #      )
-        self.visualise().plot_loss_function(actor_loss=self.actor_loss_history,
-                                            critic_loss=self.critic_loss_history)
+        self.visualise().plot_loss_function(actor_loss=self.actor_loss_history[-500:],
+                                            critic_loss=self.critic_loss_history[-500:])
         self.visualise().plot_qvals_function(states=states,
                                              qvalues_action1=predicted_qval_action1,
                                              qvalues_action2=predicted_qval_action2,

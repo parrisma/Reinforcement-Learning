@@ -11,6 +11,8 @@ class Visualise:
     loss = None
     loss_x2 = None
     plot_pause = 0.0001
+    nxt_col = 0
+    plt_col = dict()
 
     def __init__(self):
         """
@@ -50,6 +52,18 @@ class Visualise:
 
         return
 
+    def plt_color(self,
+                  plt_id: int) -> str:
+        """
+        :param: pt_id a unique numerical id for the plot with which to associate a color
+        A random color code to use for setting line colours for the given plot id
+        :return: color in form 'C<n>' where n is a integer that increased by 1 for every call.
+        """
+        if plt_id not in self.plt_col:
+            self.plt_col[plt_id] = "C{:d}".format(self.nxt_col)
+            self.nxt_col += 1
+        return self.plt_col[plt_id]
+
     def show(self) -> None:
         """
         Render the Figure + Sub Plots
@@ -69,7 +83,7 @@ class Visualise:
         :return: Nothing
         """
         self.reward_func.cla()
-        self.reward_func.plot(states, rewards)
+        self.reward_func.plot(states, rewards, color=self.plt_color(1))
         self.show()
         return
 
@@ -89,10 +103,10 @@ class Visualise:
         """
         self.qvals.cla()
         self.qvals_x2.cla()
-        self.qvals.plot(states, qvalues_action1)
-        self.qvals.plot(states, qvalues_action2)
+        self.qvals.plot(states, qvalues_action1, color=self.plt_color(2))
+        self.qvals.plot(states, qvalues_action2, color=self.plt_color(3))
         if qvalues_reference is not None:
-            self.qvals_x2.plot(states, qvalues_reference)
+            self.qvals_x2.plot(states, qvalues_reference, color=self.plt_color(4))
         self.show()
         return
 
@@ -108,10 +122,10 @@ class Visualise:
         """
         if actor_loss is not None:
             self.loss.cla()
-            self.loss.plot(list(range(0, len(actor_loss))), actor_loss)
+            self.loss.plot(list(range(0, len(actor_loss))), actor_loss, color=self.plt_color(5))
         if critic_loss is not None:
             self.loss_x2.cla()
-            self.loss_x2.plot(list(range(0, len(critic_loss))), critic_loss)
+            self.loss_x2.plot(list(range(0, len(critic_loss))), critic_loss, color=self.plt_color(6))
         self.show()
         return
 
@@ -128,7 +142,7 @@ class Visualise:
         :return: Nothing
         """
         self.probs.cla()
-        self.probs.plot(states, action1_probs)
-        self.probs.plot(states, action2_probs)
+        self.probs.plot(states, action1_probs, color=self.plt_color(7))
+        self.probs.plot(states, action2_probs, color=self.plt_color(8))
         self.show()
         return
