@@ -121,7 +121,7 @@ class PolicyGradientAgent:
             qv_s = action_one_hot * action_value_s
             qv_ns = np.max(action_value_ns)  # * self.gamma
             av = (reward + (qv_ns * self.gamma)) - np.max(action_value_s)
-            # av = ((qv_s * (1 - lr)) + (lr * (reward + qv_ns))) - np.max(action_value_s)
+            #av = ((qv_s * (1 - lr)) + (lr * (reward + qv_ns))) - np.max(action_value_s)
             qv_u = (action_value_s * (1 - action_one_hot)) + (av * action_one_hot)
             X[i] = np.squeeze(state)
             Y[i] = np.squeeze(qv_u)

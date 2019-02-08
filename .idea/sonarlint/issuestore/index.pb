@@ -99,3 +99,17 @@ P
 0reflrn/ReflrnUnitTests/TestSimpleLearningRate.py,c\d\cdd24cb85f9cb687d613b73d667e901d7a5d74df
 j
 :examples/PolicyGradient/TestRigs/OneVarParabolicTestRig.py,1\1\116502f6981e97b31147db5625c7ee94dc83ded2
+v
+Fexamples/PolicyGradient/TestRigs/StochasticPolicyGradientMonteCarlo.py,e\6\e6552a4fe879d86b7312a7028c3e77b75efbb270
+n
+>examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py,e\e\ee1a29d6d354ac31c88564c80751bec7d67ebe45
+}
+Mexamples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py,0\f\0f2e1b46196aff29116673d1300bf626bb21d802
+
+Oexamples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py,c\e\cee97a4b363620c35062f4426c5f69c0425f7e2e
+]
+-examples/PolicyGradient/TestRigs/Visualise.py,d\1\d121d35196755c3e5218d0db9e071a5b1e4c1f61
+w
+Gexamples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py,2\9\29ff128d47b39f5c5b65bdda1ed3ddc6f5599fb0
+h
+8examples/PolicyGradient/TestRigs/RefineCriticTraining.py,2\b\2b1829bc50ef31cc9921424e23bdb70376e8a20d
