@@ -22,7 +22,7 @@ class Visualise:
             Probabilities
             Training Loss(es)
         """
-        self.fig, self.sub = plt.subplots(4)
+        self.fig, self.sub = plt.subplots(5)
         self.fig.suptitle('Actor Critic Telemetry')
 
         self.reward_func = self.sub[0]
@@ -48,6 +48,13 @@ class Visualise:
         self.loss.set_title('Training Loss')
         self.loss_x2 = self.loss.twinx()
         self.loss_x2.set_ylabel('Y (Critic Loss)')
+
+        self.acc = self.sub[4]
+        self.acc.set_xlabel('X (State)')
+        self.acc.set_ylabel('Y (Accuracy)')
+        self.acc.set_title('Action Probabilities')
+        self.acc_x2 = self.acc.twinx()
+        self.acc_x2.set_ylabel('Y (Exploration)')
         self.show()
 
         return
@@ -144,5 +151,27 @@ class Visualise:
         self.probs.cla()
         self.probs.plot(states, action1_probs, color=self.plt_color(7))
         self.probs.plot(states, action2_probs, color=self.plt_color(8))
+        self.show()
+        return
+
+    def plot_acc_function(self,
+                          actor_acc: list = None,
+                          critic_acc: list = None,
+                          exploration: list = None
+                          ) -> None:
+        """
+        Render or Update the sub plot for actor / critic accuracy as well as exploration factor
+        :param actor_acc: Actor Accuracy Time Series
+        :param critic_acc: Critic Accuracy Time Series
+        :param exploration: Actor exploration factor
+        :return: Nothing
+        """
+        if actor_acc is not None:
+            self.acc.cla()
+            self.acc.plot(list(range(0, len(actor_acc))), actor_acc, color=self.plt_color(8))
+            self.acc.plot(list(range(0, len(critic_acc))), critic_acc, color=self.plt_color(9))
+        if critic_acc is not None:
+            self.acc_x2.cla()
+            self.acc_x2.plot(list(range(0, len(exploration))), exploration, color=self.plt_color(10))
         self.show()
         return

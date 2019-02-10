@@ -1,9 +1,13 @@
+import math
 import random
 from collections import deque
+from typing import Tuple
 
 import numpy as np
 from keras.initializers import RandomUniform
+from keras.initializers import Zeros
 from keras.layers import Dense
+from keras.layers import Dropout
 from keras.models import Sequential
 from keras.optimizers import Adam
 
@@ -27,12 +31,16 @@ class PolicyGradientAgent:
 
     def __init__(self,
                  st_size,
-                 a_size):
+                 a_size,
+                 num_states):
         self.state_size = st_size
         self.action_size = a_size
+        self.num_states = num_states
         self.gamma = 0.99
         self.learning_rate = 0.001
         self.replay = deque(maxlen=2500)
+        self.replay_kl_factor = 0.0
+        self.kl_update = 0
         self.actor_model = self._build_actor_model()
         self.critic_model = self._build_critic_model()
 
@@ -49,6 +57,9 @@ class PolicyGradientAgent:
         self.state_dp = 5
         self.critic_loss_history = []
         self.actor_loss_history = []
+        self.critic_acc_history = []
+        self.actor_acc_history = []
+        self.actor_exploration_history = []
 
         self.visual = Visualise()
         self.visual.show()
@@ -58,15 +69,41 @@ class PolicyGradientAgent:
     def visualise(self) -> Visualise:
         return self.visual
 
+    def replay_kl(self):
+        dl = 0
+        sd = dict()
+        for s in self.replay:
+            state, _, _, _ = s
+            state = state[0]
+            if state in sd:
+                sd[state] += 1
+            else:
+                sd[state] = 1
+            dl += 1
+        if dl < 2:
+            return 0
+        qx = (self.num_states / dl)
+        kln = math.log(1.0 / dl)
+        kls = 0
+        print('-------------')
+        for k, v in sd.items():
+            px = v / dl
+            kls += px * math.log(max(px, 1e-12) / max(qx, 1e-12))
+            print('{:d},{:d}'.format(k, v))
+        print('-------------')
+        return kls / kln
+
     #
     # Simple NN model with softmax learning the policy as probability distribution over actions.
     #
     def _build_actor_model(self):
-        ru = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
+        ki = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
+        bi = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
         model = Sequential()
-        model.add(Dense(100, input_dim=self.state_size, activation='relu', kernel_initializer=ru))
-        model.add(Dense(50, activation='relu', kernel_initializer=ru))
-        model.add(Dense(self.action_size, activation='softmax'))
+        model.add(Dense(100, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.2))
+        model.add(Dense(50, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dense(self.action_size, activation='softmax', kernel_initializer=ki, bias_initializer=bi))
         model.compile(loss='categorical_crossentropy',
                       optimizer=Adam(lr=self.learning_rate),
                       metrics=['accuracy']
@@ -77,12 +114,16 @@ class PolicyGradientAgent:
     # Simple NN model learning QValues by state.
     #
     def _build_critic_model(self):
-        ru = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
+        ki = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
+        bi = Zeros()
         model = Sequential()
-        model.add(Dense(1000, input_dim=self.state_size, activation='relu', kernel_initializer=ru))
-        model.add(Dense(500, activation='relu', kernel_initializer=ru))
-        model.add(Dense(100, activation='relu', kernel_initializer=ru))
-        model.add(Dense(units=self.action_size, activation='linear'))
+        model.add(Dense(500, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.2))
+        model.add(Dense(250, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.2))
+        model.add(Dense(100, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.1))
+        model.add(Dense(units=self.action_size, activation='linear', kernel_initializer=ki, bias_initializer=bi))
         model.compile(loss='mean_squared_error',
                       optimizer=Adam(lr=self.learning_rate),
                       metrics=['accuracy']
@@ -103,6 +144,10 @@ class PolicyGradientAgent:
                             np.array(y).astype('float32'),
                             r,
                             np.round(next_state, self.state_dp)])
+        if self.kl_update % 100 == 0:
+            self.replay_kl_factor = self.replay_kl()
+            self.kl_update = 0
+        self.kl_update += 1
         return
 
     #
@@ -110,15 +155,14 @@ class PolicyGradientAgent:
     #
     def act(self,
             state,
-            episode: int) -> int:
+            episode: int) -> Tuple[int, float]:
         state = state.reshape([1, state.shape[0]])
-        # lr = self.qval_lr(episode)
+        klf = self.replay_kl_factor
         aprob = self.actor_model.predict(state, batch_size=1).flatten()
-        aprob = np.array([aprob[0], aprob[1]])
-        # aprob = np.array([.5, .5])
+        aprob = ((1 - klf) * np.array([aprob[0], aprob[1]])) + (klf * np.array([.5, .5]))
         aprob /= np.sum(aprob)
         action = np.random.choice(self.action_size, 1, p=aprob)[0]
-        return action
+        return action, klf
 
     #
     # learning rate for the q-value update
@@ -151,16 +195,8 @@ class PolicyGradientAgent:
             Y[i] = np.squeeze(qv_u)
             i += 1
         ls, acc = self.critic_model.train_on_batch(X, Y)
-        print("Critic Training: episode [{:d}] loss [{:f}] accuracy [{:f}]".format(episode, ls, acc))
+        print("Critic Training: episode [{:d}] - [{:f} - {:f}]".format(episode, ls, acc))
         return ls, acc
-
-    @classmethod
-    def nrm(cls,
-            npa: np.array) -> np.array:
-        mx = np.max(npa)
-        mn = np.min(npa)
-        md = mx - mn
-        return (npa - mn) / md
 
     #
     # Train the actor to learn the stochastic policy; the reward is the reward for the action
@@ -172,7 +208,7 @@ class PolicyGradientAgent:
         ToDo: Leanring Rate Decay by Episode ?
         :return:
         """
-        batch_size = min(len(self.replay), 100)
+        batch_size = min(len(self.replay), 500)
         X = np.zeros((batch_size, self.state_size))
         Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
@@ -183,14 +219,13 @@ class PolicyGradientAgent:
             action_probs_s = self.actor_model.predict(state, batch_size=1).flatten()
 
             avn = ((1 - action_one_hot) * action_value_s) + (action_one_hot * reward)
-            avmx = np.max(avn)
-            avmn = np.min(avn)
-            avdn = avmx - avmn
-            avn = (((avn - avmn) / avdn) * 2.0) - 1.0
+            avn -= np.max(avn)
+            avn /= np.abs(np.sum(avn))
 
-            action_probs_s = self.nrm(action_probs_s)
-            action_probs_s += (action_probs_s * avn * lr)
-            action_probs_s = self.nrm(action_probs_s)
+            action_probs_s[action_probs_s < 0.0] = 0.0
+            action_probs_s /= np.sum(action_probs_s)
+            action_probs_s += (action_probs_s * avn * 0.1)
+            action_probs_s /= np.sum(action_probs_s)
 
             X[i] = state
             Y[i] = action_probs_s
@@ -251,12 +286,24 @@ class PolicyGradientAgent:
                 res += "|"
             ts += e.state_step()
         print(str(ep) + "::" + str(elen) + "   " + res)
-        self.visualise().plot_loss_function(actor_loss=self.actor_loss_history[-500:],
-                                            critic_loss=self.critic_loss_history[-500:])
+        self.actor_loss_history = self.actor_loss_history[-500:]
+        self.critic_loss_history = self.critic_loss_history[-500:]
+        self.actor_acc_history = self.actor_acc_history[-500:]
+        self.critic_acc_history = self.critic_acc_history[-500:]
+        self.actor_exploration_history = self.actor_exploration_history[-500:]
+
+        self.visualise().plot_loss_function(actor_loss=self.actor_loss_history,
+                                            critic_loss=self.critic_loss_history)
+
+        self.visualise().plot_acc_function(actor_acc=self.actor_acc_history,
+                                           critic_acc=self.critic_acc_history,
+                                           exploration=self.actor_exploration_history)
+
         self.visualise().plot_qvals_function(states=states,
                                              qvalues_action1=predicted_qval_action1,
                                              qvalues_action2=predicted_qval_action2,
                                              qvalues_reference=replay_qvals)
+
         self.visualise().plot_prob_function(states=states,
                                             action1_probs=predicted_prob_action1,
                                             action2_probs=predicted_prob_action2)
@@ -267,15 +314,35 @@ class Test:
     @classmethod
     def run(cls,
             reward_function_1d: RewardFunction1D):
+
+        env = reward_function_1d
         v = Visualise()
         v.show()
-        env = reward_function_1d
         states, rewards = env.func()
         v.plot_reward_function(states=states, rewards=rewards)
         state_size = env.state_space_size()
         action_size = env.num_actions()
-        agent = PolicyGradientAgent(state_size, action_size)
+        agent = PolicyGradientAgent(state_size, action_size,
+                                    int((env.state_max() - env.state_min()) / env.state_step()))
         PolicyGradientAgent.gamma = 0
+
+        # Test KL calc.
+        for i in range(0, agent.num_states * 5):
+            agent.remember(np.array([i % agent.num_states]), 0, 0.0, 0)
+        kl = agent.replay_kl()  # should be 0
+
+        agent = PolicyGradientAgent(state_size, action_size,
+                                    int((env.state_max() - env.state_min()) / env.state_step()))
+        for i in range(0, agent.num_states * 5):
+            agent.remember(np.array([1]), 0, 0.0, 0)
+        kl = agent.replay_kl()  # should be 1
+
+        agent = PolicyGradientAgent(state_size, action_size,
+                                    int((env.state_max() - env.state_min()) / env.state_step()))
+        for i in range(0, agent.num_states * 5):
+            agent.remember(np.array([random.randint(0, agent.num_states)]), 0, 0.0, 0)
+        kl = agent.replay_kl()  # should be around 0.5
+
         for i in range(0, 15):
             j = float(reward_function_1d.state_min())
             while j <= reward_function_1d.state_max():
@@ -325,7 +392,7 @@ class Main:
 
         state_size = env.state_space_size()
         action_size = env.num_actions()
-        agent = PolicyGradientAgent(state_size, action_size)
+        agent = PolicyGradientAgent(state_size, action_size, (env.state_max() - env.state_min()) / env.state_step())
 
         states, rewards = env.func()
         agent.visualise().plot_reward_function(states=states, rewards=rewards)
@@ -333,8 +400,12 @@ class Main:
         als = None
         rls = None
         acc = None
+        elau = 0
+        thr = 50
+        accc = 0
+        acca = 0
         while True:
-            a = agent.act(st, episode)
+            a, expl = agent.act(st, episode)
             next_state, reward, done = env.step(a)
             agent.remember(st, a, reward, next_state)
             st = next_state
@@ -343,18 +414,26 @@ class Main:
             acl = 0.1
             aal = 0.1
             lr0 = 0.1
-            if done or eln > 500:
+            if done or eln > 80:
                 if episode > 3:
                     rls, accc = agent.train_critic(episode)
                     acl = accc
-                if episode > 3 and episode % max(2, (100 - (np.round(acc * 10, 0) * 10))) == 0:
-                    print(max(5, (100 - (np.round(acc * 10, 0) * 10))))
-                    print('<<<********** Train actor *************>>>')
-                    als, acca = agent.train_actor(lr0 * acl * aal)
-                    aal = acca
+                if episode > 3:
+                    thr = (100 - (np.round(accc * 100, 0)))
+                    if thr <= 10:
+                        thr = 2
+                    if (episode - elau) > thr:
+                        print(max(5, (100 - (np.round(accc * 10, 0) * 10))))
+                        print('<<<********** Train actor *************>>>')
+                        als, acca = agent.train_actor(lr0 * acl)  # * aal)
+                        aal = acca
+                        elau = episode
                 if episode > 1 and episode % 10 == 0:
                     agent.critic_loss_history.append(rls)
                     agent.actor_loss_history.append(als)
+                    agent.actor_acc_history.append(acca)
+                    agent.critic_acc_history.append(accc)
+                    agent.actor_exploration_history.append(expl)
                     agent.print_progress(episode, eln, env)
                 print("Episode - Episode-Length: {e}-{el}".format(e=episode, el=eln))
                 episode += 1
@@ -370,6 +449,6 @@ if __name__ == "__main__":
     parabolic_reward = ParabolicRewardFunction1D()
     local_maxima_reward = LocalMaximaRewardFunction1D()
     if test:
-        Test.run(parabolic_reward)
+        Test.run(local_maxima_reward)
     else:
         Main.run(local_maxima_reward)
