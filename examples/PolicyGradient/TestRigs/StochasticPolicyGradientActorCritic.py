@@ -82,29 +82,36 @@ class PolicyGradientAgent:
             dl += 1
         if dl < 2:
             return 0
-        qx = (self.num_states / dl)
-        kln = math.log(1.0 / dl)
-        kls = 0
-        print('-------------')
+        qx = ((dl / len(sd)) / dl)
+        kln = math.log(1.0 / qx)
+        kls = 0.0
+        u = 0.0
+        c = 0
         for k, v in sd.items():
             px = v / dl
-            kls += px * math.log(max(px, 1e-12) / max(qx, 1e-12))
-            print('{:d},{:d}'.format(k, v))
-        print('-------------')
-        return kls / kln
+            u += px * math.log(max(px, 1e-12) / max(qx, 1e-12))
+            if u > 0:
+                kls += u
+                c += 1
+            # print('k:{:d} v:{:d} px:{:f} qx:{:f} u:{:f} kls:{:f}'.format(k, v, px, qx, u, kls))
+        klp = (kls / c) / kln
+        return klp
 
     #
     # Simple NN model with softmax learning the policy as probability distribution over actions.
     #
     def _build_actor_model(self):
         ki = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
-        bi = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
+        bi = Zeros()
         model = Sequential()
-        model.add(Dense(100, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dropout(0.2))
-        model.add(Dense(50, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dense(self.action_size, activation='softmax', kernel_initializer=ki, bias_initializer=bi))
-        model.compile(loss='categorical_crossentropy',
+        model.add(Dense(800, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.1))
+        model.add(Dense(400, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.1))
+        model.add(Dense(200, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.05))
+        model.add(Dense(units=self.action_size, activation='linear', kernel_initializer=ki, bias_initializer=bi))
+        model.compile(loss='mean_squared_error',
                       optimizer=Adam(lr=self.learning_rate),
                       metrics=['accuracy']
                       )
@@ -117,12 +124,12 @@ class PolicyGradientAgent:
         ki = RandomUniform(minval=-0.05, maxval=0.05, seed=self.__seed)
         bi = Zeros()
         model = Sequential()
-        model.add(Dense(500, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dropout(0.2))
-        model.add(Dense(250, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dropout(0.2))
-        model.add(Dense(100, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dense(800, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
         model.add(Dropout(0.1))
+        model.add(Dense(400, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.1))
+        model.add(Dense(200, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.05))
         model.add(Dense(units=self.action_size, activation='linear', kernel_initializer=ki, bias_initializer=bi))
         model.compile(loss='mean_squared_error',
                       optimizer=Adam(lr=self.learning_rate),
@@ -144,7 +151,7 @@ class PolicyGradientAgent:
                             np.array(y).astype('float32'),
                             r,
                             np.round(next_state, self.state_dp)])
-        if self.kl_update % 100 == 0:
+        if self.kl_update % 250 == 0:
             self.replay_kl_factor = self.replay_kl()
             self.kl_update = 0
         self.kl_update += 1
@@ -159,8 +166,12 @@ class PolicyGradientAgent:
         state = state.reshape([1, state.shape[0]])
         klf = self.replay_kl_factor
         aprob = self.actor_model.predict(state, batch_size=1).flatten()
-        aprob = ((1 - klf) * np.array([aprob[0], aprob[1]])) + (klf * np.array([.5, .5]))
-        aprob /= np.sum(aprob)
+        aprob[aprob < 0.0] = 0.0
+        if np.sum(aprob) == 0:
+            aprob = np.array([.5, .5])
+        else:
+            aprob = ((1 - klf) * np.array([aprob[0], aprob[1]])) + (klf * np.array([.5, .5]))
+            aprob /= np.sum(aprob)
         action = np.random.choice(self.action_size, 1, p=aprob)[0]
         return action, klf
 
@@ -175,7 +186,7 @@ class PolicyGradientAgent:
     # Train the critic to learn the action values. Bellman
     #
     def train_critic(self,
-                     episode: int) -> float:
+                     episode: int) -> Tuple[float, float]:
         batch_size = min(len(self.replay), 250)
         X = np.zeros(batch_size)
         Y = np.zeros((batch_size, self.action_size))
@@ -203,12 +214,12 @@ class PolicyGradientAgent:
     # as predicted by the critic.
     #
     def train_actor(self,
-                    lr: float) -> float:
+                    lr: float) -> Tuple[float, float]:
         """
         ToDo: Leanring Rate Decay by Episode ?
         :return:
         """
-        batch_size = min(len(self.replay), 500)
+        batch_size = min(len(self.replay), 250)
         X = np.zeros((batch_size, self.state_size))
         Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
@@ -222,9 +233,9 @@ class PolicyGradientAgent:
             avn -= np.max(avn)
             avn /= np.abs(np.sum(avn))
 
-            action_probs_s[action_probs_s < 0.0] = 0.0
+            action_probs_s[action_probs_s <= 0.0] = 0.01  # min % chance = 1%
             action_probs_s /= np.sum(action_probs_s)
-            action_probs_s += (action_probs_s * avn * 0.1)
+            action_probs_s += (action_probs_s * avn * 0.7)
             action_probs_s /= np.sum(action_probs_s)
 
             X[i] = state
@@ -272,12 +283,12 @@ class PolicyGradientAgent:
             predicted_prob_action2.append(aprob[1])
             predicted_qval_action1.append(qvals[0])
             predicted_qval_action2.append(qvals[1])
-            print("SV: " + '{:+.2}'.format(float(ts)) + " [ " +
-                  str(round(aprob[0] * 100, 2)) + "% , " +
-                  str(round(aprob[1] * 100, 2)) + "%], {" +
-                  str(round(qvals[0], 4)) + "} {" +
-                  str(round(qvals[1], 4)) + "}"
-                  )
+            # print("SV: " + '{:+.2}'.format(float(ts)) + " [ " +
+            #      str(round(aprob[0] * 100, 2)) + "% , " +
+            #      str(round(aprob[1] * 100, 2)) + "%], {" +
+            #      str(round(qvals[0], 4)) + "} {" +
+            #      str(round(qvals[1], 4)) + "}"
+            #      )
             if aprob[0] > aprob[1]:
                 res += '>'
             else:
@@ -420,7 +431,7 @@ class Main:
                     acl = accc
                 if episode > 3:
                     thr = (100 - (np.round(accc * 100, 0)))
-                    if thr <= 10:
+                    if thr <= 15:
                         thr = 2
                     if (episode - elau) > thr:
                         print(max(5, (100 - (np.round(accc * 10, 0) * 10))))
@@ -451,4 +462,4 @@ if __name__ == "__main__":
     if test:
         Test.run(local_maxima_reward)
     else:
-        Main.run(local_maxima_reward)
+        Main.run(parabolic_reward)

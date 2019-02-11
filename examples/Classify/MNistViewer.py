@@ -6,7 +6,7 @@ import matplotlib as mpl
 import numpy as np
 from matplotlib import pyplot
 
-from examples.Experimental.MNistLoader import MNistLoader
+from examples.Classify import MNistLoader
 
 
 class MNistViewer:
