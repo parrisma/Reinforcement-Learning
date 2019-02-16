@@ -2,6 +2,8 @@ import abc
 from typing import Tuple
 
 import matplotlib.pyplot as plt
+from matplotlib import cm
+from mpl_toolkits.mplot3d import axes3d
 import numpy as np
 
 """
@@ -35,12 +37,22 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @classmethod
-    def state_space_size(cls) -> int:
+    def state_space_dimension(cls) -> int:
         """
         The dimensions of the state space
         :return: Always 2 as this is for 2D reward functions. (2 degrees of state space freedom)
         """
         return 2
+
+    def state_shape(self) -> Tuple[int, int]:
+        """
+        What are the dimensions (Shape) of the state space
+        :return: Tuple describing the shape
+        """
+        return (
+            int((self.state_max() - self.state_min()) / self.state_step()),
+            int((self.state_max() - self.state_min()) / self.state_step())
+        )
 
     @classmethod
     def num_actions(cls) -> int:
@@ -51,7 +63,7 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         return 4
 
     def reward(self,
-               state: float) -> float:
+               state: Tuple[int, int]) -> float:
         """
         The reward for transitioning to the given state
         :param state: The state being traversed to
@@ -97,7 +109,10 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         if self.__fig is None:
             self.__fig = plt.figure()
 
-        grid = np.array()
+        grid = np.zeros(self.state_shape())
+        for i in range(0, self.state_shape()[0]):
+            for j in range(0, self.state_shape()[1]):
+                grid[i, j] = self.reward((i, j))
         nr, nc = grid.shape
         x = np.arange(0, nc, 1)
         y = np.arange(0, nr, 1)
@@ -108,20 +123,14 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Q Value')
-        ax.set_xticks(np.arange(0, self.__num_cols, max(1, int(self.__num_cols / 10))))
-        ax.set_yticks(np.arange(0, self.__num_rows, max(1, int(self.__num_rows / 10))))
-        if self.__view_rot_step > 0:
-            self.__view_rot += self.__view_rot_step
-            self.__view_rot = self.__view_rot_step % 360
+        ax.set_xticks(np.arange(0, nc, max(1, int(nc / 10))))
+        ax.set_yticks(np.arange(0, nr, max(1, int(nr / 10))))
         if self.__wireframe:
-            ax.plot_wireframe(X, Y, Z, cmap=self.__cmap, rstride=1, cstride=1)
+            ax.plot_wireframe(X, Y, Z, cmap=cm.get_cmap('ocean'), rstride=1, cstride=1)
         else:
-            ax.plot_surface(X, Y, Z, cmap=self.__cmap, linewidth=0, antialiased=False)
-        plt.pause(self.__plot_pause)
+            ax.plot_surface(X, Y, Z, cmap=cm.get_cmap('ocean'), linewidth=0, antialiased=False)
         plt.show(block=False)
-        plt.gcf().clear()
         plt.pause(self.__plot_pause)
-        plt.show(block=False)
         return
 
     def func(self) -> Tuple[list, list]:

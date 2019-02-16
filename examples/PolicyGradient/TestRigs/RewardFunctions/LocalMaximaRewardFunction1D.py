@@ -77,12 +77,19 @@ class LocalMaximaRewardFunction1D(RewardFunction1D):
         return np.array([self.state]), self.reward(self.state), dn
 
     @classmethod
-    def state_space_size(cls) -> int:
+    def state_space_dimension(cls) -> int:
         """
         The dimensions of the state space
         :return: Always 1 as this is for 1D reward functions.
         """
-        return super(LocalMaximaRewardFunction1D, cls).state_space_size()
+        return super(LocalMaximaRewardFunction1D, cls).state_space_dimension()
+
+    def state_shape(self) -> Tuple[int, int]:
+        """
+        What are the dimensions (Shape) of the state space
+        :return: Tuple describing the shape
+        """
+        return super(LocalMaximaRewardFunction1D, self).state_shape()
 
     @classmethod
     def num_actions(cls) -> int:

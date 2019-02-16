@@ -179,7 +179,7 @@ class Main:
         episode = 0
         eln = 0
 
-        state_size = env.state_space_size()
+        state_size = env.state_space_dimension()
         action_size = env.num_actions()
         agent = PolicyGradientAgent(state_size, action_size)
 

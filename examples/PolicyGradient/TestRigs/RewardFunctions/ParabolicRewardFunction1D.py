@@ -65,7 +65,7 @@ class ParabolicRewardFunction1D(RewardFunction1D):
         elif actn == 1:
             self.state -= self.__state_step
         else:
-            raise RuntimeError("Action can only be value 0 or 1 so [" + str(actn) + "] is illegal")
+            raise ValueError("Action can only be value 0 or 1 so [" + str(actn) + "] is illegal")
 
         self.state = np.round(self.state, 3)
         dn = (self.state < self.__state_min or self.state > self.__state_max)
@@ -73,38 +73,46 @@ class ParabolicRewardFunction1D(RewardFunction1D):
         return np.array([self.state]), self.reward(self.state), dn
 
     @classmethod
-    def state_space_size(cls) -> int:
+    def state_space_dimension(cls) -> int:
         """
         The dimensions of the state space
         :return: Always 1 as this is for 1D reward functions.
         """
-        return super(ParabolicRewardFunction1D, cls).state_space_size()
+        return super(ParabolicRewardFunction1D, cls).state_space_dimension()
 
     @classmethod
     def num_actions(cls) -> int:
         """
-        The number of actions
-        :return: Always 2 as this is a 1D state space so only 2 directions of state space traversal.
+        The number of actions. Always 2 as this is a 1D state space so only 2 directions of state space traversal.
+        East and West
+        :return: Number of actions as integer.
         """
         return super(ParabolicRewardFunction1D, cls).num_actions()
 
-    def state_min(self):
+    def state_min(self) -> float:
         """
         What is the minimum value of 1D state space
         :return: Minimum value of 1D state space
         """
         return self.__state_min
 
-    def state_max(self):
+    def state_max(self) -> float:
         """
         What is the maximum value of 1D state space
         :return: Maximum value of 1D state space
         """
         return self.__state_max
 
-    def state_step(self):
+    def state_step(self) -> float:
         """
         What is the discrete step increment used to traverse state space (by actions)
         :return: The discrete step increment used to traverse state space (by actions)
         """
         return self.__state_step
+
+    def state_shape(self) -> Tuple[int, int]:
+        """
+        What are the dimensions (Shape) of the state space
+        :return: Tuple describing the shape
+        """
+        return super(ParabolicRewardFunction1D, self).state_shape()

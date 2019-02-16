@@ -35,12 +35,21 @@ class RewardFunction1D(metaclass=abc.ABCMeta):
         raise NotImplementedError
 
     @classmethod
-    def state_space_size(cls) -> int:
+    def state_space_dimension(cls) -> int:
         """
         The dimensions of the state space
         :return: Always 1 as this is for 1D reward functions.
         """
         return 1
+
+    def state_shape(self) -> Tuple[int, int]:
+        """
+        What are the dimensions (Shape) of the state space
+        :return: Tuple describing the shape
+        """
+        return (1,
+                int((self.state_max() - self.state_min()) / self.state_step())
+                )
 
     @classmethod
     def num_actions(cls) -> int:

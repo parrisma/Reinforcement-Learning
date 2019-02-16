@@ -331,7 +331,7 @@ class Test:
         v.show()
         states, rewards = env.func()
         v.plot_reward_function(states=states, rewards=rewards)
-        state_size = env.state_space_size()
+        state_size = env.state_space_dimension()
         action_size = env.num_actions()
         agent = PolicyGradientAgent(state_size, action_size,
                                     int((env.state_max() - env.state_min()) / env.state_step()))
@@ -401,7 +401,7 @@ class Main:
         episode = 0
         eln = 0
 
-        state_size = env.state_space_size()
+        state_size = env.state_space_dimension()
         action_size = env.num_actions()
         agent = PolicyGradientAgent(state_size, action_size, (env.state_max() - env.state_min()) / env.state_step())
 
