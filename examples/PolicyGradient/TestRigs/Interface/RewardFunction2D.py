@@ -1,10 +1,10 @@
 import abc
-from typing import Tuple
+from typing import Tuple, Callable
 
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import cm
 from mpl_toolkits.mplot3d import axes3d
-import numpy as np
 
 """
 Interface for all reward functions that exist in 2 (state space) dimensional state space with 4 actions. 
@@ -27,7 +27,9 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         :param state: The floating point state as 2 element List or Tuple
         :return numpy array [2, none]:
         """
-        return np.array([state[0], state[1]])
+        x = np.array([state[0], state[1]])
+
+        return np.reshape(x, (1, len(x)))
 
     def reset(self) -> np.array:
         """
@@ -109,13 +111,7 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         if self.__fig is None:
             self.__fig = plt.figure()
 
-        grid = np.zeros(self.state_shape())
-        for i in range(0, self.state_shape()[0]):
-            for j in range(0, self.state_shape()[1]):
-                grid[i, j] = self.reward((i, j))
-        nr, nc = grid.shape
-        x = np.arange(0, nc, 1)
-        y = np.arange(0, nr, 1)
+        x, y, grid = self.func()
         X, Y = np.meshgrid(x, y)
         Z = grid[:]
         np.reshape(Z, X.shape)
@@ -123,8 +119,8 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         ax.set_xlabel('X')
         ax.set_ylabel('Y')
         ax.set_zlabel('Q Value')
-        ax.set_xticks(np.arange(0, nc, max(1, int(nc / 10))))
-        ax.set_yticks(np.arange(0, nr, max(1, int(nr / 10))))
+        ax.set_xticks(np.arange(0, x.size, max(1, int(x.size / 10))))
+        ax.set_yticks(np.arange(0, y.size, max(1, int(y.size / 10))))
         if self.__wireframe:
             ax.plot_wireframe(X, Y, Z, cmap=cm.get_cmap('ocean'), rstride=1, cstride=1)
         else:
@@ -133,13 +129,18 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         plt.pause(self.__plot_pause)
         return
 
-    def func(self) -> Tuple[list, list]:
+    def func(self,
+             func_to_run: Callable = None) -> Tuple[np.array, np.array, np.array]:
         """
-        :return: The X and Y values for the function between the min and max state values at the defined step
+        :return: The state values and the reward for a given state
         """
-        xv = []
-        yv = []
-        for x in np.arange(self.state_min(), self.state_max(), self.state_step()):
-            xv.append(x)
-            yv.append(self.reward(x))
-        return xv, yv
+        if func_to_run is None:
+            func_to_run = self.reward
+        grid = np.zeros(self.state_shape())
+        for i in range(0, self.state_shape()[0]):
+            for j in range(0, self.state_shape()[1]):
+                grid[i, j] = func_to_run((i, j))
+        nr, nc = grid.shape
+        x = np.arange(0, nc, 1)
+        y = np.arange(0, nr, 1)
+        return x, y, grid

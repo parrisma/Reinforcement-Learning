@@ -1,7 +1,8 @@
 import math
+from threading import Thread
 from time import sleep
 from typing import Tuple
-from threading import Thread
+
 import numpy as np
 
 from examples.PolicyGradient.TestRigs.Interface.RewardFunction2D import RewardFunction2D
@@ -143,13 +144,14 @@ class LocalMaximaRewardFunction2D(RewardFunction2D):
 #
 def do_plot():
     lm2d = LocalMaximaRewardFunction2D()
-    lm2d.plot()
+    for i in range(1, 10):
+        lm2d.plot()
+        sleep(1)
     return
 
 
 if __name__ == "__main__":
     t = Thread(target=do_plot())
+    t.daemon = True
     t.start()
-    sleep(5)
-    t._stop()
     print("Done")
