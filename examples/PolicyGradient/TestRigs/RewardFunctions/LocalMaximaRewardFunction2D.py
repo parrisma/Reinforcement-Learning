@@ -77,14 +77,14 @@ class LocalMaximaRewardFunction2D(RewardFunction2D):
         :param actn: the action to take
         :return: The new state, the reward for the state transition and bool, which is true if episode ended
         """
-        if actn == 0:
-            self.state[0] += self.__state_step  # x+
-        elif actn == 1:
+        if actn == 0:  # N
             self.state[1] += self.__state_step  # y+
-        elif actn == 2:
-            self.state[0] -= self.__state_step  # x-
-        elif actn == 3:
+        elif actn == 1:  # E
+            self.state[0] += self.__state_step  # X+
+        elif actn == 2:  # S
             self.state[1] -= self.__state_step  # y-
+        elif actn == 3:  # W
+            self.state[0] -= self.__state_step  # x-
         else:
             raise ValueError("Action can only be value 0 or 3 so [" + str(actn) + "] is illegal")
 

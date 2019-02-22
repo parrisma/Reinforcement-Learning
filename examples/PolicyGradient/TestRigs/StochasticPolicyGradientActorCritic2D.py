@@ -148,7 +148,7 @@ class PolicyGradientAgent2D:
         return self.critic_model.predict(st, batch_size=1).flatten()
 
     def actor_pred(self,
-                   state: Tuple[int, int]) -> np.:
+                   state: Tuple[int, int]) -> np:
         return
 
     #

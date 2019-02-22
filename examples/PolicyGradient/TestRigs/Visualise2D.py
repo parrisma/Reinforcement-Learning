@@ -1,8 +1,8 @@
 from typing import Callable
 
 import matplotlib.pyplot as plt
-from matplotlib import cm
 import numpy as np
+from matplotlib import cm
 
 
 class Visualise2D:
@@ -80,6 +80,7 @@ class Visualise2D:
         """
         Render the Figure + Sub Plots
         """
+        self.fig.tight_layout()
         plt.pause(self.plot_pause)
         plt.show(block=False)
         return
@@ -102,9 +103,9 @@ class Visualise2D:
         Render or Update the Plot for learned Q-values by state
         :param func: A function that returns x, y state values and corresponding NN predictions for Q Values
         """
-        self.__plot_surface(fig=self.qvals,
-                            colour_map=cm.get_cmap('RdBu'),
-                            func=func)
+        self.__plot_prob_surface(fig=self.qvals,
+                                 colour_map=cm.get_cmap('RdBu'),
+                                 func=func)
         return
 
     def plot_loss_function(self,
@@ -126,15 +127,15 @@ class Visualise2D:
         return
 
     def plot_prob_function(self,
-                           func:Callable
+                           func: Callable
                            ) -> None:
         """
-        Render or Update the sub plot for action probability Distributions by state
+        Render or Update the sub plot for action probability by state
         :param func: A function that returns x, y state values and corresponding NN predictions for action probabilities
         """
-        self.__plot_surface(fig=self.probs,
-                            colour_map=cm.get_cmap('autumn'),
-                            func=func)
+        self.__plot_prob_surface(fig=self.probs,
+                                 colour_map=cm.get_cmap('terrain'),
+                                 func=func)
         return
 
     def plot_acc_function(self,
@@ -185,4 +186,47 @@ class Visualise2D:
         else:
             ax.plot_surface(X, Y, Z, colour_map, linewidth=0, antialiased=False)
         plt.show(block=False)
+        return
+
+    def __plot_prob_surface(self,
+                            ax: plt.figure,
+                            colour_map: cm,
+                            func: Callable) -> None:
+        """
+        Render a probability map as a 2D plot. The data grid should be the action probabilities for traversing the
+        reward surface N,S,E,W
+        :param fig: The matplotlib figure to plot the surface on
+        :param colour_map: The matplotlib colour map (cmap) to use
+        :param func: The function that returns x, y and z grid
+        """
+        x, y, grid = func()
+        nx = x.shape[0] * 3
+        ny = y.shape[0] * 3
+        z = np.zeros((nx, ny))
+
+        gx = 0
+        gy = 0
+        for a in range(1, nx, 3):
+            for b in range(1, ny, 3):
+                i = a - 1
+                j = b - 1
+                z[i + 0, j + 1] = grid[gx, gy][0]  # N
+                z[i + 1, j + 2] = grid[gx, gy][1]  # E
+                z[i + 2, j + 1] = grid[gx, gy][2]  # S
+                z[i + 1, j + 0] = grid[gx, gy][3]  # W
+                z[i + 1, j + 1] = z[i:i + 3, j:j + 3].sum() / 4.0
+                z[i + 0, j + 0] = (z[i + 0, j + 1] + z[i + 1, j + 0] + z[i + 1, j + 1]) / 3.0
+                z[i + 2, j + 0] = (z[i + 1, j + 0] + z[i + 2, j + 1] + z[i + 1, j + 1]) / 3.0
+                z[i + 2, j + 2] = (z[i + 2, j + 1] + z[i + 1, j + 2] + z[i + 1, j + 1]) / 3.0
+                z[i + 0, j + 2] = (z[i + 0, j + 1] + z[i + 1, j + 2] + z[i + 1, j + 1]) / 3.0
+                z[i:i + 3, j:j + 3] -= np.max(z[i:i + 3, j:j + 3])
+                z[i:i + 3, j:j + 3] = np.fabs(z[i:i + 3, j:j + 3])
+                slz = z[i:i + 3, j:j + 3]
+                slz /= slz.sum()
+                gx += 1
+            gy += 1
+
+        cf = ax.imshow(z, interpolation='nearest', cmap=colour_map)
+        self.fig.colorbar(cf, ax=ax)
+        self.show()
         return

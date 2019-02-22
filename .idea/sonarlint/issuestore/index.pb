@@ -113,3 +113,17 @@ w
 Gexamples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py,2\9\29ff128d47b39f5c5b65bdda1ed3ddc6f5599fb0
 h
 8examples/PolicyGradient/TestRigs/RefineCriticTraining.py,2\b\2b1829bc50ef31cc9921424e23bdb70376e8a20d
+\
+,examples/PolicyGradient/OneVarParabolicNN.py,d\d\dd76aeac4fc92a19564575f7025a259488bd5ff3
+_
+/examples/PolicyGradient/OneVarParabolicState.py,9\b\9bdb8ba49ded5e3aae0048f66e7e47ddeccd7b93
+_
+/examples/PolicyGradient/OneVarParabolicAgent.py,f\4\f4167c5757c4b8d450ba7953a7d65f7fb1bbf6e8
+_
+/examples/PolicyGradient/TestRigs/Visualise2D.py,a\1\a164845e44383e6d5403c89c073b485fc2b95901
+n
+>examples/PolicyGradient/TestRigs/Interface/RewardFunction2D.py,5\6\5672f80cc7004029f1172657883d41b9db928f7a
+
+Oexamples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py,4\b\4b6cfed9f27b3d18c37fa02f53c2a7fd3917f935
+y
+Iexamples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py,d\c\dc24e22605ec734bd052d02c5e76d4c7852af815
