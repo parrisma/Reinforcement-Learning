@@ -1,7 +1,7 @@
 import math
 import random
 from collections import deque
-from typing import Tuple
+from typing import Tuple, List
 
 import numpy as np
 from keras.initializers import RandomUniform
@@ -29,9 +29,11 @@ class PolicyGradientAgent2D:
     __seed = 42
 
     def __init__(self,
+                 reward_function_2d: RewardFunction2D,
                  st_size,
                  a_size,
                  num_states):
+        self.env = reward_function_2d
         self.state_size = st_size
         self.action_size = a_size
         self.num_states = num_states
@@ -73,11 +75,11 @@ class PolicyGradientAgent2D:
         sd = dict()
         for s in self.replay:
             state, _, _, _ = s
-            state = state[0]  # ToDo
-            if state in sd:
-                sd[state] += 1
+            sas = np.array2string(state, separator=';')
+            if sas in sd:
+                sd[sas] += 1
             else:
-                sd[state] = 1
+                sd[sas] = 1
             dl += 1
         if dl < 2:
             return 0
@@ -137,7 +139,7 @@ class PolicyGradientAgent2D:
         return model
 
     def critic_pred(self,
-                    state: Tuple[int, int]) -> np.array:
+                    state: Tuple[int, int]) -> np.ndarray:
         """
         Return the critic (Value) prediction for the given state
         :param state: The current state as x, y position in state space
@@ -176,14 +178,14 @@ class PolicyGradientAgent2D:
     #
     def act(self,
             state) -> Tuple[int, float]:
-        state = state.reshape([1, state.shape[0]])
+        # state = state.reshape([1, state.shape[0]])
         klf = self.replay_kl_factor
         aprob = self.actor_model.predict(state, batch_size=1).flatten()
         aprob[aprob < 0.0] = 0.0
         if np.sum(aprob) == 0:
             aprob = np.array([.25, .25, .25, .25])
         else:
-            aprob = ((1 - klf) * np.array([aprob[0], aprob[1]])) + (klf * np.array([.25, .25, .25, .25]))
+            aprob = ((1 - klf) * aprob) + (klf * np.array([.25, .25, .25, .25]))
             aprob /= np.sum(aprob)
         action = np.random.choice(self.action_size, 1, p=aprob)[0]
         return action, klf
@@ -201,7 +203,7 @@ class PolicyGradientAgent2D:
     def train_critic(self,
                      episode: int) -> Tuple[float, float]:
         batch_size = min(len(self.replay), 250)
-        X = np.zeros(batch_size)
+        X = np.zeros((batch_size, self.state_size))
         Y = np.zeros((batch_size, self.action_size))
         samples = random.sample(list(self.replay), batch_size)
         i = 0
@@ -215,7 +217,7 @@ class PolicyGradientAgent2D:
             av = (reward + (qv_ns * self.gamma)) - np.max(action_value_s)
             # av = ((qv_s * (1 - lr)) + (lr * (reward + qv_ns))) - np.max(action_value_s)
             qv_u = (action_value_s * (1 - action_one_hot)) + (av * action_one_hot)
-            X[i] = np.squeeze(state)
+            X[i] = np.squeeze(state[0])
             Y[i] = np.squeeze(qv_u)
             i += 1
         ls, acc = self.critic_model.train_on_batch(X, Y)
@@ -259,32 +261,54 @@ class PolicyGradientAgent2D:
         return ls, acc
 
     #
+    # Return the state space and predicted probabilities for given states
+    #
+    def probs(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        mn = self.env.state_min()
+        mx = self.env.state_max()
+        st = self.env.state_step()
+        x = np.arange(mn, mx, st)
+        y = np.arange(mn, mx, st)
+        z = np.zeros((x.shape[0], y.shape[0], self.env.num_actions()))
+        i = 0
+        j = 0
+        for sx in x:
+            for sy in y:
+                state = self.env.state_as_x((sx, sy))
+                z[i, j] = self.actor_model.predict(state, batch_size=1).flatten()
+                j += 1
+            i += 1
+            j = 0
+        return x, y, z
+
+    #
+    # Return the state space and predicted critic reward values
+    #
+    def vals(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        mn = self.env.state_min()
+        mx = self.env.state_max()
+        st = self.env.state_step()
+        x = np.arange(mn, mx, st)
+        y = np.arange(mn, mx, st)
+        z = np.zeros((x.shape[0], y.shape[0], self.env.num_actions()))
+        i = 0
+        j = 0
+        for sx in x:
+            for sy in y:
+                state = self.env.state_as_x((sx, sy))
+                z[i, j] = self.critic_model.predict(state, batch_size=1).flatten()
+                j += 1
+            i += 1
+            j = 0
+        return x, y, z
+
+    #
     # Simple debugger output - could be refactored into PBFunc env as it is more env specific ?
     #
     def print_progress(self,
                        ep: int,
-                       elen: int,
-                       e: RewardFunction2D) -> None:
-        res = str()
-        ts = e.state_min()
-        predicted_prob_action1 = []
-        predicted_prob_action2 = []
-        predicted_qval_action1 = []
-        predicted_qval_action2 = []
-        states = []
-        replay_qvals = []
-        for sv in np.arange(e.state_min(), e.state_max(), e.state_step()):
-            state = e.state_as_x(sv)
-            states.append(state[0])
-            replay_qvals.append(e.reward(sv))
-            aprob = self.actor_model.predict(state, batch_size=1).flatten()
-            qvals = self.critic_model.predict(state, batch_size=1).flatten()
-            predicted_prob_action1.append(aprob[0])
-            predicted_prob_action2.append(aprob[1])
-            predicted_qval_action1.append(qvals[0])
-            predicted_qval_action2.append(qvals[1])
-            ts += e.state_step()
-        print(str(ep) + "::" + str(elen) + "   " + res)
+                       elen: int) -> None:
+        print(str(ep) + "::" + str(elen))
         self.actor_loss_history = self.actor_loss_history[-500:]
         self.critic_loss_history = self.critic_loss_history[-500:]
         self.actor_acc_history = self.actor_acc_history[-500:]
@@ -294,18 +318,17 @@ class PolicyGradientAgent2D:
         self.visualise().plot_loss_function(actor_loss=self.actor_loss_history,
                                             critic_loss=self.critic_loss_history)
 
-        self.visualise().plot_acc_function(actor_acc=self.actor_acc_history,
-                                           critic_acc=self.critic_acc_history,
-                                           exploration=self.actor_exploration_history)
+        # self.visualise().plot_acc_function(actor_acc=self.actor_acc_history,
+        #                                   critic_acc=self.critic_acc_history,
+        #                                   exploration=self.actor_exploration_history)
 
-        self.visualise().plot_qvals_function(states=states,
-                                             qvalues_action1=predicted_qval_action1,
-                                             qvalues_action2=predicted_qval_action2,
-                                             qvalues_reference=replay_qvals)
+        # self.visualise().plot_qvals_function(states=states,
+        #                                     qvalues_action1=predicted_qval_action1,
+        #                                     qvalues_action2=predicted_qval_action2,
+        #                                     qvalues_reference=replay_qvals)
 
-        self.visualise().plot_prob_function(states=states,
-                                            action1_probs=predicted_prob_action1,
-                                            action2_probs=predicted_prob_action2)
+        self.visualise().plot_prob_function(self.probs)
+        self.visualise().plot_qvals_function(self.vals)
         return
 
 
@@ -316,8 +339,8 @@ class Main:
 
     @classmethod
     def run(cls,
-            reward_function_1d: RewardFunction2D):
-        env = reward_function_1d
+            reward_function_2d: RewardFunction2D):
+        env = reward_function_2d
 
         st = env.reset()
         episode = 0
@@ -325,27 +348,27 @@ class Main:
 
         state_size = env.state_space_dimension()
         action_size = env.num_actions()
-        agent = PolicyGradientAgent2D(state_size, action_size, (env.state_max() - env.state_min()) / env.state_step())
+        agent = PolicyGradientAgent2D(reward_function_2d=env,
+                                      st_size=state_size,
+                                      a_size=action_size,
+                                      num_states=(env.state_max() - env.state_min()) / env.state_step())
 
-        states, rewards = env.func()
-        agent.visualise().plot_reward_function(states=states, rewards=rewards)
+        agent.visualise().plot_reward_function(func=env.func)
 
         als = None
         rls = None
-        acc = None
         elau = 0
         thr = 50
         accc = 0
         acca = 0
         while True:
-            a, expl = agent.act(st, episode)
+            a, expl = agent.act(st)
             next_state, reward, done = env.step(a)
             agent.remember(st, a, reward, next_state)
             st = next_state
             eln += 1
 
             acl = 0.1
-            aal = 0.1
             lr0 = 0.1
             if done or eln > 80:
                 if episode > 3:
@@ -359,7 +382,6 @@ class Main:
                         print(max(5, (100 - (np.round(accc * 10, 0) * 10))))
                         print('<<<********** Train actor *************>>>')
                         als, acca = agent.train_actor(lr0 * acl)  # * aal)
-                        aal = acca
                         elau = episode
                 if episode > 1 and episode % 10 == 0:
                     agent.critic_loss_history.append(rls)
@@ -367,7 +389,7 @@ class Main:
                     agent.actor_acc_history.append(acca)
                     agent.critic_acc_history.append(accc)
                     agent.actor_exploration_history.append(expl)
-                    agent.print_progress(episode, eln, env)
+                    agent.print_progress(episode, eln)
                 print("Episode - Episode-Length: {e}-{el}".format(e=episode, el=eln))
                 episode += 1
                 eln = 0

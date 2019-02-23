@@ -52,7 +52,7 @@ class LocalMaximaRewardFunction2D(RewardFunction2D):
         """
         self.state = [self.__state_step * np.random.randint(self.num_steps),
                       self.__state_step * np.random.randint(self.num_steps)]
-        return np.array([self.state[0], self.state[1]])
+        return RewardFunction2D.state_as_x((self.state[0], self.state[1]))
 
     def reward(self,
                state: Tuple[int, int]) -> float:
@@ -91,7 +91,7 @@ class LocalMaximaRewardFunction2D(RewardFunction2D):
         dnx = (self.state[0] < self.__state_min or self.state[0] > self.__state_max or self.state[0] == self.done_state)
         dny = (self.state[1] < self.__state_min or self.state[1] > self.__state_max or self.state[1] == self.done_state)
 
-        return np.array([self.state[0], self.state[1]]), self.reward(self.state), (dnx or dny)
+        return RewardFunction2D.state_as_x((self.state[0], self.state[1])), self.reward(self.state), (dnx or dny)
 
     @classmethod
     def state_space_dimension(cls) -> int:

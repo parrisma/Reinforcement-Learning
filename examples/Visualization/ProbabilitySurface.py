@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.colors import BoundaryNorm
-from matplotlib.ticker import MaxNLocator
 
 # generate 2 2d grids for the x & y bounds
 n = 60 * 3

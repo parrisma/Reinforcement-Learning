@@ -4,7 +4,6 @@ from typing import Tuple, Callable
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import cm
-from mpl_toolkits.mplot3d import axes3d
 
 """
 Interface for all reward functions that exist in 2 (state space) dimensional state space with 4 actions. 
@@ -27,9 +26,10 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         :param state: The floating point state as 2 element List or Tuple
         :return numpy array [2, none]:
         """
-        x = np.array([state[0], state[1]])
-
-        return np.reshape(x, (1, len(x)))
+        st = np.zeros((1, 2))
+        st[0][0] = state[0]
+        st[0][1] = state[1]
+        return st
 
     def reset(self) -> np.array:
         """
@@ -105,8 +105,7 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
 
     def plot(self) -> None:
         """
-        Show a plot of the reward function between the max and min states
-        :return: None
+        Show a surface plot of the reward function between the max and min states
         """
         if self.__fig is None:
             self.__fig = plt.figure()
@@ -130,9 +129,10 @@ class RewardFunction2D(metaclass=abc.ABCMeta):
         return
 
     def func(self,
-             func_to_run: Callable = None) -> Tuple[np.array, np.array, np.array]:
+             func_to_run: Callable[[int, int], float] = None) -> Tuple[np.array, np.array, np.array]:
         """
-        :return: The state values and the reward for a given state
+        :param func_to_run: A function that takes 2D state (x,y) coords and returns the reward
+        :return: The state vectors (x, y) and a grid of rewards with respect to those states
         """
         if func_to_run is None:
             func_to_run = self.reward
