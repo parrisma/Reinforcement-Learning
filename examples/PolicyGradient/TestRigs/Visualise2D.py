@@ -1,5 +1,5 @@
 import math
-from typing import Callable, Tuple, List
+from typing import Callable, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,9 +7,13 @@ from matplotlib import cm
 # from mpl_toolkits.mplot3d import Axes3D - this is needed but shows as unused - registers 3d projection
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
+from examples.PolicyGradient.TestRigs.PlotInternals import PlotInternals
 
 
 class Visualise2D:
+    """
+
+    """
     fig = None
     sub = None
     reward_func = None
@@ -46,13 +50,13 @@ class Visualise2D:
         self.qvals.set_xlabel('State X')
         self.qvals.set_ylabel('State Y')
         self.qvals.set_title('Predicted Q-Vals')
-        self.qvals_cbar_added = False
+        self.qvals_plot_internals = PlotInternals()
 
         self.probs = self.fig.add_subplot(2, 2, 4)
         self.probs.set_xlabel('State X')
         self.probs.set_ylabel('State Y')
         self.probs.set_title('Predicted Actn Probs')
-        self.prob_cbar_added = False
+        self.prob_plot_internals = PlotInternals()
 
         self.loss = self.fig.add_subplot(2, 2, 2)
         self.loss.set_xlabel('Training Episode')
@@ -103,11 +107,12 @@ class Visualise2D:
         Render or Update the Plot for learned Q-values by state
         :param func: A function that returns x, y state values and corresponding NN predictions for Q Values
         """
-        self.__plot_prob_surface(ax=self.qvals,
-                                 colour_map=cm.get_cmap('Greens'),
-                                 func=func,
-                                 color_bar_added=self.qvals_cbar_added)
-        self.qvals_cbar_added = True
+        self.__plot_action_matrix(ax=self.qvals,
+                                  colour_map=cm.get_cmap('ocean'),
+                                  func=func,
+                                  plot_internals=self.qvals_plot_internals,
+                                  normalise=False
+                                  )
         return
 
     def plot_loss_function(self,
@@ -135,11 +140,12 @@ class Visualise2D:
         Render or Update the sub plot for action probability by state
         :param func: A function that returns x, y state values and corresponding NN predictions for action probabilities
         """
-        self.__plot_prob_surface(ax=self.probs,
-                                 colour_map=cm.get_cmap('Reds'),
-                                 func=func,
-                                 color_bar_added=self.prob_cbar_added)
-        self.prob_cbar_added = True
+        self.__plot_action_matrix(ax=self.probs,
+                                  colour_map=cm.get_cmap('autumn'),
+                                  func=func,
+                                  plot_internals=self.prob_plot_internals,
+                                  normalise=True
+                                  )
         return
 
     # def plot_acc_function(self,
@@ -198,19 +204,21 @@ class Visualise2D:
         self.show()
         return
 
-    def __plot_prob_surface(self,
-                            ax: plt.figure,
-                            colour_map: cm,
-                            func: Callable[[None], Tuple[np.ndarray, np.ndarray, np.ndarray]],
-                            color_bar_added: bool
-                            ) -> None:
+    def __plot_action_matrix(self,
+                             ax: plt.figure,
+                             colour_map: cm,
+                             func: Callable[[None], Tuple[np.ndarray, np.ndarray, np.ndarray]],
+                             plot_internals: PlotInternals,
+                             normalise: bool = False
+                             ) -> None:
         """
-        Render a probability map as a (non blocking) 2D plot. The data grid should be the action probabilities for
-        traversing the reward surface N,S,E,W
+        Render a matrix of (n,n,4)(non blocking) as a 2D plot.
+        The data grid will be actor/critic values for a given state space corresponding to action space (N,S,E,W)
         :param ax: The matplotlib figure to plot the surface on
         :param colour_map: The matplotlib colour map (cmap) to use
         :param func: The function that returns x, y and z grid for the entire state space of the current env.
-        :param color_bar_added: Has the color bar already been added to this plot (avoid multi c-bars)
+        :param plot_internals: details of the plot needed to update plot each update
+        :param normalise: normalise values in range 0.0 to 1.0
         """
         x, y, grid = func()
         nx = x.shape[0] * 3
@@ -232,16 +240,22 @@ class Visualise2D:
                 z[i + 2, j + 0] = (z[i + 1, j + 0] + z[i + 2, j + 1] + z[i + 1, j + 1]) / 3.0
                 z[i + 2, j + 2] = (z[i + 2, j + 1] + z[i + 1, j + 2] + z[i + 1, j + 1]) / 3.0
                 z[i + 0, j + 2] = (z[i + 0, j + 1] + z[i + 1, j + 2] + z[i + 1, j + 1]) / 3.0
-                z[i:i + 3, j:j + 3] -= np.max(z[i:i + 3, j:j + 3])
-                z[i:i + 3, j:j + 3] = np.fabs(z[i:i + 3, j:j + 3])
-                slz = z[i:i + 3, j:j + 3]
-                slz /= slz.sum()
+                if normalise:
+                    z[i:i + 3, j:j + 3] -= np.max(z[i:i + 3, j:j + 3])
+                    z[i:i + 3, j:j + 3] = np.fabs(z[i:i + 3, j:j + 3])
+                    slz = z[i:i + 3, j:j + 3]
+                    sm = slz.sum()
+                    if sm > 0:
+                        slz /= sm
                 gx += 1
             gy += 1
             gx = 0
 
-        cf = ax.imshow(z, interpolation='nearest', cmap=colour_map)
-        if not color_bar_added:
-            self.fig.colorbar(cf, ax=ax, shrink=0.75, aspect=20)
+        plot_internals.img = ax.imshow(z, interpolation='nearest', cmap=colour_map)
+        if plot_internals.cbar is None:
+            plot_internals.cbar = self.fig.colorbar(mappable=plot_internals.img, ax=ax, shrink=0.75, aspect=20)
+        cbar_t = np.linspace(np.min(z), np.max(z), num=10, endpoint=True)
+        plot_internals.cbar.set_ticks(cbar_t)
+        plot_internals.cbar.draw_all()
         self.show()
         return

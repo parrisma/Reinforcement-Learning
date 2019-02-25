@@ -1,7 +1,7 @@
 import math
 import random
 from collections import deque
-from typing import Tuple, List
+from typing import Tuple
 
 import numpy as np
 from keras.initializers import RandomUniform
@@ -108,7 +108,9 @@ class PolicyGradientAgent2D:
         model.add(Dense(800, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
         model.add(Dropout(0.1))
         model.add(Dense(400, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.2))
+        model.add(Dense(400, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.3))
         model.add(Dense(200, activation='relu', kernel_initializer=ki, bias_initializer=bi))
         model.add(Dropout(0.05))
         model.add(Dense(units=self.action_size, activation='linear', kernel_initializer=ki, bias_initializer=bi))
@@ -127,8 +129,10 @@ class PolicyGradientAgent2D:
         model = Sequential()
         model.add(Dense(800, input_dim=self.state_size, activation='relu', kernel_initializer=ki, bias_initializer=bi))
         model.add(Dropout(0.1))
+        model.add(Dense(800, activation='relu', kernel_initializer=ki, bias_initializer=bi))
+        model.add(Dropout(0.2))
         model.add(Dense(400, activation='relu', kernel_initializer=ki, bias_initializer=bi))
-        model.add(Dropout(0.1))
+        model.add(Dropout(0.3))
         model.add(Dense(200, activation='relu', kernel_initializer=ki, bias_initializer=bi))
         model.add(Dropout(0.05))
         model.add(Dense(units=self.action_size, activation='linear', kernel_initializer=ki, bias_initializer=bi))
@@ -297,6 +301,12 @@ class PolicyGradientAgent2D:
             for sy in y:
                 state = self.env.state_as_x((sx, sy))
                 z[i, j] = self.critic_model.predict(state, batch_size=1).flatten()
+                #  z[i, j] = np.array([
+                #      self.env.reward((sx, sy+1)),  # N
+                #      self.env.reward((sx+1, sy)),  # E
+                #      self.env.reward((sx, sy-1)),  # S
+                #      self.env.reward((sx-1, sy))   # W
+                #  ])
                 j += 1
             i += 1
             j = 0
@@ -370,7 +380,7 @@ class Main:
 
             acl = 0.1
             lr0 = 0.1
-            if done or eln > 80:
+            if done or eln > 250:
                 if episode > 3:
                     rls, accc = agent.train_critic(episode)
                     acl = accc
@@ -383,7 +393,7 @@ class Main:
                         print('<<<********** Train actor *************>>>')
                         als, acca = agent.train_actor(lr0 * acl)  # * aal)
                         elau = episode
-                if episode > 1 and episode % 10 == 0:
+                if episode > 1 and episode % 100 == 0:
                     agent.critic_loss_history.append(rls)
                     agent.actor_loss_history.append(als)
                     agent.actor_acc_history.append(acca)
