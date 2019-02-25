@@ -65,6 +65,28 @@ class PolicyGradientAgent2D:
         self.visual = Visualise2D()
         self.visual.show()
 
+        # ToDo - Hard Wired
+        self.rwd = None
+        mn = self.env.state_min()
+        mx = self.env.state_max()
+        st = self.env.state_step()
+        x = np.arange(mn, mx+1, st)
+        y = np.arange(mn, mx+1, st)
+        self.rwd = np.zeros((x.shape[0], y.shape[0], self.env.num_actions()))
+        i = 0
+        j = 0
+        for sx in x:
+            for sy in y:
+                self.rwd[i, j] = np.array([
+                    self.env.reward((sx, sy + 1)),  # N
+                    self.env.reward((sx + 1, sy)),  # E
+                    self.env.reward((sx, sy - 1)),  # S
+                    self.env.reward((sx - 1, sy))  # W
+                ])
+                j += 1
+            i += 1
+            j = 0
+
         return
 
     def visualise(self) -> Visualise2D:
@@ -149,12 +171,15 @@ class PolicyGradientAgent2D:
         :param state: The current state as x, y position in state space
         :return: The q-value prediction of the critic network
         """
-        st = np.array([state[0], state[1]])
-        st = st.reshape([1, 2])
-        return self.critic_model.predict(st, batch_size=1).flatten()
+        s = state[0]
+        return self.rwd[int(s[0]), int(s[1])]  # ToDo - Hard Wired
+
+        # st = np.array([state[0], state[1]])
+        # st = st.reshape([1, 2])
+        # return self.critic_model.predict(st, batch_size=1).flatten()
 
     def actor_pred(self,
-                   state: Tuple[int, int]) -> np:
+                   state: Tuple[int, int]) -> np.ndarray:
         return
 
     #
@@ -186,7 +211,7 @@ class PolicyGradientAgent2D:
         klf = self.replay_kl_factor
         aprob = self.actor_model.predict(state, batch_size=1).flatten()
         aprob[aprob < 0.0] = 0.0
-        if np.sum(aprob) == 0:
+        if True:  # ToDo np.sum(aprob) == 0: -- Hard Wire
             aprob = np.array([.25, .25, .25, .25])
         else:
             aprob = ((1 - klf) * aprob) + (klf * np.array([.25, .25, .25, .25]))
@@ -206,6 +231,9 @@ class PolicyGradientAgent2D:
     #
     def train_critic(self,
                      episode: int) -> Tuple[float, float]:
+
+        return 0, .99  # ToDo - Hard Wire
+
         batch_size = min(len(self.replay), 250)
         X = np.zeros((batch_size, self.state_size))
         Y = np.zeros((batch_size, self.action_size))
@@ -245,17 +273,20 @@ class PolicyGradientAgent2D:
         i = 0
         for sample in samples:
             state, action_one_hot, reward, next_state = sample
-            action_value_s = self.critic_model.predict(state, batch_size=1).flatten()
+            # ToDo - Hard Wired
+            action_value_s = self.critic_pred(state)  # self.critic_model.predict(state, batch_size=1).flatten()
             action_probs_s = self.actor_model.predict(state, batch_size=1).flatten()
 
             avn = ((1 - action_one_hot) * action_value_s) + (action_one_hot * reward)
             avn -= np.max(avn)
             avn /= np.abs(np.sum(avn))
+            action_probs_s = ((avn < 0) == False) * 1.0
 
-            action_probs_s[action_probs_s <= 0.0] = 0.01  # min % chance = 1%
-            action_probs_s /= np.sum(action_probs_s)
-            action_probs_s += (action_probs_s * avn * 0.7)
-            action_probs_s /= np.sum(action_probs_s)
+            if False:
+                action_probs_s[action_probs_s <= 0.0] = 0.01  # min % chance = 1%
+                action_probs_s /= np.sum(action_probs_s)
+                action_probs_s += (action_probs_s * avn * 0.1) # ToDO 0.7 ?
+                action_probs_s /= np.sum(action_probs_s)
 
             X[i] = state
             Y[i] = action_probs_s
@@ -300,7 +331,7 @@ class PolicyGradientAgent2D:
         for sx in x:
             for sy in y:
                 state = self.env.state_as_x((sx, sy))
-                z[i, j] = self.critic_model.predict(state, batch_size=1).flatten()
+                z[i, j] = self.critic_pred(state) # self.critic_model.predict(state, batch_size=1).flatten()
                 #  z[i, j] = np.array([
                 #      self.env.reward((sx, sy+1)),  # N
                 #      self.env.reward((sx+1, sy)),  # E
@@ -382,17 +413,22 @@ class Main:
             lr0 = 0.1
             if done or eln > 250:
                 if episode > 3:
-                    rls, accc = agent.train_critic(episode)
+                    # ToDo - Hard Wired
+                    # rls, accc = agent.train_critic(episode)
+                    rls = 0
+                    accc = .99
                     acl = accc
                 if episode > 3:
-                    thr = (100 - (np.round(accc * 100, 0)))
-                    if thr <= 15:
-                        thr = 2
-                    if (episode - elau) > thr:
-                        print(max(5, (100 - (np.round(accc * 10, 0) * 10))))
-                        print('<<<********** Train actor *************>>>')
-                        als, acca = agent.train_actor(lr0 * acl)  # * aal)
-                        elau = episode
+                    print('<<<********** Train actor *************>>>')
+                    als, acca = agent.train_actor(lr0 * acl)  # * aal)
+                    #thr = (100 - (np.round(accc * 100, 0)))
+                    #if thr <= 15:
+                    #    thr = 2
+                    #if (episode - elau) > thr:
+                    #    print(max(5, (100 - (np.round(accc * 10, 0) * 10))))
+                    #    print('<<<********** Train actor *************>>>')
+                    #    als, acca = agent.train_actor(lr0 * acl)  # * aal)
+                    #    elau = episode
                 if episode > 1 and episode % 100 == 0:
                     agent.critic_loss_history.append(rls)
                     agent.actor_loss_history.append(als)
