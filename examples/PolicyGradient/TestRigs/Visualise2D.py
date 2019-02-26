@@ -141,7 +141,7 @@ class Visualise2D:
         :param func: A function that returns x, y state values and corresponding NN predictions for action probabilities
         """
         self.__plot_action_matrix(ax=self.probs,
-                                  colour_map=cm.get_cmap('autumn'),
+                                  colour_map=cm.get_cmap('gist_stern'),
                                   func=func,
                                   plot_internals=self.prob_plot_internals,
                                   normalise=True

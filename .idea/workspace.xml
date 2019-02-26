@@ -7,8 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Img of converged model">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py" />
+      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +24,8 @@
       <file leaf-file-name="StochasticPolicyGradientActorCritic2D.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="343" column="0" lean-forward="false" selection-start-line="343" selection-start-column="0" selection-end-line="343" selection-end-column="0" />
+            <state relative-caret-position="364">
+              <caret line="282" column="55" lean-forward="true" selection-start-line="282" selection-start-column="55" selection-end-line="282" selection-end-column="55" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -73,8 +72,8 @@
       <file leaf-file-name="Visualise2D.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+            <state relative-caret-position="783">
+              <caret line="157" column="53" lean-forward="true" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -202,8 +201,8 @@
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/tmp.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PlotInternals.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
         <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py" />
+        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
       </list>
     </option>
   </component>
@@ -254,6 +253,14 @@
               <item name="examples" type="462c0819:PsiDirectoryNode" />
               <item name="PolicyGradient" type="462c0819:PsiDirectoryNode" />
               <item name="TestRigs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="PolicyGradient" type="462c0819:PsiDirectoryNode" />
+              <item name="TestRigs" type="462c0819:PsiDirectoryNode" />
+              <item name="RewardFunctions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
@@ -536,11 +543,11 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1998414" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33387098" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20355412" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20355412" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24948283" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32856005" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38045233" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38045233" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -803,6 +810,11 @@
           <line>244</line>
           <option name="timeStamp" value="1378" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py</url>
+          <line>284</line>
+          <option name="timeStamp" value="1382" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -811,7 +823,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1382" />
+      <option name="time" value="1383" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1341,8 +1353,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="261" column="0" lean-forward="true" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
+        <state relative-caret-position="783">
+          <caret line="157" column="53" lean-forward="true" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -1351,8 +1363,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="343" column="0" lean-forward="false" selection-start-line="343" selection-start-column="0" selection-end-line="343" selection-end-column="0" />
+        <state relative-caret-position="364">
+          <caret line="282" column="55" lean-forward="true" selection-start-line="282" selection-start-column="55" selection-end-line="282" selection-end-column="55" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
