@@ -164,8 +164,25 @@ def main():
     plt.plot(history.history['loss'])
     plt.show()
 
-    # predict tmax based on x-train
-    y_pred = lstm.predict(x_test)
+    # Predict first 80% based on real X
+    xs = x_test.shape
+    xl = xs[0]
+    xr = int(xl * .8)
+    y_pred = lstm.predict(x_test[:xr])
+
+    y_p = np.zeros((xl - xr))
+    yi = 0
+    xp = x_test[xr:xr + 10]  # Initial window of 10 X datums
+    x_w = np.zeros((xp.size))
+    for _ in range(xr + 1, xl):
+        yp = (lstm.predict(tf.convert_to_tensor(xp)))[-1:].reshape(1)
+        x_w[:-1] += xp.reshape(60)[1:]
+        x_w[-1:] += yp
+        xp = x_w.reshape((10, 6, 1))
+        x_w = np.zeros((xp.size))
+        y_p[yi] = yp
+        yi += 1
+        print(str(yi))
 
     # How did we do in terms of mse ?
     mse_1 = (np.square(y_test - y_pred)).mean(axis=0)
