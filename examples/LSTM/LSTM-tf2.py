@@ -1,14 +1,14 @@
+from typing import Tuple, List
+from datetime import datetime
 import os
-
 import matplotlib.pyplot as plt
 import numpy as np
-from keras.layers import Dense
-from keras.layers import LSTM
-from keras.models import Sequential
-from keras.utils.vis_utils import plot_model
-from keras.backend.tensorflow_backend import set_session
 import tensorflow as tf
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LSTM
+from tensorflow.keras.models import Sequential
 from examples.LSTM.UKWeatherData.UKWeatherDataLoader import UKWeatherDataLoader
+from examples.LSTM.IOTA.IOTADataLoader import IOTADataLoader
 
 """
 
@@ -43,7 +43,7 @@ def build_model(look_back_window_size):
     :param look_back_window_size: the size (as int) of the look back window
     :return: LSTM Model
     """
-    strategy = tf.distribute.MirroredStrategy()
+    strategy = tf.distribute.MirroredStrategy(cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
     print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
 
     with strategy.scope():
@@ -55,9 +55,34 @@ def build_model(look_back_window_size):
         model.compile(loss='mse', optimizer='adam')
 
     print(model.summary())  # Summary to console as text
-    plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)  # Graphical View
 
     return model
+
+
+def load_weather_data(case: int = 1) -> Tuple[List, List]:
+    UKWeatherDataLoader.set_data_path(os.getcwd() + './UKWeatherData')
+    _, data = UKWeatherDataLoader.load_data_set(data_set_id=UKWeatherDataLoader.DATA_SET_HEATHROW)
+
+    y = data[:, UKWeatherDataLoader.COL_TMAX_N]
+
+    if case == 1:
+        # predict based on rolling prev temps.
+        col_id = UKWeatherDataLoader.COL_TMAX_N  # MinMaxNormalised max temp in the month
+    else:
+        # predict based on knowing where in year we are - path 6 months of month nums
+        x = data[:, 0]
+        col_id = UKWeatherDataLoader.COL_MONTH  # The month in the year 1 - 12
+    x = data[:, col_id]
+    return x, y
+
+
+def load_iota_data() -> Tuple[List, List]:
+    IOTADataLoader.set_data_path(os.getcwd() + './IOTA')
+    _, data = IOTADataLoader.load_data_set()
+
+    y = data[:, IOTADataLoader.COL_CLOSE]
+    x = data[:, IOTADataLoader.COL_OPEN]
+    return x, y
 
 
 def main():
@@ -78,25 +103,8 @@ def main():
 
     :return:
     """
-    config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    session = tf.Session(config=config)
-    set_session(session)
 
-    UKWeatherDataLoader.set_data_path(os.getcwd() + './UKWeatherData')
-    _, data = UKWeatherDataLoader.load_data_set(data_set_id=UKWeatherDataLoader.DATA_SET_HEATHROW)
-
-    y = data[:, UKWeatherDataLoader.COL_TMAX_N]
-
-    case = 1  # Change to 2 and re run
-    if case == 1:
-        # predict based on rolling prev temps.
-        col_id = UKWeatherDataLoader.COL_TMAX_N  # MinMaxNormalised max temp in the month
-    else:
-        # predict based on knowing where in year we are - path 6 months of month nums
-        x = data[:, 0]
-        col_id = UKWeatherDataLoader.COL_MONTH  # The month in the year 1 - 12
-    x = data[:, col_id]
+    x, y = load_iota_data()
 
     # We predict based on a rolling window of 6 months
     look_back_window_size = 6
@@ -174,4 +182,7 @@ def main():
 
 
 if __name__ == "__main__":
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
     main()
