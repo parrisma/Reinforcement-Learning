@@ -20,7 +20,7 @@ Helpful Links.
 """
 
 
-def data_to_look_back_data_set(data, look_back_window_size):
+def data_to_look_back_data_set(data, look_back_window_size) -> np.ndarray:
     """
     Take a 1 by n vector and convert to an m by look_back_window_size array. Where the window
     is slid by one position fo reach new row of the resulting vector.
@@ -59,13 +59,13 @@ def build_model(look_back_window_size):
     return model
 
 
-def load_weather_data(case: int = 1) -> Tuple[List, List]:
+def load_weather_data(case: int = 1) -> Tuple[np.ndarray, np.ndarray]:
     UKWeatherDataLoader.set_data_path(os.getcwd() + './UKWeatherData')
     _, data = UKWeatherDataLoader.load_data_set(data_set_id=UKWeatherDataLoader.DATA_SET_HEATHROW)
 
     y = data[:, UKWeatherDataLoader.COL_TMAX_N]
 
-    if case == 1:
+    if case == 2:
         # predict based on rolling prev temps.
         col_id = UKWeatherDataLoader.COL_TMAX_N  # MinMaxNormalised max temp in the month
     else:
@@ -76,13 +76,69 @@ def load_weather_data(case: int = 1) -> Tuple[List, List]:
     return x, y
 
 
-def load_iota_data() -> Tuple[List, List]:
+def load_iota_data() -> Tuple[np.ndarray, np.ndarray]:
     IOTADataLoader.set_data_path(os.getcwd() + './IOTA')
     _, data = IOTADataLoader.load_data_set()
 
     y = data[:, IOTADataLoader.COL_CLOSE]
     x = data[:, IOTADataLoader.COL_OPEN]
     return x, y
+
+
+def load_sine_wave_data() -> Tuple[np.ndarray, np.ndarray]:
+    xmax = np.pi * 20.0
+    x = np.arange(0, xmax, xmax / 2000)
+    y = np.sin(x)
+    return x, y
+
+
+def split_train_test_ratio(split_ratio: float,
+                           x: np.ndarray,
+                           y: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Split the test and train data in the given ratio first len(x) * ratio = Train, last len(x) * ratio = Test
+    :param split_ratio: The ratio in which to split the data (
+    :param x: All X
+    :param y: All y
+    :return: x_train, x_test, y_train, y_test
+    """
+    # Train with split ratio % of the data
+    train_size = int(len(x) * split_ratio)
+
+    # X is what we are predicting from
+    #
+    x_train = x[:train_size, :]
+    x_test = x[train_size:, :]
+    x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
+    x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
+
+    # Y is what we are trying to predict. In this case we are trying to predict tmax
+    #
+    y_train = y[:train_size]
+    y_test = y[train_size:]
+    return x_train, x_test, y_train, y_test
+
+
+def split_train_test_every(every: int,
+                           x: np.ndarray,
+                           y: np.ndarray) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Split the data by taking every nth element and making it test data.
+    :param every: every nth element to take
+    :param x: All x - len(x) must equal len(y)
+    :param y: All y
+    :return: x_train, x_test, y_train, y_test
+    """
+    shp = x.shape
+    idx = np.arange(0, len(x))
+    idx_2_test = slice(None, None, every)
+    idx_2_train = np.delete(idx, idx_2_test)
+    ltt = shp[0] - len(idx_2_train)
+    ltr = shp[0] - ltt
+    return np.reshape(x[idx_2_train], (ltr, shp[1], 1)), \
+           np.reshape(x[idx_2_test], (ltt, shp[1], 1)), \
+           np.reshape(y[idx_2_train], ltr), \
+           np.reshape(y[idx_2_test], ltt)
 
 
 def main():
@@ -104,10 +160,12 @@ def main():
     :return:
     """
 
-    x, y = load_iota_data()
+    # x, y = load_iota_data()
+    # x, y = load_weather_data()
+    x, y = load_sine_wave_data()
 
     # We predict based on a rolling window of 6 months
-    look_back_window_size = 6
+    look_back_window_size = 20
 
     # Convert the X data set into rolling frames e.g. [1, 2, 3, 4, 5, 6, 7] with a look back of 3
     # becomes
@@ -119,29 +177,10 @@ def main():
     # last row is partial so cannot add [6 ,7, ??]
 
     x = data_to_look_back_data_set(x, look_back_window_size)
+    y = y[y.shape[0] - x.shape[0]:]
 
-    # Train with 70% of the data
-    train_size = int(len(x) * 0.7)
-
-    # X is what we are predicting from
-    #
-    x_train = x[:train_size, :]
-    x_test = x[train_size:, :]
-
-    # Shape needed for LSTM input is [None, look_back, num_prediction_vars]
-    # Where
-    #    None           = Batch Size - such that it can vary at run time
-    #    look_back      = how many rolling observations we are predicting from
-    #    num_pred_vars  = how many variables are we predicting from - this is uni-variate test
-    #                   so 1 = either tmax *or* month num : as per test case 1. and 2.
-
-    x_train = np.reshape(x_train, (x_train.shape[0], x_train.shape[1], 1))
-    x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
-
-    # Y is what we are trying to predict. In this case we are trying to predict tmax
-    #
-    y_train = y[:train_size]
-    y_test = y[train_size:]
+    # x_train, x_test, y_train, y_test = split_test_train_ratio(split_ratio=.75, x=x, y=y)
+    x_train, x_test, y_train, y_test = split_train_test_every(every=4, x=x, y=y)
 
     # Create our simple LSTM model
     #
@@ -157,7 +196,7 @@ def main():
 
     # Learn ...
     #
-    history = lstm.fit(x_train, y_train, epochs=100, batch_size=16, verbose=2)
+    history = lstm.fit(x_train, y_train, epochs=500, batch_size=32, verbose=2)
 
     # How did we do ?
     #
@@ -167,32 +206,36 @@ def main():
     # Predict first 80% based on real X
     xs = x_test.shape
     xl = xs[0]
-    xr = int(xl * .8)
-    y_pred = lstm.predict(x_test[:xr])
+    xr = int(xl * .99)
+    y_pred = lstm.predict(tf.convert_to_tensor(x_test[:xr]))
 
     y_p = np.zeros((xl - xr))
     yi = 0
-    xp = x_test[xr:xr + 10]  # Initial window of 10 X datums
-    x_w = np.zeros((xp.size))
+    xp = x_test[max(0, xr - 100):xr]  # Initial window of 10 X datums
+    xp_s = xp.shape
+    xp_sz = xp.size
+    x_w = np.zeros((xp_sz))
     for _ in range(xr + 1, xl):
-        yp = (lstm.predict(tf.convert_to_tensor(xp)))[-1:].reshape(1)
-        x_w[:-1] += xp.reshape(60)[1:]
+        ypt = lstm.predict(tf.convert_to_tensor(xp))
+        yp = ypt[-1:].reshape(1)
+        x_w[:-1] += xp.reshape(xp_sz)[1:]
         x_w[-1:] += yp
-        xp = x_w.reshape((10, 6, 1))
-        x_w = np.zeros((xp.size))
+        xp = x_w.reshape((xp_s[0], xp_s[1], xp_s[2]))
+        x_w = np.zeros((xp_sz))
         y_p[yi] = yp
         yi += 1
         print(str(yi))
 
+    y_pred = np.concatenate((y_pred.reshape(y_pred.size), y_p))
     # How did we do in terms of mse ?
-    mse_1 = (np.square(y_test - y_pred)).mean(axis=0)
+    err = abs(y_test - y_pred)
 
     # Plot Results.
     plt.title("Actual vs Predicted with mse")
-    plt.plot(y_test)
-    plt.plot(y_pred)
-    plt.plot(mse_1)
-    plt.legend(['actual', 'predicted', 'diff', 'mse'], loc='upper left')
+    plt.plot(y_test[:-1])
+    plt.plot(y_pred[:-1])
+    plt.plot(err[:-1])
+    plt.legend(['actual', 'predicted', 'err'], loc='upper left')
     plt.show()
 
     return
