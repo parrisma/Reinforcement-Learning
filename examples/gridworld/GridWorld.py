@@ -98,7 +98,7 @@ class GridWorld(Environment):
         state = GridWorldState(self.__grid)
 
         # Make the play on the board.
-        action = agent.chose_action(state, self.__grid.allowable_actions())
+        action = agent.choose_action(state, self.__grid.allowable_actions())
         if action not in self.__grid.allowable_actions():
             raise IllegalGridMoveException("Action chosen by agent is not allowable from current location on grid ["
                                            + str(action) + "]")

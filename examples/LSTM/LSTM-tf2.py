@@ -59,24 +59,25 @@ def build_model(look_back_window_size):
     return model
 
 
-def load_weather_data(case: int = 1) -> Tuple[np.ndarray, np.ndarray]:
+def load_weather_data(cyclic: bool = False) -> Tuple[np.ndarray, np.ndarray]:
     UKWeatherDataLoader.set_data_path(os.getcwd() + './UKWeatherData')
     _, data = UKWeatherDataLoader.load_data_set(data_set_id=UKWeatherDataLoader.DATA_SET_HEATHROW)
 
     y = data[:, UKWeatherDataLoader.COL_TMAX_N]
 
-    if case == 2:
-        # predict based on rolling prev temps.
-        col_id = UKWeatherDataLoader.COL_TMAX_N  # MinMaxNormalised max temp in the month
-    else:
+    if cyclic:
         # predict based on knowing where in year we are - path 6 months of month nums
         x = data[:, 0]
         col_id = UKWeatherDataLoader.COL_MONTH  # The month in the year 1 - 12
+    else:
+        # predict based on rolling prev temps.
+        col_id = UKWeatherDataLoader.COL_TMAX_N  # MinMaxNormalised max temp in the month
+
     x = data[:, col_id]
     return x, y
 
 
-def load_iota_data() -> Tuple[np.ndarray, np.ndarray]:
+def load_iota_data(cyclic: bool = False) -> Tuple[np.ndarray, np.ndarray]:
     IOTADataLoader.set_data_path(os.getcwd() + './IOTA')
     _, data = IOTADataLoader.load_data_set()
 

@@ -59,7 +59,7 @@ class GridWorldAgent(Agent):
     # State : The current curr_coords of the environment
     # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
-    def chose_action(self, state: State, possible_actions: [int]) -> int:
+    def choose_action(self, state: State, possible_actions: [int]) -> int:
         self.__policy = self.__exploration_strategy.chose_action_policy(self.__name,
                                                                         self.__episode,
                                                                         state,

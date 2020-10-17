@@ -61,7 +61,7 @@ class Agent(metaclass=abc.ABCMeta):
     # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
     @abc.abstractmethod
-    def chose_action(self, state: State, possible_actions: [int]) -> int:
+    def choose_action(self, state: State, possible_actions: [int]) -> int:
         pass
 
     #

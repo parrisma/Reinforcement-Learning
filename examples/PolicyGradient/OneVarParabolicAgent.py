@@ -66,7 +66,7 @@ class OneVarParabolicAgent(Agent):
     # State : The current representation of the environment
     # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
-    def chose_action(self, state: State, possible_actions: [int]) -> int:
+    def choose_action(self, state: State, possible_actions: [int]) -> int:
 
         # if random() > epsilon greedy then take greedy action else a random action
         if random.random() > self.__epsilon_greedy:

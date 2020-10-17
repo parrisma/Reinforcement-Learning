@@ -230,7 +230,7 @@ class TicTacToe(Environment):
 
         # Make the play on the board.
         self.__lg.debug(state.state_as_array())
-        action = agent.chose_action(state, self.__actions_ids_left_to_take())
+        action = agent.choose_action(state, self.__actions_ids_left_to_take())
         if action not in self.__actions_ids_left_to_take():
             raise TicTacToe.IllegalActorAction("Actor Proposed Illegal action in current state :" + str(action))
         self.__take_action(action, agent)

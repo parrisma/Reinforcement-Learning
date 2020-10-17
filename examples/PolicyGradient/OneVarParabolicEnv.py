@@ -47,7 +47,7 @@ class OneVarParabolicEnv(Environment):
             state = OneVarParabolicState(round(random.uniform(self.min_x, self.max_x), 1))
             while not episode_complete:
                 self.__agent.episode_init(state)
-                action = self.__agent.chose_action(state, possible_actions=OneVarParabolicEnv.actions())
+                action = self.__agent.choose_action(state, possible_actions=OneVarParabolicEnv.actions())
                 next_state = OneVarParabolicState(self.__play_action(action, state))
                 if self.episode_complete(next_state):
                     r = float(0)
@@ -84,8 +84,8 @@ class OneVarParabolicEnv(Environment):
         s = str()
         i = self.min_x
         while i <= self.max_x:
-            action = self.__agent.chose_action(OneVarParabolicState(i),
-                                               possible_actions=OneVarParabolicEnv.actions())
+            action = self.__agent.choose_action(OneVarParabolicState(i),
+                                                possible_actions=OneVarParabolicEnv.actions())
             if i == 0:
                 s = s + '|'
             if action == 0:

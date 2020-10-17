@@ -21,7 +21,7 @@ class TestTicTacToe(unittest.TestCase):
                       ("1:0", False, False, False, 1),
                       ("1:0~1:1~1:2~-1:3~-1:4~-1:8", True, True, False, -1),
                       ("1:0~-1:1~1:2~1:3~-1:4~-1:5~-1:6~1:7~-1:8", True, False, True, -1),
-                      ("1:0~-1:1~1:2~-1:3~1:4~-1:5~1:6~-1:7~1:8", True, True, True, 1)]
+                      ("1:0~-1:1~1:2~-1:3~1:4~-1:5~1:6~-1:7~1:8", True, True, False, 1)]
 
         agent_o = TestAgent(1, "O")
         agent_x = TestAgent(-1, "X")
@@ -86,7 +86,7 @@ class TestTicTacToe(unittest.TestCase):
         return
 
     #
-    # Are the given arrays equal shape and element by element content. We allows nan = nan as equal.
+    # Are the given arrays equal shape and element by element content. We allow nan = nan as equal.
     #
     @classmethod
     def __np_eq(cls,

@@ -1,97 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/reflrn/Interface/ExplorationMemory.py" line="20" />
-    <bookmark url="file://$PROJECT_DIR$/examples/gridworld/GridWorldQValNNModel.py" line="147" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/GridActorCritic.py" line="305" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="9e17b172-b5b3-4475-bbbc-d9b6355c7a89" name="Default" comment="Img of converged model">
-      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" afterPath="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
+      <change afterPath="$PROJECT_DIR$/examples/nvar/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TicTacToe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TicTacToe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/LSTM/LSTM-tf2.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/LSTM/LSTM-tf2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicEnv.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicEnv.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorld.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestAgent.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reflrn/Interface/Agent.py" beforeDir="false" afterPath="$PROJECT_DIR$/reflrn/Interface/Agent.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="Reinforcement-Learning" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="StochasticPolicyGradientActorCritic2D.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="282" column="55" lean-forward="true" selection-start-line="282" selection-start-column="55" selection-end-line="282" selection-end-column="55" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProbabilitySurface.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/Visualization/ProbabilitySurface.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RewardFunction2D.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction2D.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-266">
-              <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LocalMaximaRewardFunction2D.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8">
-              <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Visualise2D.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="783">
-              <caret line="157" column="53" lean-forward="true" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlotInternals.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PlotInternals.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -101,46 +31,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>input_d</find>
-      <find>num_actions</find>
-      <find>input_dim</find>
-      <find>9</find>
-      <find>Loss</find>
-      <find>greedy</find>
-      <find>.de</find>
-      <find>LG.DEB</find>
-      <find>debug</find>
-      <find>learning_rate</find>
-      <find>lr</find>
-      <find>learning</find>
-      <find>update_ac</find>
-      <find>sample</find>
-      <find>Main</find>
-      <find>actor_loss_history</find>
-      <find>replay_kl</find>
-      <find>actor_exploration_history</find>
-      <find>format</find>
-      <find>=5</find>
-      <find>= 5</find>
-      <find>beta</find>
-      <find>actor</find>
-      <find>surface</find>
-      <find>Callable</find>
-      <find>callable</find>
-      <find>Tuple</find>
-      <find>Tup</find>
-      <find>critic</find>
-      <find>critic_model</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>__grid</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>D:\Dev\devroot\ML\TicTacToe-DeepLearning</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -149,138 +39,25 @@
       </map>
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/reflrn/ActorCriticPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/DummyPolicy.py" />
-        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/DummyState.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/TestRig-TemporalDifference.py" />
-        <option value="$PROJECT_DIR$/reflrn/TemporalDifferenceQValPolicy.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldAgent.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/RenderGridWorldAgentExplorationMemory.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldUnitTests/TestGridWorldQValNNModel.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/TestRigs/TestGridActorCritic.py" />
-        <option value="$PROJECT_DIR$/examples/gridworld/GridWorldQValNNModel.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/ActorCriticPolicyTDQ.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/Network.py" />
-        <option value="$PROJECT_DIR$/reflrn/QValNNModel.py" />
-        <option value="$PROJECT_DIR$/examples/tictactoe/TestStrategies/ActorCriticTicTacToe.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/ModelParams.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/NeuralNetwork.py" />
-        <option value="$PROJECT_DIR$/examples/tictactoe/TicTacToeNN.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicNN.py" />
-        <option value="$PROJECT_DIR$/examples/tictactoe/RenderQValuesAsStr.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicState.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicAgent.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicEnv.py" />
-        <option value="$PROJECT_DIR$/reflrn/Interface/LearningRate.py" />
-        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/SimpleLearningRate.py" />
-        <option value="$PROJECT_DIR$/reflrn/SimpleLearningRate.py" />
-        <option value="$PROJECT_DIR$/reflrn/ReflrnUnitTests/TestSimpleLearningRate.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/OneVarParabolicTestRig.py" />
-        <option value="$PROJECT_DIR$/reflrn/ActorCriticPolicyTDQVal.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PGAllIneOne.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/ParabolicRewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximumaRewardFunction.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximumaRewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/RefineCriticTraining.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RefineCriticTraining.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/x.tmp" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py" />
-        <option value="$PROJECT_DIR$/examples/Classify/MNistViewer.py" />
-        <option value="$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/Visualise2D.py" />
-        <option value="$PROJECT_DIR$/examples/Visualization/ProbabilitySurface.py" />
-        <option value="$PROJECT_DIR$/examples/Visualization/ContourPlot.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction2D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/tmp.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PlotInternals.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py" />
-        <option value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
-      </list>
-    </option>
+  <component name="JupyterTrust" id="53670303-58b3-41be-9f8b-b2b74c1e356f" />
+  <component name="KubernetesApiPersistence">
+    <option name="context" value="docker-desktop" />
+    <option name="namespace" value="default" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="y" value="1" />
-    <option name="width" value="2217" />
-    <option name="height" value="1374" />
-  </component>
+  <component name="ProjectId" id="1e4LWLw9w7tPBFkMpHJGKn0CTuM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="PolicyGradient" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="PolicyGradient" type="462c0819:PsiDirectoryNode" />
-              <item name="TestRigs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="PolicyGradient" type="462c0819:PsiDirectoryNode" />
-              <item name="TestRigs" type="462c0819:PsiDirectoryNode" />
-              <item name="RewardFunctions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TicTacToe-DeepLearning" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TicTacToe-DeepLearning" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="Visualization" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
-    <property name="SearchEverywhereHistoryKey" value="matplot&#9;null&#9;null" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="matplot&#9;null&#9;null" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AI-Intuition" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -291,13 +68,6 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\PolicyGradient\TestRigs" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\PolicyGradient\TestRigs\RewardFunctions" />
-      <recent name="C:\Users\Admin_2\dev\TTT\reflrn" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld\TestRigs" />
-      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld\GridWorldUnitTests" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\PolicyGradient" />
       <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\reflrn" />
@@ -305,110 +75,15 @@
       <recent name="C:\Users\Admin_2\Google Drive\ML\TicTacToe" />
       <recent name="C:\Users\Admin_2\.PyCharmCE2017.3\config\scratches" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\PolicyGradient\TestRigs" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\PolicyGradient\TestRigs\RewardFunctions" />
+      <recent name="C:\Users\Admin_2\dev\TTT\reflrn" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld\TestRigs" />
+      <recent name="D:\Dev\devroot\ML\TicTacToe-DeepLearning\examples\gridworld\GridWorldUnitTests" />
+    </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.StochasticPolicyGradientActorCritic2D">
-    <configuration name="ContourPlot" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/Visualization" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/Visualization/ContourPlot.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="LocalMaximaRewardFunction2D" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="RewardFunction2D" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction2D.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="StochasticPolicyGradientActorCritic2D" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="Visualise2D" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="TicTacToe" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.ContourPlot">
     <configuration default="true" type="Python.Ipnb" factoryName="Jupyter Notebook">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -425,26 +100,114 @@
       <option name="ipnbHost" value="127.0.0.1" />
       <option name="ipnbPort" value="8888" />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.LocalMaximaRewardFunction2D" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ContourPlot" />
-      <item index="2" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientActorCritic2D" />
-      <item index="3" class="java.lang.String" itemvalue="Python.RewardFunction2D" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Visualise2D" />
+    <configuration name="ContourPlot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/Visualization" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/Visualization/ContourPlot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_2" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tictactoe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TicTacToeTests.TestTicTacToe.TestTicTacToe.test_2&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_tic_tac_toe_state" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tictactoe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;TicTacToeTests.TestTicTacToe.TestTicTacToe.test_tic_tac_toe_state&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in StrategyExploration.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tictactoe/TestStrategies" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/examples/tictactoe/TestStrategies/StrategyExploration.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in TestTicTacToe.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="TicTacToe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples/tictactoe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.ContourPlot" />
+      <item itemvalue="Python tests.pytest in TestTicTacToe.py" />
+      <item itemvalue="Python tests.pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_2" />
+      <item itemvalue="Python tests.pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_tic_tac_toe_state" />
+      <item itemvalue="Python tests.pytest in StrategyExploration.py" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.StochasticPolicyGradientActorCritic2D" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Visualise2D" />
-        <item index="2" class="java.lang.String" itemvalue="Python.LocalMaximaRewardFunction2D" />
-        <item index="3" class="java.lang.String" itemvalue="Python.RewardFunction2D" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ContourPlot" />
+      <list>
+        <item itemvalue="Python.ContourPlot" />
+        <item itemvalue="Python tests.pytest in StrategyExploration.py" />
+        <item itemvalue="Python tests.pytest in TestTicTacToe.py" />
+        <item itemvalue="Python tests.pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_tic_tac_toe_state" />
+        <item itemvalue="Python tests.pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_2" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="true" />
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_MODE" value="false" />
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
@@ -459,6 +222,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1515010765470</updated>
+      <workItem from="1593575951435" duration="37706000" />
+      <workItem from="1594560908909" duration="15179000" />
+      <workItem from="1594615903114" duration="5252000" />
+      <workItem from="1594703378450" duration="2467000" />
+      <workItem from="1595173708736" duration="2975000" />
+      <workItem from="1600837490924" duration="591000" />
+      <workItem from="1602395818517" duration="1299000" />
+      <workItem from="1602474912272" duration="88000" />
+      <workItem from="1602612401792" duration="1432000" />
+      <workItem from="1602617185792" duration="6188000" />
+      <workItem from="1602735765495" duration="913000" />
+      <workItem from="1602903270643" duration="1245000" />
+      <workItem from="1602904966043" duration="96000" />
+      <workItem from="1602905225950" duration="1272000" />
     </task>
     <task id="LOCAL-00001" summary="Split out A Val rendering as separate interface and class instance as q vals are environment specific.">
       <created>1523823108128</created>
@@ -491,38 +268,6 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="py_test_for_TestSimpleLearningRate_TestSimpleLearningRate_test_target - 2019.01.02 at 22h 18m 28s.xml">
-      <configuration name="py.test for TestSimpleLearningRate.TestSimpleLearningRate.test_target" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_for_TestSimpleLearningRate_TestSimpleLearningRate_test_target - 2019.01.02 at 22h 19m 07s.xml">
-      <configuration name="py.test for TestSimpleLearningRate.TestSimpleLearningRate.test_target" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_for_TestSimpleLearningRate_TestSimpleLearningRate_test_target - 2019.01.02 at 22h 20m 03s.xml">
-      <configuration name="py.test for TestSimpleLearningRate.TestSimpleLearningRate.test_target" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_MNistViewer_py - 2019.02.11 at 20h 11m 52s.xml">
-      <configuration name="py.test in MNistViewer.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_MNistViewer_py - 2019.02.11 at 20h 12m 40s.xml">
-      <configuration name="py.test in MNistViewer.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestSimpleLearningRate_py - 2019.01.02 at 22h 17m 43s.xml">
-      <configuration name="py.test in TestSimpleLearningRate.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestSimpleLearningRate_py - 2019.01.02 at 22h 20m 09s.xml">
-      <configuration name="py.test in TestSimpleLearningRate.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestSimpleLearningRate_py - 2019.01.02 at 22h 23m 03s.xml">
-      <configuration name="py.test in TestSimpleLearningRate.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestSimpleLearningRate_py - 2019.01.02 at 22h 24m 13s.xml">
-      <configuration name="py.test in TestSimpleLearningRate.py" configurationId="tests" />
-    </history-entry>
-    <history-entry file="py_test_in_TestSimpleLearningRate_py - 2019.01.03 at 20h 11m 35s.xml">
-      <configuration name="py.test in TestSimpleLearningRate.py" configurationId="tests" />
-    </history-entry>
-  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -532,66 +277,80 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="1" width="2217" height="1374" extended-state="0" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20192748" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884312" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25177026" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841957" sideWeight="0.13744904" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1998414" sideWeight="0.49425888" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293461" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33387098" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20355412" sideWeight="0.862551" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24948283" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32856005" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38045233" sideWeight="0.9237996" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="R Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Split out A Val rendering as separate interface and class instance as q vals are environment specific." />
     <MESSAGE value="Small change to readme" />
     <MESSAGE value="Simple Excel sheet to visual local minima function" />
     <option name="LAST_COMMIT_MESSAGE" value="Simple Excel sheet to visual local minima function" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="691" y="521" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1602905044088">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state x="691" y="521" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.3840.1560@0.0.3840.1560" timestamp="1602905044088" />
+    <state x="1323" y="551" width="1149" height="594" key="#xdebugger.evaluate" timestamp="1602654193324">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state x="1323" y="551" width="1149" height="594" key="#xdebugger.evaluate/0.0.3840.1560@0.0.3840.1560" timestamp="1602654193324" />
+    <state x="702" y="510" key="FileChooserDialogImpl" timestamp="1602907689523">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state x="702" y="510" key="FileChooserDialogImpl/0.0.3840.1560@0.0.3840.1560" timestamp="1602907689523" />
+    <state width="1984" height="266" key="GridCell.Tab.0.bottom" timestamp="1602904873617">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="266" key="GridCell.Tab.0.bottom/0.0.3840.1560@0.0.3840.1560" timestamp="1602904873617" />
+    <state width="1984" height="266" key="GridCell.Tab.0.center" timestamp="1602904873617">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="266" key="GridCell.Tab.0.center/0.0.3840.1560@0.0.3840.1560" timestamp="1602904873617" />
+    <state width="1984" height="266" key="GridCell.Tab.0.left" timestamp="1602904873617">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="266" key="GridCell.Tab.0.left/0.0.3840.1560@0.0.3840.1560" timestamp="1602904873617" />
+    <state width="1984" height="266" key="GridCell.Tab.0.right" timestamp="1602904873617">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="266" key="GridCell.Tab.0.right/0.0.3840.1560@0.0.3840.1560" timestamp="1602904873617" />
+    <state width="1984" height="307" key="GridCell.Tab.1.bottom" timestamp="1602654418298">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="307" key="GridCell.Tab.1.bottom/0.0.3840.1560@0.0.3840.1560" timestamp="1602654418298" />
+    <state width="1984" height="307" key="GridCell.Tab.1.center" timestamp="1602654418298">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="307" key="GridCell.Tab.1.center/0.0.3840.1560@0.0.3840.1560" timestamp="1602654418298" />
+    <state width="1984" height="307" key="GridCell.Tab.1.left" timestamp="1602654418298">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="307" key="GridCell.Tab.1.left/0.0.3840.1560@0.0.3840.1560" timestamp="1602654418298" />
+    <state width="1984" height="307" key="GridCell.Tab.1.right" timestamp="1602654418298">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state width="1984" height="307" key="GridCell.Tab.1.right/0.0.3840.1560@0.0.3840.1560" timestamp="1602654418298" />
+    <state x="392" y="388" key="SettingsEditor" timestamp="1594583440501">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state x="392" y="388" key="SettingsEditor/0.0.3840.1560@0.0.3840.1560" timestamp="1594583440501" />
+    <state x="1298" y="475" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602397389956">
+      <screen x="0" y="0" width="3840" height="1560" />
+    </state>
+    <state x="1298" y="475" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.3840.1560@0.0.3840.1560" timestamp="1602397389956" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -601,7 +360,7 @@
           <line>2</line>
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://D:/Conda/envs/tensorflow/Lib/unittest/case.py</url>
+          <url>file://$PROJECT_DIR$/../../../Conda/envs/tensorflow/Lib/unittest/case.py</url>
           <line>869</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
@@ -716,11 +475,6 @@
           <option name="timeStamp" value="891" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py</url>
-          <line>25</line>
-          <option name="timeStamp" value="1001" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/reflrn/ActorCriticPolicyTDQVal.py</url>
           <line>238</line>
           <option name="timeStamp" value="1079" />
@@ -776,7 +530,7 @@
           <option name="timeStamp" value="1257" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://D:/Chrome/Downloads/contourf3d_demo2.py</url>
+          <url>file://$PROJECT_DIR$/../../../Chrome/Downloads/contourf3d_demo2.py</url>
           <line>10</line>
           <option name="timeStamp" value="1313" />
         </line-breakpoint>
@@ -801,7 +555,7 @@
           <option name="timeStamp" value="1337" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/collections.py</url>
+          <url>file://$PROJECT_DIR$/../../../Conda/envs/tf/Lib/site-packages/matplotlib/collections.py</url>
           <line>900</line>
           <option name="timeStamp" value="1338" />
         </line-breakpoint>
@@ -815,6 +569,41 @@
           <line>284</line>
           <option name="timeStamp" value="1382" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/LSTM/LSTMWeatherTimeSeriesUniVariate.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="1385" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/LSTM/LSTMWeatherTimeSeriesUniVariate.py</url>
+          <line>176</line>
+          <option name="timeStamp" value="1386" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/LSTM/LSTM-tf2.py</url>
+          <line>241</line>
+          <option name="timeStamp" value="1416" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/nvar/test.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="1428" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/LSTM/LSTM-tf2.py</url>
+          <line>245</line>
+          <option name="timeStamp" value="1429" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/LSTM/LSTM-tf2.py</url>
+          <line>229</line>
+          <option name="timeStamp" value="1430" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/tictactoe/TicTacToeTests/TestTicTacToe.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="1432" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -823,553 +612,17 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="1383" />
     </breakpoint-manager>
-    <watches-manager />
   </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateCodeFragment">
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(ts) + &quot; [ &quot; + str(round(aprob[0] * 100, 2)) + &quot;% , &quot; + str(round(aprob[1] * 100, 2)) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(ts[0]) + &quot; [ &quot; + str(round(aprob[0] * 100, 2)) + &quot;% , &quot; + str(round(aprob[1] * 100, 2)) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st[0]) + &quot; [ &quot; + str(round(aprob[0] * 100, 2)) + &quot;% , &quot; + str(round(aprob[1] * 100, 2)) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st[0]) + &quot; [ &quot; + str(round(aprob[0] * 100, 2)) + &quot;% , &quot; + '{:+.2}'.format(round(aprob[1] * 100, 2)) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st[0]) + &quot; [ &quot; + '{:+.2}'.format(round(aprob[0] * 100, 2)) + &quot;% , &quot; + '{:+.2}'.format(round(aprob[1] * 100, 2)) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st[0]) + &quot; [ &quot; + '{:+.2}'.format(round(aprob[0], 2) * 100) + &quot;% , &quot; + '{:+.2}'.format(round(aprob[1], 2) * 100) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st[0]) + &quot;[ &quot; + str(round(aprob[0], 2) * 100) + &quot;% , &quot; + str(round(aprob[1], 2) * 100) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2}'.format(st) + &quot;[ &quot; + str(round(aprob[0], 2) * 100) + &quot;% , &quot; + str(round(aprob[1], 2) * 100) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + '{:+.2'.format(st) + &quot;[ &quot; + str(round(aprob[0], 2) * 100) + &quot;% , &quot; + str(round(aprob[1], 2) * 100) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>&quot;S: &quot; + str(ts) + &quot;[ &quot; + str(round(aprob[0], 2) * 100) + &quot;% , &quot; + str(round(aprob[1], 2) * 100) + &quot;%]&quot;</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="watch">
-      <expression>
-        <expression-string>self.kl_update</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>sd</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>max(2, (100 - (np.round(accc * 10, 0) * 10)))</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>(episode - elau)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>action_probs_s</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>avn</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>self.episode</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>qn</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>qvals</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>qvals[0]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>(avn &lt; 0) == False</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>(avn &lt; 0)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((avn &lt; 0) is False)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((avn &lt; 0) is False) * 1.0</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>((avn &lt; 0) == False) * 1.0</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>(avn &lt; 0) = False</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>not (avn &lt; 0)</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>avn &lt; 0</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>avn</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/tensorflow/contrib/timeseries/examples/lstm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1800">
-          <caret line="31" column="4" lean-forward="true" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/DequeReplayMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="58" lean-forward="false" selection-start-line="11" selection-start-column="58" selection-end-line="11" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/RenderGridWorldAgentExplorationMemory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="15" column="6" lean-forward="false" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/numpy/core/numeric.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="543" column="0" lean-forward="false" selection-start-line="543" selection-start-column="0" selection-end-line="543" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/keras/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="1079" column="8" lean-forward="false" selection-start-line="1079" selection-start-column="8" selection-end-line="1079" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/Interface/Agent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/reflrn/SimpleLearningRate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RefineCriticTraining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3476">
-          <caret line="158" column="81" lean-forward="false" selection-start-line="158" selection-start-column="78" selection-end-line="158" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#13#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Kafka/kafka_2.12-2.1.0/config/log4j.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1176">
-          <caret line="10" column="36" lean-forward="true" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Kafka/kafka_2.12-2.1.0/config/connect-file-sink.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Kafka/kafka_2.12-2.1.0/config/connect-console-sink.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/x.tmp" />
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientMonteCarlo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4180">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/AutoEncodeAuxLoss.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1620">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/AutoEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/ConvClassifier.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/Entropy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-504">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/MNistViewer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="41" lean-forward="true" selection-start-line="8" selection-start-column="41" selection-end-line="8" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/MNistLoader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-520">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Classify/VariationalAutoEncoder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4092">
-          <caret line="186" column="49" lean-forward="false" selection-start-line="186" selection-start-column="45" selection-end-line="186" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/FunctionApproximation/SimpleFunctionApproximationWithNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notebook/LinearAlgebraUdacity.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/notebook/TicTacToe.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/gridworld/RenderSimpleGridOneQValues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="105" column="4" lean-forward="true" selection-start-line="101" selection-start-column="0" selection-end-line="126" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/Trained1DLocalMinima.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/Trained1DParabolic.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction1D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="45" column="11" lean-forward="false" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction1D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="86" column="34" lean-forward="false" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Chrome/Downloads/contourf3d_demo2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/ParabolicRewardFunction1D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2024">
-          <caret line="96" column="31" lean-forward="false" selection-start-line="96" selection-start-column="31" selection-end-line="96" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicNN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicState.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/OneVarParabolicAgent.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="326" column="44" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/contour.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="1533" column="0" lean-forward="false" selection-start-line="1533" selection-start-column="0" selection-end-line="1533" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/axes/_axes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="6180" column="0" lean-forward="false" selection-start-line="6180" selection-start-column="0" selection-end-line="6180" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/numpy/lib/index_tricks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="153" column="0" lean-forward="false" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/mpl_toolkits/mplot3d/art3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="517" column="0" lean-forward="false" selection-start-line="517" selection-start-column="0" selection-end-line="517" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/matplotlib/collections.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="900" column="0" lean-forward="false" selection-start-line="900" selection-start-column="0" selection-end-line="900" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/site-packages/mpl_toolkits/mplot3d/axes3d.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="1635" column="0" lean-forward="false" selection-start-line="1635" selection-start-column="0" selection-end-line="1635" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Conda/envs/tf/Lib/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="310" column="0" lean-forward="false" selection-start-line="310" selection-start-column="0" selection-end-line="310" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Visualization/ContourPlot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/Visualization/ProbabilitySurface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Interface/RewardFunction2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-266">
-          <caret line="22" column="29" lean-forward="false" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/LocalMaximaRewardFunction2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/RewardFunctions/tmp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="29" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/PlotInternals.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/Visualise2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="157" column="53" lean-forward="true" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/PolicyGradient/TestRigs/StochasticPolicyGradientActorCritic2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="282" column="55" lean-forward="true" selection-start-line="282" selection-start-column="55" selection-end-line="282" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/RL$pytest_for_TicTacToeTests_TestTicTacToe_TestTicTacToe_test_1.coverage" NAME="pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_1 Coverage Results" MODIFIED="1602654418282" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/tictactoe" />
+    <SUITE FILE_PATH="coverage/RL$pytest_in_StrategyExploration_py.coverage" NAME="pytest in StrategyExploration.py Coverage Results" MODIFIED="1602735992675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/tictactoe/TestStrategies" />
+    <SUITE FILE_PATH="coverage/RL$LSTM_tf2.coverage" NAME="LSTM-tf2 Coverage Results" MODIFIED="1602617250221" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/LSTM" />
+    <SUITE FILE_PATH="coverage/RL$ContourPlot.coverage" NAME="ContourPlot Coverage Results" MODIFIED="1602904826982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/Visualization" />
+    <SUITE FILE_PATH="coverage/RL$pytest_in_TestTicTacToe_py.coverage" NAME="pytest in TestTicTacToe.py Coverage Results" MODIFIED="1602654450776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/tictactoe" />
+    <SUITE FILE_PATH="coverage/RL$pytest_for_TicTacToeTests_TestTicTacToe_TestTicTacToe_test_2.coverage" NAME="pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_2 Coverage Results" MODIFIED="1602654425223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/tictactoe" />
+    <SUITE FILE_PATH="coverage/RL$pytest_for_TicTacToeTests_TestTicTacToe_TestTicTacToe_test_tic_tac_toe_state.coverage" NAME="pytest for TicTacToeTests.TestTicTacToe.TestTicTacToe.test_tic_tac_toe_state Coverage Results" MODIFIED="1602654436024" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/tictactoe" />
+    <SUITE FILE_PATH="coverage/RL$test.coverage" NAME="test Coverage Results" MODIFIED="1594701927373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/nvar" />
+    <SUITE FILE_PATH="coverage/RL$LSTMWeatherTimeSeriesUniVariate.coverage" NAME="LSTMWeatherTimeSeriesUniVariate Coverage Results" MODIFIED="1593578003403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples/LSTM" />
   </component>
 </project>

@@ -48,19 +48,19 @@ class TestAgent(Agent):
         return
 
     #
-    # Environment call back when episode is completed
+    # Environment call back when episode is complete
     #
     def episode_complete(self, state: State):
         self.__reset()
         return
 
     #
-    # Environment call back to ask the agent to chose an action
+    # Environment call back to ask the agent to choose an action
     #
     # State : The current curr_coords of the environment
     # possible_actions : The set of possible actions the agent can play from this curr_coords
     #
-    def chose_action(self, state: State, possible_actions: [int]) -> int:
+    def choose_action(self, state: State, possible_actions: [int]) -> int:
         if self.actions is not None:
             if self.action_idx < len(self.actions):
                 a = self.actions[self.action_idx]
